@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://otdkugxkcv56"]
+
+[node name="Ajustes" type="Control"]
+layout_mode = 3
+anchors_preset = 0
