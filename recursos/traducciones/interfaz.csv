@@ -4,3 +4,6 @@ MainHUD.mensaje.preparate,¡Prepárate!,Get Ready!
 MainHUD.mensaje.vamos,¡Vamos!,GO!
 MainHUD.mensaje.gameOver,Game Over,Game Over
 MainHUD.boton.start,Inicio,Start
+MainHUD.boton.lenguaje,Lenguaje,Language
+MainHUD.boton.castellano,Castellano,Spanish
+MainHUD.boton.ingles,Inglés,English

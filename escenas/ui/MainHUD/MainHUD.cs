@@ -3,27 +3,59 @@ using System;
 
 public partial class MainHUD : CanvasLayer
 {
+    public const long ID_OPCION_CASTELLANO = 0;
+    public const long ID_OPCION_INGLES = 1;
+
     [Signal]
     public delegate void StartGameEventHandler();
 
-    private Label MessageLabel => GetNode<Label>("Message");
+    private Label _MessageLabel;
+    private Label MessageLabel => _MessageLabel ??= GetNode<Label>("Message");
 
-    private Timer MessageTimer => GetNode<Timer>("MessageTimer");
+    private Timer _MessageTimer;
+    private Timer MessageTimer => _MessageTimer ??= GetNode<Timer>("MessageTimer");
 
-    private Button StartButton => GetNode<Button>("StartButton");
+    private Button _StartButton;
+    private Button StartButton => _StartButton ??= GetNode<Button>("StartButton");
 
-    private Label ScoreLabel => GetNode<Label>("ScoreLabel");
+    private Label _ScoreLabel;
+    private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
+
+    private MenuButton _MenuButtonLenguaje;
+    private MenuButton MenuButtonLenguaje => _MenuButtonLenguaje ??= GetNode<MenuButton>("MenuButtonLenguaje");
+
+    public override void _Ready()
+    {
+        InicializarAtributosElementos();
+
+        // Cambiamos el texto al inicial de la partida.
+        ShowMessage(Tr("MainHUD.mensaje.esquivaLosEnemigos"));
+    }
+
+    private void InicializarAtributosElementos()
+    {
+        PopupMenu popupMenu = this.MenuButtonLenguaje.GetPopup();
+        popupMenu.IdPressed += MenuButtonLenguaje_IdPressed;
+    }
+
+    private void MenuButtonLenguaje_IdPressed(long id)
+    {
+        switch (id)
+        {
+            default:
+            case ID_OPCION_CASTELLANO:
+                UtilidadesIdioma.SetIdiomaCastellano();
+                break;
+            case ID_OPCION_INGLES:
+                UtilidadesIdioma.SetIdiomaIngles();
+                break;
+        }
+    }
 
     public void ShowMessage(string message)
     {
         this.MessageLabel.Text = message;
         this.MessageLabel.Show();
-    }
-
-    public override void _Ready()
-    {
-        // Cambiamos el texto al inicial de la partida.
-        ShowMessage(Tr("MainHUD.mensaje.esquivaLosEnemigos"));
     }
 
     internal void ShowStartMessage()

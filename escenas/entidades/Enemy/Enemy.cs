@@ -13,20 +13,22 @@ public partial class Enemy : RigidBody2D
 
     public const string GROUP_ENEMIES = "Enemies";
 
-    public static Array<Node> GetAll(Node parentNode) => parentNode.GetTree().GetNodesInGroup(GROUP_ENEMIES);
+    private AnimatedSprite2D _AnimatedSprite2D;
+    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
-    public static void DeleteAll(Node parentNode) => parentNode.GetTree().CallGroup(GROUP_ENEMIES, Node.MethodName.QueueFree);
+    public static Array<Node> GetAllEnemies(Node parentNode) => parentNode.GetTree().GetNodesInGroup(GROUP_ENEMIES);
+
+    public static void DeleteAllEnemies(Node parentNode) => parentNode.GetTree().CallGroup(GROUP_ENEMIES, Node.MethodName.QueueFree);
 
     public override void _Ready()
     {
-        AnimatedSprite2D animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };
         int enemyAnimation = Randomizer.GetRandomInt(0, enemyAnimations.Count);
 
-        animatedSprite2D.Animation = enemyAnimations[enemyAnimation];
-        animatedSprite2D.Play();
+        this.AnimatedSprite2D.Animation = enemyAnimations[enemyAnimation];
+        this.AnimatedSprite2D.Play();
     }
 
     private void OnVisibleOnScreenNotifier2DScreenExited()

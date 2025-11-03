@@ -9,6 +9,13 @@ public partial class Player : Area2D
 
     public const string ANIMATION_WALK = "walk";
 
+    private CollisionShape2D _CollisionShape2D;
+    private CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("CollisionShape2D");
+
+    private AnimatedSprite2D _AnimatedSprite2D;
+    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+
     [Export]
     public int Speed { get; set; } = 400; // Velocidad de movimiento dle jugador (pixels/sec).
 
@@ -20,8 +27,7 @@ public partial class Player : Area2D
         // Oculatamos el sprite al inicio de la partida.
         this.Hide();
 
-        CollisionShape2D collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-        collisionShape2D.SetDeferred(nameof(collisionShape2D.Disabled), true);
+        this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), true);
     }
 
     // Se llama en cada fotograma. 'delta' es el tiempo transcurrido desde el fotograma anterior.
@@ -29,37 +35,36 @@ public partial class Player : Area2D
     {
         var velocity = Vector2.Zero; // El vector de movimiento del jugador.
 
-        if (Input.IsActionPressed(Actions.MOVE_RIGHT))
+        if (Input.IsActionPressed(ConstantesAcciones.MOVE_RIGHT))
         {
             velocity.X += 1;
         }
-        if (Input.IsActionPressed(Actions.MOVE_LEFT))
+        if (Input.IsActionPressed(ConstantesAcciones.MOVE_LEFT))
         {
             velocity.X -= 1;
         }
-        if (Input.IsActionPressed(Actions.MOVE_DOWN))
+        if (Input.IsActionPressed(ConstantesAcciones.MOVE_DOWN))
         {
             velocity.Y += 1;
         }
-        if (Input.IsActionPressed(Actions.MOVE_UP))
+        if (Input.IsActionPressed(ConstantesAcciones.MOVE_UP))
         {
             velocity.Y -= 1;
         }
 
-        var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        animatedSprite2D.Animation = ANIMATION_UP;
+        this.AnimatedSprite2D.Animation = ANIMATION_UP;
 
         if (velocity.Length() > 0)
         {
             velocity = velocity.Normalized() * Speed;
-            animatedSprite2D.Play();
+            this.AnimatedSprite2D.Play();
         }
         else
         {
-            animatedSprite2D.Stop();
+            this.AnimatedSprite2D.Stop();
         }
 
-        RotateSpriteToDirection(velocity, animatedSprite2D);
+        RotateSpriteToDirection(velocity, this.AnimatedSprite2D);
 
         // Utilizar el valor delta asegura que el movimiento se mantenga consistente incluso si la velocidad de cuadros cambia.
         this.Position += velocity * (float)delta;
@@ -130,8 +135,7 @@ public partial class Player : Area2D
         // Mostramos y activamos las colisiones del jugador.
         Show();
 
-        var collisionShape2D = (CollisionShape2D)GetNode("CollisionShape2D");
-        collisionShape2D.SetDeferred(nameof(collisionShape2D.Disabled), false);
+        this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), false);
     }
 
     private void OnBodyEntered(Node2D body)
@@ -144,7 +148,6 @@ public partial class Player : Area2D
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.
-        var collisionShape2D = (CollisionShape2D)GetNode("CollisionShape2D");
-        collisionShape2D.SetDeferred(nameof(collisionShape2D.Disabled), true);
+        this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), true);
     }
 }

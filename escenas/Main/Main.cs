@@ -7,17 +7,26 @@ public partial class Main : Node
     [Export]
     public PackedScene EnemyScene { get; set; }
 
-    private Timer EnemyTimer => GetNode<Timer>("EnemyTimer");
+    private Timer _EnemyTimer;
+    private Timer EnemyTimer => _EnemyTimer ??= GetNode<Timer>("EnemyTimer");
 
-    private Timer StartTimer => GetNode<Timer>("StartTimer");
+    private Timer _StartTimer;
+    private Timer StartTimer => _StartTimer ??= GetNode<Timer>("StartTimer");
 
-    private Timer ScoreTimer => GetNode<Timer>("ScoreTimer");
+    private Timer _ScoreTimer;
+    private Timer ScoreTimer => _ScoreTimer ??= GetNode<Timer>("ScoreTimer");
 
-    private MainHUD MainHUD => GetNode<MainHUD>("MainHUD");
+    private MainHUD _MainHUD;
+    private MainHUD MainHUD => _MainHUD ??= GetNode<MainHUD>("MainHUD");
 
-    private Player Player => GetNode<Player>("Player");
+    private Player _Player;
+    private Player Player => _Player ??= GetNode<Player>("Player");
 
-    private Marker2D StartPosition => GetNode<Marker2D>("StartPosition");
+    private Marker2D _StartPosition;
+    private Marker2D StartPosition => _StartPosition ??= GetNode<Marker2D>("StartPosition");
+
+    private PathFollow2D _MobSpawnLocation;
+    private PathFollow2D MobSpawnLocation => _MobSpawnLocation ??= GetNode<PathFollow2D>("EnemyPath/EnemySpawnLocation");
 
     private int _score;
 
@@ -27,7 +36,7 @@ public partial class Main : Node
 
     public void NewGame()
     {
-        Enemy.DeleteAll(this);
+        Enemy.DeleteAllEnemies(this);
 
         this._score = 0;
 
@@ -64,14 +73,13 @@ public partial class Main : Node
         Enemy enemy = EnemyScene.Instantiate<Enemy>();
 
         // Elegimos una localización aleatória del path 2D de los enemigos.
-        PathFollow2D mobSpawnLocation = GetNode<PathFollow2D>("EnemyPath/EnemySpawnLocation");
-        mobSpawnLocation.ProgressRatio = Randomizer.GetRandomFloat();
+        this.MobSpawnLocation.ProgressRatio = Randomizer.GetRandomFloat();
 
         // Set the mob's position to a random location.
-        enemy.Position = mobSpawnLocation.Position;
+        enemy.Position = this.MobSpawnLocation.Position;
 
         // Informamos la dirección del sprite enemigo. Perpendicular a la dirección del path 2D de los enemigos. 
-        float direction = mobSpawnLocation.RotationDegrees + 90;
+        float direction = this.MobSpawnLocation.RotationDegrees + 90;
 
         // Randomizamos la dirección, de -45 a 45.
         direction += (float)Randomizer.GetRandomInt(-45, 45);
@@ -79,7 +87,7 @@ public partial class Main : Node
 
         // Informamos el vector de velocidad y dirección.
         Vector2 velocity = new Vector2((float)Randomizer.GetRandomDouble(150.0, 250.0), 0);
-        float directionRad = (float)MathUtilities.DegreesToRadians(direction);
+        float directionRad = (float)UtilidadesMatematicas.DegreesToRadians(direction);
         enemy.LinearVelocity = velocity.Rotated(directionRad);
 
         // Spawneamos el enemigo en la escena principal.

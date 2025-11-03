@@ -1,15 +1,8 @@
 using Godot;
 using System;
 
-public partial class Control : Godot.Control
+public partial class Ajustes : Godot.Control
 {
-    private void OnPulsarIngles()
-    {
-        TranslationServer.SetLocale("en");
-    }
 
-    private void OnPulsarCastellano()
-    {
-        TranslationServer.SetLocale("es");
-    }
+
 }
