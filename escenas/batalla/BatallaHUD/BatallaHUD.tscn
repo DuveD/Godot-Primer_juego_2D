@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkvjycp3edtfo"]
+[gd_scene load_steps=7 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
-[ext_resource type="Script" path="res://escenas/ui/MainHUD/MainHUD.cs" id="1_osa72"]
+[ext_resource type="Script" path="res://escenas/batalla/BatallaHUD/BatallaHUD.cs" id="1_osa72"]
+[ext_resource type="Texture2D" uid="uid://b7ot3b2kkcphi" path="res://recursos/imagenes/banderas/flag_spain.png" id="3_h4f14"]
+[ext_resource type="Texture2D" uid="uid://bpiwulkracpb5" path="res://recursos/imagenes/banderas/flag_uk.png" id="4_uv30c"]
 
 [sub_resource type="SystemFont" id="SystemFont_8gukk"]
 
 [sub_resource type="SystemFont" id="SystemFont_jkasr"]
 
-[node name="MainHUD" type="CanvasLayer"]
+[node name="BatallaHUD" type="CanvasLayer"]
 script = ExtResource("1_osa72")
 
 [node name="ScoreLabel" type="Label" parent="."]
@@ -38,7 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_gg8ny")
 theme_override_font_sizes/font_size = 64
-text = "MainHUD.mensaje.esquivaLosEnemigos"
+text = "BatallaHUD.mensaje.esquivaLosEnemigos"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="."]
@@ -56,7 +58,7 @@ grow_vertical = 0
 scale = Vector2(0.984084, 1)
 theme_override_fonts/font = ExtResource("1_gg8ny")
 theme_override_font_sizes/font_size = 54
-text = "MainHUD.boton.start"
+text = "BatallaHUD.boton.start"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -66,12 +68,16 @@ one_shot = true
 offset_right = 203.0
 offset_bottom = 31.0
 theme_override_fonts/font = SubResource("SystemFont_jkasr")
-text = "MainHUD.boton.lenguaje"
+text = "BatallaHUD.boton.lenguaje"
 alignment = 0
 item_count = 2
-popup/item_0/text = "MainHUD.boton.castellano"
+popup/item_0/text = "BatallaHUD.boton.castellano"
+popup/item_0/icon = ExtResource("3_h4f14")
+popup/item_0/checkable = 2
 popup/item_0/id = 0
-popup/item_1/text = "MainHUD.boton.ingles"
+popup/item_1/text = "BatallaHUD.boton.ingles"
+popup/item_1/icon = ExtResource("4_uv30c")
+popup/item_1/checkable = 2
 popup/item_1/id = 1
 
 [connection signal="pressed" from="StartButton" to="." method="OnStartButtonPressed"]

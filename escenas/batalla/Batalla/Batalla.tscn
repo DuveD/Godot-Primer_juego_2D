@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/Player/Player.tscn" id="1_6xjdp"]
-[ext_resource type="Script" path="res://escenas/Main/Main.cs" id="1_nawo2"]
+[ext_resource type="Script" path="res://escenas/batalla/Batalla/Batalla.cs" id="1_nawo2"]
 [ext_resource type="PackedScene" uid="uid://b77k6jhiy8djq" path="res://escenas/entidades/Enemy/Enemy.tscn" id="2_7rrnp"]
-[ext_resource type="PackedScene" uid="uid://bkvjycp3edtfo" path="res://escenas/ui/MainHUD/MainHUD.tscn" id="4_ef4qm"]
+[ext_resource type="PackedScene" uid="uid://bkvjycp3edtfo" path="res://escenas/batalla/BatallaHUD/BatallaHUD.tscn" id="4_ef4qm"]
 [ext_resource type="PackedScene" uid="uid://otdkugxkcv56" path="res://escenas/Ajustes/Ajustes.tscn" id="5_b0vn4"]
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
@@ -12,7 +12,7 @@ _data = {
 }
 point_count = 5
 
-[node name="Main" type="Node"]
+[node name="Batalla" type="Node"]
 script = ExtResource("1_nawo2")
 EnemyScene = ExtResource("2_7rrnp")
 
@@ -44,12 +44,12 @@ curve = SubResource("Curve2D_w0at3")
 
 [node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemyPath"]
 
-[node name="MainHUD" parent="." instance=ExtResource("4_ef4qm")]
+[node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
 [node name="Ajustes" parent="." instance=ExtResource("5_b0vn4")]
 
-[connection signal="Hit" from="Player" to="." method="GameOver"]
+[connection signal="HitByEnemy" from="Player" to="." method="GameOver"]
 [connection signal="timeout" from="EnemyTimer" to="." method="OnEnemyTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
-[connection signal="StartGame" from="MainHUD" to="." method="NewGame"]
+[connection signal="StartGame" from="BatallaHUD" to="." method="NewGame"]

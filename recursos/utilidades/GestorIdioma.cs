@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Microsoft.VisualBasic;
 
-public class UtilidadesIdioma
+public class GestorIdioma
 {
     /// <summary>
     /// Enumerado con los idiomas disponibles.
@@ -12,6 +12,12 @@ public class UtilidadesIdioma
         Castellano,
         Ingles
     }
+
+    public static readonly Dictionary<Idioma, string> IdiomasLocales = new()
+    {
+        { Idioma.Castellano, "es" },
+        { Idioma.Ingles, "en" }
+    };
 
     /// <summary>
     /// Establece el idioma de la aplicación.
@@ -48,5 +54,20 @@ public class UtilidadesIdioma
     public static void SetIdiomaIngles()
     {
         SetIdioma(Idioma.Ingles);
+    }
+
+    public static Idioma GetIdiomaActual()
+    {
+        string locale = TranslationServer.GetLocale();
+
+        foreach (var kvp in IdiomasLocales)
+        {
+            if (kvp.Value == locale)
+            {
+                return kvp.Key;
+            }
+        }
+
+        return Idioma.Castellano; // Valor por defecto
     }
 }

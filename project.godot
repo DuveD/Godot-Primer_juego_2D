@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Primer juego 2D"
 config/version="1.0.0"
-run/main_scene="res://escenas/Main/Main.tscn"
+run/main_scene="res://escenas/batalla/Batalla/Batalla.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 
 [display]
@@ -29,10 +29,10 @@ project/assembly_name="Primer-juego-2D"
 
 folder_colors={
 "res://escenas/Ajustes/": "teal",
-"res://escenas/Main/": "pink",
+"res://escenas/batalla/Batalla/": "pink",
+"res://escenas/batalla/BatallaHUD/": "blue",
 "res://escenas/entidades/Enemy/": "orange",
-"res://escenas/entidades/Player/": "orange",
-"res://escenas/ui/MainHUD/": "blue"
+"res://escenas/entidades/Player/": "orange"
 }
 
 [input]

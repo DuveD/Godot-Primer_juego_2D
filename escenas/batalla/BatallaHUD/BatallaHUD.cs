@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using static GestorIdioma;
 
-public partial class MainHUD : CanvasLayer
+public partial class BatallaHUD : CanvasLayer
 {
     public const long ID_OPCION_CASTELLANO = 0;
     public const long ID_OPCION_INGLES = 1;
@@ -26,30 +27,56 @@ public partial class MainHUD : CanvasLayer
 
     public override void _Ready()
     {
-        InicializarAtributosElementos();
+        InicializarMenuButtonLenguaje();
 
         // Cambiamos el texto al inicial de la partida.
-        ShowMessage(Tr("MainHUD.mensaje.esquivaLosEnemigos"));
+        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
     }
 
-    private void InicializarAtributosElementos()
+    private void InicializarMenuButtonLenguaje()
     {
         PopupMenu popupMenu = this.MenuButtonLenguaje.GetPopup();
         popupMenu.IdPressed += MenuButtonLenguaje_IdPressed;
+
+        Idioma idioma = GestorIdioma.GetIdiomaActual();
+        switch (idioma)
+        {
+            default:
+            case Idioma.Castellano:
+                MenuButtonLenguaje_IdPressed(ID_OPCION_CASTELLANO);
+                break;
+            case Idioma.Ingles:
+                MenuButtonLenguaje_IdPressed(ID_OPCION_INGLES);
+                break;
+        }
     }
 
     private void MenuButtonLenguaje_IdPressed(long id)
     {
+        var popupMenu = MenuButtonLenguaje.GetPopup();
+
+        // 🔹 Primero desmarcamos todos los ítems
+        for (int i = 0; i < popupMenu.ItemCount; i++)
+            popupMenu.SetItemChecked(i, false);
+
+        // 🔹 Obtenemos el índice del ítem a partir de su ID
+        int index = popupMenu.GetItemIndex((int)id);
+
+        // 🔹 Marcamos solo el seleccionado
+        popupMenu.SetItemChecked(index, true);
+
         switch (id)
         {
             default:
             case ID_OPCION_CASTELLANO:
-                UtilidadesIdioma.SetIdiomaCastellano();
+                GestorIdioma.SetIdiomaCastellano();
                 break;
             case ID_OPCION_INGLES:
-                UtilidadesIdioma.SetIdiomaIngles();
+                GestorIdioma.SetIdiomaIngles();
                 break;
         }
+
+        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
     }
 
     public void ShowMessage(string message)
@@ -60,14 +87,14 @@ public partial class MainHUD : CanvasLayer
 
     internal void ShowStartMessage()
     {
-        ShowMessage(Tr("MainHUD.mensaje.preparate"));
+        ShowMessage(Tr("BatallaHUD.mensaje.preparate"));
 
         this.MessageTimer.Start();
     }
 
     async private void OnMessageTimerTimeout()
     {
-        ShowMessage(Tr("MainHUD.mensaje.vamos"));
+        ShowMessage(Tr("BatallaHUD.mensaje.vamos"));
 
         // Creamos un timer de 1 segundo y esperamos.
         await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
@@ -77,13 +104,14 @@ public partial class MainHUD : CanvasLayer
     async public void ShowGameOver()
     {
         // Mostramos el mensaje de "Game Over" en el Label del centro de la pantalla.
-        ShowMessage(Tr("MainHUD.mensaje.gameOver"));
+        ShowMessage(Tr("BatallaHUD.mensaje.gameOver"));
 
         // Esperamos 1 segundo.
         await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
 
         // Cambiamos el texto al inicial de la partida.
-        ShowMessage(Tr("MainHUD.mensaje.esquivaLosEnemigos"));
+        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
+        this.MenuButtonLenguaje.Show();
 
         // Creamos un timer de 1 segundo y esperamos.
         await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
@@ -98,6 +126,7 @@ public partial class MainHUD : CanvasLayer
     private void OnStartButtonPressed()
     {
         this.StartButton.Hide();
+        this.MenuButtonLenguaje.Hide();
         EmitSignal(SignalName.StartGame);
     }
 }

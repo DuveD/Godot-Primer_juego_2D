@@ -1,9 +1,9 @@
 KEYS,es,en
-MainHUD.mensaje.esquivaLosEnemigos,¡Esquiva los\nenemigos!,Dodge the\nCreeps!
-MainHUD.mensaje.preparate,¡Prepárate!,Get Ready!
-MainHUD.mensaje.vamos,¡Vamos!,GO!
-MainHUD.mensaje.gameOver,Game Over,Game Over
-MainHUD.boton.start,Inicio,Start
-MainHUD.boton.lenguaje,Lenguaje,Language
-MainHUD.boton.castellano,Castellano,Spanish
-MainHUD.boton.ingles,Inglés,English
+BatallaHUD.mensaje.esquivaLosEnemigos,¡Esquiva los\nenemigos!,Dodge the\nCreeps!
+BatallaHUD.mensaje.preparate,¡Prepárate!,Get Ready!
+BatallaHUD.mensaje.vamos,¡Vamos!,GO!
+BatallaHUD.mensaje.gameOver,Game Over,Game Over
+BatallaHUD.boton.start,Inicio,Start
+BatallaHUD.boton.lenguaje,Lenguaje,Language
+BatallaHUD.boton.castellano,Castellano,Spanish
+BatallaHUD.boton.ingles,Inglés,English

@@ -1,9 +1,9 @@
 using Godot;
 public partial class Player : Area2D
 {
-    // Señal "Hit" para indicar colisión con el jugador.
+    // Señal "HitByEnemy" para indicar colisión con el jugador.
     [Signal]
-    public delegate void HitEventHandler();
+    public delegate void HitByEnemyEventHandler();
 
     public const string ANIMATION_UP = "up";
 
@@ -140,14 +140,23 @@ public partial class Player : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
+        if (body is Enemy)
+        {
+            OnEnemyBodyEntered();
+        }
+    }
+
+    private void OnEnemyBodyEntered()
+    {
         // El jugador desaparece después de ser golpeado.
         Hide();
 
         // Emitimos la señal de que hemos sido golpeados.
-        EmitSignal(SignalName.Hit);
+        EmitSignal(SignalName.HitByEnemy);
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.
         this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), true);
     }
+
 }

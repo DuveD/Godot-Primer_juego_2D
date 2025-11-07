@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Text.RegularExpressions;
 
-public partial class Main : Node
+public partial class Batalla : Node
 {
     [Export]
     public PackedScene EnemyScene { get; set; }
@@ -16,8 +16,8 @@ public partial class Main : Node
     private Timer _ScoreTimer;
     private Timer ScoreTimer => _ScoreTimer ??= GetNode<Timer>("ScoreTimer");
 
-    private MainHUD _MainHUD;
-    private MainHUD MainHUD => _MainHUD ??= GetNode<MainHUD>("MainHUD");
+    private BatallaHUD _BatallaHUD;
+    private BatallaHUD BatallaHUD => _BatallaHUD ??= GetNode<BatallaHUD>("BatallaHUD");
 
     private Player _Player;
     private Player Player => _Player ??= GetNode<Player>("Player");
@@ -43,8 +43,8 @@ public partial class Main : Node
         this.Player.Start(this.StartPosition.Position);
         this.StartTimer.Start();
 
-        this.MainHUD.UpdateScore(_score);
-        this.MainHUD.ShowStartMessage();
+        this.BatallaHUD.UpdateScore(_score);
+        this.BatallaHUD.ShowStartMessage();
     }
 
     public void GameOver()
@@ -52,13 +52,13 @@ public partial class Main : Node
         this.EnemyTimer.Stop();
         this.ScoreTimer.Stop();
 
-        this.MainHUD.ShowGameOver();
+        this.BatallaHUD.ShowGameOver();
     }
 
     private void OnScoreTimerTimeout()
     {
         this._score++;
-        this.MainHUD.UpdateScore(_score);
+        this.BatallaHUD.UpdateScore(_score);
     }
 
     private void OnStartTimerTimeout()
