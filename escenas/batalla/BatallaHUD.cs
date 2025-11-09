@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using static GestorIdioma;
+using System.Linq;
 
 public partial class BatallaHUD : CanvasLayer
 {
@@ -30,7 +33,7 @@ public partial class BatallaHUD : CanvasLayer
         InicializarMenuButtonLenguaje();
 
         // Cambiamos el texto al inicial de la partida.
-        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
+        ShowMessage("BatallaHUD.mensaje.esquivaLosEnemigos");
     }
 
     private void InicializarMenuButtonLenguaje()
@@ -75,46 +78,51 @@ public partial class BatallaHUD : CanvasLayer
                 GestorIdioma.SetIdiomaIngles();
                 break;
         }
-
-        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
     }
 
-    public void ShowMessage(string message)
+    public bool MostrarMessageLabel = false;
+
+    public void ShowMessage(string tagMensaje)
     {
-        this.MessageLabel.Text = message;
+        this.MessageLabel.Text = tagMensaje;
         this.MessageLabel.Show();
+        this.MostrarMessageLabel = true;
     }
 
     internal void ShowStartMessage()
     {
-        ShowMessage(Tr("BatallaHUD.mensaje.preparate"));
+        ShowMessage("BatallaHUD.mensaje.preparate");
 
         this.MessageTimer.Start();
     }
 
     async private void OnMessageTimerTimeout()
     {
-        ShowMessage(Tr("BatallaHUD.mensaje.vamos"));
+        ShowMessage("BatallaHUD.mensaje.vamos");
 
         // Creamos un timer de 1 segundo y esperamos.
-        await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
+        await UtilidadesNodos.EsperarSegundos(this, 1.0);
         this.MessageLabel.Hide();
     }
 
     async public void ShowGameOver()
     {
         // Mostramos el mensaje de "Game Over" en el Label del centro de la pantalla.
-        ShowMessage(Tr("BatallaHUD.mensaje.gameOver"));
+        ShowMessage("BatallaHUD.mensaje.gameOver");
 
-        // Esperamos 1 segundo.
-        await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
+        // Esperamos 2 segundos.
+        await UtilidadesNodos.EsperarSegundos(this, 2.0);
 
         // Cambiamos el texto al inicial de la partida.
-        ShowMessage(Tr("BatallaHUD.mensaje.esquivaLosEnemigos"));
+        ShowMessage("BatallaHUD.mensaje.esquivaLosEnemigos");
+
+        // Mostramos lel botón de selección de idioma.
         this.MenuButtonLenguaje.Show();
 
         // Creamos un timer de 1 segundo y esperamos.
-        await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
+        await UtilidadesNodos.EsperarSegundos(this, 1.0);
+
+        // Mostramos el botón de start.
         this.StartButton.Show();
     }
 
@@ -128,5 +136,29 @@ public partial class BatallaHUD : CanvasLayer
         this.StartButton.Hide();
         this.MenuButtonLenguaje.Hide();
         EmitSignal(SignalName.StartGame);
+    }
+
+    Dictionary<CanvasItem, bool> visibilidadElementosPausa;
+
+    public void OnPauseButtonPressed()
+    {
+        if (Ajustes.JuegoPausado)
+        {
+            this.visibilidadElementosPausa = this.GetChildren()
+                .OfType<CanvasItem>()
+                .ToDictionary(item => item, item => item.Visible);
+
+            UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
+        }
+        else
+        {
+            var elementosVisibles = this.visibilidadElementosPausa
+    .Where(kv => !kv.Key.Visible && kv.Value == true)
+    .Select(kv => kv.Key)
+    .ToList();
+
+            foreach (var elemento in elementosVisibles)
+                elemento.Show();
+        }
     }
 }

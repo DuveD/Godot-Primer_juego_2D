@@ -30,8 +30,11 @@ public partial class Batalla : Node
 
     private int _score;
 
+    public bool BatallaActiva { get; set; } = false;
+
     public override void _Ready()
     {
+        ProcessMode = Node.ProcessModeEnum.Pausable;
     }
 
     public void NewGame()

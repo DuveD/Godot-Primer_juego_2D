@@ -4,15 +4,6 @@ using Microsoft.VisualBasic;
 
 public class GestorIdioma
 {
-    /// <summary>
-    /// Enumerado con los idiomas disponibles.
-    /// </summary>
-    public enum Idioma
-    {
-        Castellano,
-        Ingles
-    }
-
     public static readonly Dictionary<Idioma, string> IdiomasLocales = new()
     {
         { Idioma.Castellano, "es" },

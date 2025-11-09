@@ -1,13 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
-[ext_resource type="Script" path="res://escenas/batalla/BatallaHUD/BatallaHUD.cs" id="1_osa72"]
+[ext_resource type="Script" path="res://escenas/Batalla/BatallaHUD.cs" id="1_osa72"]
 [ext_resource type="Texture2D" uid="uid://b7ot3b2kkcphi" path="res://recursos/imagenes/banderas/flag_spain.png" id="3_h4f14"]
 [ext_resource type="Texture2D" uid="uid://bpiwulkracpb5" path="res://recursos/imagenes/banderas/flag_uk.png" id="4_uv30c"]
 
 [sub_resource type="SystemFont" id="SystemFont_8gukk"]
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_jkasr"]
+subpixel_positioning = 0
 
 [node name="BatallaHUD" type="CanvasLayer"]
 script = ExtResource("1_osa72")
