@@ -17,7 +17,7 @@ public partial class BatallaControlador : Node
     [Signal]
     public delegate void BatallaFinalizadaEventHandler();
 
-    public static bool BatallaEnCurso { get; private set; } = false;
+    public bool BatallaEnCurso { get; private set; } = false;
 
     public override void _Ready()
     {

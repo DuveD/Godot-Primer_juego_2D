@@ -38,6 +38,7 @@ public partial class BatallaHUD : CanvasLayer
     private BatallaControlador _Batallacontrolador;
     private BatallaControlador BatallaControlador => _Batallacontrolador ??= GetNode<BatallaControlador>("../BatallaControlador");
 
+    Dictionary<CanvasItem, bool> visibilidadElementosPausa;
 
     public override void _Ready()
     {
@@ -139,20 +140,22 @@ public partial class BatallaHUD : CanvasLayer
         this.StartButton.Show();
     }
 
-    public void UpdateScore(int score)
+    public void ActualizarPuntuacion(int score)
     {
         this.ScoreLabel.Text = score.ToString();
     }
 
     private void OnStartButtonPressed()
     {
+        // Si la batalla ya está en curso, no hacemos nada.
+        if (this.BatallaControlador.BatallaEnCurso)
+            return;
+
         this.StartButton.Hide();
         this.MenuButtonLenguaje.Hide();
 
         this.Batalla.NewGame();
     }
-
-    Dictionary<CanvasItem, bool> visibilidadElementosPausa;
 
     public void OnPauseBattle()
     {

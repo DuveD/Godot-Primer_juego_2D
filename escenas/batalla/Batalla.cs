@@ -54,7 +54,7 @@ public partial class Batalla : Node
         this.Jugador.Start(this.StartPosition.Position);
         this.StartTimer.Start();
 
-        this.BatallaHUD.UpdateScore(Score);
+        this.BatallaHUD.ActualizarPuntuacion(Score);
         this.BatallaHUD.ShowStartMessage();
 
         this.BatallaControlador.IniciarBatalla();
@@ -75,7 +75,7 @@ public partial class Batalla : Node
     private void OnScoreTimerTimeout()
     {
         this.Score++;
-        this.BatallaHUD.UpdateScore(Score);
+        this.BatallaHUD.ActualizarPuntuacion(Score);
     }
 
     private void OnStartTimerTimeout()
