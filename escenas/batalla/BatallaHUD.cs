@@ -8,6 +8,7 @@ using Godot;
 using Primerjuego2D.nucleo.ajustes;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.localizacion.GestorIdioma;
 
 public partial class BatallaHUD : CanvasLayer
@@ -20,9 +21,6 @@ public partial class BatallaHUD : CanvasLayer
 
     private Timer _MessageTimer;
     private Timer MessageTimer => _MessageTimer ??= GetNode<Timer>("MessageTimer");
-
-    private Button _StartButton;
-    private Button StartButton => _StartButton ??= GetNode<Button>("StartButton");
 
     private Label _ScoreLabel;
     private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
@@ -42,6 +40,8 @@ public partial class BatallaHUD : CanvasLayer
 
     public override void _Ready()
     {
+        Logger.Trace("BatallaHUD Ready.");
+
         InicializarMenuButtonLenguaje();
 
         // Cambiamos el texto al inicial de la partida.
@@ -135,26 +135,11 @@ public partial class BatallaHUD : CanvasLayer
         // Creamos un timer de 1 segundo y esperamos.
         await UtilidadesNodos.EsperarSegundos(this, 1.0);
         await UtilidadesNodos.EsperarRenaudar(this);
-
-        // Mostramos el botón de start.
-        this.StartButton.Show();
     }
 
     public void ActualizarPuntuacion(int score)
     {
         this.ScoreLabel.Text = score.ToString();
-    }
-
-    private void OnStartButtonPressed()
-    {
-        // Si la batalla ya está en curso, no hacemos nada.
-        if (this.BatallaControlador.BatallaEnCurso)
-            return;
-
-        this.StartButton.Hide();
-        this.MenuButtonLenguaje.Hide();
-
-        this.Batalla.NewGame();
     }
 
     public void OnPauseBattle()

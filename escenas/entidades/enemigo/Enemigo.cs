@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.utilidades.log;
+
 
 public partial class Enemigo : RigidBody2D
 {
@@ -25,6 +27,7 @@ public partial class Enemigo : RigidBody2D
 
     public override void _Ready()
     {
+        Logger.Trace("Enemigo Ready.");
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };

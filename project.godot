@@ -12,10 +12,14 @@ config_version=5
 
 config/name="Primer juego 2D"
 config/version="1.0.0"
-run/main_scene="res://escenas/batalla/Batalla.tscn"
+run/main_scene="res://escenas/menuPrincipal/MenuPrincipal.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
+
+[autoload]
+
+GestorColor="*res://escenas/sistema/GestorColor.tscn"
 
 [display]
 
@@ -37,9 +41,15 @@ naming/scene_name_casing=1
 
 folder_colors={
 "res://escenas/batalla/": "green",
+"res://escenas/entidades/": "orange",
 "res://escenas/entidades/enemigo/": "orange",
-"res://escenas/entidades/jugador/": "orange"
+"res://escenas/entidades/jugador/": "orange",
+"res://escenas/menuPrincipal/": "pink"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

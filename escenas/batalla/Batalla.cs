@@ -2,16 +2,25 @@ namespace Primerjuego2D.escenas.batalla;
 
 using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.escenas.sistema;
+using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades;
-
+using Primerjuego2D.nucleo.utilidades.log;
 
 public partial class Batalla : Node
 {
     [Export]
+    public GestorColor GestorColor { get; set; }
+
+    [Export]
     public PackedScene EnemyScene { get; set; }
+
+    ColorRect _Fondo;
+    private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
 
     private Timer _EnemyTimer;
     private Timer EnemyTimer => _EnemyTimer ??= GetNode<Timer>("EnemyTimer");
@@ -42,10 +51,15 @@ public partial class Batalla : Node
 
     public override void _Ready()
     {
+        Logger.Trace("Batalla Ready.");
+
         ProcessMode = Node.ProcessModeEnum.Pausable;
+        this.Fondo.Color = this.GestorColor.ColorFondo;
+
+        this.NuevoJuego();
     }
 
-    public void NewGame()
+    public void NuevoJuego()
     {
         Enemigo.DeleteAllEnemies(this);
 
@@ -59,17 +73,17 @@ public partial class Batalla : Node
 
         this.BatallaControlador.IniciarBatalla();
     }
-    public void JugadorGolpeadoPorEnemigo()
-    {
-        GameOver();
-    }
 
-    public void GameOver()
+    public async void GameOver()
     {
         this.EnemyTimer.Stop();
         this.ScoreTimer.Stop();
 
         this.BatallaControlador.FinalizarBatalla();
+
+        await UtilidadesNodos.EsperarSegundos(this, 2.0);
+
+        GetTree().ChangeSceneToFile("res://escenas/menuPrincipal/MenuPrincipal.tscn");
     }
 
     private void OnScoreTimerTimeout()
