@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://dagmxtbbs6ntw"]
+
+[ext_resource type="Script" path="res://escenas/miscelaneo/Fondo.cs" id="1_nkpdo"]
+[ext_resource type="PackedScene" uid="uid://dm87xdho0pugq" path="res://escenas/sistema/GestorColor.tscn" id="2_56jr6"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pv8br"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 400, 1)
+spread = 0.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+
+[node name="Fondo" type="Control" node_paths=PackedStringArray("ColorFondo", "GestorColor")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -380.0
+offset_bottom = -620.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nkpdo")
+ColorFondo = NodePath("ColorFondo")
+GestorColor = NodePath("GestorColor")
+
+[node name="ColorFondo" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 0.45098, 0.45098, 1)
+
+[node name="GestorColor" parent="." instance=ExtResource("2_56jr6")]
+layout_mode = 0
+offset_left = 779.926
+offset_top = 312.622
+offset_right = 779.926
+offset_bottom = 312.622
+
+[node name="ControlParticulas" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ControlParticulas"]
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_pv8br")
+lifetime = 6.0
+preprocess = 20.0

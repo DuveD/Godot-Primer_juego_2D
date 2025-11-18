@@ -84,4 +84,58 @@ public static class UtilidadesNodos
         while (node.GetTree().Paused)
             await node.ToSignal(node.GetTree(), "process_frame");
     }
+
+
+    /// <summary>
+    /// Marca el ítem del PopupMenu correspondiente al ID dado y desmarca los demás.
+    /// </summary>
+    public static void CheckItemPorId(PopupMenu popupMenu, long id)
+    {
+        int index = popupMenu.GetItemIndex((int)id);
+
+        for (int i = 0; i < popupMenu.ItemCount; i++)
+        {
+            if (i != index)
+                popupMenu.SetItemChecked(i, false);
+            else
+                popupMenu.SetItemChecked(i, true);
+        }
+    }
+
+    /// <summary>
+    /// Obtiene la ruta de la escena correspondiente a la clase dada.
+    /// </summary>
+    public static string ObtenerRutaEscena<T>(string root = "res://") where T : Node
+    {
+        Type type = typeof(T);
+
+        string path = "";
+
+        if (!string.IsNullOrEmpty(type.Namespace))
+        {
+            // Dividimos el namespace por puntos
+            var parts = type.Namespace.Split('.');
+
+            // Eliminamos la primera parte (base del namespace)
+            if (parts.Length > 1)
+            {
+                path = string.Join("/", parts, 1, parts.Length - 1) + "/";
+            }
+        }
+
+        // Añadimos el nombre de la clase y la extensión
+        path += type.Name + ".tscn";
+
+        // Devolvemos la ruta completa respecto a res://
+        return root + path;
+    }
+
+    /// <summary>
+    /// Borra todos los nodos hijos del nodo dado.
+    /// </summary>
+    public static void BorrarHijos(Node node)
+    {
+        foreach (Node child in node.GetChildren())
+            child.QueueFree();
+    }
 }

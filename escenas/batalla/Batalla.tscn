@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=7 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
 [ext_resource type="PackedScene" uid="uid://b77k6jhiy8djq" path="res://escenas/entidades/enemigo/Enemigo.tscn" id="2_7rrnp"]
 [ext_resource type="PackedScene" uid="uid://bkvjycp3edtfo" path="res://escenas/batalla/BatallaHUD.tscn" id="4_ef4qm"]
 [ext_resource type="PackedScene" uid="uid://qrdflnq7hp0f" path="res://escenas/batalla/BatallaControlador.tscn" id="5_kuqqq"]
-[ext_resource type="PackedScene" uid="uid://dm87xdho0pugq" path="res://escenas/sistema/GestorColor.tscn" id="6_27w2u"]
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -13,19 +12,10 @@ _data = {
 }
 point_count = 5
 
-[node name="Batalla" type="Node" node_paths=PackedStringArray("GestorColor")]
+[node name="Batalla" type="Node"]
 process_mode = 3
 script = ExtResource("1_jxdra")
-GestorColor = NodePath("GestorColor")
 EnemyScene = ExtResource("2_7rrnp")
-
-[node name="Fondo" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.45098, 0.45098, 1)
 
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
@@ -51,12 +41,11 @@ curve = SubResource("Curve2D_w0at3")
 
 [node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
 
-[node name="GestorColor" parent="." instance=ExtResource("6_27w2u")]
-
 [connection signal="MuerteJugador" from="Jugador" to="." method="GameOver"]
 [connection signal="timeout" from="EnemyTimer" to="." method="OnEnemyTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
+[connection signal="timeout" from="StartTimer" to="BatallaHUD" method="MostrarMensajeIniciarBatalla"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="ShowGameOver"]
 [connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaHUD" method="ShowStartMessage"]
 [connection signal="PauseBattle" from="BatallaControlador" to="BatallaHUD" method="OnPauseBattle"]

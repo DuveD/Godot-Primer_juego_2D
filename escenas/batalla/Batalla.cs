@@ -13,8 +13,8 @@ using Primerjuego2D.nucleo.utilidades.log;
 
 public partial class Batalla : Node
 {
-    [Export]
-    public GestorColor GestorColor { get; set; }
+    [Signal]
+    public delegate void GameOverFinalizadoEventHandler();
 
     [Export]
     public PackedScene EnemyScene { get; set; }
@@ -54,7 +54,6 @@ public partial class Batalla : Node
         Logger.Trace("Batalla Ready.");
 
         ProcessMode = Node.ProcessModeEnum.Pausable;
-        this.Fondo.Color = this.GestorColor.ColorFondo;
 
         this.NuevoJuego();
     }
@@ -69,7 +68,7 @@ public partial class Batalla : Node
         this.StartTimer.Start();
 
         this.BatallaHUD.ActualizarPuntuacion(Score);
-        this.BatallaHUD.ShowStartMessage();
+        this.BatallaHUD.MostrarMensajePreparate();
 
         this.BatallaControlador.IniciarBatalla();
     }
@@ -83,7 +82,7 @@ public partial class Batalla : Node
 
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
 
-        GetTree().ChangeSceneToFile("res://escenas/menuPrincipal/MenuPrincipal.tscn");
+        EmitSignal(SignalName.GameOverFinalizado);
     }
 
     private void OnScoreTimerTimeout()

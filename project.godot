@@ -12,14 +12,10 @@ config_version=5
 
 config/name="Primer juego 2D"
 config/version="1.0.0"
-run/main_scene="res://escenas/menuPrincipal/MenuPrincipal.tscn"
+run/main_scene="res://escenas/Juego.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
-
-[autoload]
-
-GestorColor="*res://escenas/sistema/GestorColor.tscn"
 
 [display]
 
@@ -44,7 +40,9 @@ folder_colors={
 "res://escenas/entidades/": "orange",
 "res://escenas/entidades/enemigo/": "orange",
 "res://escenas/entidades/jugador/": "orange",
-"res://escenas/menuPrincipal/": "pink"
+"res://escenas/menuPrincipal/": "pink",
+"res://escenas/miscelaneo/": "purple",
+"res://escenas/sistema/": "blue"
 }
 
 [filesystem]
