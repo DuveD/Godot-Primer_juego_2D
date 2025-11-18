@@ -47,7 +47,7 @@ public partial class BatallaControlador : Node
         else
             Logger.Trace("Juego renaudado.");
 
-        UtilidadesNodos.PausarNodo(this, pausarJuego);
+        UtilidadesNodos.PausarNodo(this, pausarJuego, pausarJuego);
 
         EmitSignal(SignalName.PauseBattle);
     }

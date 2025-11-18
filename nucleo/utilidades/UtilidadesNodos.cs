@@ -11,10 +11,10 @@ public static class UtilidadesNodos
     /// <summary>
     /// Pausa o reanuda el nodo y todo su árbol.
     /// </summary>
-    public static void PausarNodo(Node node, bool pausar, bool pausarJuego = true)
+    public static void PausarNodo(Node node, bool pausar, bool marcarJuegoPausado = false)
     {
         node.GetTree().Paused = pausar;
-        Ajustes.JuegoPausado = pausar;
+        Ajustes.JuegoPausado = marcarJuegoPausado;
     }
 
     /// <summary>

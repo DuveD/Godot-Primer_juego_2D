@@ -8,6 +8,8 @@ namespace Primerjuego2D.nucleo.utilidades.log;
 
 public static class Logger
 {
+    public const string FORMATO_FECHA_LOG = "yyyy-MM-dd HH:mm:ss";
+
     public enum LogLevel
     {
         Trace,
@@ -98,12 +100,18 @@ public static class Logger
 
     private static string FormatearMensajeLog(string level, string message, string context)
     {
-        string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        string time = DateTime.Now.ToString(FORMATO_FECHA_LOG);
 
-        string ctx = $"[{context}]";
-        int widthContext = ContextWidth - level.Length - 2;
-        ctx = ctx.PadRight(widthContext);
+        // Base del mensaje
+        string mensajeBase = $"{time} [{level}] [{context}]: ";
 
-        return $"[{time}][{level}]{ctx}: {message}";
+        // Calculamos el ancho total deseado
+        int widthContext = ContextWidth - mensajeBase.Length;
+
+        // Creamos la variable para el padding (solo espacios)
+        string padingMensaje = new string(' ', Math.Max(widthContext, 0));
+
+        // Retornamos el mensaje final
+        return $"{mensajeBase}{padingMensaje}{message}";
     }
 }

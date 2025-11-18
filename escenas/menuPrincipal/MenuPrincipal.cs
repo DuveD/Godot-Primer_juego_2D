@@ -33,23 +33,25 @@ public partial class MenuPrincipal : Control
     private void InicializarMenuButtonLenguaje()
     {
         PopupMenu popupMenu = this.MenuButtonLenguaje.GetPopup();
-        popupMenu.IdPressed += MenuButtonLenguaje_IdPressed;
+        popupMenu.IdPressed += MenuButtonLenguajeIdPressed;
 
         Idioma idioma = GestorIdioma.GetIdiomaActual();
         switch (idioma)
         {
             default:
             case Idioma.Castellano:
-                MenuButtonLenguaje_IdPressed(ID_OPCION_CASTELLANO);
+                MenuButtonLenguajeIdPressed(ID_OPCION_CASTELLANO);
                 break;
             case Idioma.Ingles:
-                MenuButtonLenguaje_IdPressed(ID_OPCION_INGLES);
+                MenuButtonLenguajeIdPressed(ID_OPCION_INGLES);
                 break;
         }
     }
 
-    private void MenuButtonLenguaje_IdPressed(long id)
+    private void MenuButtonLenguajeIdPressed(long id)
     {
+        Logger.Trace("Opción de 'MenuButtonLenguaje' pulsado.");
+
         // Obtenemos el PopupMenu del MenuButton
         var popupMenu = this.MenuButtonLenguaje.GetPopup();
 
