@@ -1,15 +1,11 @@
-namespace Primerjuego2D.escenas.batalla;
-
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Godot;
-using Primerjuego2D.nucleo.ajustes;
-using Primerjuego2D.nucleo.localizacion;
+using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
-using static Primerjuego2D.nucleo.localizacion.GestorIdioma;
+
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class BatallaHUD : CanvasLayer
 {
@@ -35,7 +31,7 @@ public partial class BatallaHUD : CanvasLayer
 
     public override void _Ready()
     {
-        Logger.Trace("BatallaHUD Ready.");
+        Logger.Trace(this.Name + " Ready.");
     }
 
     async public void MostrarMensajePreparate()

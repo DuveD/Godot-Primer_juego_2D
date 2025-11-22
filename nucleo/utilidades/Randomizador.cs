@@ -1,7 +1,7 @@
-namespace Primerjuego2D.nucleo.utilidades;
-
 using System;
 using Godot;
+
+namespace Primerjuego2D.nucleo.utilidades;
 
 public static class Randomizador
 {

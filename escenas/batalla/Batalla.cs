@@ -1,11 +1,10 @@
-namespace Primerjuego2D.escenas.batalla;
-
-
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
+
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class Batalla : Node
 {
@@ -46,9 +45,9 @@ public partial class Batalla : Node
 
     public override void _Ready()
     {
-        Logger.Trace("Batalla Ready.");
+        Logger.Trace(this.Name + " Ready.");
 
-        ProcessMode = Node.ProcessModeEnum.Pausable;
+        ProcessMode = ProcessModeEnum.Pausable;
 
         this.NuevoJuego();
     }

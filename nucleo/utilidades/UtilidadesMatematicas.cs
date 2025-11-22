@@ -1,6 +1,6 @@
-namespace Primerjuego2D.nucleo.utilidades;
-
 using System;
+
+namespace Primerjuego2D.nucleo.utilidades;
 
 public static class UtilidadesMatematicas
 {

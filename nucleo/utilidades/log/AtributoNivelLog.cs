@@ -1,7 +1,7 @@
-namespace Primerjuego2D.nucleo.utilidades.log;
-
 using System;
 using static Primerjuego2D.nucleo.utilidades.log.Logger;
+
+namespace Primerjuego2D.nucleo.utilidades.log;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class AtributoNivelLog : Attribute

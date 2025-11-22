@@ -1,10 +1,7 @@
-namespace Primerjuego2D.nucleo.ajustes;
-
-using System;
-using Godot;
 using Primerjuego2D.nucleo.localizacion;
-using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.Logger;
+
+namespace Primerjuego2D.nucleo.configuracion;
 
 public static class Ajustes
 {

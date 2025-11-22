@@ -1,13 +1,9 @@
-namespace Primerjuego2D.escenas.menuPrincipal;
-
-using System;
 using Godot;
-using Primerjuego2D.escenas.batalla;
-using Primerjuego2D.escenas.sistema;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
@@ -25,7 +21,7 @@ public partial class MenuPrincipal : Control
 
     public override void _Ready()
     {
-        Logger.Trace("MenuPrincipal Ready.");
+        Logger.Trace(this.Name + " Ready.");
 
         InicializarMenuButtonLenguaje();
     }

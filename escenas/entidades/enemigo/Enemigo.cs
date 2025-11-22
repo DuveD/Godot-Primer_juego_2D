@@ -5,11 +5,9 @@ using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.Logger;
 
-
 namespace Primerjuego2D.escenas.entidades.enemigo;
 
 [AtributoNivelLog(NivelLog.Info)]
-
 public partial class Enemigo : RigidBody2D
 {
     public const string ANIMATION_FLY = "fly";
@@ -29,7 +27,7 @@ public partial class Enemigo : RigidBody2D
 
     public override void _Ready()
     {
-        Logger.Trace("Enemigo Ready.");
+        Logger.Trace(this.Name + " Ready.");
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };

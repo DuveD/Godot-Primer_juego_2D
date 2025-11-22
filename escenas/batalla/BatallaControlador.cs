@@ -1,12 +1,10 @@
-namespace Primerjuego2D.escenas.batalla;
-
-using System;
 using Godot;
-using Primerjuego2D.nucleo.ajustes;
+using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class BatallaControlador : Node
 {
@@ -23,7 +21,7 @@ public partial class BatallaControlador : Node
 
     public override void _Ready()
     {
-        Logger.Trace("BatallaControlador Ready.");
+        Logger.Trace(this.Name + " Ready.");
     }
 
     public override void _Input(InputEvent @event)

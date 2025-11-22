@@ -1,10 +1,10 @@
-namespace Primerjuego2D.nucleo.utilidades;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
-using Primerjuego2D.nucleo.ajustes;
+using Primerjuego2D.nucleo.configuracion;
+
+namespace Primerjuego2D.nucleo.utilidades;
 
 public static class UtilidadesNodos
 {

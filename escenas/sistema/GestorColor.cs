@@ -1,9 +1,8 @@
-namespace Primerjuego2D.escenas.sistema;
-
-using System;
 using Godot;
+using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.sistema;
 
 public partial class GestorColor : ColorRect
 {
@@ -15,6 +14,6 @@ public partial class GestorColor : ColorRect
 
     public override void _Ready()
     {
-        Logger.Trace("GestorColor Ready.");
+        Logger.Trace(this.Name + " Ready.");
     }
 }

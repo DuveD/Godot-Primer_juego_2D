@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqd3yv551geyd"]
-
-[ext_resource type="Script" path="res://escenas/JuegoGlobal.cs" id="1_tgmkd"]
-
-[node name="JuegoGlobal" type="Node"]
-script = ExtResource("1_tgmkd")

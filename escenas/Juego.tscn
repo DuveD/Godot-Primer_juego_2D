@@ -2,18 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://dagmxtbbs6ntw" path="res://escenas/miscelaneo/Fondo.tscn" id="1_1ot1n"]
 [ext_resource type="Script" path="res://escenas/Juego.cs" id="1_aw244"]
-[ext_resource type="PackedScene" uid="uid://cvvqqqk473q1b" path="res://escenas/miscelaneo/camara/TemblorCamara.tscn" id="3_7agf3"]
+[ext_resource type="PackedScene" uid="uid://cvvqqqk473q1b" path="res://escenas/sistema/camara/CamaraPrincipal.tscn" id="3_7agf3"]
 [ext_resource type="PackedScene" uid="uid://dm87xdho0pugq" path="res://escenas/sistema/GestorColor.tscn" id="4_8ka5q"]
 
-[node name="Juego" type="Control" node_paths=PackedStringArray("ContenedorEscena", "_GestorColorNodo", "_CamaraNodo")]
+[node name="Juego" type="Control" node_paths=PackedStringArray("ContenedorEscena", "_GestorColor", "_Camara")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 480.0
 offset_bottom = 720.0
 script = ExtResource("1_aw244")
 ContenedorEscena = NodePath("ContenedorEscena")
-_GestorColorNodo = NodePath("GestorColor")
-_CamaraNodo = NodePath("TemblorCamara")
+_GestorColor = NodePath("GestorColor")
+_Camara = NodePath("CamaraPrincipal")
 
 [node name="Fondo" parent="." instance=ExtResource("1_1ot1n")]
 layout_mode = 1
@@ -35,6 +35,6 @@ offset_top = 360.0
 offset_right = 240.0
 offset_bottom = 360.0
 
-[node name="TemblorCamara" parent="." instance=ExtResource("3_7agf3")]
+[node name="CamaraPrincipal" parent="." instance=ExtResource("3_7agf3")]
 position = Vector2(240, 360)
 scale = Vector2(1.47425e+08, -1935.87)

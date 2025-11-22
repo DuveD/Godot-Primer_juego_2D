@@ -1,5 +1,6 @@
-using System;
 using Godot;
+
+namespace Primerjuego2D.nucleo.constantes;
 
 public partial class ConstantesColores : Node
 {

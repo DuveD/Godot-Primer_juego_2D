@@ -3,22 +3,29 @@ using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.Logger;
 
-namespace Primerjuego2D.escenas.miscelaneo.camara;
+namespace Primerjuego2D.escenas.sistema.camara;
 
 [AtributoNivelLog(NivelLog.Info)]
-public partial class TemblorCamara : Camera2D
+public partial class CamaraPrincipal : Camera2D
 {
-    [Export] public float Decay = 0.8f; // Tiempo para volver a 0 trauma
-    [Export] public Vector2 MaxOffset = new Vector2(100, 75); // Límite desplazamiento
-    [Export] public float MaxRoll = 0.1f; // Rotación máxima
-    [Export] public Node2D FollowNode; // A quién seguir (jugador)
+    [Export]
+    public float Decay = 0.8f; // Tiempo para volver a 0 trauma
+
+    [Export]
+    public Vector2 MaxOffset = new Vector2(100, 75); // Límite desplazamiento
+
+    [Export]
+    public float MaxRoll = 0.1f; // Rotación máxima
+
+    [Export]
+    public Node2D FollowNode; // A quién seguir (jugador)
 
     private float Trauma = 0f;
     private int TraumaPower = 2;
 
     public override void _Ready()
     {
-        Logger.Trace("Camara Ready.");
+        Logger.Trace(this.Name + " Ready.");
     }
 
     public void AjustarCamara(Vector2 viewportSize)

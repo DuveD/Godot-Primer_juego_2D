@@ -1,11 +1,11 @@
-namespace Primerjuego2D.nucleo.utilidades.log;
-
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Godot;
-using Primerjuego2D.nucleo.ajustes;
+using Primerjuego2D.nucleo.configuracion;
+
+namespace Primerjuego2D.nucleo.utilidades.log;
 
 public static class Logger
 {

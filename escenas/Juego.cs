@@ -1,30 +1,25 @@
-namespace Primerjuego2D.escenas;
-
-using System;
 using Godot;
 using Primerjuego2D.escenas.batalla;
 using Primerjuego2D.escenas.menuPrincipal;
-using Primerjuego2D.escenas.sistema;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
+
+namespace Primerjuego2D.escenas;
 
 public partial class Juego : Control
 {
     [Export]
     public Control ContenedorEscena { get; set; }
 
-    public static GestorColor GestorColor { get; private set; }
     [Export]
-    public GestorColor _GestorColorNodo { get; set; } // Nodo de la escena
-
-    public static miscelaneo.camara.TemblorCamara Camara { get; private set; }
-    [Export]
-    public miscelaneo.camara.TemblorCamara _CamaraNodo { get; set; }    // Nodo de la escena
+    public sistema.camara.CamaraPrincipal _Camara { get; set; }    // Nodo de la escena
+    public static sistema.camara.CamaraPrincipal Camara { get; private set; }
 
     public override void _Ready()
     {
-        GestorColor ??= _GestorColorNodo;
-        Camara ??= _CamaraNodo;
+        Logger.Trace(this.Name + " Ready.");
+
+        Juego.Camara ??= _Camara;
 
         AjustaViewPortYCamara();
 

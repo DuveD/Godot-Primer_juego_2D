@@ -1,14 +1,17 @@
-namespace Primerjuego2D.escenas.entidades.jugador;
-
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.entidades.jugador;
 
 public partial class Jugador : Area2D
 {
+    public const string ANIMATION_UP = "up";
+
+    public const string ANIMATION_WALK = "walk";
+
     [Export]
     public int Speed { get; set; } = 400; // Velocidad de movimiento del jugador (pixels/sec).
 
@@ -18,10 +21,6 @@ public partial class Jugador : Area2D
     // Señal "MuerteJugador" para indicar colisión con el jugador.
     [Signal]
     public delegate void MuerteJugadorEventHandler();
-
-    public const string ANIMATION_UP = "up";
-
-    public const string ANIMATION_WALK = "walk";
 
     private CollisionShape2D _CollisionShape2D;
     private CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("CollisionShape2D");
@@ -35,7 +34,7 @@ public partial class Jugador : Area2D
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
     {
-        Logger.Trace("Jugador Ready.");
+        Logger.Trace(this.Name + " Ready.");
 
         // Oculatamos el sprite al inicio de la partida.
         this.Hide();

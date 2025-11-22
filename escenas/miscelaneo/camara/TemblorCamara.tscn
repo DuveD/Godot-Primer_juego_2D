@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvvqqqk473q1b"]
-
-[ext_resource type="Script" path="res://escenas/miscelaneo/camara/TemblorCamara.cs" id="1_c52in"]
-
-[node name="TemblorCamara" type="Camera2D"]
-script = ExtResource("1_c52in")
