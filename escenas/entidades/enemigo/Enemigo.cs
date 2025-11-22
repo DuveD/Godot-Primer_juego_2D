@@ -1,6 +1,3 @@
-namespace Primerjuego2D.escenas.entidades.enemigo;
-
-using System;
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
@@ -8,6 +5,8 @@ using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.Logger;
 
+
+namespace Primerjuego2D.escenas.entidades.enemigo;
 
 [AtributoNivelLog(NivelLog.Info)]
 

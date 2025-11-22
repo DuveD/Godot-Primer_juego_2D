@@ -12,7 +12,7 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 
-[node name="Fondo" type="Control" node_paths=PackedStringArray("ColorFondo", "GestorColor")]
+[node name="Fondo" type="Control" node_paths=PackedStringArray("ColorFondo", "_GestorColor")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nkpdo")
 ColorFondo = NodePath("ColorFondo")
-GestorColor = NodePath("GestorColor")
+_GestorColor = NodePath("GestorColor")
 
 [node name="ColorFondo" type="ColorRect" parent="."]
 clip_contents = true

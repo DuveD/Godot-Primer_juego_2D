@@ -159,7 +159,7 @@ public partial class Jugador : Area2D
 
         this.Muerto = false;
 
-        this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), false);
+        this.CollisionShape2D.SetDeferred("nameof(CollisionShape2D.Disabled)", false);
     }
 
     private void OnBodyEntered(Node2D body)
@@ -172,6 +172,8 @@ public partial class Jugador : Area2D
 
     private async void OnBodyEnteredEnemigo()
     {
+        Logger.Info("Jugador golpeado por enemigo.");
+
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.
         this.CollisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), true);
@@ -179,12 +181,22 @@ public partial class Jugador : Area2D
         // Marcamos al jugador como muerto.
         this.Muerto = true;
 
+        // Emitimos la señal de que hemos sido golpeados y esperamos dos segundos.
+        EmitSignal(SignalName.MuerteJugador);
+
+        // Iniciamos la animación de muerte del jugador.
+        await AnimacionMuerte();
+    }
+
+    private async System.Threading.Tasks.Task AnimacionMuerte()
+    {
+        // Provocamos un shacek de la cámara.
+        Juego.Camara?.AddTrauma(0.3f);
+
         // Paramamos la animación del sprite y cambiamos el color a rojo.
         this.AnimatedSprite2D.Stop();
         this.AnimatedSprite2D.Modulate = new Color(ConstantesColores.ROJO_PASTEL);
 
-        // Emitimos la señal de que hemos sido golpeados y esperamos dos segundos.
-        EmitSignal(SignalName.MuerteJugador);
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
 
         // Escondemos el sprite del jugador.
@@ -193,4 +205,5 @@ public partial class Jugador : Area2D
         // Restauramos el color original del sprite.
         this.AnimatedSprite2D.Modulate = new Color(1, 1, 1);
     }
+
 }

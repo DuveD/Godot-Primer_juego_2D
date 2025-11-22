@@ -11,11 +11,11 @@ public partial class Fondo : Control
     public ColorRect ColorFondo { get; set; }
 
     [Export]
-    public GestorColor GestorColor { get; set; }
+    public GestorColor _GestorColor { get; set; }
+    public GestorColor GestorColor => _GestorColor ??= Juego.GestorColor;
 
     public override void _Ready()
     {
-        if (this.GestorColor != null)
-            this.ColorFondo.Color = this.GestorColor.ColorFondo;
+        this.ColorFondo.Color = this.GestorColor.ColorFondo;
     }
 }

@@ -25,7 +25,7 @@ public static class Randomizador
     /// </summary>
     public static double GetRandomDouble(double minValue, double maxValue)
     {
-        return GlobalRandom.NextDouble() * (maxValue - minValue) + minValue;
+        return minValue + GlobalRandom.NextDouble() * (maxValue - minValue);
     }
 
     /// <summary>
@@ -47,6 +47,14 @@ public static class Randomizador
     }
 
     /// <summary>
+    /// Devuelve un número aleatorio entre minValue y maxValue usando el RNG de Godot.
+    /// </summary>
+    public static double GetRandomDoubleGodot(double minValue, double maxValue)
+    {
+        return GD.RandRange(minValue, maxValue);
+    }
+
+    /// <summary>
     /// Devuelve un número flotante aleatorio entre 0.0 y 1.0 usando el RNG de Godot.
     /// </summary>
     public static float GetRandomFloatGodot()
@@ -55,10 +63,10 @@ public static class Randomizador
     }
 
     /// <summary>
-    /// Devuelve un número aleatorio entre minValue y maxValue usando el RNG de Godot.
+    /// Devuelve un número flotante aleatorio entre minValue y maxValue usando el RNG de Godot.
     /// </summary>
-    public static double GetRandomDoubleGodot(double minValue, double maxValue)
+    public static float GetRandomFloatGodot(float minValue, float maxValue)
     {
-        return GD.RandRange(minValue, maxValue);
+        return (float)GetRandomDoubleGodot(minValue, maxValue);
     }
 }
