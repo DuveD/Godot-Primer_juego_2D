@@ -1,5 +1,5 @@
 using System;
-using static Primerjuego2D.nucleo.utilidades.log.Logger;
+using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
 namespace Primerjuego2D.nucleo.utilidades.log;
 

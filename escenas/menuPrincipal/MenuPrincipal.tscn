@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=15 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Theme" uid="uid://cqjwwnfb64fko" path="res://recursos/temas/boton/botonMenuPrincipal.tres" id="1_2csf2"]
 [ext_resource type="Script" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
@@ -11,12 +11,6 @@
 
 [sub_resource type="SystemFont" id="SystemFont_6mw57"]
 subpixel_positioning = 0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5k1n"]
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0sfa"]
 content_margin_left = 10.0
@@ -71,7 +65,6 @@ popup/item_1/checkable = 2
 popup/item_1/id = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_direction = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,12 +72,11 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -263.0
-offset_top = -113.0
+offset_top = -123.0
 offset_right = 263.0
-offset_bottom = 113.0
+offset_bottom = 123.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_y5k1n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2

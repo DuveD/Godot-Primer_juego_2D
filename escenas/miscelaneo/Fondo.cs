@@ -16,7 +16,7 @@ public partial class Fondo : Control
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         this.ColorFondo.Color = this.GestorColor.ColorFondo;
     }

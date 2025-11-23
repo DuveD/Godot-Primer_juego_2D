@@ -2,20 +2,21 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Godot;
 using Primerjuego2D.nucleo.configuracion;
 
 namespace Primerjuego2D.nucleo.utilidades.log;
 
-public static class Logger
+public static class LoggerJuego
 {
-    public enum NivelLog
+    public enum NivelLog : long
     {
-        Trace,
-        Info,
-        Warning,
-        Error,
-        None
+        Trace = 0,
+        Info = 1,
+        Warning = 2,
+        Error = 3,
+        None = 4
     }
 
     public const string FORMATO_FECHA_LOG = "yyyy-MM-dd HH:mm:ss";
@@ -25,9 +26,9 @@ public static class Logger
 
     private const int ContextWidth = 60;
 
-    private static readonly string pathLog;
+    private static readonly string PathLog;
 
-    static Logger()
+    static LoggerJuego()
     {
         string nombreJuego = (string)ProjectSettings.GetSetting("application/config/name");
 
@@ -37,7 +38,7 @@ public static class Logger
         if (!Directory.Exists(pathCarpetaLogs))
             Directory.CreateDirectory(pathCarpetaLogs);
 
-        pathLog = Path.Combine(pathCarpetaLogs, $"log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
+        PathLog = Path.Combine(pathCarpetaLogs, $"log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
 
         Info("Log iniciado.", "Logger");
     }
@@ -47,7 +48,7 @@ public static class Logger
         NivelLog nivelLog = ObtenerNivelLog();
         if (nivelLog > NivelLog.Trace) return;
         if (string.IsNullOrEmpty(context)) context = ObtenerContexto();
-        EscribirLog("TRAZA", message, context, GD.Print);
+        EscribirLog("TRAZA", message, context, "gray");
     }
 
     public static void Info(string message, string context = "")
@@ -55,7 +56,7 @@ public static class Logger
         NivelLog nivelLog = ObtenerNivelLog();
         if (nivelLog > NivelLog.Info) return;
         if (string.IsNullOrEmpty(context)) context = ObtenerContexto();
-        EscribirLog("INFO", message, context, GD.Print);
+        EscribirLog("INFO", message, context);
     }
 
     public static void Warn(string message, string context = "")
@@ -63,7 +64,7 @@ public static class Logger
         NivelLog nivelLog = ObtenerNivelLog();
         if (nivelLog > NivelLog.Warning) return;
         if (string.IsNullOrEmpty(context)) context = ObtenerContexto();
-        EscribirLog("WARN", message, context, GD.PushWarning);
+        EscribirLog("WARN", message, context, "yellow");
     }
 
     public static void Error(string message, string context = "")
@@ -71,7 +72,7 @@ public static class Logger
         NivelLog nivelLog = ObtenerNivelLog();
         if (nivelLog > NivelLog.Error) return;
         if (string.IsNullOrEmpty(context)) context = ObtenerContexto();
-        EscribirLog("ERROR", message, context, GD.PrintErr);
+        EscribirLog("ERROR", message, context, "red");
     }
 
     // ================== Internals ==================
@@ -90,36 +91,71 @@ public static class Logger
 
     private static string ObtenerContexto()
     {
-        var frame = new StackTrace(true).GetFrame(2);
-        var metodo = frame.GetMethod();
+        var stack = new StackTrace(true);
+        MethodBase metodo = null;
+        Type tipoClase = null;
+        int linea = 0;
 
-        string clase = metodo.DeclaringType?.Name ?? "UnknownClass";
-        string nombreMetodo = metodo.Name;
+        foreach (var frame in stack.GetFrames())
+        {
+            var frameMethod = frame.GetMethod();
+            if (frameMethod == null) continue;
 
-        int linea = frame.GetFileLineNumber();
+            var tipo = frameMethod.DeclaringType;
+            if (tipo == null) continue;
 
-        // Si no hay info de PDB, devolver sin línea.
-        if (linea <= 0)
-            return $"{clase}.{nombreMetodo}";
+            string nombreMetodo = frameMethod.Name;
 
-        return $"{clase}.{nombreMetodo}:{linea}";
+            // Ignoramos LoggerJuego y métodos generados por async/await
+            if (tipo != typeof(LoggerJuego) &&
+                !nombreMetodo.Contains(">d__") &&
+                !nombreMetodo.Contains("MoveNext") &&
+                tipo.Namespace != "System.Runtime.CompilerServices")
+            {
+                metodo = frameMethod;
+                tipoClase = tipo;
+                linea = frame.GetFileLineNumber();
+                break;
+            }
+        }
+
+        // fallback si no encontramos frame válido
+        if (metodo == null)
+        {
+            var frame = stack.GetFrame(2);
+            metodo = frame.GetMethod();
+            tipoClase = metodo.DeclaringType;
+            linea = frame.GetFileLineNumber();
+        }
+
+        string clase = tipoClase?.Name ?? "UnknownClass";
+        string nombre = metodo.Name;
+
+        return linea > 0 ? $"{clase}.{nombre}:{linea}" : $"{clase}.{nombre}";
     }
 
-    private static void EscribirLog(string level, string message, string context, Action<string> consoleOutput)
+    private static void EscribirLog(string level, string message, string context, string color = "white")
     {
-        string mensajeLog = FormatearMensajeLog(level, message, context);
+        string mensajeLog = FormatearMensajeLog(level, context, message);
 
-        consoleOutput(mensajeLog);
+        // Aplicamos color en la consola
+        string mensajeColoreado = $"[color={color}]{mensajeLog}[/color]";
+
+        // Muestra en consola con color
+        GD.PrintRich(mensajeColoreado);
+
         if (EscribirLogEnFichero)
-            File.AppendAllText(pathLog, mensajeLog + "\n");
+            File.AppendAllText(PathLog, mensajeLog + "\n"); // el archivo no tiene color
     }
 
-    private static string FormatearMensajeLog(string level, string message, string context)
+    private static string FormatearMensajeLog(string level, string context, string message)
     {
         string time = DateTime.Now.ToString(FORMATO_FECHA_LOG);
 
+        string padingLevel = new string(' ', 5 - level.Length);
+
         // Base del mensaje
-        string mensajeBase = $"[{time}][{level}][{context}]: ";
+        string mensajeBase = $"{time} [{level}]{padingLevel} [{context}]: ";
 
         // Calculamos el ancho total deseado
         int widthContext = ContextWidth - mensajeBase.Length;

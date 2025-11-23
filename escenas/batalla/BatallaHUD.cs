@@ -31,7 +31,7 @@ public partial class BatallaHUD : CanvasLayer
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     async public void MostrarMensajePreparate()

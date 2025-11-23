@@ -3,7 +3,7 @@ using Godot;
 using Godot.Collections;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
-using static Primerjuego2D.nucleo.utilidades.log.Logger;
+using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
 namespace Primerjuego2D.escenas.entidades.enemigo;
 
@@ -27,7 +27,7 @@ public partial class Enemigo : RigidBody2D
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };
@@ -39,7 +39,7 @@ public partial class Enemigo : RigidBody2D
 
     private void EliminarEnemigo()
     {
-        Logger.Trace("Enemigo Eliminado.");
+        LoggerJuego.Trace("Enemigo Eliminado.");
 
         // Cuando el enemigo salga de la pantalla, se elimina a sí mismo.
         QueueFree();

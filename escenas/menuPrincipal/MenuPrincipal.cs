@@ -21,7 +21,7 @@ public partial class MenuPrincipal : Control
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         InicializarMenuButtonLenguaje();
     }
@@ -46,7 +46,7 @@ public partial class MenuPrincipal : Control
 
     private void MenuButtonLenguajeIdPressed(long id)
     {
-        Logger.Trace("Opción de 'MenuButtonLenguaje' pulsado.");
+        LoggerJuego.Trace("Opción de 'MenuButtonLenguaje' pulsado.");
 
         // Obtenemos el PopupMenu del MenuButton
         var popupMenu = this.MenuButtonLenguaje.GetPopup();
@@ -68,18 +68,18 @@ public partial class MenuPrincipal : Control
 
     private void OnButtonEmpezarPartidaPressed()
     {
-        Logger.Trace("Botón 'ButtonEmpezarPartida' pulsado.");
+        LoggerJuego.Trace("Botón 'ButtonEmpezarPartida' pulsado.");
         EmitSignal(SignalName.BotonEmpezarPartidaPulsado);
     }
 
     private void OnButtonCargarPartidaPressed()
     {
-        Logger.Trace("Botón 'ButtonCargarPartida' pulsado.");
+        LoggerJuego.Trace("Botón 'ButtonCargarPartida' pulsado.");
     }
 
     private void OnButtonSalirPressed()
     {
-        Logger.Trace("Botón 'ButtonSalir' pulsado.");
+        LoggerJuego.Trace("Botón 'ButtonSalir' pulsado.");
         this.GetTree().Quit();
     }
 }

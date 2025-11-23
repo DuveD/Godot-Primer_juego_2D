@@ -45,7 +45,7 @@ public partial class Batalla : Node
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         ProcessMode = ProcessModeEnum.Pausable;
 

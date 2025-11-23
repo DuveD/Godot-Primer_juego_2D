@@ -12,7 +12,7 @@ public partial class Global : Node
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         InicializarValoresEstaticos();
     }

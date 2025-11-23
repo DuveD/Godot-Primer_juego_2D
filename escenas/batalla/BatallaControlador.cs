@@ -21,7 +21,7 @@ public partial class BatallaControlador : Node
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public override void _Input(InputEvent @event)
@@ -41,9 +41,9 @@ public partial class BatallaControlador : Node
         bool pausarJuego = !Ajustes.JuegoPausado;
 
         if (pausarJuego)
-            Logger.Trace("Juego pausado.");
+            LoggerJuego.Trace("Juego pausado.");
         else
-            Logger.Trace("Juego renaudado.");
+            LoggerJuego.Trace("Juego renaudado.");
 
         UtilidadesNodos.PausarNodo(this, pausarJuego, pausarJuego);
 
@@ -56,7 +56,7 @@ public partial class BatallaControlador : Node
             return;
 
         BatallaEnCurso = true;
-        Logger.Info("Batalla iniciada.");
+        LoggerJuego.Info("Batalla iniciada.");
         EmitSignal(SignalName.BatallaIniciada);
     }
 
@@ -66,7 +66,7 @@ public partial class BatallaControlador : Node
             return;
 
         BatallaEnCurso = false;
-        Logger.Info("Batalla finalizada.");
+        LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
     }
 }

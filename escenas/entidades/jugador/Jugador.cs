@@ -34,7 +34,7 @@ public partial class Jugador : Area2D
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         // Oculatamos el sprite al inicio de la partida.
         this.Hide();
@@ -171,7 +171,7 @@ public partial class Jugador : Area2D
 
     private async void OnBodyEnteredEnemigo()
     {
-        Logger.Info("Jugador golpeado por enemigo.");
+        LoggerJuego.Info("Jugador golpeado por enemigo.");
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.

@@ -14,6 +14,6 @@ public partial class GestorColor : ColorRect
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 }

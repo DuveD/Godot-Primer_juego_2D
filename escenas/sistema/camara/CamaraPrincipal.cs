@@ -1,7 +1,7 @@
 using Godot;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
-using static Primerjuego2D.nucleo.utilidades.log.Logger;
+using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
 namespace Primerjuego2D.escenas.sistema.camara;
 
@@ -25,7 +25,7 @@ public partial class CamaraPrincipal : Camera2D
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public void AjustarCamara(Vector2 viewportSize)
@@ -65,7 +65,7 @@ public partial class CamaraPrincipal : Camera2D
 
     private void Shake()
     {
-        Logger.Trace("Shacke de Camara.");
+        LoggerJuego.Trace("Shacke de Camara.");
 
         float amount = Mathf.Pow(this.Trauma, TraumaPower);
 

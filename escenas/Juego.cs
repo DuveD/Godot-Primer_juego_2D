@@ -17,7 +17,7 @@ public partial class Juego : Control
 
     public override void _Ready()
     {
-        Logger.Trace(this.Name + " Ready.");
+        LoggerJuego.Trace(this.Name + " Ready.");
 
         Juego.Camara ??= _Camara;
 
@@ -39,7 +39,7 @@ public partial class Juego : Control
 
     public void CargarMenuPrincipal()
     {
-        Logger.Trace("Cargando menú principal.");
+        LoggerJuego.Trace("Cargando menú principal.");
 
         string rutaMenuprincipal = UtilidadesNodos.ObtenerRutaEscena<MenuPrincipal>();
         MenuPrincipal menuPrincipal = (MenuPrincipal)CambiarPantalla(rutaMenuprincipal);
@@ -49,7 +49,7 @@ public partial class Juego : Control
 
     public void CargarBatalla()
     {
-        Logger.Trace("Cargando batalla.");
+        LoggerJuego.Trace("Cargando batalla.");
 
         string rutaBatalla = UtilidadesNodos.ObtenerRutaEscena<Batalla>();
         Batalla batalla = (Batalla)CambiarPantalla(rutaBatalla);
@@ -64,7 +64,7 @@ public partial class Juego : Control
 
         if (pantalla == null)
         {
-            Logger.Error($"No se pudo cargar la escena en la ruta: {rutaEscena}");
+            LoggerJuego.Error($"No se pudo cargar la escena en la ruta: {rutaEscena}");
             return null;
         }
 
@@ -72,7 +72,7 @@ public partial class Juego : Control
         Node instanciaEscena = pantalla.Instantiate();
         if (instanciaEscena == null)
         {
-            Logger.Error($"No se pudo instanciar la escena desde la ruta: {rutaEscena}");
+            LoggerJuego.Error($"No se pudo instanciar la escena desde la ruta: {rutaEscena}");
             return null;
         }
 
