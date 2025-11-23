@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="Primer juego 2D"
-config/version="1.0.0"
+config/version="1.2.0.2025-11-23"
 run/main_scene="res://escenas/Juego.tscn"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
+config/icon="uid://d4jc7gkuct8gb"
 
 [autoload]
 

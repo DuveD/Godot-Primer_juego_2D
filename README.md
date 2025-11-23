@@ -18,6 +18,8 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Movimiento en 8 direcciones con "animación" correspondiente.
 - Localización.
 - Pausa de la partida.
+- Menú principal.
+- Fondo con partículas.
 
 ## 📖 Referencias
 
@@ -25,8 +27,8 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚖️ Aviso de uso
 
-Este proyecto es **únicamente con fines educativos** y de aprendizaje.  
-No pretende comercializar ni redistribuir los contenidos originales de Godot.  
+Este proyecto se ha realizado **únicamente con fines educativos** y de aprendizaje.  
+No pretende comercializar ni redistribuir los contenidos originales de Godot.
 
 El contenido original de este proyecto está bajo copyright:
 © 2014-present Juan Linietsky, Ariel Manzur y la comunidad de Godot (CC BY 3.0).
