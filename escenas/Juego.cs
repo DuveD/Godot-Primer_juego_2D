@@ -1,6 +1,7 @@
 using Godot;
 using Primerjuego2D.escenas.batalla;
 using Primerjuego2D.escenas.menuPrincipal;
+using Primerjuego2D.escenas.sistema.camara;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -12,8 +13,8 @@ public partial class Juego : Control
     public Control ContenedorEscena { get; set; }
 
     [Export]
-    public sistema.camara.CamaraPrincipal _Camara { get; set; }    // Nodo de la escena
-    public static sistema.camara.CamaraPrincipal Camara { get; private set; }
+    public CamaraPrincipal _Camara { get; set; }    // Nodo de la escena
+    public static CamaraPrincipal Camara { get; private set; }
 
     public override void _Ready()
     {
@@ -33,9 +34,8 @@ public partial class Juego : Control
 
         // Ajustamos el tamaño de la cámara al tamaño del juego.
         Juego.Camara.AjustarCamara(this.Size);
-        GetViewport().SizeChanged += () => Juego.Camara.AjustarCamara(this.Size); ;
+        GetViewport().SizeChanged += () => Juego.Camara.AjustarCamara(this.Size);
     }
-
 
     public void CargarMenuPrincipal()
     {
@@ -60,7 +60,7 @@ public partial class Juego : Control
     public Node CambiarPantalla(string rutaEscena)
     {
         // Cargamos la escena desde la ruta proporcionada.
-        PackedScene pantalla = GD.Load(rutaEscena) as PackedScene;
+        PackedScene pantalla = ResourceLoader.Load<PackedScene>(rutaEscena);
 
         if (pantalla == null)
         {
@@ -84,5 +84,4 @@ public partial class Juego : Control
 
         return instanciaEscena;
     }
-
 }

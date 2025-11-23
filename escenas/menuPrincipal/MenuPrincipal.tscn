@@ -1,40 +1,31 @@
-[gd_scene load_steps=15 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=11 format=3 uid="uid://h6xujbx1ear1"]
 
-[ext_resource type="Theme" uid="uid://cqjwwnfb64fko" path="res://recursos/temas/boton/botonMenuPrincipal.tres" id="1_2csf2"]
-[ext_resource type="Script" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
-[ext_resource type="StyleBox" uid="uid://5xxm4sj1he4b" path="res://recursos/temas/boton/botonMenuPrincipalSecundario.tres" id="3_eq5mx"]
-[ext_resource type="StyleBox" uid="uid://wxfnn7gd8bvn" path="res://recursos/temas/boton/botonMenuPrincipalPrimario.tres" id="3_f4jcg"]
-[ext_resource type="StyleBox" uid="uid://b4le4eiv00uhl" path="res://recursos/temas/boton/botonMenuPrincipalSecundario_hover.tres" id="5_28o0y"]
+[ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
+[ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="3_eq5mx"]
+[ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="3_f4jcg"]
 [ext_resource type="Texture2D" uid="uid://b7ot3b2kkcphi" path="res://recursos/imagenes/banderas/flag_spain.png" id="6_xxxid"]
-[ext_resource type="StyleBox" uid="uid://dx0lki262qktc" path="res://recursos/temas/boton/botonMenuPrincipalSecundario_pressed.tres" id="6_y7cvc"]
 [ext_resource type="Texture2D" uid="uid://bpiwulkracpb5" path="res://recursos/imagenes/banderas/flag_uk.png" id="7_q8bqa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_6ip4d"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="Theme" id="Theme_oupjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
 
 [sub_resource type="SystemFont" id="SystemFont_6mw57"]
 subpixel_positioning = 0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0sfa"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.921569, 0.623529, 0.388235, 1)
-corner_radius_top_left = 15
-corner_radius_bottom_right = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylce5"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.858824, 0.321569, 0, 1)
-corner_radius_top_left = 15
-corner_radius_bottom_right = 15
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvwke"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nk8n3"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2kwlc"]
 
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
@@ -44,6 +35,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4116w")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.5
+offset_top = -117.0
+offset_right = 203.5
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6ip4d")
+
+[node name="PanelContainerButtonSize" type="PanelContainer" parent="CenterContainer/PanelContainerMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ButtonEmpezarPartida" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_f4jcg")
+text = "MenuPrincipal.boton.empezarPartida"
+
+[node name="ButtonCargarPartida" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_eq5mx")
+text = "MenuPrincipal.boton.cargarPartida"
+
+[node name="ButtonSalir" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_eq5mx")
+text = "MenuPrincipal.boton.salir"
 
 [node name="MenuButtonLenguaje" type="MenuButton" parent="."]
 layout_direction = 1
@@ -64,54 +99,6 @@ popup/item_1/icon = ExtResource("7_q8bqa")
 popup/item_1/checkable = 2
 popup/item_1/id = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -263.0
-offset_top = -123.0
-offset_right = 263.0
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="ButtonEmpezarPartida" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_2csf2")
-theme_override_constants/h_separation = 0
-theme_override_styles/normal = ExtResource("3_f4jcg")
-theme_override_styles/hover = SubResource("StyleBoxFlat_c0sfa")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ylce5")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kvwke")
-text = "MenuPrincipal.boton.empezarPartida"
-text_overrun_behavior = 1
-
-[node name="ButtonCargarPartida" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_2csf2")
-theme_override_styles/normal = ExtResource("3_eq5mx")
-theme_override_styles/hover = ExtResource("5_28o0y")
-theme_override_styles/pressed = ExtResource("6_y7cvc")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_nk8n3")
-text = "MenuPrincipal.boton.cargarPartida"
-
-[node name="ButtonSalir" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_2csf2")
-theme_override_styles/normal = ExtResource("3_eq5mx")
-theme_override_styles/hover = ExtResource("5_28o0y")
-theme_override_styles/pressed = ExtResource("6_y7cvc")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2kwlc")
-text = "MenuPrincipal.boton.salir"
-
-[connection signal="pressed" from="PanelContainer/VBoxContainer/ButtonEmpezarPartida" to="." method="OnButtonEmpezarPartidaPressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/ButtonCargarPartida" to="." method="OnButtonCargarPartidaPressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/ButtonSalir" to="." method="OnButtonSalirPressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="." method="OnButtonEmpezarPartidaPressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonCargarPartida" to="." method="OnButtonCargarPartidaPressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonSalir" to="." method="OnButtonSalirPressed"]

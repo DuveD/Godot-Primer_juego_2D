@@ -93,7 +93,6 @@ public partial class Jugador : Area2D
         return velocity;
     }
 
-
     private static void RotarSpriteADireccion(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
     {
         // 8 direcciones
@@ -204,5 +203,4 @@ public partial class Jugador : Area2D
         // Restauramos el color original del sprite.
         this.AnimatedSprite2D.Modulate = new Color(1, 1, 1);
     }
-
 }
