@@ -17,14 +17,6 @@ process_mode = 3
 script = ExtResource("1_jxdra")
 EnemyScene = ExtResource("2_7rrnp")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.45098, 0.45098, 1)
-
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
 
@@ -49,10 +41,11 @@ curve = SubResource("Curve2D_w0at3")
 
 [node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
 
-[connection signal="HitByEnemy" from="Jugador" to="." method="JugadorGolpeadoPorEnemigo"]
+[connection signal="MuerteJugador" from="Jugador" to="." method="GameOver"]
 [connection signal="timeout" from="EnemyTimer" to="." method="OnEnemyTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
+[connection signal="timeout" from="StartTimer" to="BatallaHUD" method="MostrarMensajeIniciarBatalla"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="ShowGameOver"]
 [connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaHUD" method="ShowStartMessage"]
 [connection signal="PauseBattle" from="BatallaControlador" to="BatallaHUD" method="OnPauseBattle"]

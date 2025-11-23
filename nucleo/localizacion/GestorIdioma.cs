@@ -1,8 +1,7 @@
-namespace Primerjuego2D.nucleo.localizacion;
-
 using System.Collections.Generic;
 using Godot;
-using Microsoft.VisualBasic;
+
+namespace Primerjuego2D.nucleo.localizacion;
 
 public class GestorIdioma
 {

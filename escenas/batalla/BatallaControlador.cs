@@ -1,10 +1,10 @@
-namespace Primerjuego2D.escenas.batalla;
-
-using System;
 using Godot;
-using Primerjuego2D.nucleo.ajustes;
+using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.utilidades.log;
+
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class BatallaControlador : Node
 {
@@ -21,6 +21,7 @@ public partial class BatallaControlador : Node
 
     public override void _Ready()
     {
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public override void _Input(InputEvent @event)
@@ -33,14 +34,18 @@ public partial class BatallaControlador : Node
 
     private void OnPauseButtonPressed()
     {
+
+        if (!this.BatallaEnCurso)
+            return;
+
         bool pausarJuego = !Ajustes.JuegoPausado;
 
         if (pausarJuego)
-            GD.Print("Juego pausado.");
+            LoggerJuego.Trace("Juego pausado.");
         else
-            GD.Print("Juego renaudado.");
+            LoggerJuego.Trace("Juego renaudado.");
 
-        UtilidadesNodos.PausarNodo(this, pausarJuego);
+        UtilidadesNodos.PausarNodo(this, pausarJuego, pausarJuego);
 
         EmitSignal(SignalName.PauseBattle);
     }
@@ -51,7 +56,7 @@ public partial class BatallaControlador : Node
             return;
 
         BatallaEnCurso = true;
-        GD.Print("Batalla iniciada.");
+        LoggerJuego.Info("Batalla iniciada.");
         EmitSignal(SignalName.BatallaIniciada);
     }
 
@@ -61,7 +66,7 @@ public partial class BatallaControlador : Node
             return;
 
         BatallaEnCurso = false;
-        GD.Print("Batalla finalizada.");
+        LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
     }
 }

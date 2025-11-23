@@ -1,17 +1,21 @@
-namespace Primerjuego2D.escenas.batalla;
-
-using System;
-using System.Text.RegularExpressions;
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class Batalla : Node
 {
+    [Signal]
+    public delegate void GameOverFinalizadoEventHandler();
+
     [Export]
     public PackedScene EnemyScene { get; set; }
+
+    ColorRect _Fondo;
+    private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
 
     private Timer _EnemyTimer;
     private Timer EnemyTimer => _EnemyTimer ??= GetNode<Timer>("EnemyTimer");
@@ -34,7 +38,6 @@ public partial class Batalla : Node
     private PathFollow2D _MobSpawnLocation;
     private PathFollow2D MobSpawnLocation => _MobSpawnLocation ??= GetNode<PathFollow2D>("EnemyPath/EnemySpawnLocation");
 
-
     private BatallaControlador _BatallaControlador;
     private BatallaControlador BatallaControlador => _BatallaControlador ??= GetNode<BatallaControlador>("BatallaControlador");
 
@@ -42,10 +45,14 @@ public partial class Batalla : Node
 
     public override void _Ready()
     {
-        ProcessMode = Node.ProcessModeEnum.Pausable;
+        LoggerJuego.Trace(this.Name + " Ready.");
+
+        ProcessMode = ProcessModeEnum.Pausable;
+
+        this.NuevoJuego();
     }
 
-    public void NewGame()
+    public void NuevoJuego()
     {
         Enemigo.DeleteAllEnemies(this);
 
@@ -55,21 +62,21 @@ public partial class Batalla : Node
         this.StartTimer.Start();
 
         this.BatallaHUD.ActualizarPuntuacion(Score);
-        this.BatallaHUD.ShowStartMessage();
+        this.BatallaHUD.MostrarMensajePreparate();
 
         this.BatallaControlador.IniciarBatalla();
     }
-    public void JugadorGolpeadoPorEnemigo()
-    {
-        GameOver();
-    }
 
-    public void GameOver()
+    public async void GameOver()
     {
         this.EnemyTimer.Stop();
         this.ScoreTimer.Stop();
 
         this.BatallaControlador.FinalizarBatalla();
+
+        await UtilidadesNodos.EsperarSegundos(this, 2.0);
+
+        EmitSignal(SignalName.GameOverFinalizado);
     }
 
     private void OnScoreTimerTimeout()
@@ -90,7 +97,7 @@ public partial class Batalla : Node
         Enemigo enemigo = EnemyScene.Instantiate<Enemigo>();
 
         // Elegimos una localización aleatória del path 2D de los enemigos.
-        this.MobSpawnLocation.ProgressRatio = Randomizer.GetRandomFloat();
+        this.MobSpawnLocation.ProgressRatio = Randomizador.GetRandomFloat();
 
         // Set the mob's position to a random location.
         enemigo.Position = this.MobSpawnLocation.Position;
@@ -99,11 +106,11 @@ public partial class Batalla : Node
         float direction = this.MobSpawnLocation.RotationDegrees + 90;
 
         // Randomizamos la dirección, de -45 a 45.
-        direction += (float)Randomizer.GetRandomInt(-45, 45);
+        direction += (float)Randomizador.GetRandomInt(-45, 45);
         enemigo.RotationDegrees = direction;
 
         // Informamos el vector de velocidad y dirección.
-        Vector2 velocity = new Vector2((float)Randomizer.GetRandomDouble(150.0, 250.0), 0);
+        Vector2 velocity = new Vector2((float)Randomizador.GetRandomDouble(150.0, 250.0), 0);
         float directionRad = (float)UtilidadesMatematicas.DegreesToRadians(direction);
         enemigo.LinearVelocity = velocity.Rotated(directionRad);
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b77k6jhiy8djq"]
 
-[ext_resource type="Script" path="res://escenas/entidades/enemigo/Enemigo.cs" id="1_lpjhc"]
+[ext_resource type="Script" uid="uid://5twh0ocm1k0w" path="res://escenas/entidades/enemigo/Enemigo.cs" id="1_lpjhc"]
 [ext_resource type="Texture2D" uid="uid://dh65lrlh20del" path="res://recursos/imagenes/enemigo/enemyFlyingAlt_1.png" id="1_t0n5c"]
 [ext_resource type="Texture2D" uid="uid://cxyrixnbf0qt0" path="res://recursos/imagenes/enemigo/enemyFlyingAlt_2.png" id="2_inyhn"]
 [ext_resource type="Texture2D" uid="uid://bxi2iaa7muomi" path="res://recursos/imagenes/enemigo/enemySwimming_1.png" id="3_2g3yt"]
@@ -66,5 +66,6 @@ shape = SubResource("CapsuleShape2D_rh3q5")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 8)
 scale = Vector2(3.78, 4.5)
+rect = Rect2(-15.21164, -16, 26.190475, 32)
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="EliminarEnemigo"]
