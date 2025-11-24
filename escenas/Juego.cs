@@ -25,6 +25,8 @@ public partial class Juego : Control
         AjustaViewPortYCamara();
 
         CargarMenuPrincipal();
+
+        Global.GestorAudio.ReproducirMusica("House In a Forest Loop.ogg");
     }
 
     private void AjustaViewPortYCamara()

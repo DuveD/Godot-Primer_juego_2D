@@ -17,7 +17,7 @@ run/main_scene="res://escenas/Juego.tscn"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
-config/icon="uid://d4jc7gkuct8gb"
+config/icon="uid://bh53fpw6usj8u"
 
 [autoload]
 

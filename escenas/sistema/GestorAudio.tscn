@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dp721n7hxw3x1" path="res://escenas/sistema/GestorAudio.cs" id="1_v4wtt"]
 
-[node name="GestorAudio" type="Node" node_paths=PackedStringArray("EffectsContainer")]
+[node name="GestorAudio" type="Node"]
 script = ExtResource("1_v4wtt")
-EffectsContainer = NodePath("Effects/AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
-[node name="Effects" type="Node" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Effects"]
+[node name="EffectsContainer" type="Node" parent="."]
