@@ -1,6 +1,6 @@
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.nucleo.configuracion;
-using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -21,8 +21,8 @@ public partial class MenuPrincipal : Control
     private MenuButton _MenuButtonLenguaje;
     private MenuButton MenuButtonLenguaje => _MenuButtonLenguaje ??= GetNode<MenuButton>("MenuButtonLenguaje");
 
-    private Button _ButtonEmpezarPartida;
-    private Button ButtonEmpezarPartida => _ButtonEmpezarPartida ??= UtilidadesNodos.ObtenerNodoPorNombre<Button>(this, "ButtonEmpezarPartida");
+    private ButtonEmpezarPartida _ButtonEmpezarPartida;
+    private ButtonEmpezarPartida ButtonEmpezarPartida => _ButtonEmpezarPartida ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonEmpezarPartida>(this, "ButtonEmpezarPartida");
 
     public override void _Ready()
     {
@@ -31,6 +31,7 @@ public partial class MenuPrincipal : Control
         InicializarMenuButtonLenguaje();
 
         ButtonEmpezarPartida.GrabFocus();
+        this.ButtonEmpezarPartida.FocusEntered += () => this.ButtonEmpezarPartida.OnFocusedEntered();
     }
 
     private void InicializarMenuButtonLenguaje()
@@ -73,20 +74,27 @@ public partial class MenuPrincipal : Control
         Ajustes.Idioma = idioma;
     }
 
-    private void OnButtonEmpezarPartidaPressed()
+    private void OnButtonEmpezarPartidaPressedAnimationEnd()
     {
         LoggerJuego.Trace("Botón 'ButtonEmpezarPartida' pulsado.");
+
         EmitSignal(SignalName.BotonEmpezarPartidaPulsado);
     }
 
     private void OnButtonCargarPartidaPressed()
     {
         LoggerJuego.Trace("Botón 'ButtonCargarPartida' pulsado.");
+
+        Global.GestorAudio.ReproducirSonido("digital_click.mp3");
     }
 
-    private void OnButtonSalirPressed()
+    private async void OnButtonSalirPressed()
     {
         LoggerJuego.Trace("Botón 'ButtonSalir' pulsado.");
+
+        Global.GestorAudio.ReproducirSonido("digital_click.mp3");
+        await Task.Delay(500);
+
         this.GetTree().Quit();
     }
 }

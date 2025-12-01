@@ -66,6 +66,8 @@ public partial class Batalla : Node
 
     public async void GameOver()
     {
+        Global.GestorAudio.PausarMusica(2f);
+
         this.EnemyTimer.Stop();
 
         this.BatallaControlador.FinalizarBatalla();

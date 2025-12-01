@@ -181,6 +181,8 @@ public partial class Jugador : CharacterBody2D
         // Emitimos la señal de que hemos sido golpeados y esperamos dos segundos.
         EmitSignal(SignalName.MuerteJugador);
 
+        Global.GestorAudio.ReproducirSonido("game_over_arcade.mp3");
+
         // Iniciamos la animación de muerte del jugador.
         await AnimacionMuerte();
     }

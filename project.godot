@@ -19,6 +19,10 @@ run/flush_stdout_on_print=true
 boot_splash/show_image=false
 config/icon="uid://bh53fpw6usj8u"
 
+[audio]
+
+buses/default_bus_layout="uid://5w8smko80x3y"
+
 [autoload]
 
 Global="*res://escenas/Global.tscn"

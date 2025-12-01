@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://dyhygvmey05wd" path="res://escenas/sistema/GestorColor.cs" id="1_q6cab"]
 
 [node name="GestorColor" type="ColorRect"]
+process_mode = 3
 script = ExtResource("1_q6cab")

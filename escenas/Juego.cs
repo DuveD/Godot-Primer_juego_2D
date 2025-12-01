@@ -25,8 +25,6 @@ public partial class Juego : Control
         AjustaViewPortYCamara();
 
         CargarMenuPrincipal();
-
-        Global.GestorAudio.ReproducirMusica("House In a Forest Loop.ogg");
     }
 
     private void AjustaViewPortYCamara()
@@ -43,6 +41,8 @@ public partial class Juego : Control
     {
         LoggerJuego.Trace("Cargando menú principal.");
 
+        Global.GestorAudio.ReproducirMusica("retro_wave.mp3", 4f);
+
         string rutaMenuprincipal = UtilidadesNodos.ObtenerRutaEscena<MenuPrincipal>();
         MenuPrincipal menuPrincipal = (MenuPrincipal)CambiarPantalla(rutaMenuprincipal);
 
@@ -52,6 +52,8 @@ public partial class Juego : Control
     public void CargarBatalla()
     {
         LoggerJuego.Trace("Cargando batalla.");
+
+        Global.GestorAudio.ReproducirMusica("retro_song.mp3");
 
         string rutaBatalla = UtilidadesNodos.ObtenerRutaEscena<Batalla>();
         Batalla batalla = (Batalla)CambiarPantalla(rutaBatalla);

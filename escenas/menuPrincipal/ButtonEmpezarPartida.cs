@@ -20,7 +20,7 @@ public partial class ButtonEmpezarPartida : Button
 
 	public override void _Ready()
 	{
-		Pressed += StartBlink;
+		this.Pressed += StartBlink;
 
 		_focusStyle = GetThemeStylebox("focus")?.Duplicate() as StyleBox;
 		_hoverStyle = GetThemeStylebox("hover")?.Duplicate() as StyleBox;
@@ -28,11 +28,17 @@ public partial class ButtonEmpezarPartida : Button
 		_pressedStyle = GetThemeStylebox("pressed")?.Duplicate() as StyleBox;
 	}
 
+	public void OnFocusedEntered()
+	{
+		Global.GestorAudio.ReproducirSonido("kick.mp3");
+	}
+
 	private void StartBlink()
 	{
 		if (_blinking) return;
 		_blinking = true;
 
+		Global.GestorAudio.ReproducirSonido("digital_click.mp3");
 
 		// Limpiar Tween anterior
 		_tween?.Kill();
