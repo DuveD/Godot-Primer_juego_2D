@@ -36,6 +36,12 @@ public partial class MenuPrincipal : Control
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
     private ButtonEmpezarPartida ButtonEmpezarPartida => _ButtonEmpezarPartida ??= BotonesMenu.OfType<ButtonEmpezarPartida>().FirstOrDefault();
 
+    private CanvasLayer _CrtLayer;
+    private CanvasLayer CrtLayer => _CrtLayer ??= GetNode<CanvasLayer>("CRTShutdown");
+
+    private AnimationPlayer _AnimPlayer;
+    private AnimationPlayer AnimPlayer => _AnimPlayer ??= CrtLayer.GetNode<AnimationPlayer>("AnimationPlayer");
+
     private Button _ultimoBotonConFocus = null;
 
     public override void _Ready()
@@ -157,10 +163,14 @@ public partial class MenuPrincipal : Control
         LoggerJuego.Trace("Botón 'ButtonSalir' pulsado.");
 
         Global.GestorAudio.ReproducirSonido("digital_click.mp3");
-        await Task.Delay(500);
+        Global.GestorAudio.PausarMusica(0.5f);
+
+        CrtLayer.Visible = true;
+        AnimPlayer.Play("ApagarTV");
+
+        await ToSignal(AnimPlayer, "animation_finished");
+        await Task.Delay(300);
 
         this.GetTree().Quit();
     }
-
-
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=19 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="3_eq5mx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/ButtonAjustes.cs" id="7_mxkrh"]
 [ext_resource type="Texture2D" uid="uid://bpiwulkracpb5" path="res://recursos/imagenes/banderas/flag_uk.png" id="7_q8bqa"]
 [ext_resource type="Script" uid="uid://dafkl1d6lxkis" path="res://escenas/menuPrincipal/ButtonSalir.cs" id="8_oupjs"]
+[ext_resource type="Shader" uid="uid://c07xghhalj6cu" path="res://recursos/shaders/ApagarTV.gdshader" id="9_shader"]
 
 [sub_resource type="SystemFont" id="SystemFont_6mw57"]
 subpixel_positioning = 0
@@ -29,6 +30,47 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 [sub_resource type="Theme" id="Theme_oupjs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oupjs"]
+shader = ExtResource("9_shader")
+shader_parameter/progress = 0.0
+
+[sub_resource type="Animation" id="Animation_oupjs"]
+resource_name = "ApagarTV"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_cmdin"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iaj7c"]
+_data = {
+&"ApagarTV": SubResource("Animation_oupjs"),
+&"RESET": SubResource("Animation_cmdin")
+}
 
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
@@ -112,6 +154,22 @@ focus_neighbor_top = NodePath("../ButtonAjustes")
 theme = ExtResource("3_eq5mx")
 text = "MenuPrincipal.boton.salir"
 script = ExtResource("8_oupjs")
+
+[node name="CRTShutdown" type="CanvasLayer" parent="."]
+layer = 50
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CRTShutdown"]
+material = SubResource("ShaderMaterial_oupjs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CRTShutdown"]
+libraries = {
+&"": SubResource("AnimationLibrary_iaj7c")
+}
 
 [connection signal="PressedAnimationEnd" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="." method="OnButtonEmpezarPartidaPressedAnimationEnd"]
 [connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonAjustes" to="." method="OnButtonAjustesPressed"]
