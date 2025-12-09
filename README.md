@@ -17,8 +17,12 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ### v1.4.0
 
-- Cambio de feedback de uso de los botones del menú principal según se use teclado o ratón.
+- Cambio de look & feel del uso de los botones del menú principal según se use teclado o ratón.
 - Añadido control para no spawnear monedas cerca del jugador.
+- Añadida animación de apagado al salir del juego.
+- Añadidos sonidos a botones y música.
+- Añadida animación al morir el personaje.
+- Mejoras en el gestor de sonido, con crossfade y fade-in y fade-out.
 
 ### v1.3.0
 

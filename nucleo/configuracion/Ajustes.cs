@@ -98,7 +98,7 @@ public static class Ajustes
         {
             InicializarValoresPorDefecto();
 
-            GestorAjustes.Guardar(RutaArchivoAjustes);
+            GestorAjustes.Guardar(RutaJuego, NombreArchivoAjustes);
 
             LoggerJuego.Info($"Creado archivo '{NombreArchivoAjustes}' con la configuración por defecto.");
         }
@@ -119,7 +119,7 @@ public static class Ajustes
 
     public static void GuardarAjustes()
     {
-        GestorAjustes.Guardar(RutaArchivoAjustes);
+        GestorAjustes.Guardar(RutaJuego, NombreArchivoAjustes);
         LoggerJuego.Info("Ajustes guardados.");
     }
 }

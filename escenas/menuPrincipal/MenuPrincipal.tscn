@@ -34,6 +34,8 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oupjs"]
 shader = ExtResource("9_shader")
 shader_parameter/progress = 0.0
+shader_parameter/inner_color = Color(0.9, 0.9, 0.85, 1)
+shader_parameter/outer_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_oupjs"]
 resource_name = "ApagarTV"
@@ -87,7 +89,7 @@ layout_mode = 1
 offset_top = 4.0
 offset_right = 218.0
 offset_bottom = 35.0
-focus_neighbor_bottom = NodePath("../CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida")
+focus_neighbor_bottom = NodePath("../ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida")
 focus_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_6mw57")
 text = "BatallaHUD.boton.lenguaje"
@@ -103,7 +105,7 @@ popup/item_1/icon = ExtResource("7_q8bqa")
 popup/item_1/checkable = 2
 popup/item_1/id = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="ContenedorBotonesPrincipal" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -117,22 +119,22 @@ offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="CenterContainer"]
+[node name="PanelContainerMargin" type="PanelContainer" parent="ContenedorBotonesPrincipal"]
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerButtonSize" type="PanelContainer" parent="CenterContainer/PanelContainerMargin"]
+[node name="PanelContainerButtonSize" type="PanelContainer" parent="ContenedorBotonesPrincipal/PanelContainerMargin"]
 clip_contents = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize"]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="ButtonEmpezarPartida" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonEmpezarPartida" type="Button" parent="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../../MenuButtonLenguaje")
 focus_neighbor_bottom = NodePath("../ButtonAjustes")
@@ -140,7 +142,7 @@ theme = ExtResource("3_f4jcg")
 text = "MenuPrincipal.boton.empezarPartida"
 script = ExtResource("5_rs0f5")
 
-[node name="ButtonAjustes" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonAjustes" type="Button" parent="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
 focus_neighbor_bottom = NodePath("../ButtonSalir")
@@ -148,7 +150,7 @@ theme = ExtResource("3_eq5mx")
 text = "MenuPrincipal.boton.ajustes"
 script = ExtResource("7_mxkrh")
 
-[node name="ButtonSalir" type="Button" parent="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonSalir" type="Button" parent="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonAjustes")
 theme = ExtResource("3_eq5mx")
@@ -171,6 +173,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_iaj7c")
 }
 
-[connection signal="PressedAnimationEnd" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="." method="OnButtonEmpezarPartidaPressedAnimationEnd"]
-[connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonAjustes" to="." method="OnButtonAjustesPressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonSalir" to="." method="OnButtonSalirPressed"]
+[connection signal="PressedAnimationEnd" from="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="." method="OnButtonEmpezarPartidaPressedAnimationEnd"]
+[connection signal="pressed" from="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonAjustes" to="." method="OnButtonAjustesPressed"]
+[connection signal="pressed" from="ContenedorBotonesPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonSalir" to="." method="OnButtonSalirPressed"]

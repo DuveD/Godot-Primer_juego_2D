@@ -15,6 +15,8 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 [AtributoNivelLog(NivelLog.Info)]
 public partial class MenuPrincipal : Control
 {
+    private bool _menuDesactivado = false;
+
     private bool _navegacionPorTeclado = true;
 
     public const long ID_OPCION_CASTELLANO = 0;
@@ -30,8 +32,11 @@ public partial class MenuPrincipal : Control
     private MenuButton _MenuButtonLenguaje;
     private MenuButton MenuButtonLenguaje => _MenuButtonLenguaje ??= GetNode<MenuButton>("MenuButtonLenguaje");
 
+    private CenterContainer _ContenedorBotonesPrincipal;
+    private CenterContainer ContenedorBotonesPrincipal => _ContenedorBotonesPrincipal ??= GetNode<CenterContainer>("ContenedorBotonesPrincipal");
+
     private List<Button> _BotonesMenu;
-    private List<Button> BotonesMenu => _BotonesMenu ??= UtilidadesNodos.ObtenerNodosDeTipo<Button>(this);
+    private List<Button> BotonesMenu => _BotonesMenu ??= UtilidadesNodos.ObtenerNodosDeTipo<Button>(this.ContenedorBotonesPrincipal);
 
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
     private ButtonEmpezarPartida ButtonEmpezarPartida => _ButtonEmpezarPartida ??= BotonesMenu.OfType<ButtonEmpezarPartida>().FirstOrDefault();
@@ -50,15 +55,59 @@ public partial class MenuPrincipal : Control
 
         InicializarMenuButtonLenguaje();
 
+        ConfigurarBotonesMenu();
+    }
+
+    private void ConfigurarBotonesMenu()
+    {
         this.ButtonEmpezarPartida.GrabFocusSilencioso();
         _ultimoBotonConFocus = this.ButtonEmpezarPartida;
 
         foreach (var boton in BotonesMenu)
+        {
             boton.FocusEntered += () => _ultimoBotonConFocus = boton;
+            boton.Pressed += () => DesactivarMenu();
+        }
+    }
+
+    private void ActivarMenu()
+    {
+        LoggerJuego.Trace("Activamos el menú.");
+
+        _menuDesactivado = false;
+        foreach (var boton in BotonesMenu)
+        {
+            boton.MouseFilter = MouseFilterEnum.Pass; // Aceptamos clicks
+            boton.FocusMode = FocusModeEnum.All;      // Aceptamos teclado
+        }
+    }
+
+    private void DesactivarMenu()
+    {
+        LoggerJuego.Trace("Desactivamos el menú.");
+
+        _menuDesactivado = true;
+        foreach (var boton in BotonesMenu)
+        {
+            boton.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
+            boton.FocusMode = FocusModeEnum.None;       // Ignora teclado
+        }
     }
 
     public override void _Input(InputEvent @event)
     {
+        CambioMetodoImput(@event);
+    }
+
+    private void CambioMetodoImput(InputEvent @event)
+    {
+        if (_menuDesactivado)
+        {
+            LoggerJuego.Trace("EL menú está desactivado.");
+            // Ignora cualquier input
+            return;
+        }
+
         if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
             if (!_navegacionPorTeclado &&
@@ -67,15 +116,17 @@ public partial class MenuPrincipal : Control
                 LoggerJuego.Trace("Activamos la navegación por teclado.");
                 ActivarNavegacionTeclado();
             }
-            return;
         }
-
-        if (@event is InputEventMouse && _navegacionPorTeclado)
+        else if (@event is InputEventMouse)
         {
-            LoggerJuego.Trace("Desactivamos la navegación por teclado.");
-            DesactivarNavegacionTeclado();
+            if (_navegacionPorTeclado)
+            {
+                LoggerJuego.Trace("Desactivamos la navegación por teclado.");
+                DesactivarNavegacionTeclado();
+            }
         }
     }
+
     private void ActivarNavegacionTeclado()
     {
         _navegacionPorTeclado = true;
@@ -111,11 +162,11 @@ public partial class MenuPrincipal : Control
 
         Idioma idioma = GestorIdioma.ObtenerIdiomaDeSistema();
         if (idioma.Codigo == Idioma.ES.Codigo)
-            MenuButtonLenguajeIdPressed(ID_OPCION_CASTELLANO);
+            UtilidadesNodos.CheckItemPorId(popupMenu, ID_OPCION_CASTELLANO);
         else if (idioma.Codigo == Idioma.EN.Codigo)
-            MenuButtonLenguajeIdPressed(ID_OPCION_INGLES);
+            UtilidadesNodos.CheckItemPorId(popupMenu, ID_OPCION_INGLES);
         else
-            MenuButtonLenguajeIdPressed(ID_OPCION_CASTELLANO);
+            UtilidadesNodos.CheckItemPorId(popupMenu, ID_OPCION_CASTELLANO);
     }
 
     private void MenuButtonLenguajeIdPressed(long id)
