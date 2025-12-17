@@ -21,8 +21,8 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Añadido control para no spawnear monedas cerca del jugador.
 - Añadida animación de apagado al salir del juego.
 - Añadidos sonidos a botones y música.
-- Añadida animación al morir el personaje.
-- Mejoras en el gestor de sonido, con crossfade y fade-in y fade-out.
+- Añadida animación al morir el personaje con partículas.
+- Implementado menú de ajustes.
 
 ### v1.3.0
 
