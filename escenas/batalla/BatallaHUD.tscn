@@ -3,9 +3,6 @@
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
 [ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/BatallaHUD.cs" id="1_osa72"]
 
-[sub_resource type="SystemFont" id="SystemFont_8gukk"]
-subpixel_positioning = 0
-
 [node name="BatallaHUD" type="CanvasLayer"]
 script = ExtResource("1_osa72")
 
@@ -19,7 +16,7 @@ offset_bottom = 78.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_fonts/font = SubResource("SystemFont_8gukk")
+theme_override_fonts/font = ExtResource("1_gg8ny")
 theme_override_font_sizes/font_size = 64
 text = "0"
 

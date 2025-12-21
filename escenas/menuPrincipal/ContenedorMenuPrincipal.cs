@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +22,9 @@ public partial class ContenedorMenuPrincipal : CenterContainer
 
     private ButtonAjustes _ButtonAjustes;
     public ButtonAjustes ButtonAjustes => _ButtonAjustes ??= BotonesMenu.OfType<ButtonAjustes>().FirstOrDefault();
+
+    private ButtonSalir _ButtonSalir;
+    public ButtonSalir ButtonSalir => _ButtonSalir ??= BotonesMenu.OfType<ButtonSalir>().FirstOrDefault();
 
     private CanvasLayer _CrtLayer;
     private CanvasLayer CrtLayer => _CrtLayer ??= GetNode<CanvasLayer>("../CRTShutdown");

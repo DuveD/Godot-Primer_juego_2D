@@ -127,9 +127,21 @@ public partial class ContenedorMenuAjustes : CenterContainer
 
 	public override void _Input(InputEvent @event)
 	{
+		// Solo respondemos si el menú es visible.
+		if (!this.Visible)
+			return;
+
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
-			OnScapeButtonPressed();
+			if (this.ButtonAtras.HasFocus())
+			{
+				OnScapeButtonPressed();
+			}
+			else
+			{
+				this.MenuPrincipal.ActivarNavegacionTeclado();
+				this.ButtonAtras.GrabFocusSilencioso();
+			}
 		}
 	}
 

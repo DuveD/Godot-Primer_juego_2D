@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=26 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.cs" id="2_iaj7c"]
 [ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="3_eq5mx"]
 [ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="3_f4jcg"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="4_van17"]
 [ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/ButtonEmpezarPartida.cs" id="5_rs0f5"]
 [ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/ButtonAjustes.cs" id="7_mxkrh"]
 [ext_resource type="Script" uid="uid://dafkl1d6lxkis" path="res://escenas/menuPrincipal/ButtonSalir.cs" id="8_oupjs"]
@@ -11,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.cs" id="9_iaj7c"]
 [ext_resource type="Shader" uid="uid://c07xghhalj6cu" path="res://recursos/shaders/ApagarTV.gdshader" id="9_shader"]
 [ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/ButtonAtras.cs" id="11_0hdc8"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="11_sgq14"]
 [ext_resource type="PackedScene" uid="uid://doyxp6l6eg05" path="res://escenas/modelos/controles/ControlSeleccion.tscn" id="11_vstw6"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/modelos/controles/ButtonPersonalizado.tscn" id="12_van17"]
 
@@ -122,6 +124,8 @@ theme_override_constants/separation = 18
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ButtonAjustes")
 theme = ExtResource("3_f4jcg")
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 27
 text = "MenuPrincipal.boton.empezarPartida"
 script = ExtResource("5_rs0f5")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -132,6 +136,8 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
 focus_neighbor_bottom = NodePath("../ButtonSalir")
 theme = ExtResource("3_eq5mx")
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 27
 text = "MenuPrincipal.boton.ajustes"
 script = ExtResource("7_mxkrh")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -141,6 +147,8 @@ NombreSonidoOnMouseEntered = "kick.mp3"
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonAjustes")
 theme = ExtResource("3_eq5mx")
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 27
 text = "MenuPrincipal.boton.salir"
 script = ExtResource("8_oupjs")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -179,7 +187,8 @@ theme_override_constants/separation = 18
 
 [node name="LabelSeccionSonido" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 24
 text = "MenuPrincipal.seccion.sonido"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -188,6 +197,9 @@ vertical_alignment = 1
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenGeneral"
+
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("11_sgq14")
 
 [node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
@@ -199,6 +211,9 @@ focus_neighbor_bottom = NodePath("../../ControlVolumenMusica/HSlider")
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenMusica"
+
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("11_sgq14")
 
 [node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
@@ -212,6 +227,9 @@ layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenEfectos"
 
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("11_sgq14")
+
 [node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
 
@@ -221,7 +239,8 @@ focus_neighbor_bottom = NodePath("../../ControlLenguaje/OptionButton")
 
 [node name="LabelSeccionInterfaz" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 24
 text = "MenuPrincipal.seccion.interfaz"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -231,13 +250,18 @@ layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.lenguaje"
 
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlLenguaje" index="0"]
+theme_override_fonts/font = ExtResource("11_sgq14")
+
 [node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlLenguaje" index="2"]
 focus_neighbor_top = NodePath("../../ControlVolumenSonido/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlNivelLog/OptionButton")
+theme_override_fonts/font = ExtResource("11_sgq14")
 
 [node name="LabelSeccionDesarrollo" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 24
 text = "MenuPrincipal.seccion.desarrollo"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -247,10 +271,14 @@ layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.nivelLog"
 
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlNivelLog" index="0"]
+theme_override_fonts/font = ExtResource("11_sgq14")
+
 [node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlNivelLog" index="2"]
 focus_neighbor_left = NodePath("../../HBoxContainer/ButtonAtras")
 focus_neighbor_top = NodePath("../../ControlLenguaje/OptionButton")
 focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
+theme_override_fonts/font = ExtResource("11_sgq14")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
 layout_mode = 2
@@ -261,6 +289,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_neighbor_right = NodePath("../../ControlNivelLog/OptionButton")
+theme_override_fonts/font = ExtResource("11_sgq14")
 theme_override_styles/focus = SubResource("StyleBoxFlat_vstw6")
 text = "MenuPrincipal.ajustes.atras"
 script = ExtResource("11_0hdc8")
@@ -279,6 +308,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../ButtonAtras")
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_mode = 0
+theme_override_fonts/font = ExtResource("11_sgq14")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0hdc8")
 disabled = true
 text = "MenuPrincipal.ajustes.guardar"
@@ -300,6 +330,20 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_iaj7c")
 }
+
+[node name="LabelVersion" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.64, 0.64, 0.64, 1)
+text = "Version"
 
 [connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonAjustes" to="." method="MostrarContenedorMenuAjustes"]

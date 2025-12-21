@@ -1,4 +1,5 @@
 using Godot;
+using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.modelos.interfaces;
 using Primerjuego2D.nucleo.utilidades;
@@ -21,6 +22,9 @@ public partial class MenuPrincipal : Control
     private ContenedorMenuAjustes _ContenedorMenuAjustes;
     public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
 
+    private Label _LabelVersion;
+    private Label LabelVersion => _LabelVersion ??= GetNode<Label>("LabelVersion");
+
     public Control _UltimoElementoConFocus;
     public Control UltimoElementoConFocus
     {
@@ -35,6 +39,8 @@ public partial class MenuPrincipal : Control
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        LabelVersion.Text = "v" + Ajustes.Version;
 
         GrabFocusPrimerElemento();
     }
@@ -84,25 +90,31 @@ public partial class MenuPrincipal : Control
         }
     }
 
-    private void ActivarNavegacionTeclado()
+    public void ActivarNavegacionTeclado()
     {
-        _navegacionPorTeclado = true;
+        if (!_navegacionPorTeclado)
+        {
+            _navegacionPorTeclado = true;
 
-        this.ContenedorMenuPrincipal.ActivarNavegacionTeclado();
-        this.ContenedorMenuAjustes.ActivarNavegacionTeclado();
+            this.ContenedorMenuPrincipal.ActivarNavegacionTeclado();
+            this.ContenedorMenuAjustes.ActivarNavegacionTeclado();
 
-        GrabFocusUltimoBotonConFocus();
+            GrabFocusUltimoBotonConFocus();
+        }
     }
 
-    private void DesactivarNavegacionTeclado()
+    public void DesactivarNavegacionTeclado()
     {
-        _navegacionPorTeclado = false;
+        if (_navegacionPorTeclado)
+        {
+            _navegacionPorTeclado = false;
 
-        this.ContenedorMenuPrincipal.DesactivarNavegacionTeclado();
-        this.ContenedorMenuAjustes.DesactivarNavegacionTeclado();
+            this.ContenedorMenuPrincipal.DesactivarNavegacionTeclado();
+            this.ContenedorMenuAjustes.DesactivarNavegacionTeclado();
+        }
     }
 
-    private void GrabFocusUltimoBotonConFocus()
+    public void GrabFocusUltimoBotonConFocus()
     {
         if (this.UltimoElementoConFocus is IFocusSilencioso elementoConFocusSilencioso)
         {

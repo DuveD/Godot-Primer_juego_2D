@@ -22,6 +22,8 @@ public static class Ajustes
     public static string NombreArchivoAjustes { get; } = "ajustes.ini";
     public static string RutaArchivoAjustes { get; } = $"{RutaJuego}/{NombreArchivoAjustes}";
 
+    public static string Version { get; } = (string)ProjectSettings.GetSetting("application/config/version");
+
     // ================= SONIDO =================
     public static int VolumenGeneral
     {
