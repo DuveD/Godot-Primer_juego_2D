@@ -11,46 +11,75 @@ namespace Primerjuego2D.escenas.objetos.moneda;
 [AtributoNivelLog(NivelLog.Info)]
 public partial class Moneda : Area2D
 {
-	// Señal "Recogida" para indicar que la moneda ha sido recogida por el jugador.
+	[Export]
+	public int Valor { get; set; } = 1;
+
+	[Export]
+	public float VelocidadAnimacion { get; set; } = 1.0f;
+
+	// Si es -1, no se autodestruye. Si >0, se destruye automáticamente después de ese tiempo.
+	[Export]
+	public float TiempoDestruccion { get; set; } = -1f;
 
 	[Signal]
-	public delegate void RecogidaEventHandler();
+	public delegate void RecogidaEventHandler(Moneda moneda);
 
 	private CollisionShape2D _CollisionShape2D;
-
 	private CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("CollisionShape2D");
 
 	private static readonly PackedScene TextoFlotanteScene = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<TextoFlotante>());
+
+	private AnimationPlayer _AnimationPlayerRotacion;
+	private AnimationPlayer AnimationPlayerRotacion => _AnimationPlayerRotacion ??= GetNode<AnimationPlayer>("AnimationPlayerRotacion");
+
+	private Timer _TimerDestruccion;
 
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
 
 		UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.OBJETOS);
+
+		this.AnimationPlayerRotacion.SpeedScale = this.VelocidadAnimacion;
+
+		// Configuramos timer de autodestrucción
+		if (TiempoDestruccion > 0)
+		{
+			_TimerDestruccion = new Timer();
+			_TimerDestruccion.WaitTime = TiempoDestruccion;
+			_TimerDestruccion.OneShot = true;
+			_TimerDestruccion.Autostart = true;
+			_TimerDestruccion.Timeout += OnTimerDestruccionTimeout;
+			AddChild(_TimerDestruccion);
+		}
 	}
 
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body is Jugador)
-		{
 			OnBodyEnteredJugador();
-		}
 	}
 
 	private void OnBodyEnteredJugador()
 	{
-		LoggerJuego.Info("Moneda recogida.");
+		LoggerJuego.Info("Moneda (" + this.Valor + ") recogida.");
 
-		// Emitimos la señal de que el jugador ha recogido la moneda.
-
-		EmitSignal(SignalName.Recogida);
+		EmitSignal(SignalName.Recogida, this);
 
 		Global.GestorAudio.ReproducirSonido("retro_coin.mp3");
 
-		// Mostramos el texto flotante al recoger la moneda.
 		MostrarTextoFlotante();
 
-		// Cuando el jugador recoja la moneda, la destruimos.
+		// Cancelamos el timer si estaba activo
+		if (_TimerDestruccion != null)
+			_TimerDestruccion.Stop();
+
+		QueueFree();
+	}
+
+	private void OnTimerDestruccionTimeout()
+	{
+		LoggerJuego.Trace("Moneda autodestruida tras " + TiempoDestruccion + " segundos.");
 		QueueFree();
 	}
 
@@ -58,7 +87,7 @@ public partial class Moneda : Area2D
 	{
 		var texto = TextoFlotanteScene.Instantiate<TextoFlotante>();
 
-		texto.Texto = " +1";
+		texto.Texto = " +" + this.Valor.ToString();
 		texto.Color = Colors.Gold;
 		texto.PosicionGlobal = GlobalPosition;
 

@@ -1,6 +1,7 @@
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -80,9 +81,9 @@ public partial class Batalla : Node
         EmitSignal(SignalName.GameOverFinalizado);
     }
 
-    public void SumarPuntuacion()
+    public void SumarPuntuacion(Moneda moneda)
     {
-        this.Score++;
+        this.Score += moneda.Valor;
         this.BatallaHUD.ActualizarPuntuacion(Score);
     }
 

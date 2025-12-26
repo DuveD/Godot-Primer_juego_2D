@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -10,12 +11,11 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class SpawnMonedas : Control
 {
-
 	public int MonedasRecogidas;
 
 	// Señal "MonedaRecogida" para indicar que el jugador ha recogido una moneda.
 	[Signal]
-	public delegate void MonedaRecogidaEventHandler();
+	public delegate void MonedaRecogidaEventHandler(Moneda moneda);
 
 	[Export]
 	public PackedScene MonedaScene;
@@ -31,58 +31,75 @@ public partial class SpawnMonedas : Control
 		LoggerJuego.Trace(this.Name + " Ready.");
 
 		this.MonedasRecogidas = 0;
+
+		Spawn();
 	}
 
 	public override void _Process(double delta)
 	{
-		if (!ExisteMoneda())
-			Spawn();
-	}
-
-	public bool ExisteMoneda()
-	{
-		var monedas = GetTree().CurrentScene.GetChildren().OfType<Moneda>();
-		return monedas.Any();
 	}
 
 	public void Spawn()
 	{
 		LoggerJuego.Trace("Spawneamos una nueva moneda.");
 
-		Vector2 centroJugador = Jugador?.GlobalPosition ?? Vector2.Inf;
+		// Moneda normal
+		SpawnMoneda();
 
-		float x = (float)GD.RandRange(GlobalPosition.X, GlobalPosition.X + Size.X);
-		float y = (float)GD.RandRange(GlobalPosition.Y, GlobalPosition.Y + Size.Y);
-
-		Vector2 nuevaPosicionMoneda = new Vector2(x, y);
-
-		if (Jugador != null)
+		// Moneda especial según probabilidad
+		float prob = 0.1f + 0.4f * Mathf.Exp(-0.046f * MonedasRecogidas);
+		if (Randomizador.GetRandomFloat() < prob)
 		{
-			while (UtilidadesMatematicas.PuntosCerca(centroJugador, nuevaPosicionMoneda, this.DistanciaMinima))
-			{
-				LoggerJuego.Trace("La distancia de la nueva moneda está cerca del jugador. Generamos otro punto.");
-
-				x = (float)GD.RandRange(GlobalPosition.X, GlobalPosition.X + Size.X);
-				y = (float)GD.RandRange(GlobalPosition.Y, GlobalPosition.Y + Size.Y);
-
-				nuevaPosicionMoneda = new Vector2(x, y);
-			}
+			LoggerJuego.Trace("Spawneamos una moneda especial.");
+			SpawnMoneda(true);
 		}
-
-		var moneda = MonedaScene.Instantiate<Moneda>();
-		moneda.Recogida += OnMonedaRecogida;
-
-		GetTree().CurrentScene.AddChild(moneda);
-
-		moneda.Position = nuevaPosicionMoneda;
 	}
 
-	public void OnMonedaRecogida()
+	private Moneda SpawnMoneda(bool monedaEspecial = false)
+	{
+		var moneda = MonedaScene.Instantiate<Moneda>();
+
+		if (monedaEspecial)
+		{
+			moneda.Valor = 5;
+			moneda.VelocidadAnimacion = 2.0f;
+			moneda.TiempoDestruccion = 3.0f;
+		}
+
+		moneda.Recogida += (m) => OnMonedaRecogida(m, !monedaEspecial);
+
+		GetTree().CurrentScene.AddChild(moneda);
+		moneda.Position = ObtenerPosicionAleatoriaSegura();
+
+		return moneda;
+	}
+
+	private Vector2 ObtenerPosicionAleatoriaSegura()
+	{
+		Vector2 nuevaPos;
+		Vector2 centroJugador = Jugador?.GlobalPosition ?? Vector2.Inf;
+
+		do
+		{
+			float x = (float)Randomizador.GetRandomDouble(GlobalPosition.X, GlobalPosition.X + Size.X);
+			float y = (float)Randomizador.GetRandomDouble(GlobalPosition.Y, GlobalPosition.Y + Size.Y);
+			nuevaPos = new Vector2(x, y);
+		}
+		while (Jugador != null && UtilidadesMatematicas.PuntosCerca(centroJugador, nuevaPos, DistanciaMinima));
+
+		return nuevaPos;
+	}
+
+
+	public void OnMonedaRecogida(Moneda moneda, bool spawnMoneda)
 	{
 		this.MonedasRecogidas += 1;
 
 		// Emitimos la señal de que el jugador ha recogido una moneda.
-		EmitSignal(SignalName.MonedaRecogida);
+		EmitSignal(SignalName.MonedaRecogida, moneda);
+
+		if (spawnMoneda)
+			CallDeferred(nameof(Spawn));
 	}
 
 	public void DestruirMonedas()
