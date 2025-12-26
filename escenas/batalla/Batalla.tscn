@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=10 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://qrdflnq7hp0f" path="res://escenas/batalla/BatallaControlador.tscn" id="5_kuqqq"]
 [ext_resource type="Script" uid="uid://b4ipj0a72tkyu" path="res://escenas/batalla/SpawnMonedas.cs" id="6_w3cb5"]
 [ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/moneda/Moneda.tscn" id="7_t4q4m"]
+[ext_resource type="PackedScene" uid="uid://cj766hajq1d2u" path="res://escenas/objetos/moneda/MonedaEspecial.tscn" id="8_c2dy2"]
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -54,6 +55,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_w3cb5")
 MonedaScene = ExtResource("7_t4q4m")
+MonedaEspecialScene = ExtResource("8_c2dy2")
 Jugador = NodePath("../Jugador")
 
 [connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]

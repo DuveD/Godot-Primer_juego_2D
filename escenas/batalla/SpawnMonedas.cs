@@ -21,6 +21,9 @@ public partial class SpawnMonedas : Control
 	public PackedScene MonedaScene;
 
 	[Export]
+	public PackedScene MonedaEspecialScene;
+
+	[Export]
 	public int DistanciaMinima = 200;
 
 	[Export]
@@ -57,16 +60,18 @@ public partial class SpawnMonedas : Control
 
 	private Moneda SpawnMoneda(bool monedaEspecial = false)
 	{
-		var moneda = MonedaScene.Instantiate<Moneda>();
+		Moneda moneda;
 
 		if (monedaEspecial)
 		{
-			moneda.Valor = 5;
-			moneda.VelocidadAnimacion = 2.0f;
-			moneda.TiempoDestruccion = 3.0f;
+			moneda = MonedaEspecialScene.Instantiate<MonedaEspecial>();
+		}
+		else
+		{
+			moneda = MonedaScene.Instantiate<Moneda>();
 		}
 
-		moneda.Recogida += (m) => OnMonedaRecogida(m, !monedaEspecial);
+		moneda.Recogida += OnMonedaRecogida;
 
 		GetTree().CurrentScene.AddChild(moneda);
 		moneda.Position = ObtenerPosicionAleatoriaSegura();
@@ -91,14 +96,15 @@ public partial class SpawnMonedas : Control
 	}
 
 
-	public void OnMonedaRecogida(Moneda moneda, bool spawnMoneda)
+	public void OnMonedaRecogida(Moneda moneda)
 	{
 		this.MonedasRecogidas += 1;
 
 		// Emitimos la señal de que el jugador ha recogido una moneda.
 		EmitSignal(SignalName.MonedaRecogida, moneda);
 
-		if (spawnMoneda)
+		bool esMonedaEspecial = moneda is MonedaEspecial;
+		if (!esMonedaEspecial)
 			CallDeferred(nameof(Spawn));
 	}
 

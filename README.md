@@ -15,6 +15,10 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
+### v1.5.0
+
+- Añadidas monedas especiales que spawnean de manera aleatória y desaparecen pasado un tiempo.
+
 ### v1.4.0
 
 - Cambio de look & feel del uso de los botones del menú principal según se use teclado o ratón.
