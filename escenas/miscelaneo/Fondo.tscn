@@ -5,46 +5,20 @@
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pv8br"]
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(1, 400, 1)
+emission_box_extents = Vector3(1, 200, 1)
 spread = 0.0
 initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 
-[node name="Fondo" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -380.0
-offset_bottom = -620.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Fondo" type="Node2D"]
 script = ExtResource("1_nkpdo")
 
-[node name="ColorFondo" type="ColorRect" parent="."]
-clip_contents = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0, 0.45098, 0.45098, 1)
+[node name="SpriteFondo" type="Sprite2D" parent="."]
+modulate = Color(0, 0.45, 0.45, 1)
 
-[node name="ControlParticulas" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
-
-[node name="GpuParticles2D" type="GPUParticles2D" parent="ControlParticulas"]
-modulate = Color(0.94509804, 0.94509804, 0.91764706, 1)
-self_modulate = Color(0.94509804, 0.94509804, 0.91764706, 1)
+[node name="GpuParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 500
 lifetime = 6.0
 preprocess = 20.0

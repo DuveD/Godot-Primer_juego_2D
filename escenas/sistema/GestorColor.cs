@@ -4,7 +4,7 @@ using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.sistema;
 
-public partial class GestorColor : ColorRect
+public partial class GestorColor : Node
 {
     [Export]
     public Color ColorFondo { get; set; } = new Color(ConstantesColores.NEGRO_ROTO);

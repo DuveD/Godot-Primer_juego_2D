@@ -28,6 +28,8 @@ public partial class SpawnMonedas : Control
 
 	public override void _Ready()
 	{
+		LoggerJuego.Trace(this.Name + " Ready.");
+
 		this.MonedasRecogidas = 0;
 	}
 
@@ -58,7 +60,7 @@ public partial class SpawnMonedas : Control
 		{
 			while (UtilidadesMatematicas.PuntosCerca(centroJugador, nuevaPosicionMoneda, this.DistanciaMinima))
 			{
-				LoggerJuego.Info("La distancia de la nueva moneda está cerca del jugador. Generamos otro punto.");
+				LoggerJuego.Trace("La distancia de la nueva moneda está cerca del jugador. Generamos otro punto.");
 
 				x = (float)GD.RandRange(GlobalPosition.X, GlobalPosition.X + Size.X);
 				y = (float)GD.RandRange(GlobalPosition.Y, GlobalPosition.Y + Size.Y);

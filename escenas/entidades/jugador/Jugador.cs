@@ -41,6 +41,8 @@ public partial class Jugador : CharacterBody2D
     {
         LoggerJuego.Trace(this.Name + " Ready.");
 
+        UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.JUGADOR);
+
         // Oculatamos el sprite al inicio de la partida.
         this.Hide();
 
