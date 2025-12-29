@@ -1,4 +1,5 @@
-using ButtonPersonalizado = Primerjuego2D.escenas.modelos.controles.ButtonPersonalizado;
+
+using Primerjuego2D.escenas.modelos.controles;
 
 namespace Primerjuego2D.escenas.menuPrincipal;
 

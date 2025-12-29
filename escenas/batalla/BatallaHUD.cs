@@ -96,8 +96,8 @@ public partial class BatallaHUD : CanvasLayer
     public void MostrarMensajePausa(bool mostrar)
     {
         if (mostrar)
-            this.MensajePausa.Hide();
-        else
             this.MensajePausa.Show();
+        else
+            this.MensajePausa.Hide();
     }
 }

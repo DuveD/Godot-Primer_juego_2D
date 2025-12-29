@@ -1,5 +1,5 @@
 using Godot;
-using Primerjuego2D.nucleo.modelos.interfaces;
+using Primerjuego2D.escenas.modelos.interfaces;
 
 namespace Primerjuego2D.escenas.modelos.controles;
 

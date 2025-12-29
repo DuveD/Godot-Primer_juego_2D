@@ -39,11 +39,11 @@ public partial class BatallaControlador : Node
     private SpawnEnemigos _SpawnEnemigos;
     private SpawnEnemigos SpawnEnemigos => _SpawnEnemigos ??= GetNode<SpawnEnemigos>("../SpawnEnemigos");
 
-    private GestorEstadisticas _GestorEstadisticas = new GestorEstadisticas();
-
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        GestorEstadisticas.InicializarPartida();
     }
 
     public override void _Input(InputEvent @event)
@@ -102,7 +102,8 @@ public partial class BatallaControlador : Node
 
         BatallaEnCurso = false;
 
-        _GestorEstadisticas.FinalizarPartida(this.Puntuacion);
+        GestorEstadisticas.PartidaActual.RegistrarPuntuacion(this.Puntuacion);
+        GestorEstadisticas.FinalizarPartida();
 
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
@@ -111,7 +112,7 @@ public partial class BatallaControlador : Node
     public void SumarPuntuacion(Moneda moneda)
     {
         this.Puntuacion += moneda.Valor;
-        _GestorEstadisticas.RegistrarMoneda(moneda is MonedaEspecial);
+        GestorEstadisticas.PartidaActual.RegistrarMoneda(moneda is MonedaEspecial);
 
         EmitSignal(SignalName.PuntuacionActualizada, Puntuacion);
     }

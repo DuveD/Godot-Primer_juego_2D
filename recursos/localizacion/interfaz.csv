@@ -6,11 +6,11 @@ BatallaHUD.mensaje.gameOver,Game Over,Game Over
 BatallaHUD.mensaje.pausa,Juego Pausado,Game Paused
 MenuPrincipal.boton.empezarPartida,Inicio,Start
 MenuPrincipal.boton.ajustes,Ajustes,Settings
-MenuPrincipal.boton.cargarPartida,Cargar Partida,Load Game
+MenuPrincipal.boton.estadisticas,Estadísticas,Statistics
 MenuPrincipal.boton.salir,Salir,Quit
-MenuPrincipal.seccion.sonido,─ Sonido ─,─ Sound ─
-MenuPrincipal.seccion.interfaz,─ Interfaz ─,─ Interface ─
-MenuPrincipal.seccion.desarrollo,─ Desarrollo ─,─ Developement ─
+MenuPrincipal.ajustes.tituloSonido,─ Sonido ─,─ Sound ─
+MenuPrincipal.ajustes.tituloInterfaz,─ Interfaz ─,─ Interface ─
+MenuPrincipal.ajustes.tituloDesarrollo,─ Desarrollo ─,─ Developement ─
 MenuPrincipal.ajustes.volumenGeneral,Sonido general,General sound
 MenuPrincipal.ajustes.volumenMusica,Musica,Music
 MenuPrincipal.ajustes.volumenEfectos,Efectos,Effects
@@ -18,5 +18,11 @@ MenuPrincipal.ajustes.lenguaje,Lenguaje,Language
 MenuPrincipal.ajustes.nivelLog,Nivel de log,Log level
 MenuPrincipal.ajustes.atras,Volver ⏎,Back ⏎
 MenuPrincipal.ajustes.guardar,Guardar,Save
+MenuPrincipal.estadisticas.titulo,Estadísticas,Statistics
+MenuPrincipal.estadisticas.partidasJugadas,Partidas jugadas,Played games
+MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
+MenuPrincipal.estadisticas.monedasRecogidas,Monedas recogidas,Coins collected
+MenuPrincipal.estadisticas.monedasEspecialesRecogidas,Monedas especiales recogidas,Special coins collected
+MenuPrincipal.estadisticas.enemigosDerrotados,Enemigos derrotados,Defeated enemies
 General.dioma.es,Español 🇪🇸,Spanish 🇪🇸
 General.dioma.en,Inglés 🇬🇧,English 🇬🇧

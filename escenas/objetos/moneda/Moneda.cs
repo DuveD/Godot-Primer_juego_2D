@@ -1,8 +1,8 @@
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.miscelaneo;
+using Primerjuego2D.escenas.modelos.objetos;
 using Primerjuego2D.nucleo.constantes;
-using Primerjuego2D.nucleo.modelos.objetos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
@@ -19,6 +19,7 @@ public partial class Moneda : Consumible
 	public float VelocidadAnimacion { get; set; } = 1.0f;
 
 	// Si es -1, no se autodestruye. Si >0, se destruye automáticamente después de ese tiempo.
+
 	[Export]
 	public float TiempoDestruccion { get; set; } = -1f;
 
@@ -47,6 +48,7 @@ public partial class Moneda : Consumible
 		this.AnimationPlayerRotacion.SpeedScale = this.VelocidadAnimacion;
 
 		// Configuramos timer de autodestrucción
+
 		if (TiempoDestruccion > 0)
 		{
 			_TimerDestruccion = new Timer();
@@ -69,9 +71,11 @@ public partial class Moneda : Consumible
 		MostrarTextoFlotante();
 
 		// Cancelamos el timer si estaba activo.
+
 		_TimerDestruccion?.Stop();
 
 		// Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
+
 		CallDeferred(Node.MethodName.QueueFree);
 	}
 
@@ -80,6 +84,7 @@ public partial class Moneda : Consumible
 		LoggerJuego.Trace("Moneda autodestruida tras " + TiempoDestruccion + " segundos.");
 
 		// Usamos CallDeferred para que no choque con signals o procesamiento actual.
+
 		CallDeferred(Node.MethodName.QueueFree);
 	}
 

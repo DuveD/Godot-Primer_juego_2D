@@ -20,6 +20,7 @@ public partial class Global : Node
     public Global()
     {
         Ajustes.CargarAjustes();
+        GestorEstadisticas.CargarEstadisticas();
 
         // Informar idioma.
         Idioma idioma = Ajustes.Idioma;

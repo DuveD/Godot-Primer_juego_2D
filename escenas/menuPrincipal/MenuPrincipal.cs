@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using Godot;
+using Primerjuego2D.escenas.modelos;
+using Primerjuego2D.escenas.modelos.controles;
+using Primerjuego2D.escenas.modelos.interfaces;
 using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
-using Primerjuego2D.nucleo.modelos.interfaces;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -9,9 +12,7 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
-    private bool _opcionPulsada = false;
-
-    private bool _navegacionPorTeclado = true;
+    private bool _modoNavegacionTeclado = true;
 
     private ColorRect _Fondo;
     private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
@@ -22,17 +23,29 @@ public partial class MenuPrincipal : Control
     private ContenedorMenuAjustes _ContenedorMenuAjustes;
     public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
 
+    private ContenedorMenuEstadisticas _ContenedorMenuEstadisticas;
+    public ContenedorMenuEstadisticas ContenedorMenuEstadisticas => _ContenedorMenuEstadisticas ??= GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
+
+    private IEnumerable<Control> Menus =>
+    [
+    ContenedorMenuPrincipal,
+    ContenedorMenuAjustes,
+    ContenedorMenuEstadisticas
+    ];
+
+    public ContenedorMenu UltimoContenedorMostrado;
+
     private Label _LabelVersion;
     private Label LabelVersion => _LabelVersion ??= GetNode<Label>("LabelVersion");
 
     public Control _UltimoElementoConFocus;
-    public Control UltimoElementoConFocus
+    public Control UltimoElementoConFoco
     {
         get => _UltimoElementoConFocus;
         set
         {
             _UltimoElementoConFocus = value;
-            LoggerJuego.Trace("Último elemento con focus actualizado a: " + value.Name);
+            LoggerJuego.Trace("Último elemento con focus actualizado a '" + value.Name + "'.");
         }
     }
 
@@ -42,39 +55,24 @@ public partial class MenuPrincipal : Control
 
         LabelVersion.Text = "v" + Ajustes.Version;
 
-        GrabFocusPrimerElemento();
-    }
+        this.ContenedorMenuPrincipal.FocoElemento += InformarUltimoElementoConFoco;
+        this.ContenedorMenuAjustes.FocoElemento += InformarUltimoElementoConFoco;
+        this.ContenedorMenuEstadisticas.FocoElemento += InformarUltimoElementoConFoco;
 
-    private void GrabFocusPrimerElemento()
-    {
-        if (this.ContenedorMenuPrincipal.Visible)
-        {
-            this.ContenedorMenuPrincipal.ButtonEmpezarPartida.GrabFocusSilencioso();
-        }
-        else
-        {
-            this.ContenedorMenuAjustes.ControlVolumenGeneral.SliderVolumen.GrabFocusSilencioso();
-        }
+        GrabFocusPrimerElemento(this.ContenedorMenuPrincipal);
     }
 
     public override void _Input(InputEvent @event)
     {
-        CambioMetodoImput(@event);
+        DetectarMetodoDeEntrada(@event);
     }
 
-    private void CambioMetodoImput(InputEvent @event)
+    private void DetectarMetodoDeEntrada(InputEvent @event)
     {
-        if (_opcionPulsada)
-        {
-            LoggerJuego.Trace("EL menú está desactivado.");
-            // Ignora cualquier input
-            return;
-        }
-
         if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
-            if (!_navegacionPorTeclado &&
-                UtilidadesControles.IsActionPressed(@event, ConstantesAcciones.UP, ConstantesAcciones.RIGHT, ConstantesAcciones.DOWN, ConstantesAcciones.LEFT))
+            if (!_modoNavegacionTeclado &&
+                UtilidadesControles.IsActionPressed(@event, ConstantesAcciones.UP, ConstantesAcciones.RIGHT, ConstantesAcciones.DOWN, ConstantesAcciones.LEFT, ConstantesAcciones.ESCAPE))
             {
                 LoggerJuego.Trace("Activamos la navegación por teclado.");
                 ActivarNavegacionTeclado();
@@ -82,7 +80,7 @@ public partial class MenuPrincipal : Control
         }
         else if (@event is InputEventMouse)
         {
-            if (_navegacionPorTeclado)
+            if (_modoNavegacionTeclado)
             {
                 LoggerJuego.Trace("Desactivamos la navegación por teclado.");
                 DesactivarNavegacionTeclado();
@@ -92,77 +90,87 @@ public partial class MenuPrincipal : Control
 
     public void ActivarNavegacionTeclado()
     {
-        if (!_navegacionPorTeclado)
+        if (!_modoNavegacionTeclado)
         {
-            _navegacionPorTeclado = true;
+            _modoNavegacionTeclado = true;
 
             this.ContenedorMenuPrincipal.ActivarNavegacionTeclado();
             this.ContenedorMenuAjustes.ActivarNavegacionTeclado();
 
-            GrabFocusUltimoBotonConFocus();
+            GrabFocusUltimoBotonConFoco();
         }
     }
 
     public void DesactivarNavegacionTeclado()
     {
-        if (_navegacionPorTeclado)
+        if (_modoNavegacionTeclado)
         {
-            _navegacionPorTeclado = false;
+            _modoNavegacionTeclado = false;
 
             this.ContenedorMenuPrincipal.DesactivarNavegacionTeclado();
             this.ContenedorMenuAjustes.DesactivarNavegacionTeclado();
         }
     }
 
-    public void GrabFocusUltimoBotonConFocus()
+    public void InformarUltimoElementoConFoco(Control ultimoElementoConFoco)
     {
-        if (this.UltimoElementoConFocus is IFocusSilencioso elementoConFocusSilencioso)
-        {
+        this.UltimoElementoConFoco = ultimoElementoConFoco;
+    }
+
+    public void GrabFocusUltimoBotonConFoco()
+    {
+        if (UltimoElementoConFoco == null)
+            return;
+
+        if (this.UltimoElementoConFoco is IFocusSilencioso elementoConFocusSilencioso)
             elementoConFocusSilencioso.GrabFocusSilencioso();
-        }
         else
-        {
-            this.UltimoElementoConFocus.GrabFocus();
-        }
+            this.UltimoElementoConFoco.GrabFocus();
     }
 
-    private void MostrarContenedorMenuAjustes()
+    public void MostrarMenuPrincipal()
     {
-        LoggerJuego.Trace("Botón 'ButtonAjustes' pulsado.");
-
-        Global.GestorAudio.ReproducirSonido("digital_click.mp3");
-
-        this.ContenedorMenuPrincipal.Visible = false;
-        this.ContenedorMenuAjustes.Visible = true;
-
-        if (_navegacionPorTeclado)
-        {
-            GrabFocusPrimerElemento();
-        }
-        else
-        {
-            this.UltimoElementoConFocus = this.ContenedorMenuAjustes.ControlVolumenGeneral.SliderVolumen;
-        }
-    }
-
-    public void MostrarContenedorMenuprincipal()
-    {
-        LoggerJuego.Trace("Botón Ajustes 'Atrás' pulsado.");
-
-        Global.GestorAudio.ReproducirSonido("digital_click.mp3");
-
-        this.ContenedorMenuAjustes.Visible = false;
-        this.ContenedorMenuPrincipal.Visible = true;
-
         this.ContenedorMenuPrincipal.ActivarFocusBotones();
 
-        if (_navegacionPorTeclado)
-        {
-            this.ContenedorMenuPrincipal.ButtonAjustes.GrabFocusSilencioso();
-        }
+        MostrarMenu(this.ContenedorMenuPrincipal);
+    }
+
+    private void MostrarMenuAjustes()
+    {
+        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
+
+        MostrarMenu(this.ContenedorMenuAjustes);
+    }
+
+    private void MostrarMenuEstadisticas()
+    {
+        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
+
+        MostrarMenu(this.ContenedorMenuEstadisticas);
+    }
+
+    private void MostrarMenu(ContenedorMenu contenedorMenu)
+    {
+        foreach (var menu in Menus)
+            menu.Visible = false;
+
+        contenedorMenu.Visible = true;
+        this.UltimoContenedorMostrado = contenedorMenu;
+
+        GrabFocusPrimerElemento(contenedorMenu);
+    }
+
+    private void GrabFocusPrimerElemento(ContenedorMenu contenedorMenu)
+    {
+        Control elementoASeleccionar = contenedorMenu.ObtenerPrimerElemento();
+        if (elementoASeleccionar == null) return;
+
+        if (_modoNavegacionTeclado)
+            if (elementoASeleccionar is IFocusSilencioso elementoConFocusSilencioso)
+                elementoConFocusSilencioso.GrabFocusSilencioso();
+            else
+                elementoASeleccionar.GrabFocus();
         else
-        {
-            this.UltimoElementoConFocus = this.ContenedorMenuPrincipal.ButtonAjustes;
-        }
+            this.UltimoElementoConFoco = elementoASeleccionar;
     }
 }

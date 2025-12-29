@@ -39,8 +39,6 @@ public partial class ButtonEmpezarPartida : ButtonPersonalizado
 		if (_blinking) return;
 		_blinking = true;
 
-		Global.GestorAudio.ReproducirSonido("digital_click.mp3");
-
 		// Limpiar Tween anterior
 		_tween?.Kill();
 

@@ -1,4 +1,4 @@
-namespace Primerjuego2D.nucleo.modelos.interfaces;
+namespace Primerjuego2D.escenas.modelos.interfaces;
 
 public interface IFocusSilencioso
 {

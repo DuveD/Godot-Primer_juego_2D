@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Primerjuego2D.escenas.modelos;
+using Primerjuego2D.escenas.modelos.interfaces;
 using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.localizacion;
@@ -14,7 +16,7 @@ using ControlSlider = Primerjuego2D.escenas.modelos.controles.ControlSlider;
 
 namespace Primerjuego2D.escenas.menuPrincipal;
 
-public partial class ContenedorMenuAjustes : CenterContainer
+public partial class ContenedorMenuAjustes : ContenedorMenu
 {
 	private ControlSlider _ControlVolumenGeneral;
 	public ControlSlider ControlVolumenGeneral => _ControlVolumenGeneral ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenGeneral");
@@ -37,9 +39,6 @@ public partial class ContenedorMenuAjustes : CenterContainer
 	private ButtonPersonalizado _ButtonGuardar;
 	private ButtonPersonalizado ButtonGuardar => _ButtonGuardar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
-	private MenuPrincipal _MenuPrincipal;
-	private MenuPrincipal MenuPrincipal => _MenuPrincipal ??= this.GetParent<MenuPrincipal>();
-
 	private List<Control> ElementosMenuAjustes;
 
 	// Ajustes actuales.
@@ -60,6 +59,39 @@ public partial class ContenedorMenuAjustes : CenterContainer
 
 		// Cargar ajustes actuales.
 		CargarValoresDeAjustes();
+	}
+
+	private void ConfigurarFocusElementos()
+	{
+		LoggerJuego.Trace("Configuramos el focus de los elementos del menú ajustes.");
+
+		ElementosMenuAjustes = [.. UtilidadesNodos.ObtenerNodosDeTipo<Button>(this)];
+		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<SpinBox>(this));
+		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<HSlider>(this));
+
+		foreach (var elementoMenu in ElementosMenuAjustes)
+		{
+			var elemento = elementoMenu;
+			elemento.FocusEntered += () => EmitSignal(SignalName.FocoElemento, elemento);
+		}
+	}
+
+	private void CargarOpcionesLenguaje()
+	{
+		var opcionesLenguajes = GestorIdioma.IdiomasDisponibles.Values.ToDictionary(
+			idioma => (Variant)idioma.Codigo,
+			idioma => idioma.TagNombre
+		);
+		ControlLenguaje.AgregarOpciones(opcionesLenguajes);
+	}
+
+	private void CargarOpcionesNivelLog()
+	{
+		var opcionesNivelLog = Enum.GetValues<NivelLog>().ToDictionary(
+			nivel => (Variant)(int)nivel,
+			nivel => nivel.ToString()
+		);
+		ControlNivelLog.AgregarOpciones(opcionesNivelLog);
 	}
 
 	private void CargarValoresDeAjustes()
@@ -92,37 +124,9 @@ public partial class ContenedorMenuAjustes : CenterContainer
 		ControlNivelLog.ValorCambiado += OnControlNivelLogValorCambiado;
 	}
 
-	private void ConfigurarFocusElementos()
+	public override Control ObtenerPrimerElemento()
 	{
-		LoggerJuego.Trace("Configuramos el focus de los elementos del menú ajustes.");
-
-		ElementosMenuAjustes = [.. UtilidadesNodos.ObtenerNodosDeTipo<Button>(this)];
-		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<SpinBox>(this));
-		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<HSlider>(this));
-
-		foreach (var elementoMenu in ElementosMenuAjustes)
-		{
-			var elemento = elementoMenu;
-			elemento.FocusEntered += () => MenuPrincipal.UltimoElementoConFocus = elemento;
-		}
-	}
-
-	private void CargarOpcionesLenguaje()
-	{
-		var opcionesLenguajes = GestorIdioma.IdiomasDisponibles.Values.ToDictionary(
-			idioma => (Variant)idioma.Codigo,
-			idioma => idioma.TagNombre
-		);
-		ControlLenguaje.AgregarOpciones(opcionesLenguajes);
-	}
-
-	private void CargarOpcionesNivelLog()
-	{
-		var opcionesNivelLog = Enum.GetValues<NivelLog>().ToDictionary(
-			nivel => (Variant)(int)nivel,
-			nivel => nivel.ToString()
-		);
-		ControlNivelLog.AgregarOpciones(opcionesNivelLog);
+		return ControlVolumenGeneral.SliderVolumen;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -139,7 +143,6 @@ public partial class ContenedorMenuAjustes : CenterContainer
 			}
 			else
 			{
-				this.MenuPrincipal.ActivarNavegacionTeclado();
 				this.ButtonAtras.GrabFocusSilencioso();
 			}
 		}

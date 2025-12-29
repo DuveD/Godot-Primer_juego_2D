@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=29 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.cs" id="2_iaj7c"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="4_van17"]
 [ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/ButtonEmpezarPartida.cs" id="5_rs0f5"]
 [ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/ButtonAjustes.cs" id="7_mxkrh"]
+[ext_resource type="Script" uid="uid://brkccj2o1ury8" path="res://escenas/menuPrincipal/ButtonEstadisticas.cs" id="8_dl361"]
 [ext_resource type="Script" uid="uid://dafkl1d6lxkis" path="res://escenas/menuPrincipal/ButtonSalir.cs" id="8_oupjs"]
 [ext_resource type="PackedScene" uid="uid://do1xqqv7m5xh6" path="res://escenas/modelos/controles/ControlSlider.tscn" id="9_cmdin"]
 [ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.cs" id="9_iaj7c"]
@@ -15,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="11_sgq14"]
 [ext_resource type="PackedScene" uid="uid://doyxp6l6eg05" path="res://escenas/modelos/controles/ControlSeleccion.tscn" id="11_vstw6"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/modelos/controles/ButtonPersonalizado.tscn" id="12_van17"]
+[ext_resource type="Script" uid="uid://b7bol732bm7nq" path="res://escenas/menuPrincipal/ContenedorMenuEstadisticas.cs" id="16_64n87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0
@@ -33,10 +35,26 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 [sub_resource type="Theme" id="Theme_oupjs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vstw6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hdc8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64n87"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 9
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oupjs"]
 shader = ExtResource("9_shader")
@@ -109,18 +127,18 @@ script = ExtResource("2_iaj7c")
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerButtonSize" type="PanelContainer" parent="ContenedorMenuPrincipal/PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="ContenedorMenuPrincipal/PanelContainerMargin"]
 clip_contents = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize"]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="ButtonEmpezarPartida" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonEmpezarPartida" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ButtonAjustes")
 theme = ExtResource("3_f4jcg")
@@ -130,11 +148,12 @@ text = "MenuPrincipal.boton.empezarPartida"
 script = ExtResource("5_rs0f5")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonAjustes" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonAjustes" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
-focus_neighbor_bottom = NodePath("../ButtonSalir")
+focus_neighbor_bottom = NodePath("../ButtonEstadisticas")
 theme = ExtResource("3_eq5mx")
 theme_override_fonts/font = ExtResource("4_van17")
 theme_override_font_sizes/font_size = 27
@@ -142,10 +161,24 @@ text = "MenuPrincipal.boton.ajustes"
 script = ExtResource("7_mxkrh")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonSalir" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="ButtonEstadisticas" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonAjustes")
+focus_neighbor_bottom = NodePath("../ButtonSalir")
+theme = ExtResource("3_eq5mx")
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.estadisticas"
+script = ExtResource("8_dl361")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ButtonSalir" type="Button" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonEstadisticas")
 theme = ExtResource("3_eq5mx")
 theme_override_fonts/font = ExtResource("4_van17")
 theme_override_font_sizes/font_size = 27
@@ -153,6 +186,7 @@ text = "MenuPrincipal.boton.salir"
 script = ExtResource("8_oupjs")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ContenedorMenuAjustes" type="CenterContainer" parent="."]
 visible = false
@@ -174,116 +208,116 @@ script = ExtResource("9_iaj7c")
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerButtonSize" type="PanelContainer" parent="ContenedorMenuAjustes/PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="ContenedorMenuAjustes/PanelContainerMargin"]
 clip_contents = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize"]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="LabelSeccionSonido" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="LabelTituloSonido" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_van17")
 theme_override_font_sizes/font_size = 24
-text = "MenuPrincipal.seccion.sonido"
+text = "MenuPrincipal.ajustes.tituloSonido"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlVolumenGeneral" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer" instance=ExtResource("9_cmdin")]
+[node name="ControlVolumenGeneral" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("9_cmdin")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenGeneral"
 
-[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="0"]
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="0"]
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="2"]
+[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral" index="1"]
+[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral" index="1"]
 focus_neighbor_bottom = NodePath("../../ControlVolumenMusica/HSlider")
 
-[node name="ControlVolumenMusica" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer" instance=ExtResource("9_cmdin")]
+[node name="ControlVolumenMusica" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("9_cmdin")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenMusica"
 
-[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="0"]
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="0"]
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="2"]
+[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica" index="1"]
+[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica" index="1"]
 focus_neighbor_top = NodePath("../../ControlVolumenGeneral/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlVolumenSonido/HSlider")
 
-[node name="ControlVolumenSonido" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer" instance=ExtResource("9_cmdin")]
+[node name="ControlVolumenSonido" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("9_cmdin")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenEfectos"
 
-[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="0"]
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="0"]
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="2"]
+[node name="SpinBox" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="2"]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido" index="1"]
+[node name="HSlider" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido" index="1"]
 focus_neighbor_top = NodePath("../../ControlVolumenMusica/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlLenguaje/OptionButton")
 
-[node name="LabelSeccionInterfaz" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="LabelTituloInterfaz" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_van17")
 theme_override_font_sizes/font_size = 24
-text = "MenuPrincipal.seccion.interfaz"
+text = "MenuPrincipal.ajustes.tituloInterfaz"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlLenguaje" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer" instance=ExtResource("11_vstw6")]
+[node name="ControlLenguaje" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("11_vstw6")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.lenguaje"
 
-[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlLenguaje" index="0"]
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="0"]
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlLenguaje" index="2"]
+[node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="2"]
 focus_neighbor_top = NodePath("../../ControlVolumenSonido/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlNivelLog/OptionButton")
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="LabelSeccionDesarrollo" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="LabelTituloDesarrollo" type="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_van17")
 theme_override_font_sizes/font_size = 24
-text = "MenuPrincipal.seccion.desarrollo"
+text = "MenuPrincipal.ajustes.tituloDesarrollo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlNivelLog" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer" instance=ExtResource("11_vstw6")]
+[node name="ControlNivelLog" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("11_vstw6")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.nivelLog"
 
-[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlNivelLog" index="0"]
+[node name="Label" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="0"]
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlNivelLog" index="2"]
+[node name="OptionButton" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="2"]
 focus_neighbor_left = NodePath("../../HBoxContainer/ButtonAtras")
 focus_neighbor_top = NodePath("../../ControlLenguaje/OptionButton")
 focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
 theme_override_fonts/font = ExtResource("11_sgq14")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonAtras" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/HBoxContainer" instance=ExtResource("12_van17")]
+[node name="ButtonAtras" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("12_van17")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -295,12 +329,13 @@ text = "MenuPrincipal.ajustes.atras"
 script = ExtResource("11_0hdc8")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="Spacer" type="Control" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ButtonGuardar" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/HBoxContainer" instance=ExtResource("12_van17")]
+[node name="ButtonGuardar" parent="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("12_van17")]
 visible = false
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
@@ -314,6 +349,198 @@ disabled = true
 text = "MenuPrincipal.ajustes.guardar"
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ContenedorMenuEstadisticas" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -303.5
+offset_top = -245.5
+offset_right = 303.5
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_64n87")
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="ContenedorMenuEstadisticas"]
+layout_mode = 2
+theme = SubResource("Theme_6ip4d")
+
+[node name="PanelContainerContentSize" type="PanelContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="LabelTituloEstadisticas" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.estadisticas.titulo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainerMarginInterno" type="PanelContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_64n87")
+
+[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ContainerPartidasJugadas" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelPartidasJugadas" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "MenuPrincipal.estadisticas.partidasJugadas"
+vertical_alignment = 2
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelPartidasJugadasValor" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ContainerMejorPuntuacion" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelMejorPuntuacion" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "MenuPrincipal.estadisticas.mejorPuntuacion"
+vertical_alignment = 2
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelMejorPuntuacionValor" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ContainerMonedasRecogidas" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelMonedasRecogidas" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "MenuPrincipal.estadisticas.monedasRecogidas"
+vertical_alignment = 2
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelMonedasRecogidasValor" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ContainerMonedasEspecialesRecogidas" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelMonedasEspecialesRecogidas" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "MenuPrincipal.estadisticas.monedasEspecialesRecogidas"
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelMonedasEspecialesRecogidasValor" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ContainerEnemigosDerrotados" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelEnemigosDerrotados" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "MenuPrincipal.estadisticas.enemigosDerrotados"
+vertical_alignment = 2
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelEnemigosDerrotadosValor" type="Label" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_van17")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonAtras" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("12_van17")]
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
+focus_neighbor_right = NodePath("../../ControlNivelLog/OptionButton")
+theme_override_fonts/font = ExtResource("11_sgq14")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vstw6")
+text = "MenuPrincipal.ajustes.atras"
+script = ExtResource("11_0hdc8")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="Spacer" type="Control" parent="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CRTShutdown" type="CanvasLayer" parent="."]
 layer = 50
@@ -344,15 +571,19 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.64, 0.64, 0.64, 1)
 text = "Version"
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
-[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonAjustes" to="." method="MostrarContenedorMenuAjustes"]
-[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ButtonSalir" to="ContenedorMenuPrincipal" method="OnButtonSalirPressed"]
-[connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarContenedorMenuprincipal"]
-[connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/HBoxContainer/ButtonGuardar" to="ContenedorMenuAjustes" method="OnButtonGuardarPressed"]
+[connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="." method="MostrarMenuAjustes"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEstadisticas" to="." method="MostrarMenuEstadisticas"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="ContenedorMenuPrincipal" method="OnButtonSalirPressed"]
+[connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
+[connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonGuardar" to="ContenedorMenuAjustes" method="OnButtonGuardarPressed"]
+[connection signal="pressed" from="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 
-[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenGeneral"]
-[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenMusica"]
-[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlVolumenSonido"]
-[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlLenguaje"]
-[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerButtonSize/VBoxContainer/ControlNivelLog"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]

@@ -1,36 +1,31 @@
 using System.IO;
 using Godot;
 using Primerjuego2D.nucleo.modelos.estadisticas;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.nucleo.configuracion;
 
-public class GestorEstadisticas
+public static class GestorEstadisticas
 {
     private const string SECCION_ESTADISTICAS = "estadisticas";
 
-    private ConfigFile ArchivoEstadisticas { get; } = new ConfigFile();
+    private static ConfigFile ArchivoEstadisticas { get; } = new ConfigFile();
 
-    public EstadisticasPartida PartidaActual { get; private set; }
-    public EstadisticasGlobales Globales { get; private set; }
+    public static EstadisticasPartida PartidaActual { get; private set; }
+    public static EstadisticasGlobales Globales { get; private set; }
 
-    public GestorEstadisticas()
-    {
-        CargarGlobales();
-        NuevaPartida();
-    }
-
-    private void CargarGlobales()
+    public static void CargarEstadisticas()
     {
         if (File.Exists(Ajustes.RutaArchivoEstadisticas))
         {
-            var err = this.ArchivoEstadisticas.Load(Ajustes.RutaArchivoEstadisticas);
+            var err = ArchivoEstadisticas.Load(Ajustes.RutaArchivoEstadisticas);
             if (err != Error.Ok)
             {
-                this.Globales = new EstadisticasGlobales();
+                Globales = new EstadisticasGlobales();
             }
             else
             {
-                this.Globales = new EstadisticasGlobales
+                Globales = new EstadisticasGlobales
                 {
                     PartidasJugadas = (int)ArchivoEstadisticas.GetValue(SECCION_ESTADISTICAS, "partidas_jugadas", 0),
                     MejorPuntuacion = (int)ArchivoEstadisticas.GetValue(SECCION_ESTADISTICAS, "mejor_puntuacion", 0),
@@ -42,54 +37,51 @@ public class GestorEstadisticas
         }
         else
         {
-            this.Globales = new EstadisticasGlobales();
+            Globales = new EstadisticasGlobales();
         }
     }
 
-    private void NuevaPartida()
+    public static void InicializarPartida()
     {
-        this.PartidaActual = new EstadisticasPartida();
+        if (PartidaActual != null)
+            LoggerJuego.Info("Ya existen unas estadísticas de una partida vigente. Se sobreescribe.");
+
+        PartidaActual = new EstadisticasPartida();
     }
 
-    public void RegistrarMoneda(bool especial)
+    public static void FinalizarPartida()
     {
-        this.PartidaActual.MonedasRecogidas++;
-        if (especial)
-            this.PartidaActual.MonedasEspecialesRecogidas++;
-    }
-
-    public void FinalizarPartida(int puntos)
-    {
-        this.PartidaActual.PuntuacionFinal += puntos;
-
         ActualizarGlobales();
         GuardarGlobales();
+        PartidaActual = null;
     }
 
-    private void ActualizarGlobales()
+    private static void ActualizarGlobales()
     {
-        this.Globales.PartidasJugadas++;
-        this.Globales.MonedasRecogidas += this.PartidaActual.MonedasRecogidas;
-        this.Globales.MonedasEspecialesRecogidas += this.PartidaActual.MonedasEspecialesRecogidas;
-        this.Globales.EnemigosDerrotados += this.PartidaActual.EnemigosDerrotados;
+        Globales.PartidasJugadas++;
+        Globales.MonedasRecogidas += PartidaActual.MonedasRecogidas;
+        Globales.MonedasEspecialesRecogidas += PartidaActual.MonedasEspecialesRecogidas;
+        Globales.EnemigosDerrotados += PartidaActual.EnemigosDerrotados;
 
-        if (this.PartidaActual.PuntuacionFinal > this.Globales.MejorPuntuacion)
-            this.Globales.MejorPuntuacion = this.PartidaActual.PuntuacionFinal;
+        if (PartidaActual.PuntuacionFinal > Globales.MejorPuntuacion)
+            Globales.MejorPuntuacion = PartidaActual.PuntuacionFinal;
     }
 
-    private void GuardarGlobales()
+    private static void GuardarGlobales()
     {
-        this.ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "partidas_jugadas", this.Globales.PartidasJugadas);
-        this.ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "mejor_puntuacion", this.Globales.MejorPuntuacion);
-        this.ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "monedas_recogidas", this.Globales.MonedasRecogidas);
-        this.ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "monedas_especiales_recogidas", this.Globales.MonedasEspecialesRecogidas);
-        this.ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "enemigos_derrotados", this.Globales.EnemigosDerrotados);
+        ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "partidas_jugadas", Globales.PartidasJugadas);
+        ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "mejor_puntuacion", Globales.MejorPuntuacion);
+        ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "monedas_recogidas", Globales.MonedasRecogidas);
+        ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "monedas_especiales_recogidas", Globales.MonedasEspecialesRecogidas);
+        ArchivoEstadisticas.SetValue(SECCION_ESTADISTICAS, "enemigos_derrotados", Globales.EnemigosDerrotados);
 
         if (!Directory.Exists(Ajustes.RutaJuego))
             Directory.CreateDirectory(Ajustes.RutaJuego);
 
-        var err = this.ArchivoEstadisticas.Save(Ajustes.RutaArchivoEstadisticas);
+        var err = ArchivoEstadisticas.Save(Ajustes.RutaArchivoEstadisticas);
         if (err != Error.Ok)
-            GD.PrintErr($"No se pudo guardar el archivo de estadísticas: {err}");
+            LoggerJuego.Error($"No se ha podido guardar el archivo de estadísticas: {err}");
+        else
+            LoggerJuego.Trace("Estadísticas guardadas.");
     }
 }

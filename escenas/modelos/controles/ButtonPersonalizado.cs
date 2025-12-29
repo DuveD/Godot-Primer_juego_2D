@@ -1,5 +1,7 @@
+using System;
 using Godot;
-using Primerjuego2D.nucleo.modelos.interfaces;
+using Primerjuego2D.escenas.modelos.interfaces;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.modelos.controles;
 
@@ -9,6 +11,8 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
     public string NombreSonidoOnFocusEntered { get; set; }
     [Export]
     public string NombreSonidoOnMouseEntered { get; set; }
+    [Export]
+    public string NombreSonidoOnPressed { get; set; }
 
     private bool _reproducirSonido = true;
 
@@ -16,19 +20,13 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
     {
         this.FocusEntered += OnFocusedEntered;
         this.MouseEntered += OnMouseEntered;
+        this.Pressed += OnPressed;
     }
 
     public void OnFocusedEntered()
     {
         if (this._reproducirSonido && !string.IsNullOrEmpty(NombreSonidoOnFocusEntered))
             Global.GestorAudio.ReproducirSonido(NombreSonidoOnFocusEntered);
-    }
-
-    public void GrabFocusSilencioso()
-    {
-        this._reproducirSonido = false;
-        this.GrabFocus();
-        this._reproducirSonido = true;
     }
 
     public void OnMouseEntered()
@@ -38,5 +36,20 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
             if (!this.Disabled)
                 Global.GestorAudio.ReproducirSonido(NombreSonidoOnMouseEntered);
         }
+    }
+
+    private void OnPressed()
+    {
+        LoggerJuego.Trace("Botón '" + this.Name + "' pulsado.");
+
+        if (this._reproducirSonido && !string.IsNullOrEmpty(NombreSonidoOnPressed))
+            Global.GestorAudio.ReproducirSonido(NombreSonidoOnPressed);
+    }
+
+    public void GrabFocusSilencioso()
+    {
+        this._reproducirSonido = false;
+        this.GrabFocus();
+        this._reproducirSonido = true;
     }
 }
