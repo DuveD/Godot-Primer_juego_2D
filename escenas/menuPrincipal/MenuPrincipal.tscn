@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=30 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.cs" id="2_iaj7c"]
@@ -40,9 +40,27 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vstw6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i83gw"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hdc8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0go8"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64n87"]
 content_margin_left = 15.0
@@ -55,6 +73,17 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 corner_detail = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_658cm"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oupjs"]
 shader = ExtResource("9_shader")
@@ -324,7 +353,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_neighbor_right = NodePath("../../ControlNivelLog/OptionButton")
 theme_override_fonts/font = ExtResource("11_sgq14")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vstw6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i83gw")
 text = "MenuPrincipal.ajustes.atras"
 script = ExtResource("11_0hdc8")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -344,7 +373,7 @@ focus_neighbor_left = NodePath("../ButtonAtras")
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_mode = 0
 theme_override_fonts/font = ExtResource("11_sgq14")
-theme_override_styles/focus = SubResource("StyleBoxFlat_0hdc8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f0go8")
 disabled = true
 text = "MenuPrincipal.ajustes.guardar"
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -531,7 +560,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_neighbor_right = NodePath("../../ControlNivelLog/OptionButton")
 theme_override_fonts/font = ExtResource("11_sgq14")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vstw6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_658cm")
 text = "MenuPrincipal.ajustes.atras"
 script = ExtResource("11_0hdc8")
 NombreSonidoOnFocusEntered = "kick.mp3"

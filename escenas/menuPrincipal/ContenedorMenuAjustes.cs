@@ -129,7 +129,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		return ControlVolumenGeneral.SliderVolumen;
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _UnhandledInput(InputEvent @event)
 	{
 		// Solo respondemos si el menú es visible.
 		if (!this.Visible)
@@ -137,21 +137,8 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
-			if (this.ButtonAtras.HasFocus())
-			{
-				OnScapeButtonPressed();
-			}
-			else
-			{
-				this.ButtonAtras.GrabFocusSilencioso();
-			}
-		}
-	}
-
-	private void OnScapeButtonPressed()
-	{
-		if (this.Visible)
 			UtilidadesNodos.PulsarBoton(ButtonAtras);
+		}
 	}
 
 	public void ActivarNavegacionTeclado()

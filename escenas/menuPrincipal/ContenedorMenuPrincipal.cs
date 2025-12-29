@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.modelos;
 using Primerjuego2D.escenas.modelos.controles;
+using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
