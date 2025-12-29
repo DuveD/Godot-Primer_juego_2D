@@ -18,7 +18,7 @@ MenuPrincipal.ajustes.lenguaje,Lenguaje,Language
 MenuPrincipal.ajustes.nivelLog,Nivel de log,Log level
 MenuPrincipal.ajustes.atras,Volver ⏎,Back ⏎
 MenuPrincipal.ajustes.guardar,Guardar,Save
-MenuPrincipal.estadisticas.titulo,Estadísticas,Statistics
+MenuPrincipal.estadisticas.titulo,─ Estadísticas ─,─ Statistics ─
 MenuPrincipal.estadisticas.partidasJugadas,Partidas jugadas,Played games
 MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
 MenuPrincipal.estadisticas.monedasRecogidas,Monedas recogidas,Coins collected

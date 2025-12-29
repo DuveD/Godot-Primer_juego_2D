@@ -97,7 +97,7 @@ public partial class BatallaControlador : Node
 
     public void FinalizarBatalla()
     {
-        if (!BatallaEnCurso)
+        if (!this.BatallaEnCurso)
             return;
 
         BatallaEnCurso = false;
@@ -111,9 +111,12 @@ public partial class BatallaControlador : Node
 
     public void SumarPuntuacion(Moneda moneda)
     {
+        if (!this.BatallaEnCurso)
+            return;
+
         this.Puntuacion += moneda.Valor;
         GestorEstadisticas.PartidaActual.RegistrarMoneda(moneda is MonedaEspecial);
 
-        EmitSignal(SignalName.PuntuacionActualizada, Puntuacion);
+        EmitSignal(SignalName.PuntuacionActualizada, this.Puntuacion);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.modelos;
-using Primerjuego2D.escenas.modelos.interfaces;
 using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.localizacion;
@@ -39,8 +38,6 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	private ButtonPersonalizado _ButtonGuardar;
 	private ButtonPersonalizado ButtonGuardar => _ButtonGuardar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
-	private List<Control> ElementosMenuAjustes;
-
 	// Ajustes actuales.
 	public int VolumenGeneral;
 	public int VolumenMusica;
@@ -50,9 +47,9 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 
 	public override void _Ready()
 	{
-		LoggerJuego.Trace(this.Name + " Ready.");
+		base._Ready();
 
-		ConfigurarFocusElementos();
+		LoggerJuego.Trace(this.Name + " Ready.");
 
 		CargarOpcionesLenguaje();
 		CargarOpcionesNivelLog();
@@ -61,19 +58,19 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		CargarValoresDeAjustes();
 	}
 
-	private void ConfigurarFocusElementos()
+	public override Control ObtenerPrimerElementoConFoco()
 	{
-		LoggerJuego.Trace("Configuramos el focus de los elementos del menú ajustes.");
+		return ControlVolumenGeneral.SliderVolumen;
+	}
 
-		ElementosMenuAjustes = [.. UtilidadesNodos.ObtenerNodosDeTipo<Button>(this)];
-		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<SpinBox>(this));
-		ElementosMenuAjustes.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<HSlider>(this));
+	public override List<Control> ObtenerElementosConFoco()
+	{
+		List<Control> elementosConFoco;
+		elementosConFoco = [.. UtilidadesNodos.ObtenerNodosDeTipo<Button>(this)];
+		elementosConFoco.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<SpinBox>(this));
+		elementosConFoco.AddRange(UtilidadesNodos.ObtenerNodosDeTipo<HSlider>(this));
 
-		foreach (var elementoMenu in ElementosMenuAjustes)
-		{
-			var elemento = elementoMenu;
-			elemento.FocusEntered += () => EmitSignal(SignalName.FocoElemento, elemento);
-		}
+		return elementosConFoco;
 	}
 
 	private void CargarOpcionesLenguaje()
@@ -124,11 +121,6 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		ControlNivelLog.ValorCambiado += OnControlNivelLogValorCambiado;
 	}
 
-	public override Control ObtenerPrimerElemento()
-	{
-		return ControlVolumenGeneral.SliderVolumen;
-	}
-
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		// Solo respondemos si el menú es visible.
@@ -139,22 +131,6 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		{
 			UtilidadesNodos.PulsarBoton(ButtonAtras);
 		}
-	}
-
-	public void ActivarNavegacionTeclado()
-	{
-		LoggerJuego.Trace("Activamos la navegación por teclado.");
-
-		foreach (var elementoMenu in ElementosMenuAjustes)
-			elementoMenu.FocusMode = FocusModeEnum.All;
-	}
-
-	public void DesactivarNavegacionTeclado()
-	{
-		LoggerJuego.Trace("Desactivamos la navegación por teclado.");
-
-		foreach (var elementoMenu in ElementosMenuAjustes)
-			elementoMenu.FocusMode = FocusModeEnum.None;
 	}
 
 	private void ActivarBotonGuardarSiCambio()

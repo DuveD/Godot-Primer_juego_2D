@@ -1,8 +1,7 @@
-using System;
+using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.modelos;
 using Primerjuego2D.escenas.modelos.controles;
-using Primerjuego2D.escenas.modelos.interfaces;
 using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
@@ -30,6 +29,8 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
 
     public override void _Ready()
     {
+        base._Ready();
+
         LoggerJuego.Trace(this.Name + " Ready.");
 
         LabelPartidasJugadasValor.Text = GestorEstadisticas.Globales.PartidasJugadas.ToString();
@@ -37,13 +38,6 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         LabelMonedasRecogidasValor.Text = GestorEstadisticas.Globales.MonedasRecogidas.ToString();
         LabelMonedasEspecialesRecogidasValor.Text = GestorEstadisticas.Globales.MonedasEspecialesRecogidas.ToString();
         LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
-
-        EmitSignal(SignalName.FocoElemento, ButtonAtras);
-    }
-
-    public override Control ObtenerPrimerElemento()
-    {
-        return ButtonAtras;
     }
 
     public override void _Input(InputEvent @event)
@@ -57,4 +51,15 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
             UtilidadesNodos.PulsarBoton(ButtonAtras);
         }
     }
+
+    public override Control ObtenerPrimerElementoConFoco()
+    {
+        return ButtonAtras;
+    }
+
+    public override List<Control> ObtenerElementosConFoco()
+    {
+        return [ButtonAtras];
+    }
+
 }

@@ -26,7 +26,7 @@ public partial class MenuPrincipal : Control
     private ContenedorMenuEstadisticas _ContenedorMenuEstadisticas;
     public ContenedorMenuEstadisticas ContenedorMenuEstadisticas => _ContenedorMenuEstadisticas ??= GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
 
-    private IEnumerable<Control> Menus =>
+    private IEnumerable<ContenedorMenu> Menus =>
     [
     ContenedorMenuPrincipal,
     ContenedorMenuAjustes,
@@ -94,8 +94,8 @@ public partial class MenuPrincipal : Control
         {
             _modoNavegacionTeclado = true;
 
-            this.ContenedorMenuPrincipal.ActivarNavegacionTeclado();
-            this.ContenedorMenuAjustes.ActivarNavegacionTeclado();
+            foreach (var menu in this.Menus)
+                menu.ActivarNavegacionTeclado();
 
             GrabFocusUltimoBotonConFoco();
         }
@@ -107,8 +107,8 @@ public partial class MenuPrincipal : Control
         {
             _modoNavegacionTeclado = false;
 
-            this.ContenedorMenuPrincipal.DesactivarNavegacionTeclado();
-            this.ContenedorMenuAjustes.DesactivarNavegacionTeclado();
+            foreach (var menu in this.Menus)
+                menu.DesactivarNavegacionTeclado();
         }
     }
 
@@ -162,7 +162,7 @@ public partial class MenuPrincipal : Control
 
     private void GrabFocusPrimerElemento(ContenedorMenu contenedorMenu)
     {
-        Control elementoASeleccionar = contenedorMenu.ObtenerPrimerElemento();
+        Control elementoASeleccionar = contenedorMenu.ObtenerPrimerElementoConFoco();
         if (elementoASeleccionar == null) return;
 
         if (_modoNavegacionTeclado)
