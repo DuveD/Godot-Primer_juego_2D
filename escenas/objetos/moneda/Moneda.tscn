@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1ptij2whe824"]
 
 [ext_resource type="Script" uid="uid://c51kjrj56le5y" path="res://escenas/objetos/moneda/Moneda.cs" id="1_dsggl"]
-[ext_resource type="Texture2D" uid="uid://85ugxays0w5s" path="res://recursos/imagenes/star-coin.png" id="2_xd7qd"]
+[ext_resource type="Texture2D" uid="uid://85ugxays0w5s" path="res://recursos/imagenes/objetos/star-coin.png" id="2_xd7qd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xd7qd"]
 radius = 24.0

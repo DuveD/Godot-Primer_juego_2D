@@ -51,10 +51,12 @@ public partial class Moneda : Consumible
 
 		if (TiempoDestruccion > 0)
 		{
-			_TimerDestruccion = new Timer();
-			_TimerDestruccion.WaitTime = TiempoDestruccion;
-			_TimerDestruccion.OneShot = true;
-			_TimerDestruccion.Autostart = true;
+			_TimerDestruccion = new Timer
+			{
+				WaitTime = TiempoDestruccion,
+				OneShot = true,
+				Autostart = true
+			};
 			_TimerDestruccion.Timeout += OnTimerDestruccionTimeout;
 			AddChild(_TimerDestruccion);
 		}
