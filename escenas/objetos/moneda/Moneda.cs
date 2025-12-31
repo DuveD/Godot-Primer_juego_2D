@@ -12,6 +12,9 @@ namespace Primerjuego2D.escenas.objetos.moneda;
 [AtributoNivelLog(NivelLog.Info)]
 public partial class Moneda : Consumible
 {
+	[Signal]
+	public delegate void RecogidaEventHandler(Moneda moneda);
+
 	[Export]
 	public int Valor { get; set; } = 1;
 
@@ -26,12 +29,6 @@ public partial class Moneda : Consumible
 	[Export]
 	public Color ColorTextoFlotante { get; set; } = Colors.Gold;
 
-	[Signal]
-	public delegate void RecogidaEventHandler(Moneda moneda);
-
-	private CollisionShape2D _CollisionShape2D;
-	public CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("CollisionShape2D");
-
 	public static readonly PackedScene TextoFlotanteScene = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<TextoFlotante>());
 
 	private AnimationPlayer _AnimationPlayerRotacion;
@@ -42,6 +39,8 @@ public partial class Moneda : Consumible
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
+
+		base._Ready();
 
 		UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.OBJETOS);
 
@@ -77,7 +76,6 @@ public partial class Moneda : Consumible
 		_TimerDestruccion?.Stop();
 
 		// Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
-
 		CallDeferred(Node.MethodName.QueueFree);
 	}
 

@@ -44,7 +44,7 @@ public partial class Jugador : CharacterBody2D
     private readonly List<PowerUp> _PowerUpsActivos = [];
     public IReadOnlyList<PowerUp> PowerUpsActivos => _PowerUpsActivos;
 
-    public bool Invulnearable = false;
+    public bool Invulnerable = false;
 
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
@@ -176,7 +176,7 @@ public partial class Jugador : CharacterBody2D
     {
         foreach (var powerUp in PowerUpsActivos.ToList())
         {
-            powerUp.ProcessPowerUp(this, delta);
+            powerUp.ProcessPowerUp(delta, this);
         }
     }
 
@@ -205,7 +205,7 @@ public partial class Jugador : CharacterBody2D
 
     private async void OnBodyEnteredEnemigo()
     {
-        if (this.Invulnearable)
+        if (this.Invulnerable)
         {
             LoggerJuego.Info("Jugador golpeado por enemigo pero es invulnerable.");
             return;
@@ -255,14 +255,26 @@ public partial class Jugador : CharacterBody2D
         EmitSignal(SignalName.AnimacionMuerteJugadorTerminada);
     }
 
+    public void SetSpriteAlpha(float alpha)
+    {
+        var color = AnimatedSprite2D.Modulate;
+        color.A = alpha;
+        AnimatedSprite2D.Modulate = color;
+    }
+    public void SetSpriteColor(Color color)
+    {
+        AnimatedSprite2D.Modulate = color;
+    }
+
     #region PowerUps
+
     // Añade un PowerUp como hijo del jugador
     internal void AnadirPowerUp(PowerUp powerUp)
     {
         if (powerUp == null) return;
         if (_PowerUpsActivos.Contains(powerUp)) return;
 
-        AddChild(powerUp);
+        powerUp.Reparent(this);
         _PowerUpsActivos.Add(powerUp);
     }
 

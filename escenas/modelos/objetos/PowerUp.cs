@@ -31,10 +31,14 @@ public abstract partial class PowerUp : Consumible
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        base._Ready();
     }
 
     public override void OnRecogida(Jugador jugador)
     {
+        LoggerJuego.Info("PowerUp " + this.Name + " recogido.");
+
         if (jugador.TienePowerUp(this))
         {
             switch (TipoAcumulacion)
@@ -55,24 +59,28 @@ public abstract partial class PowerUp : Consumible
         {
             AnadirPowerUpAJugador(jugador);
         }
+
+        // Evitamos que se vuelva a disparar la señal.
+        CollisionShape2D?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        this.SetDeferred(Area2D.PropertyName.Monitoring, true);
+
+        // Ocultamos el Sprite del consumible.
+        Sprite2D.SetDeferred(CanvasItem.PropertyName.Visible, false);
     }
 
     private void AnadirPowerUpAJugador(Jugador jugador)
     {
         InicializarTimerDuracion(jugador);
-        jugador.AnadirPowerUp(this);
+        jugador.CallDeferred(nameof(Jugador.AnadirPowerUp), this);
         AplicarEfectoPowerUp(jugador);
     }
 
     public virtual void OnRecogidaNoAcumulable(Jugador jugador)
     {
-        this.CallDeferred(Node.MethodName.QueueFree);
     }
 
     public virtual void OnRecogidaRenuevaDuracion(Jugador jugador)
     {
-        this.CallDeferred(Node.MethodName.QueueFree);
-
         PowerUp powerUp = jugador.ObtenerPowerUp(this.GetType());
         powerUp?.ReiniciarTimer();
     }
@@ -126,10 +134,11 @@ public abstract partial class PowerUp : Consumible
 
     public abstract void AplicarEfectoPowerUp(Jugador jugador);
 
-    public abstract void ProcessPowerUp(Jugador jugador, double delta);
+    public abstract void ProcessPowerUp(double delta, Jugador jugador);
 
     public void OnTimerDuracionTimeout(Jugador jugador)
     {
+        LoggerJuego.Info("PowerUp " + this.Name + " expirado.");
         jugador.QuitarPowerUp(this);
         EfectoPowerUpExpirado(jugador);
     }

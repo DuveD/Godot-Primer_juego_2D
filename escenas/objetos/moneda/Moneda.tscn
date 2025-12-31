@@ -63,5 +63,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_jg48b")
 }
 autoplay = "RotacionSpriteMoneda"
-
-[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

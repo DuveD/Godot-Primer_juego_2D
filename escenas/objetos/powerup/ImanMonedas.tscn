@@ -4,14 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://pnqf2nvnrycf" path="res://recursos/imagenes/objetos/powerUp/iman.png" id="2_bmxsq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2d020"]
+radius = 25.0
 
 [node name="ImanMonedas" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
 script = ExtResource("1_2d020")
+TiempoDuracion = 5.0
+TipoAcumulacion = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.1601577, -0.088139415)
+scale = Vector2(0.024524182, 0.024524173)
+texture = ExtResource("2_bmxsq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2d020")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 9e-44)
-scale = Vector2(0.008862277, 0.008862274)
-texture = ExtResource("2_bmxsq")

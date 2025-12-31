@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=13 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://b4ipj0a72tkyu" path="res://escenas/batalla/SpawnMonedas.cs" id="6_w3cb5"]
 [ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/moneda/Moneda.tscn" id="7_t4q4m"]
 [ext_resource type="PackedScene" uid="uid://cj766hajq1d2u" path="res://escenas/objetos/moneda/MonedaEspecial.tscn" id="8_c2dy2"]
+[ext_resource type="PackedScene" uid="uid://p7vm3y0vldbo" path="res://escenas/objetos/powerup/ImanMonedas.tscn" id="10_bnba0"]
+[ext_resource type="PackedScene" uid="uid://bmttan7jakebe" path="res://escenas/objetos/powerup/Invulnerabilidad.tscn" id="11_svpxk"]
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -61,6 +63,12 @@ script = ExtResource("6_w3cb5")
 MonedaScene = ExtResource("7_t4q4m")
 MonedaEspecialScene = ExtResource("8_c2dy2")
 Jugador = NodePath("../Jugador")
+
+[node name="ImanMonedas" parent="." instance=ExtResource("10_bnba0")]
+position = Vector2(128, 192)
+
+[node name="PowerUpInvulnerabilidad" parent="." instance=ExtResource("11_svpxk")]
+position = Vector2(376, 192)
 
 [connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]
