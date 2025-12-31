@@ -62,7 +62,7 @@ public abstract partial class PowerUp : Consumible
 
         // Evitamos que se vuelva a disparar la señal.
         CollisionShape2D?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-        this.SetDeferred(Area2D.PropertyName.Monitoring, true);
+        this.SetDeferred(Area2D.PropertyName.Monitoring, false);
 
         // Ocultamos el Sprite del consumible.
         Sprite2D.SetDeferred(CanvasItem.PropertyName.Visible, false);
