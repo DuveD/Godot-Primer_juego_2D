@@ -1,5 +1,5 @@
 
-namespace Primerjuego2D.nucleo.modelos.estadisticas;
+namespace Primerjuego2D.nucleo.sistema.estadisticas;
 
 public class EstadisticasGlobales
 {

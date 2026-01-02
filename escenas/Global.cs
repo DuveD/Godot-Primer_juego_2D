@@ -1,7 +1,9 @@
 using Godot;
 using Primerjuego2D.escenas.sistema;
-using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.localizacion;
+using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.sistema.estadisticas;
+using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -21,6 +23,7 @@ public partial class Global : Node
     {
         Ajustes.CargarAjustes();
         GestorEstadisticas.CargarEstadisticas();
+        GestorLogros.CargarLogros();
 
         // Informar idioma.
         Idioma idioma = Ajustes.Idioma;

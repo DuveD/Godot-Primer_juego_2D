@@ -3,7 +3,7 @@ using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
-namespace Primerjuego2D.nucleo.configuracion;
+namespace Primerjuego2D.nucleo.sistema.configuracion;
 
 public static class Ajustes
 {
@@ -28,6 +28,9 @@ public static class Ajustes
 
     public static string NombreArchivoEstadisticas { get; } = "estadisticas.cfg";
     public static string RutaArchivoEstadisticas { get; } = $"{RutaJuego}/{NombreArchivoEstadisticas}";
+
+    public static string NombreArchivoLogros { get; } = "logros.cfg";
+    public static string RutaArchivoLogros { get; } = $"{RutaJuego}/{NombreArchivoLogros}";
 
     public static string Version { get; } = (string)ProjectSettings.GetSetting("application/config/version");
 

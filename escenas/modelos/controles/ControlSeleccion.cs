@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Godot;
-using Primerjuego2D.nucleo.modelos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 

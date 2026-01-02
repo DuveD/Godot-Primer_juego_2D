@@ -107,6 +107,7 @@ public abstract partial class PowerUp : Consumible
                 OneShot = true,
                 Autostart = true,
             };
+
             this.TimerDuracionPowerUp.Timeout += () => OnTimerDuracionTimeout(jugador);
             AddChild(this.TimerDuracionPowerUp);
         }

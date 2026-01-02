@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.modelos;
-using Primerjuego2D.nucleo.configuracion;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.localizacion;
+using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
@@ -39,6 +39,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	private ButtonPersonalizado ButtonGuardar => _ButtonGuardar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
 	// Ajustes actuales.
+
 	public int VolumenGeneral;
 	public int VolumenMusica;
 	public int VolumenSonidos;
@@ -55,6 +56,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		CargarOpcionesNivelLog();
 
 		// Cargar ajustes actuales.
+
 		CargarValoresDeAjustes();
 	}
 
@@ -124,6 +126,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		// Solo respondemos si el menú es visible.
+
 		if (!this.Visible)
 			return;
 
@@ -158,8 +161,10 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		ButtonGuardar.FocusMode = FocusModeEnum.All;
 
 		// Informamos al ControlNivelLog que su vecino de abajo es el botón Guardar
+
 		ControlNivelLog.OptionButton.FocusNeighborBottom = ControlNivelLog.OptionButton.GetPathTo(ButtonGuardar);
 		// Informamos al botón Atrás que su vecino a la derecha es el botón Guardar
+
 		ButtonAtras.FocusNeighborRight = ButtonAtras.GetPathTo(ButtonGuardar);
 	}
 
@@ -169,8 +174,10 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		ButtonGuardar.FocusMode = FocusModeEnum.None;
 
 		// Informamos al ControlNivelLog que su vecino de abajo es el botón Atrás
+
 		ControlNivelLog.OptionButton.FocusNeighborBottom = ControlNivelLog.OptionButton.GetPathTo(ButtonAtras);
 		// Informamos al botón Atrás que su vecino a la derecha es el ControlNivelLog
+
 		ButtonAtras.FocusNeighborRight = ButtonAtras.GetPathTo(ControlNivelLog.OptionButton);
 	}
 
@@ -178,6 +185,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	{
 		Global.GestorAudio.VolumenGeneral = (float)(valor / 100.0f);
 		//ActivarBotonGuardarSiCambio();
+
 		Ajustes.VolumenGeneral = (int)valor;
 	}
 
@@ -185,6 +193,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	{
 		Global.GestorAudio.VolumenMusica = (float)(valor / 100.0f);
 		//ActivarBotonGuardarSiCambio();
+
 		Ajustes.VolumenMusica = (int)valor;
 	}
 
@@ -192,6 +201,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	{
 		Global.GestorAudio.VolumenSonidos = (float)(valor / 100.0f);
 		//ActivarBotonGuardarSiCambio();
+
 		Ajustes.VolumenSonidos = (int)valor;
 	}
 
@@ -201,6 +211,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		Idioma idiomaSeleccionado = GestorIdioma.ObtenerIdiomaDeCodigo(codigoIdioma);
 		GestorIdioma.CambiarIdioma(idiomaSeleccionado);
 		//ActivarBotonGuardarSiCambio();
+
 		Ajustes.Idioma = idiomaSeleccionado;
 	}
 
@@ -209,6 +220,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		NivelLog nivelLogSeleccionado = (NivelLog)(int)valor;
 		LoggerJuego.NivelLogJuego = nivelLogSeleccionado;
 		//ActivarBotonGuardarSiCambio();
+
 		Ajustes.NivelLog = nivelLogSeleccionado;
 	}
 

@@ -1,9 +1,9 @@
 using System.IO;
 using Godot;
-using Primerjuego2D.nucleo.modelos.estadisticas;
+using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.nucleo.configuracion;
+namespace Primerjuego2D.nucleo.sistema.estadisticas;
 
 public static class GestorEstadisticas
 {
@@ -39,6 +39,8 @@ public static class GestorEstadisticas
         {
             Globales = new EstadisticasGlobales();
         }
+
+        LoggerJuego.Info("Estadísticas cargadas.");
     }
 
     public static void InicializarPartida()

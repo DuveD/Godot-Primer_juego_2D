@@ -4,6 +4,7 @@ using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.moneda;
+using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -112,6 +113,8 @@ public partial class SpawnMonedas : Control
 		bool esMonedaEspecial = moneda is MonedaEspecial;
 		if (!esMonedaEspecial)
 			CallDeferred(nameof(Spawn));
+
+		GestorLogros.EmitirEvento(GestorLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
 	}
 
 	public void DestruirMonedas()

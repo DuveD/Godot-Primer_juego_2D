@@ -3,7 +3,7 @@ using System.IO;
 using Godot;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.nucleo.configuracion;
+namespace Primerjuego2D.nucleo.sistema.configuracion;
 
 /// <summary>
 /// Clase encargada de la persistencia de ajustes en ConfigFile.
