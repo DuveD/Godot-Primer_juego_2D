@@ -1,9 +1,10 @@
 using System;
 using Godot;
+using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.modelos.controles;
+namespace Primerjuego2D.escenas.ui.menu;
 
 public partial class ControlSlider : VBoxContainer
 {

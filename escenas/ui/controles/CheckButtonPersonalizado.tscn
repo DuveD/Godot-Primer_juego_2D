@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://y0pmvpx7flw3"]
+
+[ext_resource type="Script" uid="uid://do6da06hsh5cr" path="res://escenas/ui/controles/CheckButtonPersonalizado.cs" id="1_5cnkp"]
+
+[node name="CheckButtonPersonalizado" type="CheckButton"]
+script = ExtResource("1_5cnkp")

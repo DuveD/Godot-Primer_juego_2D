@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.modelos;
+using Primerjuego2D.escenas.ui.controles;
+using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
-using ButtonPersonalizado = Primerjuego2D.escenas.modelos.controles.ButtonPersonalizado;
-using ControlSeleccion = Primerjuego2D.escenas.modelos.controles.ControlSeleccion;
-using ControlSlider = Primerjuego2D.escenas.modelos.controles.ControlSlider;
+using ButtonPersonalizado = Primerjuego2D.escenas.ui.controles.ButtonPersonalizado;
 
 namespace Primerjuego2D.escenas.menuPrincipal;
 
@@ -32,6 +32,12 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	private ControlSeleccion _ControlNivelLog;
 	private ControlSeleccion ControlNivelLog => _ControlNivelLog ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSeleccion>(this, "ControlNivelLog");
 
+	private ControlCheckButton _ControlEscribirLogEnFichero;
+	private ControlCheckButton ControlEscribirLogEnFichero => _ControlEscribirLogEnFichero ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlEscribirLogEnFichero");
+
+	private ControlCheckButton _ControlVerColisiones;
+	private ControlCheckButton ControlVerColisiones => _ControlVerColisiones ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlVerColisiones");
+
 	private ButtonPersonalizado _ButtonAtras;
 	private ButtonPersonalizado ButtonAtras => _ButtonAtras ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
@@ -45,6 +51,8 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	public int VolumenSonidos;
 	public Idioma Lenguaje;
 	public NivelLog NivelLog;
+	public bool EscribirLogEnFichero;
+	public bool VerColisiones;
 
 	public override void _Ready()
 	{
@@ -116,11 +124,19 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		NivelLog = Ajustes.NivelLog;
 		ControlNivelLog.Valor = (int)Ajustes.NivelLog;
 
+		EscribirLogEnFichero = Ajustes.EscribirLogEnFichero;
+		ControlEscribirLogEnFichero.Valor = EscribirLogEnFichero;
+
+		VerColisiones = Ajustes.VerColisiones;
+		ControlVerColisiones.Valor = VerColisiones;
+
 		ControlVolumenGeneral.ValorCambiado += OnControlVolumenGeneralValorCambiado;
 		ControlVolumenMusica.ValorCambiado += OnControlVolumenMusicaValorCambiado;
 		ControlVolumenSonido.ValorCambiado += OnControlVolumenSonidosValorCambiado;
 		ControlLenguaje.ValorCambiado += OnControlLenguajeValorCambiado;
 		ControlNivelLog.ValorCambiado += OnControlNivelLogValorCambiado;
+		ControlEscribirLogEnFichero.ValorCambiado += OnControlEscribirLogEnFicheroValorCambiado;
+		ControlVerColisiones.ValorCambiado += OnControlVerColisionesValorCambiado;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -222,6 +238,18 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		//ActivarBotonGuardarSiCambio();
 
 		Ajustes.NivelLog = nivelLogSeleccionado;
+	}
+
+	private void OnControlEscribirLogEnFicheroValorCambiado(bool valor)
+	{
+		Ajustes.EscribirLogEnFichero = valor;
+	}
+
+	private void OnControlVerColisionesValorCambiado(bool valor)
+	{
+		Ajustes.VerColisiones = valor;
+
+		GetTree().DebugCollisionsHint = valor;
 	}
 
 	public void OnButtonGuardarPressed()

@@ -1,7 +1,7 @@
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 
-namespace Primerjuego2D.escenas.modelos.objetos;
+namespace Primerjuego2D.escenas.objetos.modelos;
 
 public abstract partial class Consumible : Area2D
 {

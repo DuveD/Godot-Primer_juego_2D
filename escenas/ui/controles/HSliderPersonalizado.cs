@@ -1,7 +1,7 @@
 using Godot;
 using Primerjuego2D.escenas.modelos.interfaces;
 
-namespace Primerjuego2D.escenas.modelos.controles;
+namespace Primerjuego2D.escenas.ui.controles;
 
 public partial class HSliderPersonalizado : HSlider, IFocusSilencioso
 {

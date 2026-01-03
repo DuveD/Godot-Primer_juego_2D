@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.modelos;
+namespace Primerjuego2D.escenas.ui.menu;
 
 public abstract partial class ContenedorMenu : CenterContainer
 {

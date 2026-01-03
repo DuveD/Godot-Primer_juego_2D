@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=3 uid="uid://ycovtsmeppks"]
+
+[ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.cs" id="1_xrmji"]
+[ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="2_2ul6g"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="3_dyvyh"]
+[ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/botones/ButtonEmpezarPartida.cs" id="4_qsbvf"]
+[ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="5_50208"]
+[ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/botones/ButtonAjustes.cs" id="6_wrtnk"]
+[ext_resource type="Script" uid="uid://brkccj2o1ury8" path="res://escenas/menuPrincipal/botones/ButtonEstadisticas.cs" id="7_urm1o"]
+[ext_resource type="Script" uid="uid://dafkl1d6lxkis" path="res://escenas/menuPrincipal/botones/ButtonSalir.cs" id="8_81n7g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_6ip4d"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="Theme" id="Theme_oupjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[node name="ContenedorMenuPrincipal" type="CenterContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.5
+offset_top = -117.0
+offset_right = 203.5
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xrmji")
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_6ip4d")
+
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ButtonEmpezarPartida" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ButtonAjustes")
+theme = ExtResource("2_2ul6g")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.empezarPartida"
+script = ExtResource("4_qsbvf")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
+focus_neighbor_bottom = NodePath("../ButtonEstadisticas")
+theme = ExtResource("5_50208")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.ajustes"
+script = ExtResource("6_wrtnk")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ButtonEstadisticas" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonAjustes")
+focus_neighbor_bottom = NodePath("../ButtonSalir")
+theme = ExtResource("5_50208")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.estadisticas"
+script = ExtResource("7_urm1o")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ButtonSalir" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonEstadisticas")
+theme = ExtResource("5_50208")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.salir"
+script = ExtResource("8_81n7g")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"

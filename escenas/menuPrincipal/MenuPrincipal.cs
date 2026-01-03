@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Godot;
-using Primerjuego2D.escenas.modelos;
-using Primerjuego2D.escenas.modelos.controles;
 using Primerjuego2D.escenas.modelos.interfaces;
+using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;

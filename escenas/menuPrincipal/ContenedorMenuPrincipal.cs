@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using Primerjuego2D.escenas.modelos;
-using Primerjuego2D.escenas.modelos.controles;
+using Primerjuego2D.escenas.menuPrincipal.botones;
+using Primerjuego2D.escenas.ui.controles;
+using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 

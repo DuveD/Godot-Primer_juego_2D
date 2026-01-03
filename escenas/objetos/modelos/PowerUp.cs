@@ -3,7 +3,7 @@ using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.modelos.objetos;
+namespace Primerjuego2D.escenas.objetos.modelos;
 
 public abstract partial class PowerUp : Consumible
 {

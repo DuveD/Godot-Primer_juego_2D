@@ -81,8 +81,14 @@ public static class Ajustes
 
     public static bool EscribirLogEnFichero
     {
-        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "escribir_log_en_fichero", true);
+        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "escribir_log_en_fichero", false);
         set => GuardarPropiedad(SECCION_DESARROLLO, "escribir_log_en_fichero", value);
+    }
+
+    public static bool VerColisiones
+    {
+        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "ver_colisiones", false);
+        set => GuardarPropiedad(SECCION_DESARROLLO, "ver_colisiones", value);
     }
 
     // ================= CARGA Y GUARDADO =================
@@ -100,6 +106,7 @@ public static class Ajustes
         Idioma = Idioma.ES;
         NivelLog = NivelLog.Trace;
         EscribirLogEnFichero = false;
+        VerColisiones = false;
 
         GuardarAjustesAlGuardarPropiedad = true;
     }

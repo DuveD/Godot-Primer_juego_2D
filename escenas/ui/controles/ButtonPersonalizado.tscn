@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5ng42tilghqk"]
 
-[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/modelos/controles/ButtonPersonalizado.cs" id="1_w1ltr"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="1_w1ltr"]
 
 [node name="ButtonPersonalizado" type="Button"]
 offset_top = 8.0

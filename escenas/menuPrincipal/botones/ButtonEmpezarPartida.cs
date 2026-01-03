@@ -1,7 +1,7 @@
 using Godot;
-using ButtonPersonalizado = Primerjuego2D.escenas.modelos.controles.ButtonPersonalizado;
+using ButtonPersonalizado = Primerjuego2D.escenas.ui.controles.ButtonPersonalizado;
 
-namespace Primerjuego2D.escenas.menuPrincipal;
+namespace Primerjuego2D.escenas.menuPrincipal.botones;
 
 public partial class ButtonEmpezarPartida : ButtonPersonalizado
 {

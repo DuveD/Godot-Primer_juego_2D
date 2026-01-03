@@ -18,6 +18,8 @@ MenuPrincipal.ajustes.volumenMusica,Musica,Music
 MenuPrincipal.ajustes.volumenEfectos,Efectos,Effects
 MenuPrincipal.ajustes.lenguaje,Lenguaje,Language
 MenuPrincipal.ajustes.nivelLog,Nivel de log,Log level
+MenuPrincipal.ajustes.escribirLogEnFichero,Escribir log,Write log
+MenuPrincipal.ajustes.verColisiones,Colisiones visibles,Visible collision shapes
 MenuPrincipal.ajustes.atras,Volver ⏎,Back ⏎
 MenuPrincipal.ajustes.guardar,Guardar,Save
 MenuPrincipal.estadisticas.titulo,─ Estadísticas ─,─ Statistics ─
@@ -48,23 +50,23 @@ Logro.monedasObtenidas50.nombre,Esto se pone serio,It got serious
 Logro.monedasObtenidas50.descripcion,Has obtenido 50 monedas,You have obtained 50 coins
 Logro.monedasObtenidas100.nombre,Un buen monton,A good amount
 Logro.monedasObtenidas100.descripcion,Has obtenido 100 monedas,You have obtained 100 coins
-Logro.monedasObtenidas150.nombre,,
+Logro.monedasObtenidas150.nombre,Esto ya es avaricia,This is greed
 Logro.monedasObtenidas150.descripcion,Has obtenido 150 monedas,You have obtained 150 coins
 Logro.monedasObtenidas200.nombre,Doscientos patitos,Two hundred little ducks
 Logro.monedasObtenidas200.descripcion,Has obtenido 200 monedas,You have obtained 200 coins
 Logro.monedasObtenidas300.nombre,Una de Espartanos,The Spartans
 Logro.monedasObtenidas300.descripcion,Has obtenido 300 monedas,You have obtained 300 coins
-Logro.monedasObtenidas400.nombre,,
+Logro.monedasObtenidas400.nombre,Esto ya pesa,This is getting heavy
 Logro.monedasObtenidas400.descripcion,Has obtenido 400 monedas,You have obtained 400 coins
 Logro.monedasObtenidas500.nombre,Medio quilo,Half a K
 Logro.monedasObtenidas500.descripcion,Has obtenido 500 monedas,You have obtained 500 coins
-Logro.monedasObtenidas600.nombre,,
+Logro.monedasObtenidas600.nombre,¿Dónde guardo todo esto?,Where do I put all this?
 Logro.monedasObtenidas600.descripcion,Has obtenido 600 monedas,You have obtained 600 coins
-Logro.monedasObtenidas700.nombre,,
+Logro.monedasObtenidas700.nombre,Fortuna respetable,Respectable fortune
 Logro.monedasObtenidas700.descripcion,Has obtenido 700 monedas,You have obtained 700 coins
-Logro.monedasObtenidas800.nombre,,
+Logro.monedasObtenidas800.nombre,Necesito otra bolsaI n,eed another bag
 Logro.monedasObtenidas800.descripcion,Has obtenido 800 monedas,You have obtained 800 coins
-Logro.monedasObtenidas900.nombre,,
+Logro.monedasObtenidas900.nombre,Casi millonario,Almost a millionaire
 Logro.monedasObtenidas900.descripcion,Has obtenido 900 monedas,You have obtained 900 coins
-Logro.monedasObtenidas1000.nombre,,
+Logro.monedasObtenidas1000.nombre,Monedas para aburrir,Coins for days
 Logro.monedasObtenidas1000.descripcion,Has obtenido 1000 monedas,You have obtained 1000 coins
