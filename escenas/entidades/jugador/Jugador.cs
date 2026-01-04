@@ -198,7 +198,7 @@ public partial class Jugador : CharacterBody2D
     {
         if (body is Enemigo)
         {
-            OnBodyEnteredEnemigo();
+            this.CallDeferred(nameof(OnBodyEnteredEnemigo));
         }
     }
 

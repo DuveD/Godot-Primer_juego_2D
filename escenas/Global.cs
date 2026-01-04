@@ -35,6 +35,10 @@ public partial class Global : Node
         LoggerJuego.Trace(this.Name + " Ready.");
 
         InicializarValoresEstaticos();
+
+        // Mostramos colisiones.
+        bool verColisiones = Ajustes.VerColisiones;
+        GetTree().DebugCollisionsHint = verColisiones;
     }
 
     private void InicializarValoresEstaticos()

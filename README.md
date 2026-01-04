@@ -71,6 +71,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - _kick.mp3_ by u_9ikddrpcfz ([Kick](https://pixabay.com/es/sound-effects/kick-182227/))
 - _spacerangerexpand.ttf_ by Iconian Fonts ([Space Ranger](https://www.dafont.com/es/space-ranger.font)
 - _iman.png_ by Giuseppe Ramos ([Magnet cartoon icon](https://www.vecteezy.com/vector-art/10793480-magnet-cartoon-icon))
+- _Tronicles-Sirius_Beat.mp3_ by Sirius Beat ([Tronicles](https://www.youtube.com/watch?v=2DNpupwQPJI))
 
 ## ⚖️ Aviso de uso
 

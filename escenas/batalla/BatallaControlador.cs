@@ -109,6 +109,8 @@ public partial class BatallaControlador : Node
 
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
+
+        GestorLogros.EmitirEvento(GestorLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
     }
 
     public void SumarPuntuacion(Moneda moneda)

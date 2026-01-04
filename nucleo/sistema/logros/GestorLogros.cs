@@ -48,7 +48,7 @@ public static class GestorLogros
             foreach (Logro logro in ObtenerLogros())
             {
                 Godot.Collections.Dictionary datosLogro = (Godot.Collections.Dictionary)ArchivoLogros.GetValue(SECCION_LOGROS, logro.Id, new Godot.Collections.Dictionary());
-                if (datosLogro == null || datosLogro.Count == 0)
+                if (datosLogro.Count == 0)
                     continue;
 
                 logro.Desbloqueado = (bool)datosLogro.GetValueOrDefault("desbloqueado", false);
@@ -56,9 +56,9 @@ public static class GestorLogros
                 {
                     logroContador.Progreso = (int)datosLogro.GetValueOrDefault("progreso", 0);
                 }
-
-                LoggerJuego.Trace("Archivo de logros cargado correctamente.");
             }
+
+            LoggerJuego.Trace("Archivo de logros cargado correctamente.");
         }
     }
 

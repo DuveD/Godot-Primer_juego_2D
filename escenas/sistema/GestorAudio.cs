@@ -294,7 +294,7 @@ public partial class GestorAudio : Node
 		_posicionPausa = 0f;
 
 		// Hacemos fade-in opcional si se ha informado.
-		if (!reanudando || duracionFade <= 0f)
+		if (duracionFade <= 0f)
 		{
 			AudioStreamPlayer.VolumeDb = volumenObjetivo;
 

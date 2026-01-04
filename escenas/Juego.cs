@@ -41,7 +41,7 @@ public partial class Juego : Control
 	{
 		LoggerJuego.Trace("Cargando menú principal.");
 
-		Global.GestorAudio.ReproducirMusica("retro_wave.mp3", 4f);
+		Global.GestorAudio.ReproducirMusica("retro_song.mp3");
 
 		string rutaMenuprincipal = UtilidadesNodos.ObtenerRutaEscena<MenuPrincipal>();
 		MenuPrincipal menuPrincipal = (MenuPrincipal)CambiarPantalla(rutaMenuprincipal);
@@ -53,7 +53,7 @@ public partial class Juego : Control
 	{
 		LoggerJuego.Trace("Cargando batalla.");
 
-		Global.GestorAudio.ReproducirMusica("retro_song.mp3");
+		Global.GestorAudio.ReproducirMusica("Tronicles-Sirius_Beat.mp3", 1f);
 
 		string rutaBatalla = UtilidadesNodos.ObtenerRutaEscena<Batalla>();
 		Batalla batalla = (Batalla)CambiarPantalla(rutaBatalla);
