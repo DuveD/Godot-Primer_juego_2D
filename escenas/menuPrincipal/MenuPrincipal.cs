@@ -22,15 +22,13 @@ public partial class MenuPrincipal : Control
     private ContenedorMenuAjustes _ContenedorMenuAjustes;
     public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
 
+    private ContenedorMenuLogros _ContenedorMenuLogros;
+    public ContenedorMenuLogros ContenedorMenuLogros => _ContenedorMenuLogros ??= GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
+
     private ContenedorMenuEstadisticas _ContenedorMenuEstadisticas;
     public ContenedorMenuEstadisticas ContenedorMenuEstadisticas => _ContenedorMenuEstadisticas ??= GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
 
-    private IEnumerable<ContenedorMenu> Menus =>
-    [
-    ContenedorMenuPrincipal,
-    ContenedorMenuAjustes,
-    ContenedorMenuEstadisticas
-    ];
+    private IEnumerable<ContenedorMenu> Menus => UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
 
     public ContenedorMenu UltimoContenedorMostrado;
 
@@ -139,6 +137,13 @@ public partial class MenuPrincipal : Control
         this.ContenedorMenuPrincipal.DesactivarFocusBotones();
 
         MostrarMenu(this.ContenedorMenuAjustes);
+    }
+
+    private void MostrarMenuLogros()
+    {
+        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
+
+        MostrarMenu(this.ContenedorMenuLogros);
     }
 
     private void MostrarMenuEstadisticas()

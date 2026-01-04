@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=11 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="PackedScene" uid="uid://ycovtsmeppks" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.tscn" id="2_oupjs"]
 [ext_resource type="PackedScene" uid="uid://d12g1b8xgemee" path="res://escenas/menuPrincipal/ContenedorMenuEstadisticas.tscn" id="4_6ip4d"]
+[ext_resource type="PackedScene" uid="uid://dvu0j7x4qun2s" path="res://escenas/menuPrincipal/ContenedorMenuLogros.tscn" id="5_rs0f5"]
 [ext_resource type="Shader" uid="uid://c07xghhalj6cu" path="res://recursos/shaders/ApagarTV.gdshader" id="9_shader"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.tscn" id="10_sgq14"]
 
@@ -70,7 +71,20 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
+[node name="ButtonAjustes" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="1"]
+focus_neighbor_bottom = NodePath("../ButtonLogros")
+
+[node name="ButtonLogros" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="2"]
+focus_neighbor_top = NodePath("../ButtonAjustes")
+
+[node name="ButtonEstadisticas" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="3"]
+focus_neighbor_top = NodePath("../ButtonLogros")
+
 [node name="ContenedorMenuAjustes" parent="." instance=ExtResource("10_sgq14")]
+visible = false
+layout_mode = 1
+
+[node name="ContenedorMenuLogros" parent="." instance=ExtResource("5_rs0f5")]
 visible = false
 layout_mode = 1
 
@@ -121,10 +135,12 @@ vertical_alignment = 2
 
 [connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="." method="MostrarMenuAjustes"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonLogros" to="." method="MostrarMenuLogros"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEstadisticas" to="." method="MostrarMenuEstadisticas"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="ContenedorMenuPrincipal" method="OnButtonSalirPressed"]
 [connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonGuardar" to="ContenedorMenuAjustes" method="OnButtonGuardarPressed"]
+[connection signal="pressed" from="ContenedorMenuLogros/PanelContainerMargin/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 
 [editable path="ContenedorMenuPrincipal"]
@@ -134,4 +150,7 @@ vertical_alignment = 2
 [editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido"]
 [editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje"]
 [editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
+[editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
+[editable path="ContenedorMenuLogros"]
 [editable path="ContenedorMenuEstadisticas"]

@@ -12,19 +12,19 @@ public class LogroContador(
     public int Progreso { get; set; }
     public int Objetivo { get; } = objetivo;
 
-    public int PorcentajeProgero => Progreso / Objetivo * 100;
+    public int PorcentajeProgreso =>
+        Objetivo == 0 ? 0 : (int)((float)Progreso / Objetivo * 100);
 
     public override bool ProcesarEvento(string evento, object datos)
     {
-        bool desbloqueado = false;
-
         if (Desbloqueado)
-            return desbloqueado;
+            return false;
         if (evento != Evento)
-            return desbloqueado;
+            return false;
 
         Progreso++;
 
+        bool desbloqueado = false;
         if (Progreso >= Objetivo)
         {
             Desbloquear();

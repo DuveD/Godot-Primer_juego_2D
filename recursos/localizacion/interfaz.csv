@@ -8,6 +8,7 @@ BatallaHUD.mensaje.gameOver,Game Over,Game Over
 BatallaHUD.mensaje.pausa,Juego Pausado,Game Paused
 MenuPrincipal.boton.empezarPartida,Inicio,Start
 MenuPrincipal.boton.ajustes,Ajustes,Settings
+MenuPrincipal.boton.logros,Logros,Achievements
 MenuPrincipal.boton.estadisticas,Estadísticas,Statistics
 MenuPrincipal.boton.salir,Salir,Quit
 MenuPrincipal.ajustes.tituloSonido,─ Sonido ─,─ Sound ─
@@ -22,6 +23,8 @@ MenuPrincipal.ajustes.escribirLogEnFichero,Escribir log,Write log
 MenuPrincipal.ajustes.verColisiones,Colisiones visibles,Visible collision shapes
 MenuPrincipal.ajustes.atras,Volver ⏎,Back ⏎
 MenuPrincipal.ajustes.guardar,Guardar,Save
+MenuPrincipal.logros.titulo,─ Logros ─,─ Achievements ─
+MenuPrincipal.logros.atras,Volver ⏎,Back ⏎
 MenuPrincipal.estadisticas.titulo,─ Estadísticas ─,─ Statistics ─
 MenuPrincipal.estadisticas.partidasJugadas,Partidas jugadas,Played games
 MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
@@ -64,7 +67,7 @@ Logro.monedasObtenidas600.nombre,¿Dónde guardo todo esto?,Where do I put all t
 Logro.monedasObtenidas600.descripcion,Has obtenido 600 monedas,You have obtained 600 coins
 Logro.monedasObtenidas700.nombre,Fortuna respetable,Respectable fortune
 Logro.monedasObtenidas700.descripcion,Has obtenido 700 monedas,You have obtained 700 coins
-Logro.monedasObtenidas800.nombre,Necesito otra bolsaI n,eed another bag
+Logro.monedasObtenidas800.nombre,Necesito otra bolsa,I need another bag
 Logro.monedasObtenidas800.descripcion,Has obtenido 800 monedas,You have obtained 800 coins
 Logro.monedasObtenidas900.nombre,Casi millonario,Almost a millionaire
 Logro.monedasObtenidas900.descripcion,Has obtenido 900 monedas,You have obtained 900 coins
