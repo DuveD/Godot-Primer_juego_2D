@@ -70,6 +70,8 @@ public partial class ContenedorMenuLogros : ContenedorMenu
                 CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(contenedorLogro);
             }
 
+            contenedorLogro.FocusEntered += () => CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(contenedorLogro);
+
             EnlazarFoco(contenedorLogro, contenedorLogroAnterior);
             contenedorLogroAnterior = contenedorLogro;
         }
@@ -90,8 +92,6 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         actual.FocusNeighborTop = actual.GetPathTo(anterior);
         actual.FocusNeighborLeft = actual.GetPathTo(ButtonAtras);
         anterior.FocusNeighborBottom = anterior.GetPathTo(actual);
-
-        actual.FocusEntered += () => CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(actual);
     }
 
 

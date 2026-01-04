@@ -71,7 +71,6 @@ text = "MenuPrincipal.boton.empezarPartida"
 script = ExtResource("4_qsbvf")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
-NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
