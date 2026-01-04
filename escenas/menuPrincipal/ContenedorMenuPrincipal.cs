@@ -12,8 +12,6 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class ContenedorMenuPrincipal : ContenedorMenu
 {
-    private bool _menuDesactivado = false;
-
     [Signal]
     public delegate void BotonEmpezarPartidaPulsadoEventHandler();
 
@@ -62,30 +60,6 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     public override Control ObtenerPrimerElementoConFoco()
     {
         return this.UltimoBotonPulsado ?? ButtonEmpezarPartida;
-    }
-
-    public void ActivarFocusBotones()
-    {
-        LoggerJuego.Trace("Activamos el focus de los botones del menú.");
-
-        _menuDesactivado = false;
-        foreach (var elementoConFoco in this.ElementosConFoco)
-        {
-            elementoConFoco.MouseFilter = MouseFilterEnum.Pass; // Aceptamos clicks
-            elementoConFoco.FocusMode = FocusModeEnum.All;      // Aceptamos teclado
-        }
-    }
-
-    public void DesactivarFocusBotones()
-    {
-        LoggerJuego.Trace("Desactivamos el focus de los botones del menú.");
-
-        _menuDesactivado = true;
-        foreach (var elementoConFoco in ElementosConFoco)
-        {
-            elementoConFoco.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
-            elementoConFoco.FocusMode = FocusModeEnum.None;       // Ignora teclado
-        }
     }
 
     private void OnButtonEmpezarPartidaPressedAnimationEnd()

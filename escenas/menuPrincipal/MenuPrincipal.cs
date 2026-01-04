@@ -11,8 +11,6 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
-    private bool _modoNavegacionTeclado = true;
-
     private ColorRect _Fondo;
     private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
 
@@ -51,106 +49,25 @@ public partial class MenuPrincipal : Control
         LoggerJuego.Trace(this.Name + " Ready.");
 
         LabelVersion.Text = "v" + Ajustes.Version;
-
-        foreach (ContenedorMenu contenedorMenu in this.Menus)
-        {
-            contenedorMenu.FocoElemento += InformarUltimoElementoConFoco;
-        }
-
-        GrabFocusPrimerElemento(this.ContenedorMenuPrincipal);
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        DetectarMetodoDeEntrada(@event);
-    }
-
-    private void DetectarMetodoDeEntrada(InputEvent @event)
-    {
-        if (@event is InputEventKey keyEvent && keyEvent.Pressed)
-        {
-            if (!_modoNavegacionTeclado &&
-                UtilidadesControles.IsActionPressed(@event, ConstantesAcciones.UP, ConstantesAcciones.RIGHT, ConstantesAcciones.DOWN, ConstantesAcciones.LEFT, ConstantesAcciones.ESCAPE))
-            {
-                LoggerJuego.Trace("Activamos la navegación por teclado.");
-                ActivarNavegacionTeclado();
-            }
-        }
-        else if (@event is InputEventMouse)
-        {
-            if (_modoNavegacionTeclado)
-            {
-                LoggerJuego.Trace("Desactivamos la navegación por teclado.");
-                DesactivarNavegacionTeclado();
-            }
-        }
-    }
-
-    public void ActivarNavegacionTeclado()
-    {
-        if (!_modoNavegacionTeclado)
-        {
-            _modoNavegacionTeclado = true;
-
-            foreach (var menu in this.Menus)
-                menu.ActivarNavegacionTeclado();
-
-            GrabFocusUltimoBotonConFoco();
-        }
-    }
-
-    public void DesactivarNavegacionTeclado()
-    {
-        if (_modoNavegacionTeclado)
-        {
-            _modoNavegacionTeclado = false;
-
-            foreach (var menu in this.Menus)
-                menu.DesactivarNavegacionTeclado();
-        }
-    }
-
-    public void InformarUltimoElementoConFoco(Control ultimoElementoConFoco)
-    {
-        this.UltimoElementoConFoco = ultimoElementoConFoco;
-    }
-
-    public void GrabFocusUltimoBotonConFoco()
-    {
-        if (UltimoElementoConFoco == null)
-            return;
-
-        if (this.UltimoElementoConFoco is IFocusSilencioso elementoConFocusSilencioso)
-            elementoConFocusSilencioso.GrabFocusSilencioso();
-        else
-            this.UltimoElementoConFoco.GrabFocus();
     }
 
     public void MostrarMenuPrincipal()
     {
-        this.ContenedorMenuPrincipal.ActivarFocusBotones();
-
         MostrarMenu(this.ContenedorMenuPrincipal);
     }
 
     private void MostrarMenuAjustes()
     {
-        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
-
         MostrarMenu(this.ContenedorMenuAjustes);
     }
 
     private void MostrarMenuLogros()
     {
-        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
-
         MostrarMenu(this.ContenedorMenuLogros);
     }
 
     private void MostrarMenuEstadisticas()
     {
-        this.ContenedorMenuPrincipal.DesactivarFocusBotones();
-
         MostrarMenu(this.ContenedorMenuEstadisticas);
     }
 
@@ -161,21 +78,5 @@ public partial class MenuPrincipal : Control
 
         contenedorMenu.Visible = true;
         this.UltimoContenedorMostrado = contenedorMenu;
-
-        GrabFocusPrimerElemento(contenedorMenu);
-    }
-
-    private void GrabFocusPrimerElemento(ContenedorMenu contenedorMenu)
-    {
-        Control elementoASeleccionar = contenedorMenu.ObtenerPrimerElementoConFoco();
-        if (elementoASeleccionar == null) return;
-
-        if (_modoNavegacionTeclado)
-            if (elementoASeleccionar is IFocusSilencioso elementoConFocusSilencioso)
-                elementoConFocusSilencioso.GrabFocusSilencioso();
-            else
-                elementoASeleccionar.GrabFocus();
-        else
-            this.UltimoElementoConFoco = elementoASeleccionar;
     }
 }

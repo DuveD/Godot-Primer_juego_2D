@@ -1,7 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkvjycp3edtfo"]
+[gd_scene load_steps=8 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
 [ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/BatallaHUD.cs" id="1_osa72"]
+[ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_pb27p"]
+[ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/ContenedorMenuPausa.cs" id="3_v7ugp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_1n7hr"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v7ugp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 
 [node name="BatallaHUD" type="CanvasLayer"]
 script = ExtResource("1_osa72")
@@ -37,20 +59,53 @@ theme_override_font_sizes/font_size = 64
 text = "BatallaHUD.mensaje.esquivaLosEnemigos"
 horizontal_alignment = 1
 
-[node name="MensajePausa" type="Label" parent="."]
+[node name="ContenedorMenuPausa" type="CenterContainer" parent="."]
+process_mode = 3
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -560.0
-offset_top = -72.0
-offset_right = 560.0
-offset_bottom = 87.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_v7ugp")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContenedorMenuPausa"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MensajePausa" type="Label" parent="ContenedorMenuPausa/VBoxContainer2"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_gg8ny")
 theme_override_font_sizes/font_size = 40
 text = "BatallaHUD.mensaje.pausa"
 horizontal_alignment = 1
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="ContenedorMenuPausa/VBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_1n7hr")
+
+[node name="PanelContainerContentSize" type="PanelContainer" parent="ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v7ugp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ButtonRenaudar" parent="ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ButtonAjustes")
+text = "BatallaHUD.button.renaudar"
+
+[node name="ButtonAjustes" parent="ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonRenaudar")
+focus_neighbor_bottom = NodePath("../ButtonSalir")
+text = "BatallaHUD.button.ajustes"
+
+[node name="ButtonSalir" parent="ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ButtonAjustes")
+text = "BatallaHUD.button.salir"

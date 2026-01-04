@@ -14,8 +14,8 @@ public partial class BatallaHUD : CanvasLayer
     private Label _ScoreLabel;
     private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
 
-    private Label _MensajePausa;
-    private Label MensajePausa => _MensajePausa ??= GetNode<Label>("MensajePausa");
+    private CenterContainer _ContenedorMenuPausa;
+    private CenterContainer ContenedorMenuPausa => _ContenedorMenuPausa ??= GetNode<CenterContainer>("ContenedorMenuPausa");
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
 
@@ -72,7 +72,7 @@ public partial class BatallaHUD : CanvasLayer
     {
         this.VisibilidadElementosPausa = this.GetChildren()
             .OfType<CanvasItem>()
-            .Where(item => item != this.MensajePausa && item != this.ScoreLabel)
+            .Where(item => item != this.ContenedorMenuPausa && item != this.ScoreLabel)
             .ToDictionary(item => item, item => item.Visible);
 
         UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
@@ -96,8 +96,8 @@ public partial class BatallaHUD : CanvasLayer
     public void MostrarMensajePausa(bool mostrar)
     {
         if (mostrar)
-            this.MensajePausa.Show();
+            this.ContenedorMenuPausa.Show();
         else
-            this.MensajePausa.Hide();
+            this.ContenedorMenuPausa.Hide();
     }
 }

@@ -40,7 +40,7 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
