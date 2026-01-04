@@ -52,9 +52,10 @@ public partial class MenuPrincipal : Control
 
         LabelVersion.Text = "v" + Ajustes.Version;
 
-        this.ContenedorMenuPrincipal.FocoElemento += InformarUltimoElementoConFoco;
-        this.ContenedorMenuAjustes.FocoElemento += InformarUltimoElementoConFoco;
-        this.ContenedorMenuEstadisticas.FocoElemento += InformarUltimoElementoConFoco;
+        foreach (ContenedorMenu contenedorMenu in this.Menus)
+        {
+            contenedorMenu.FocoElemento += InformarUltimoElementoConFoco;
+        }
 
         GrabFocusPrimerElemento(this.ContenedorMenuPrincipal);
     }

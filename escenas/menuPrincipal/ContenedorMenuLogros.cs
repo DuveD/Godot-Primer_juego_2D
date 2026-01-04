@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -18,6 +19,11 @@ public partial class ContenedorMenuLogros : ContenedorMenu
     [Export]
     public PackedScene ContenedorLogroContadorScene;
 
+    private ContenedorLogro _PrimerLogroLista;
+    private ContenedorLogro _UltimoLogroLista;
+
+    private List<ContenedorLogro> _ListaContenedoresLogros = [];
+
     private ScrollContainer _ScrollContainer;
     public ScrollContainer ScrollContainer => _ScrollContainer ??= UtilidadesNodos.ObtenerNodoPorNombre<ScrollContainer>(this, "ScrollContainer");
 
@@ -29,11 +35,11 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
     public override void _Ready()
     {
+        CargarLogros();
+
         base._Ready();
 
         LoggerJuego.Trace(this.Name + " Ready.");
-
-        CargarLogros();
     }
 
     private void CargarLogros()
@@ -41,21 +47,57 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         IEnumerable<Logro> logros = GestorLogros.ObtenerLogros();
         logros = logros.OrderBy(l => !l.Desbloqueado);
 
+        ContenedorLogro contenedorLogroAnterior = null;
         foreach (Logro logro in logros)
         {
-            if (logro is LogroUnico logroUnico)
+            ContenedorLogro contenedorLogro = logro switch
             {
-                ContenedorLogroUnico contenedorLogroUnico = ContenedorLogroUnicoScene.Instantiate<ContenedorLogroUnico>();
-                contenedorLogroUnico.Inicializar(logroUnico);
-                VBoxContainerLogros.AddChild(contenedorLogroUnico);
-            }
-            else if (logro is LogroContador logroContador)
+                LogroUnico => ContenedorLogroUnicoScene.Instantiate<ContenedorLogroUnico>(),
+                LogroContador => ContenedorLogroContadorScene.Instantiate<ContenedorLogroContador>(),
+                _ => null
+            };
+
+            if (contenedorLogro == null)
+                continue;
+
+            contenedorLogro.Inicializar(logro);
+            VBoxContainerLogros.AddChild(contenedorLogro);
+            _ListaContenedoresLogros.Add(contenedorLogro);
+
+            if (this._PrimerLogroLista == null)
             {
-                ContenedorLogroContador contenedorLogroContador = ContenedorLogroContadorScene.Instantiate<ContenedorLogroContador>();
-                contenedorLogroContador.Inicializar(logroContador);
-                VBoxContainerLogros.AddChild(contenedorLogroContador);
+                this._PrimerLogroLista = contenedorLogro;
+                CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(contenedorLogro);
             }
+
+            EnlazarFoco(contenedorLogro, contenedorLogroAnterior);
+            contenedorLogroAnterior = contenedorLogro;
         }
+
+        if (contenedorLogroAnterior != null)
+        {
+            this._UltimoLogroLista = contenedorLogroAnterior;
+            this._UltimoLogroLista.FocusNeighborBottom = this._UltimoLogroLista.GetPathTo(this.ButtonAtras);
+            this.ButtonAtras.FocusNeighborTop = this.ButtonAtras.GetPathTo(this._UltimoLogroLista);
+        }
+    }
+
+    private void EnlazarFoco(ContenedorLogro actual, ContenedorLogro anterior)
+    {
+        if (anterior == null)
+            return;
+
+        actual.FocusNeighborTop = actual.GetPathTo(anterior);
+        actual.FocusNeighborLeft = actual.GetPathTo(ButtonAtras);
+        anterior.FocusNeighborBottom = anterior.GetPathTo(actual);
+
+        actual.FocusEntered += () => CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(actual);
+    }
+
+
+    private void CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(ContenedorLogro contenedorLogro)
+    {
+        this.ButtonAtras.FocusNeighborRight = this.ButtonAtras.GetPathTo(contenedorLogro);
     }
 
     public override void _Input(InputEvent @event)
@@ -72,12 +114,16 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return ScrollContainer;
+        return this._PrimerLogroLista != null ? _PrimerLogroLista : ButtonAtras;
     }
 
     public override List<Control> ObtenerElementosConFoco()
     {
-        return [ScrollContainer, ButtonAtras];
-    }
+        List<Control> elementos = [];
 
+        elementos.AddRange(_ListaContenedoresLogros);
+        elementos.Add(ButtonAtras);
+
+        return elementos;
+    }
 }
