@@ -1,7 +1,6 @@
 using Godot;
 using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.constantes;
-using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
@@ -9,7 +8,7 @@ using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.batalla;
 
-public partial class BatallaControlador : Node
+public partial class BatallaControlador : Control
 {
     [Signal]
     public delegate void IniciandoBatallaEventHandler();
@@ -41,6 +40,9 @@ public partial class BatallaControlador : Node
     private SpawnEnemigos _SpawnEnemigos;
     private SpawnEnemigos SpawnEnemigos => _SpawnEnemigos ??= GetNode<SpawnEnemigos>("../SpawnEnemigos");
 
+    private SpawnMonedas _SpawnMonedas;
+    private SpawnMonedas SpawnMonedas => _SpawnMonedas ??= GetNode<SpawnMonedas>("../SpawnMonedas");
+
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -52,11 +54,12 @@ public partial class BatallaControlador : Node
     {
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            OnPauseButtonPressed();
+            PausarJuego();
+            AcceptEvent();
         }
     }
 
-    private void OnPauseButtonPressed()
+    public void PausarJuego()
     {
         if (!this.BatallaEnCurso)
             return;
@@ -89,6 +92,8 @@ public partial class BatallaControlador : Node
         this.BatallaEnCurso = true;
 
         EmitSignal(SignalName.PuntuacionActualizada, Puntuacion);
+
+        SpawnMonedas.Spawn();
 
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
         await UtilidadesNodos.EsperarRenaudar(this);

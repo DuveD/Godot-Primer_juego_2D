@@ -56,7 +56,7 @@ public abstract partial class ContenedorMenu : CenterContainer
         ModoNavegacionTeclado = true;
         this.VisibilityChanged += OnVisibilityChanged;
 
-        if (this.Visible)
+        if (this.Visible & this.ModoNavegacionTeclado)
             CallDeferred(nameof(GrabFocusPrimerElemento));
     }
 
@@ -83,7 +83,7 @@ public abstract partial class ContenedorMenu : CenterContainer
     {
         if (this.Visible)
         {
-            this.ActivarFocusBotones();
+            ActivarFocusBotones();
             CallDeferred(nameof(GrabFocusPrimerElemento));
         }
         else
@@ -136,17 +136,18 @@ public abstract partial class ContenedorMenu : CenterContainer
 
     public override void _Input(InputEvent @event)
     {
-        DetectarMetodoDeEntrada(@event);
+        if (this.Visible)
+            DetectarMetodoDeEntrada(@event);
     }
 
     private void DetectarMetodoDeEntrada(InputEvent @event)
     {
         if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
-            if (!ModoNavegacionTeclado &&
-                UtilidadesControles.IsActionPressed(@event, ConstantesAcciones.UP, ConstantesAcciones.RIGHT, ConstantesAcciones.DOWN, ConstantesAcciones.LEFT, ConstantesAcciones.ESCAPE))
+            if (!ModoNavegacionTeclado)
             {
                 this.ModoNavegacionTeclado = true;
+                AcceptEvent();
             }
         }
         else if (@event is InputEventMouse)

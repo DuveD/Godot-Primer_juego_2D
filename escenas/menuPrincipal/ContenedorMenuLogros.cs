@@ -109,6 +109,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
             UtilidadesNodos.PulsarBoton(ButtonAtras);
+            AcceptEvent();
         }
     }
 

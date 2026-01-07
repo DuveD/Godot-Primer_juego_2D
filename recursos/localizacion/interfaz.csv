@@ -6,6 +6,9 @@ BatallaHUD.mensaje.preparate,¡Prepárate!,Get Ready!
 BatallaHUD.mensaje.vamos,¡Vamos!,GO!
 BatallaHUD.mensaje.gameOver,Game Over,Game Over
 BatallaHUD.mensaje.pausa,Juego Pausado,Game Paused
+BatallaHUD.boton.renaudar,Renaudar,Resume
+BatallaHUD.boton.ajustes,Ajustes,Settings
+BatallaHUD.boton.salir,Salir,Quit
 MenuPrincipal.boton.empezarPartida,Inicio,Start
 MenuPrincipal.boton.ajustes,Ajustes,Settings
 MenuPrincipal.boton.logros,Logros,Achievements

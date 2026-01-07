@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -12,6 +11,9 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class SpawnMonedas : Control
 {
+	[Export]
+	public int ProbabilidadSpawnMonedaEspecial = 30;
+
 	public int MonedasRecogidas;
 
 	// Señal "MonedaRecogida" para indicar que el jugador ha recogido una moneda.
@@ -19,10 +21,16 @@ public partial class SpawnMonedas : Control
 	public delegate void MonedaRecogidaEventHandler(Moneda moneda);
 
 	[Export]
-	public PackedScene MonedaScene;
+	public PackedScene MonedaPackedScene;
 
 	[Export]
-	public PackedScene MonedaEspecialScene;
+	public PackedScene MonedaEspecialPackedScene;
+
+	[Export]
+	public PackedScene PowerUpImanMonedaPackedScene;
+
+	[Export]
+	public PackedScene PowerUpInvulnerabilidadpacPackedScene;
 
 	[Export]
 	public int DistanciaMinima = 200;
@@ -35,8 +43,6 @@ public partial class SpawnMonedas : Control
 		LoggerJuego.Trace(this.Name + " Ready.");
 
 		this.MonedasRecogidas = 0;
-
-		Spawn();
 	}
 
 	public void Spawn()
@@ -50,8 +56,8 @@ public partial class SpawnMonedas : Control
 		if (!existeMonedaEspecial)
 		{
 			// Moneda especial según probabilidad
-			float prob = 0.1f + 0.4f * Mathf.Exp(-0.046f * MonedasRecogidas);
-			if (Randomizador.GetRandomFloat() < prob)
+			float prob = (float)ProbabilidadSpawnMonedaEspecial / 100;
+			if (Randomizador.GetRandomFloat() <= prob)
 			{
 				LoggerJuego.Trace("Spawneamos una moneda especial.");
 				SpawnMoneda(true);
@@ -65,11 +71,11 @@ public partial class SpawnMonedas : Control
 
 		if (monedaEspecial)
 		{
-			moneda = MonedaEspecialScene.Instantiate<MonedaEspecial>();
+			moneda = MonedaEspecialPackedScene.Instantiate<MonedaEspecial>();
 		}
 		else
 		{
-			moneda = MonedaScene.Instantiate<Moneda>();
+			moneda = MonedaPackedScene.Instantiate<Moneda>();
 		}
 
 		moneda.Recogida += OnMonedaRecogida;

@@ -42,17 +42,21 @@ public partial class Batalla : Node
         this.BatallaControlador.IniciarBatalla();
     }
 
-    public async void InicioGameOver()
+    public void InicioGameOver()
     {
+        if (this.BatallaControlador.JuegoPausado)
+            this.BatallaControlador.PausarJuego();
+
         Global.GestorAudio.PausarMusica(2f);
 
         this.BatallaControlador.FinalizarBatalla();
-
-        await UtilidadesNodos.EsperarSegundos(this, 2.0);
     }
 
-    public async void FinGameOver()
+    public void FinGameOver()
     {
+        if (this.BatallaControlador.JuegoPausado)
+            this.BatallaControlador.PausarJuego();
+
         EmitSignal(SignalName.GameOverFinalizado);
     }
 }

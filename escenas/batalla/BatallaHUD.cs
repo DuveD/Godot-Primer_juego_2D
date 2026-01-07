@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Primerjuego2D.escenas.menuPrincipal;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -16,6 +17,9 @@ public partial class BatallaHUD : CanvasLayer
 
     private CenterContainer _ContenedorMenuPausa;
     private CenterContainer ContenedorMenuPausa => _ContenedorMenuPausa ??= GetNode<CenterContainer>("ContenedorMenuPausa");
+
+    private ContenedorMenuAjustes _ContenedorMenuAjustes;
+    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
 
@@ -99,5 +103,17 @@ public partial class BatallaHUD : CanvasLayer
             this.ContenedorMenuPausa.Show();
         else
             this.ContenedorMenuPausa.Hide();
+    }
+
+    public void OnButtonAjustesPressed()
+    {
+        this.ContenedorMenuPausa.Visible = false;
+        this.ContenedorMenuAjustes.Visible = true;
+    }
+
+    public void OnButtonAjustesAtrasPressed()
+    {
+        this.ContenedorMenuAjustes.Visible = false;
+        this.ContenedorMenuPausa.Visible = true;
     }
 }

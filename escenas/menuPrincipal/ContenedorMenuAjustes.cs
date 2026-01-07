@@ -137,9 +137,9 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		ControlVerColisiones.ValorCambiado += OnControlVerColisionesValorCambiado;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
-		// Solo respondemos si el menú es visible.
+		base._Input(@event);
 
 		if (!this.Visible)
 			return;
@@ -147,6 +147,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
 			UtilidadesNodos.PulsarBoton(ButtonAtras);
+			AcceptEvent();
 		}
 	}
 

@@ -49,6 +49,7 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
             UtilidadesNodos.PulsarBoton(ButtonAtras);
+            AcceptEvent();
         }
     }
 

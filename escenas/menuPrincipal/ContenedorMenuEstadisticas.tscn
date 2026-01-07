@@ -52,6 +52,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="ContenedorMenuEstadisticas" type="CenterContainer"]
+process_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

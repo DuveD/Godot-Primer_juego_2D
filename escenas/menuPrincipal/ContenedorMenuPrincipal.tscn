@@ -62,6 +62,7 @@ layout_mode = 2
 theme_override_constants/separation = 18
 
 [node name="ButtonEmpezarPartida" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+process_mode = 3
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ButtonAjustes")
 theme = ExtResource("2_2ul6g")

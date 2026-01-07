@@ -179,6 +179,7 @@ focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_neighbor_bottom = NodePath("../../ControlVerColisiones/CheckButton")
 
 [node name="ControlVerColisiones" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("6_nncg4")]
+process_mode = 3
 layout_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.verColisiones"
 
