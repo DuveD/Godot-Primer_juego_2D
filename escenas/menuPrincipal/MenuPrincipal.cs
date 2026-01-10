@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.modelos.interfaces;
@@ -11,6 +12,8 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
+    public bool ModoNavegacionTeclado = false;
+
     private ColorRect _Fondo;
     private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
 
@@ -49,7 +52,18 @@ public partial class MenuPrincipal : Control
         LoggerJuego.Trace(this.Name + " Ready.");
 
         LabelVersion.Text = "v" + Ajustes.Version;
+
+        foreach (ContenedorMenu contenedorMenu in Menus)
+        {
+            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
+        }
     }
+
+    private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
+    {
+        this.ModoNavegacionTeclado = modoNavegacionTeclado;
+    }
+
 
     public void MostrarMenuPrincipal()
     {
@@ -77,6 +91,7 @@ public partial class MenuPrincipal : Control
             menu.Visible = false;
 
         contenedorMenu.Visible = true;
+        contenedorMenu.ModoNavegacionTeclado = this.ModoNavegacionTeclado;
         this.UltimoContenedorMostrado = contenedorMenu;
     }
 }

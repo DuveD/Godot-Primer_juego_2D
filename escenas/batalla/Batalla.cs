@@ -45,7 +45,7 @@ public partial class Batalla : Node
     public void InicioGameOver()
     {
         if (this.BatallaControlador.JuegoPausado)
-            this.BatallaControlador.PausarJuego();
+            this.BatallaControlador.RenaudarJuego();
 
         Global.GestorAudio.PausarMusica(2f);
 
@@ -55,7 +55,7 @@ public partial class Batalla : Node
     public void FinGameOver()
     {
         if (this.BatallaControlador.JuegoPausado)
-            this.BatallaControlador.PausarJuego();
+            this.BatallaControlador.RenaudarJuego();
 
         EmitSignal(SignalName.GameOverFinalizado);
     }

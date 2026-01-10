@@ -28,9 +28,6 @@ anchors_preset = 0
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
-[node name="ContenedorMenuAjustes" parent="BatallaHUD" index="3"]
-process_mode = 3
-
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
@@ -86,19 +83,20 @@ position = Vector2(376, 192)
 [connection signal="PausarBatalla" from="BatallaControlador" to="BatallaHUD" method="EsconderHUD"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]
 [connection signal="RenaudarBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarHUD"]
-[connection signal="pressed" from="BatallaHUD/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="PausarJuego"]
-[connection signal="pressed" from="BatallaHUD/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="." method="FinGameOver"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="." method="FinGameOver"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="BatallaHUD/PanelMenuPausa" method="OnButtonAjustesAtrasPressed"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
 [connection signal="timeout" from="SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
 [connection signal="MonedaRecogida" from="SpawnMonedas" to="BatallaControlador" method="SumarPuntuacion"]
 
 [editable path="BatallaHUD"]
-[editable path="BatallaHUD/ContenedorMenuAjustes"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
-[editable path="BatallaHUD/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]

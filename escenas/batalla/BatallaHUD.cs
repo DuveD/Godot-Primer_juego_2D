@@ -15,11 +15,8 @@ public partial class BatallaHUD : CanvasLayer
     private Label _ScoreLabel;
     private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
 
-    private CenterContainer _ContenedorMenuPausa;
-    private CenterContainer ContenedorMenuPausa => _ContenedorMenuPausa ??= GetNode<CenterContainer>("ContenedorMenuPausa");
-
-    private ContenedorMenuAjustes _ContenedorMenuAjustes;
-    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+    private PanelMenuPausa _PanelMenuPausa;
+    public PanelMenuPausa PanelMenuPausa => _PanelMenuPausa ??= GetNode<PanelMenuPausa>("PanelMenuPausa");
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
 
@@ -76,17 +73,17 @@ public partial class BatallaHUD : CanvasLayer
     {
         this.VisibilidadElementosPausa = this.GetChildren()
             .OfType<CanvasItem>()
-            .Where(item => item != this.ContenedorMenuPausa && item != this.ScoreLabel)
+            .Where(item => item != this.PanelMenuPausa && item != this.ScoreLabel)
             .ToDictionary(item => item, item => item.Visible);
 
         UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
 
-        MostrarMensajePausa(true);
+        MostrarContenedorPausa(true);
     }
 
     private void MostrarHUD()
     {
-        MostrarMensajePausa(false);
+        MostrarContenedorPausa(false);
 
         var elementosVisibles = this.VisibilidadElementosPausa
             .Where(kv => !kv.Key.Visible && kv.Value)
@@ -97,23 +94,11 @@ public partial class BatallaHUD : CanvasLayer
             elemento.Show();
     }
 
-    public void MostrarMensajePausa(bool mostrar)
+    public void MostrarContenedorPausa(bool mostrar)
     {
         if (mostrar)
-            this.ContenedorMenuPausa.Show();
+            this.PanelMenuPausa.Show();
         else
-            this.ContenedorMenuPausa.Hide();
-    }
-
-    public void OnButtonAjustesPressed()
-    {
-        this.ContenedorMenuPausa.Visible = false;
-        this.ContenedorMenuAjustes.Visible = true;
-    }
-
-    public void OnButtonAjustesAtrasPressed()
-    {
-        this.ContenedorMenuAjustes.Visible = false;
-        this.ContenedorMenuPausa.Visible = true;
+            this.PanelMenuPausa.Hide();
     }
 }

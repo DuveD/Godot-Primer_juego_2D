@@ -32,7 +32,28 @@ public partial class BatallaControlador : Control
 
     public bool BatallaEnCurso { get; private set; } = false;
 
-    public bool JuegoPausado { get; set; } = false;
+    public bool _JuegoPausado = false;
+
+    public bool JuegoPausado
+    {
+        get => _JuegoPausado;
+        set
+        {
+            _JuegoPausado = value;
+            UtilidadesNodos.PausarNodo(this, value);
+
+            if (value)
+            {
+                LoggerJuego.Trace("Juego pausado.");
+                EmitSignal(SignalName.PausarBatalla);
+            }
+            else
+            {
+                LoggerJuego.Trace("Juego renaudado.");
+                EmitSignal(SignalName.RenaudarBatalla);
+            }
+        }
+    }
 
     private BatallaHUD _BatallaHUD;
     private BatallaHUD BatallaHUD => _BatallaHUD ??= GetNode<BatallaHUD>("../BatallaHUD");
@@ -50,7 +71,7 @@ public partial class BatallaControlador : Control
         GestorEstadisticas.InicializarPartida();
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
@@ -64,20 +85,15 @@ public partial class BatallaControlador : Control
         if (!this.BatallaEnCurso)
             return;
 
-        this.JuegoPausado = !JuegoPausado;
+        this.JuegoPausado = true;
+    }
 
-        UtilidadesNodos.PausarNodo(this, this.JuegoPausado);
+    public void RenaudarJuego()
+    {
+        if (!this.BatallaEnCurso)
+            return;
 
-        if (this.JuegoPausado)
-        {
-            LoggerJuego.Trace("Juego pausado.");
-            EmitSignal(SignalName.PausarBatalla);
-        }
-        else
-        {
-            LoggerJuego.Trace("Juego renaudado.");
-            EmitSignal(SignalName.RenaudarBatalla);
-        }
+        this.JuegoPausado = false;
     }
 
     public async void IniciarBatalla()

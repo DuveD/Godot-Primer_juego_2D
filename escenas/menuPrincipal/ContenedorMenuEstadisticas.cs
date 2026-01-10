@@ -48,8 +48,11 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            UtilidadesNodos.PulsarBoton(ButtonAtras);
-            AcceptEvent();
+            if (this.ModoNavegacionTeclado)
+            {
+                UtilidadesNodos.PulsarBoton(ButtonAtras);
+                AcceptEvent();
+            }
         }
     }
 

@@ -76,7 +76,7 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         Global.GestorAudio.PausarMusica(0.5f);
 
         CrtLayer.Visible = true;
-        AnimPlayer.Play("ApagarTV");
+        AnimPlayer.Play("apagar_tv");
 
         await ToSignal(AnimPlayer, "animation_finished");
         await Task.Delay(300);

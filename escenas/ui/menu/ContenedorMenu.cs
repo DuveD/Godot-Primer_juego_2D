@@ -9,8 +9,11 @@ namespace Primerjuego2D.escenas.ui.menu;
 
 public abstract partial class ContenedorMenu : CenterContainer
 {
+    [Signal]
+    public delegate void ModoNavegacionTecladoChangedEventHandler(bool modoNavegacionTeclado);
+
     private bool _modoNavegacionTeclado;
-    protected bool ModoNavegacionTeclado
+    public bool ModoNavegacionTeclado
     {
         get => _modoNavegacionTeclado;
         set
@@ -24,6 +27,8 @@ public abstract partial class ContenedorMenu : CenterContainer
                 OnActivarNavegacionTeclado();
             else
                 OnDesactivarNavegacionTeclado();
+
+            EmitSignal(SignalName.ModoNavegacionTecladoChanged, value);
         }
     }
 
@@ -57,7 +62,7 @@ public abstract partial class ContenedorMenu : CenterContainer
         this.VisibilityChanged += OnVisibilityChanged;
 
         if (this.Visible & this.ModoNavegacionTeclado)
-            CallDeferred(nameof(GrabFocusPrimerElemento));
+            GrabFocusPrimerElemento();
     }
 
     public void ConfigurarElementosConFoco()
