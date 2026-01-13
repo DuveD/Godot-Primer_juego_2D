@@ -122,4 +122,4 @@ text = "MenuPrincipal.boton.salir"
 script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
-NombreSonidoOnPressed = "digital_click.mp3"
+NombreSonidoOnPressed = "tv_shutdown.mp3"

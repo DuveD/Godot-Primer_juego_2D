@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Godot;
-using Primerjuego2D.escenas.modelos.interfaces;
 using Primerjuego2D.escenas.ui.menu;
-using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -36,17 +33,6 @@ public partial class MenuPrincipal : Control
     private Label _LabelVersion;
     private Label LabelVersion => _LabelVersion ??= GetNode<Label>("LabelVersion");
 
-    public Control _UltimoElementoConFocus;
-    public Control UltimoElementoConFoco
-    {
-        get => _UltimoElementoConFocus;
-        set
-        {
-            _UltimoElementoConFocus = value;
-            LoggerJuego.Trace("Último elemento con focus actualizado a '" + value.Name + "'.");
-        }
-    }
-
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -63,7 +49,6 @@ public partial class MenuPrincipal : Control
     {
         this.ModoNavegacionTeclado = modoNavegacionTeclado;
     }
-
 
     public void MostrarMenuPrincipal()
     {
@@ -90,8 +75,7 @@ public partial class MenuPrincipal : Control
         foreach (var menu in Menus)
             menu.Visible = false;
 
-        contenedorMenu.Visible = true;
-        contenedorMenu.ModoNavegacionTeclado = this.ModoNavegacionTeclado;
-        this.UltimoContenedorMostrado = contenedorMenu;
+        bool seleccionarPrimerElemento = !(contenedorMenu is ContenedorMenuPrincipal);
+        contenedorMenu.Show(this.ModoNavegacionTeclado, seleccionarPrimerElemento);
     }
 }

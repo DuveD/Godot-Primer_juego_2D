@@ -11,7 +11,7 @@ namespace Primerjuego2D.escenas.batalla;
 public partial class BatallaControlador : Control
 {
     [Signal]
-    public delegate void IniciandoBatallaEventHandler();
+    public delegate void PreparandoBatallaEventHandler();
 
     [Signal]
     public delegate void BatallaIniciadaEventHandler();
@@ -101,11 +101,10 @@ public partial class BatallaControlador : Control
         if (BatallaEnCurso)
             return;
 
-        LoggerJuego.Info("Iniciamos la batalla.");
-        EmitSignal(SignalName.IniciandoBatalla);
+        LoggerJuego.Info("Preparando la batalla.");
+        EmitSignal(SignalName.PreparandoBatalla);
 
         this.Puntuacion = 0;
-        this.BatallaEnCurso = true;
 
         EmitSignal(SignalName.PuntuacionActualizada, Puntuacion);
 
@@ -116,6 +115,8 @@ public partial class BatallaControlador : Control
 
         LoggerJuego.Info("Batalla iniciada.");
         EmitSignal(SignalName.BatallaIniciada);
+
+        this.BatallaEnCurso = true;
     }
 
     public void FinalizarBatalla()

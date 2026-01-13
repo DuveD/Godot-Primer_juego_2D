@@ -212,6 +212,11 @@ public partial class Jugador : CharacterBody2D
 
         LoggerJuego.Info("Jugador golpeado por enemigo.");
 
+        Morir();
+    }
+
+    public async void Morir()
+    {
         LimpiarPowerUps();
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.

@@ -72,6 +72,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - _spacerangerexpand.ttf_ by Iconian Fonts ([Space Ranger](https://www.dafont.com/es/space-ranger.font)
 - _iman.png_ by Giuseppe Ramos ([Magnet cartoon icon](https://www.vecteezy.com/vector-art/10793480-magnet-cartoon-icon))
 - _Tronicles-Sirius_Beat.mp3_ by Sirius Beat ([Tronicles](https://www.youtube.com/watch?v=2DNpupwQPJI))
+- _tv_shutdown.mp3_ by SoundReality ([TV Shut Down](https://pixabay.com/es/sound-effects/pel%c3%adculas-y-efectos-especiales-tv-shut-down-185446/))
 
 ## ⚖️ Aviso de uso
 

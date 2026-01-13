@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.menuPrincipal.botones;
+using Primerjuego2D.escenas.miscelaneo.animaciones;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.utilidades;
@@ -27,11 +28,8 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     private ButtonSalir _ButtonSalir;
     public ButtonSalir ButtonSalir => _ButtonSalir ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonSalir>(this, "ButtonSalir");
 
-    private CanvasLayer _CrtLayer;
-    private CanvasLayer CrtLayer => _CrtLayer ??= GetNode<CanvasLayer>("../CRTShutdown");
-
-    private AnimationPlayer _AnimPlayer;
-    private AnimationPlayer AnimPlayer => _AnimPlayer ??= CrtLayer.GetNode<AnimationPlayer>("AnimationPlayer");
+    private AnimacionCrtShutdown _AnimacionCrtShutdown;
+    public AnimacionCrtShutdown AnimacionCrtShutdown => _AnimacionCrtShutdown ??= GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
     public ButtonPersonalizado UltimoBotonPulsado;
 
@@ -75,10 +73,9 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
 
         Global.GestorAudio.PausarMusica(0.5f);
 
-        CrtLayer.Visible = true;
-        AnimPlayer.Play("apagar_tv");
+        AnimacionCrtShutdown.Reproducir();
 
-        await ToSignal(AnimPlayer, "animation_finished");
+        await ToSignal(AnimacionCrtShutdown, AnimacionCrtShutdown.SignalName.AnimacionFinalizada);
         await Task.Delay(300);
 
         this.GetTree().Quit();

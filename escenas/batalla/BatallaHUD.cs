@@ -12,6 +12,9 @@ public partial class BatallaHUD : CanvasLayer
     private Label _MessageLabel;
     private Label MessageLabel => _MessageLabel ??= GetNode<Label>("Message");
 
+    private Label _LabelGameOver;
+    private Label LabelGameOver => _LabelGameOver ??= GetNode<Label>("LabelGameOver");
+
     private Label _ScoreLabel;
     private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
 
@@ -23,6 +26,8 @@ public partial class BatallaHUD : CanvasLayer
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.LabelGameOver.Hide();
     }
 
     async public void MostrarMensajesIniciarBatalla()
@@ -42,13 +47,10 @@ public partial class BatallaHUD : CanvasLayer
         MostrarMensaje(false);
     }
 
-    async private void MostrarMensajeGameOver()
+    public void MostrarMensajeGameOver()
     {
-        await UtilidadesNodos.EsperarRenaudar(this);
-
-        // Mostramos el mensaje de "Game Over" en el Label del centro de la pantalla.
-        ActualizarMensaje("BatallaHUD.mensaje.gameOver");
-        this.MessageLabel.Show();
+        this.MessageLabel.Hide();
+        this.LabelGameOver.Show();
     }
 
     public void ActualizarMensaje(string mensaje)

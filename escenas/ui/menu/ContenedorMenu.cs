@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.modelos.interfaces;
-using Primerjuego2D.nucleo.constantes;
-using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.ui.menu;
@@ -12,16 +10,16 @@ public abstract partial class ContenedorMenu : CenterContainer
     [Signal]
     public delegate void ModoNavegacionTecladoChangedEventHandler(bool modoNavegacionTeclado);
 
-    private bool _modoNavegacionTeclado;
+    private bool _ModoNavegacionTeclado;
     public bool ModoNavegacionTeclado
     {
-        get => _modoNavegacionTeclado;
+        get => _ModoNavegacionTeclado;
         set
         {
-            if (_modoNavegacionTeclado == value)
+            if (_ModoNavegacionTeclado == value)
                 return;
 
-            _modoNavegacionTeclado = value;
+            _ModoNavegacionTeclado = value;
 
             if (value)
                 OnActivarNavegacionTeclado();
@@ -58,17 +56,16 @@ public abstract partial class ContenedorMenu : CenterContainer
 
         ConfigurarElementosConFoco();
 
-        ModoNavegacionTeclado = true;
         this.VisibilityChanged += OnVisibilityChanged;
 
         if (this.Visible & this.ModoNavegacionTeclado)
             GrabFocusPrimerElemento();
+        else
+            this._UltimoElementoConFoco = ObtenerPrimerElementoConFoco();
     }
 
     public void ConfigurarElementosConFoco()
     {
-        LoggerJuego.Trace("Configuramos el focus de los elementos del menú ajustes.");
-
         this.ElementosConFoco = ObtenerElementosConFoco();
 
         foreach (var elementoConFoco in this.ElementosConFoco)
@@ -89,7 +86,7 @@ public abstract partial class ContenedorMenu : CenterContainer
         if (this.Visible)
         {
             ActivarFocusBotones();
-            CallDeferred(nameof(GrabFocusPrimerElemento));
+            CallDeferred(nameof(GrabFocusUltimoElementoConFoco));
         }
         else
         {
@@ -97,10 +94,31 @@ public abstract partial class ContenedorMenu : CenterContainer
         }
     }
 
+    private void GrabFocusUltimoElementoConFoco()
+    {
+        if (!this.Visible || !this.ModoNavegacionTeclado)
+            return;
+
+        if (UltimoElementoConFoco == null)
+            return;
+
+        LoggerJuego.Trace("Cogemos el foco del último elemento con foco: '" + UltimoElementoConFoco.Name + "'.");
+
+        if (this.UltimoElementoConFoco is IFocusSilencioso elementoConFocusSilencioso)
+            elementoConFocusSilencioso.GrabFocusSilencioso();
+        else
+            this.UltimoElementoConFoco.GrabFocus();
+    }
+
     private void GrabFocusPrimerElemento()
     {
+        if (!this.Visible || !this.ModoNavegacionTeclado)
+            return;
+
         Control elementoASeleccionar = ObtenerPrimerElementoConFoco();
         if (elementoASeleccionar == null) return;
+
+        LoggerJuego.Trace("Cogemos el foco del primer elemento con foco: '" + elementoASeleccionar.Name + "'.");
 
         if (ModoNavegacionTeclado)
             if (elementoASeleccionar is IFocusSilencioso elementoConFocusSilencioso)
@@ -176,21 +194,7 @@ public abstract partial class ContenedorMenu : CenterContainer
             elementoConFoco.FocusMode = FocusModeEnum.All;      // Aceptamos teclado
         }
 
-        GrabFocusUltimoElementoConFoco();
-    }
-
-    private void GrabFocusUltimoElementoConFoco()
-    {
-        if (UltimoElementoConFoco == null)
-            return;
-
-        if (!this.Visible)
-            return;
-
-        if (this.UltimoElementoConFoco is IFocusSilencioso elementoConFocusSilencioso)
-            elementoConFocusSilencioso.GrabFocusSilencioso();
-        else
-            this.UltimoElementoConFoco.GrabFocus();
+        CallDeferred(nameof(GrabFocusUltimoElementoConFoco));
     }
 
     private void OnDesactivarNavegacionTeclado()
@@ -204,5 +208,15 @@ public abstract partial class ContenedorMenu : CenterContainer
         {
             elementoConFoco.FocusMode = FocusModeEnum.None;       // Ignora teclado
         }
+    }
+
+    public void Show(bool modoNavegacionTeclado, bool seleccionarPrimerElemento)
+    {
+        this._ModoNavegacionTeclado = modoNavegacionTeclado;
+
+        if (seleccionarPrimerElemento)
+            _UltimoElementoConFoco = ObtenerPrimerElementoConFoco();
+
+        this.Visible = true;
     }
 }

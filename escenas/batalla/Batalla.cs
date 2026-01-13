@@ -1,8 +1,5 @@
 using Godot;
-using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.entidades.jugador;
-using Primerjuego2D.escenas.objetos.moneda;
-using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.batalla;
@@ -24,6 +21,9 @@ public partial class Batalla : Node
     private BatallaControlador _BatallaControlador;
     private BatallaControlador BatallaControlador => _BatallaControlador ??= GetNode<BatallaControlador>("BatallaControlador");
 
+    private CanvasLayer _CanvasLayer;
+    private CanvasLayer CanvasLayer => _CanvasLayer ??= GetNode<CanvasLayer>("CanvasLayer");
+
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -40,6 +40,14 @@ public partial class Batalla : Node
         this.Jugador.Start(this.StartPosition.Position);
 
         this.BatallaControlador.IniciarBatalla();
+    }
+
+    public void TerminarJuego()
+    {
+        if (this.BatallaControlador.JuegoPausado)
+            this.BatallaControlador.RenaudarJuego();
+
+        this.Jugador.Morir();
     }
 
     public void InicioGameOver()
