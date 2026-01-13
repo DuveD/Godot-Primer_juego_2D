@@ -9,8 +9,11 @@ namespace Primerjuego2D.escenas.objetos.powerup;
 
 public partial class ImanMonedas : PowerUp
 {
-    [Export] private float RadioIman = 1000f;
-    [Export] private float FuerzaAtraccion = 6f;
+    [Export]
+    private float RadioIman = 1000f;
+
+    [Export]
+    private float FuerzaAtraccion = 6f;
 
     private Area2D _areaIman;
     private CollisionShape2D _collisionShape;

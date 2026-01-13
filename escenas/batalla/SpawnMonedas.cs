@@ -27,16 +27,9 @@ public partial class SpawnMonedas : Control
 	public PackedScene MonedaEspecialPackedScene;
 
 	[Export]
-	public PackedScene PowerUpImanMonedaPackedScene;
-
-	[Export]
-	public PackedScene PowerUpInvulnerabilidadpacPackedScene;
-
-	[Export]
 	public int DistanciaMinima = 200;
 
-	[Export]
-	public Jugador Jugador { get; set; }
+	private Jugador Jugador { get; set; }
 
 	public override void _Ready()
 	{
@@ -45,7 +38,13 @@ public partial class SpawnMonedas : Control
 		this.MonedasRecogidas = 0;
 	}
 
-	public void Spawn()
+	public void IniciarSpawnLoop(Jugador jugador)
+	{
+		this.Jugador = jugador;
+		Spawn();
+	}
+
+	private void Spawn()
 	{
 		LoggerJuego.Trace("Spawneamos una nueva moneda.");
 
@@ -80,7 +79,7 @@ public partial class SpawnMonedas : Control
 
 		moneda.Recogida += OnMonedaRecogida;
 
-		GetTree().CurrentScene.AddChild(moneda);
+		this.GetParent().AddChild(moneda);
 		moneda.Position = ObtenerPosicionAleatoriaSegura();
 
 		return moneda;

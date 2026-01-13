@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=14 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cj766hajq1d2u" path="res://escenas/objetos/moneda/MonedaEspecial.tscn" id="8_c2dy2"]
 [ext_resource type="PackedScene" uid="uid://p7vm3y0vldbo" path="res://escenas/objetos/powerup/ImanMonedas.tscn" id="10_bnba0"]
 [ext_resource type="PackedScene" uid="uid://bmttan7jakebe" path="res://escenas/objetos/powerup/Invulnerabilidad.tscn" id="11_svpxk"]
+[ext_resource type="Script" uid="uid://bu4jafkhrqpi7" path="res://escenas/batalla/SpawnPowerUps.cs" id="12_svpxk"]
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -50,7 +51,7 @@ curve = SubResource("Curve2D_w0at3")
 [node name="TimerSpawnEnemigo" type="Timer" parent="SpawnEnemigos"]
 wait_time = 0.5
 
-[node name="SpawnMonedas" type="Control" parent="." node_paths=PackedStringArray("Jugador")]
+[node name="SpawnMonedas" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,15 +65,21 @@ grow_vertical = 2
 script = ExtResource("6_w3cb5")
 MonedaPackedScene = ExtResource("7_t4q4m")
 MonedaEspecialPackedScene = ExtResource("8_c2dy2")
+
+[node name="SpawnPowerUps" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_svpxk")
 PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
 PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
-Jugador = NodePath("../Jugador")
-
-[node name="ImanMonedas" parent="." instance=ExtResource("10_bnba0")]
-position = Vector2(128, 192)
-
-[node name="PowerUpInvulnerabilidad" parent="." instance=ExtResource("11_svpxk")]
-position = Vector2(376, 192)
 
 [connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]

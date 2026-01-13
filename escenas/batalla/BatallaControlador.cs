@@ -1,4 +1,5 @@
 using Godot;
+using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.sistema.estadisticas;
@@ -64,6 +65,12 @@ public partial class BatallaControlador : Control
     private SpawnMonedas _SpawnMonedas;
     private SpawnMonedas SpawnMonedas => _SpawnMonedas ??= GetNode<SpawnMonedas>("../SpawnMonedas");
 
+    private SpawnPowerUps _SpawnPowerUps;
+    private SpawnPowerUps SpawnPowerUps => _SpawnPowerUps ??= GetNode<SpawnPowerUps>("../SpawnPowerUps");
+
+    private Jugador _Jugador;
+    private Jugador Jugador => _Jugador ??= GetNode<Jugador>("../Jugador");
+
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -108,7 +115,8 @@ public partial class BatallaControlador : Control
 
         EmitSignal(SignalName.PuntuacionActualizada, Puntuacion);
 
-        SpawnMonedas.Spawn();
+        SpawnMonedas.IniciarSpawnLoop(this.Jugador);
+        SpawnPowerUps.IniciarSpawnLoop(this.Jugador);
 
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
         await UtilidadesNodos.EsperarRenaudar(this);

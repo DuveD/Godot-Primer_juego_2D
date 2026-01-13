@@ -26,7 +26,7 @@ public abstract partial class PowerUp : Consumible
     [Export]
     public bool PermiteDuplicados = false;
 
-    private Timer TimerDuracionPowerUp;
+    public Timer TimerDuracionPowerUp;
 
     public override void _Ready()
     {
@@ -39,7 +39,7 @@ public abstract partial class PowerUp : Consumible
     {
         LoggerJuego.Info("PowerUp " + this.Name + " recogido.");
 
-        if (jugador.TienePowerUp(this))
+        if (jugador.TienePowerUpDeTipo(this.GetType()))
         {
             switch (TipoAcumulacion)
             {
@@ -81,6 +81,7 @@ public abstract partial class PowerUp : Consumible
 
     public virtual void OnRecogidaRenuevaDuracion(Jugador jugador)
     {
+        LoggerJuego.Info("PowerUp " + this.Name + " recogido: renovando duración.");
         PowerUp powerUp = jugador.ObtenerPowerUp(this.GetType());
         powerUp?.ReiniciarTimer();
     }
@@ -89,10 +90,12 @@ public abstract partial class PowerUp : Consumible
     {
         if (this.PermiteDuplicados)
         {
+            LoggerJuego.Info("PowerUp " + this.Name + " recogido: duplicando efecto.");
             AnadirPowerUpAJugador(jugador);
         }
         else
         {
+            LoggerJuego.Info("PowerUp " + this.Name + " recogido: acumulando efecto.");
             SumarTiempoTimer(this.TiempoDuracion);
         }
     }

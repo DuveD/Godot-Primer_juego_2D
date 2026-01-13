@@ -21,11 +21,6 @@ public partial class Moneda : Consumible
 	[Export]
 	public float VelocidadAnimacion { get; set; } = 1.0f;
 
-	// Si es -1, no se autodestruye. Si >0, se destruye automáticamente después de ese tiempo.
-
-	[Export]
-	public float TiempoDestruccion { get; set; } = -1f;
-
 	[Export]
 	public Color ColorTextoFlotante { get; set; } = Colors.Gold;
 
@@ -33,8 +28,6 @@ public partial class Moneda : Consumible
 
 	private AnimationPlayer _AnimationPlayerRotacion;
 	public AnimationPlayer AnimationPlayerRotacion => _AnimationPlayerRotacion ??= GetNode<AnimationPlayer>("AnimationPlayerRotacion");
-
-	private Timer _TimerDestruccion;
 
 	public override void _Ready()
 	{
@@ -45,20 +38,6 @@ public partial class Moneda : Consumible
 		UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.OBJETOS);
 
 		this.AnimationPlayerRotacion.SpeedScale = this.VelocidadAnimacion;
-
-		// Configuramos timer de autodestrucción
-
-		if (TiempoDestruccion > 0)
-		{
-			_TimerDestruccion = new Timer
-			{
-				WaitTime = TiempoDestruccion,
-				OneShot = true,
-				Autostart = true
-			};
-			_TimerDestruccion.Timeout += OnTimerDestruccionTimeout;
-			AddChild(_TimerDestruccion);
-		}
 	}
 
 	public override void OnRecogida(Jugador jugador)
@@ -79,15 +58,6 @@ public partial class Moneda : Consumible
 		CallDeferred(Node.MethodName.QueueFree);
 	}
 
-	private void OnTimerDestruccionTimeout()
-	{
-		LoggerJuego.Trace("Moneda autodestruida tras " + TiempoDestruccion + " segundos.");
-
-		// Usamos CallDeferred para que no choque con signals o procesamiento actual.
-
-		CallDeferred(Node.MethodName.QueueFree);
-	}
-
 	public virtual void MostrarTextoFlotante()
 	{
 		var texto = TextoFlotanteScene.Instantiate<TextoFlotante>();
@@ -97,10 +67,5 @@ public partial class Moneda : Consumible
 		texto.PosicionGlobal = GlobalPosition;
 
 		GetTree().CurrentScene.AddChild(texto);
-	}
-
-	public float ObtenerRadioCollisionShape2D()
-	{
-		return ((CircleShape2D)CollisionShape2D?.Shape).Radius;
 	}
 }

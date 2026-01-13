@@ -169,7 +169,7 @@ public static class UtilidadesNodos
         T resultado = null;
 
         if (nodoPadre == null)
-            return resultado;
+            return null;
 
         if (nodoPadre is T nodoDelTipo)
         {
