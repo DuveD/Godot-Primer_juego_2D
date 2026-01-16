@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Godot;
-using Primerjuego2D.nucleo.configuracion;
+using Primerjuego2D.nucleo.sistema.configuracion;
 
 namespace Primerjuego2D.nucleo.utilidades.log;
 

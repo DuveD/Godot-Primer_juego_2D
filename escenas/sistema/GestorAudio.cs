@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using Primerjuego2D.nucleo.configuracion;
+using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
@@ -294,7 +294,7 @@ public partial class GestorAudio : Node
 		_posicionPausa = 0f;
 
 		// Hacemos fade-in opcional si se ha informado.
-		if (!reanudando || duracionFade <= 0f)
+		if (duracionFade <= 0f)
 		{
 			AudioStreamPlayer.VolumeDb = volumenObjetivo;
 

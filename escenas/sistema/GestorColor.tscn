@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dyhygvmey05wd" path="res://escenas/sistema/GestorColor.cs" id="1_q6cab"]
 
-[node name="GestorColor" type="ColorRect"]
+[node name="GestorColor" type="Node"]
 process_mode = 3
-color = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_q6cab")
 ColorParticulas = Color(0.8980392, 0.8980392, 0.84705883, 1)

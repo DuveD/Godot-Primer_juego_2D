@@ -1,22 +1,78 @@
 KEYS,es,en
+General.dioma.es,Español 🇪🇸,Spanish 🇪🇸
+General.dioma.en,Inglés 🇬🇧,English 🇬🇧
 BatallaHUD.mensaje.esquivaLosEnemigos,¡Esquiva los\nenemigos!,Dodge the\nCreeps!
 BatallaHUD.mensaje.preparate,¡Prepárate!,Get Ready!
 BatallaHUD.mensaje.vamos,¡Vamos!,GO!
 BatallaHUD.mensaje.gameOver,Game Over,Game Over
 BatallaHUD.mensaje.pausa,Juego Pausado,Game Paused
+BatallaHUD.boton.renaudar,Renaudar,Resume
+BatallaHUD.boton.ajustes,Ajustes,Settings
+BatallaHUD.boton.salir,Salir,Quit
 MenuPrincipal.boton.empezarPartida,Inicio,Start
 MenuPrincipal.boton.ajustes,Ajustes,Settings
-MenuPrincipal.boton.cargarPartida,Cargar Partida,Load Game
+MenuPrincipal.boton.logros,Logros,Achievements
+MenuPrincipal.boton.estadisticas,Estadísticas,Statistics
 MenuPrincipal.boton.salir,Salir,Quit
-MenuPrincipal.seccion.sonido,Sonido 🔊,Sound 🔊
-MenuPrincipal.seccion.interfaz,Interfaz 📺,Interface 📺
-MenuPrincipal.seccion.desarrollo,Desarrollo 🚀,Developement 🚀
+MenuPrincipal.ajustes.tituloSonido,─ Sonido ─,─ Sound ─
+MenuPrincipal.ajustes.tituloInterfaz,─ Interfaz ─,─ Interface ─
+MenuPrincipal.ajustes.tituloDesarrollo,─ Desarrollo ─,─ Developement ─
 MenuPrincipal.ajustes.volumenGeneral,Sonido general,General sound
 MenuPrincipal.ajustes.volumenMusica,Musica,Music
 MenuPrincipal.ajustes.volumenEfectos,Efectos,Effects
 MenuPrincipal.ajustes.lenguaje,Lenguaje,Language
 MenuPrincipal.ajustes.nivelLog,Nivel de log,Log level
-MenuPrincipal.ajustes.atras,Volver,Back
+MenuPrincipal.ajustes.escribirLogEnFichero,Escribir log,Write log
+MenuPrincipal.ajustes.verColisiones,Colisiones visibles,Visible collision shapes
+MenuPrincipal.ajustes.atras,Volver ⏎,Back ⏎
 MenuPrincipal.ajustes.guardar,Guardar,Save
-General.dioma.es,Español 🇪🇸,Spanish 🇪🇸
-General.dioma.en,Inglés 🇬🇧,English 🇬🇧
+MenuPrincipal.logros.titulo,─ Logros ─,─ Achievements ─
+MenuPrincipal.logros.atras,Volver ⏎,Back ⏎
+MenuPrincipal.estadisticas.titulo,─ Estadísticas ─,─ Statistics ─
+MenuPrincipal.estadisticas.partidasJugadas,Partidas jugadas,Played games
+MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
+MenuPrincipal.estadisticas.monedasRecogidas,Monedas recogidas,Coins collected
+MenuPrincipal.estadisticas.monedasEspecialesRecogidas,Monedas especiales recogidas,Special coins collected
+MenuPrincipal.estadisticas.enemigosDerrotados,Enemigos derrotados,Defeated enemies
+Logro.primeraPartida.nombre,Bienvenido,Welcome
+Logro.primeraPartida.descripcion,Juega una partida,Play a game
+Logro.enemigosDerrotados10.nombre,No me gustan,Don't like them
+Logro.enemigosDerrotados10.descripcion,Derrota 10 enemigos,Defeat 10 enemies
+Logro.enemigosDerrotados25.nombre,Mejor sin ellos,Better without them
+Logro.enemigosDerrotados25.descripcion,Derrota 25 enemigos,Defeat 25 enemies
+Logro.enemigosDerrotados50.nombre,Los odio,I hate them
+Logro.enemigosDerrotados50.descripcion,Derrota 50 enemigos,Defeat 50 enemies
+Logro.enemigosDerrotados100.nombre,Esto es algo personal,This is personal
+Logro.enemigosDerrotados100.descripcion,Derrota 100 enemigos,Defeat 100 enemies
+Logro.enemigosDerrotados500.nombre,Exterminador,Exterminator
+Logro.enemigosDerrotados500.descripcion,Derrota 500 enemigos,Defeat 500 enemies
+Logro.enemigosDerrotados1000.nombre,Ni uno,Not a single one
+Logro.enemigosDerrotados1000.descripcion,Derrota 1000 enemigos,Defeat 1000 enemies
+Logro.monedasObtenidas10.nombre,Me lo encontré en la calle,I found it on the street
+Logro.monedasObtenidas10.descripcion,Has obtenido 10 monedas,You have obtained 10 coins
+Logro.monedasObtenidas25.nombre,Quiéro más,I want more
+Logro.monedasObtenidas25.descripcion,Has obtenido 25 monedas,You have obtained 25 coins
+Logro.monedasObtenidas50.nombre,Esto se pone serio,It got serious
+Logro.monedasObtenidas50.descripcion,Has obtenido 50 monedas,You have obtained 50 coins
+Logro.monedasObtenidas100.nombre,Un buen monton,A good amount
+Logro.monedasObtenidas100.descripcion,Has obtenido 100 monedas,You have obtained 100 coins
+Logro.monedasObtenidas150.nombre,Esto ya es avaricia,This is greed
+Logro.monedasObtenidas150.descripcion,Has obtenido 150 monedas,You have obtained 150 coins
+Logro.monedasObtenidas200.nombre,Doscientos patitos,Two hundred little ducks
+Logro.monedasObtenidas200.descripcion,Has obtenido 200 monedas,You have obtained 200 coins
+Logro.monedasObtenidas300.nombre,Una de Espartanos,The Spartans
+Logro.monedasObtenidas300.descripcion,Has obtenido 300 monedas,You have obtained 300 coins
+Logro.monedasObtenidas400.nombre,Esto ya pesa,This is getting heavy
+Logro.monedasObtenidas400.descripcion,Has obtenido 400 monedas,You have obtained 400 coins
+Logro.monedasObtenidas500.nombre,Medio quilo,Half a K
+Logro.monedasObtenidas500.descripcion,Has obtenido 500 monedas,You have obtained 500 coins
+Logro.monedasObtenidas600.nombre,¿Dónde guardo todo esto?,Where do I put all this?
+Logro.monedasObtenidas600.descripcion,Has obtenido 600 monedas,You have obtained 600 coins
+Logro.monedasObtenidas700.nombre,Fortuna respetable,Respectable fortune
+Logro.monedasObtenidas700.descripcion,Has obtenido 700 monedas,You have obtained 700 coins
+Logro.monedasObtenidas800.nombre,Necesito otra bolsa,I need another bag
+Logro.monedasObtenidas800.descripcion,Has obtenido 800 monedas,You have obtained 800 coins
+Logro.monedasObtenidas900.nombre,Casi millonario,Almost a millionaire
+Logro.monedasObtenidas900.descripcion,Has obtenido 900 monedas,You have obtained 900 coins
+Logro.monedasObtenidas1000.nombre,Monedas para aburrir,Coins for days
+Logro.monedasObtenidas1000.descripcion,Has obtenido 1000 monedas,You have obtained 1000 coins

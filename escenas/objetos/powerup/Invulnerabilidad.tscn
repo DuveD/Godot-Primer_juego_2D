@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmttan7jakebe"]
+
+[ext_resource type="Script" uid="uid://b2p2fn40g74tn" path="res://escenas/objetos/powerup/Invulnerabilidad.cs" id="1_2jror"]
+[ext_resource type="Texture2D" uid="uid://d4cqgheqyv80g" path="res://recursos/imagenes/objetos/powerUp/invisibilidad.png" id="2_ayfx0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2jror"]
+radius = 25.0
+
+[node name="PowerUpInvulnerabilidad" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_2jror")
+TiempoDuracion = 5.0
+TipoAcumulacion = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.536743e-07, 9.536743e-07)
+scale = Vector2(0.13611111, 0.13611111)
+texture = ExtResource("2_ayfx0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2jror")

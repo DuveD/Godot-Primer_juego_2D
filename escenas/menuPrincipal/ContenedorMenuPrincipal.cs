@@ -1,94 +1,63 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using Primerjuego2D.escenas.menuPrincipal.botones;
+using Primerjuego2D.escenas.miscelaneo.animaciones;
+using Primerjuego2D.escenas.ui.controles;
+using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.menuPrincipal;
 
-public partial class ContenedorMenuPrincipal : CenterContainer
+public partial class ContenedorMenuPrincipal : ContenedorMenu
 {
-    private bool _menuDesactivado = false;
-
     [Signal]
     public delegate void BotonEmpezarPartidaPulsadoEventHandler();
 
-    private List<Button> _BotonesMenu;
-    private List<Button> BotonesMenu => _BotonesMenu ??= UtilidadesNodos.ObtenerNodosDeTipo<Button>(this);
-
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
-    public ButtonEmpezarPartida ButtonEmpezarPartida => _ButtonEmpezarPartida ??= BotonesMenu.OfType<ButtonEmpezarPartida>().FirstOrDefault();
+    public ButtonEmpezarPartida ButtonEmpezarPartida => _ButtonEmpezarPartida ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonEmpezarPartida>(this, "ButtonEmpezarPartida");
 
     private ButtonAjustes _ButtonAjustes;
-    public ButtonAjustes ButtonAjustes => _ButtonAjustes ??= BotonesMenu.OfType<ButtonAjustes>().FirstOrDefault();
+    public ButtonAjustes ButtonAjustes => _ButtonAjustes ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonAjustes>(this, "ButtonAjustes");
 
-    private CanvasLayer _CrtLayer;
-    private CanvasLayer CrtLayer => _CrtLayer ??= GetNode<CanvasLayer>("../CRTShutdown");
+    private ButtonEstadisticas _ButtonEstadisticas;
+    public ButtonEstadisticas ButtonEstadisticas => _ButtonEstadisticas ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonEstadisticas>(this, "ButtonEstadisticas");
 
-    private AnimationPlayer _AnimPlayer;
-    private AnimationPlayer AnimPlayer => _AnimPlayer ??= CrtLayer.GetNode<AnimationPlayer>("AnimationPlayer");
+    private ButtonSalir _ButtonSalir;
+    public ButtonSalir ButtonSalir => _ButtonSalir ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonSalir>(this, "ButtonSalir");
 
-    private MenuPrincipal _MenuPrincipal;
-    private MenuPrincipal MenuPrincipal => _MenuPrincipal ??= this.GetParent<MenuPrincipal>();
+    private AnimacionCrtShutdown _AnimacionCrtShutdown;
+    public AnimacionCrtShutdown AnimacionCrtShutdown => _AnimacionCrtShutdown ??= GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
+
+    public ButtonPersonalizado UltimoBotonPulsado;
 
     public override void _Ready()
     {
+        base._Ready();
+
         LoggerJuego.Trace(this.Name + " Ready.");
 
-        ConfigurarFocusBotones();
+        ConfigurarBotonesMenu();
     }
 
-    private void ConfigurarFocusBotones()
+    public override List<Control> ObtenerElementosConFoco()
+    {
+        return [.. UtilidadesNodos.ObtenerNodosDeTipo<ButtonPersonalizado>(this).Cast<Control>()];
+    }
+
+    private void ConfigurarBotonesMenu()
     {
         LoggerJuego.Trace("Configuramos el focus de los botones del menú.");
 
-        foreach (var boton in BotonesMenu)
-        {
-            boton.FocusEntered += () => this.MenuPrincipal.UltimoElementoConFocus = boton;
-            boton.Pressed += DesactivarFocusBotones;
-        }
+        foreach (var boton in this.ElementosConFoco.OfType<ButtonPersonalizado>().ToList())
+            boton.Pressed += () => this.UltimoBotonPulsado = boton;
     }
 
-    public void ActivarFocusBotones()
+    public override Control ObtenerPrimerElementoConFoco()
     {
-        LoggerJuego.Trace("Activamos el focus de los botones del menú.");
-
-        _menuDesactivado = false;
-        foreach (var boton in BotonesMenu)
-        {
-            boton.MouseFilter = MouseFilterEnum.Pass; // Aceptamos clicks
-            boton.FocusMode = FocusModeEnum.All;      // Aceptamos teclado
-        }
-    }
-
-    public void ActivarNavegacionTeclado()
-    {
-        LoggerJuego.Trace("Activamos la navegación por teclado.");
-
-        foreach (var boton in BotonesMenu)
-            boton.FocusMode = FocusModeEnum.All;
-    }
-
-    public void DesactivarNavegacionTeclado()
-    {
-        LoggerJuego.Trace("Desactivamos la navegación por teclado.");
-
-        foreach (var boton in BotonesMenu)
-            boton.FocusMode = FocusModeEnum.None;
-    }
-
-    private void DesactivarFocusBotones()
-    {
-        LoggerJuego.Trace("Desactivamos el focus de los botones del menú.");
-
-        _menuDesactivado = true;
-        foreach (var boton in BotonesMenu)
-        {
-            boton.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
-            boton.FocusMode = FocusModeEnum.None;       // Ignora teclado
-        }
+        return this.UltimoBotonPulsado ?? ButtonEmpezarPartida;
     }
 
     private void OnButtonEmpezarPartidaPressedAnimationEnd()
@@ -102,13 +71,11 @@ public partial class ContenedorMenuPrincipal : CenterContainer
     {
         LoggerJuego.Trace("Botón 'ButtonSalir' pulsado.");
 
-        Global.GestorAudio.ReproducirSonido("digital_click.mp3");
         Global.GestorAudio.PausarMusica(0.5f);
 
-        CrtLayer.Visible = true;
-        AnimPlayer.Play("ApagarTV");
+        AnimacionCrtShutdown.Reproducir();
 
-        await ToSignal(AnimPlayer, "animation_finished");
+        await ToSignal(AnimacionCrtShutdown, AnimacionCrtShutdown.SignalName.AnimacionFinalizada);
         await Task.Delay(300);
 
         this.GetTree().Quit();

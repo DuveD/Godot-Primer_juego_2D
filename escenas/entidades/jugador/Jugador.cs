@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
+using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -36,10 +40,17 @@ public partial class Jugador : CharacterBody2D
 
     private Vector2 TamanoPantalla => UtilidadesPantalla.ObtenerTamanoPantalla(this);
 
+    private readonly List<PowerUp> _PowerUpsActivos = [];
+    public IReadOnlyList<PowerUp> PowerUpsActivos => _PowerUpsActivos;
+
+    public bool Invulnerable = false;
+
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.JUGADOR);
 
         // Oculatamos el sprite al inicio de la partida.
         this.Hide();
@@ -53,15 +64,23 @@ public partial class Jugador : CharacterBody2D
         if (this.Muerto)
             return;
 
-        var velocity = CalcularVectorVelocidadMedianteBotonesPulsados();
+        ProcessMovimiento(delta);
+        ProcessPowerUps(delta);
+    }
+
+    private void ProcessMovimiento(double delta)
+    {
+        var velocidad = CalcularVectorVelocidadMedianteBotonesPulsados();
 
         // Indicamos la animación inicial para que mire hacia arriba.
         //this.AnimatedSprite2D.Animation = ANIMATION_UP;
 
         // Idicamos la animación según si está en movimiento o parado.
-        if (velocity.Length() > 0)
+        if (velocidad.Length() > 0)
         {
-            velocity = velocity.Normalized() * Velocidad;
+            velocidad = velocidad.Normalized();
+            velocidad *= this.Velocidad;
+
             this.AnimatedSprite2D.Play();
         }
         else
@@ -70,13 +89,13 @@ public partial class Jugador : CharacterBody2D
         }
 
         // Utilizar el valor delta asegura que el movimiento se mantenga consistente incluso si la velocidad de cuadros cambia.
-        this.Position += velocity * (float)delta;
+        this.Position += velocidad * (float)delta;
 
         // Evitamos que el jugador se salga de la pantalla.
         this.Position = new Vector2(x: Mathf.Clamp(Position.X, 0, TamanoPantalla.X), y: Mathf.Clamp(Position.Y, 0, TamanoPantalla.Y));
 
         // Rotamos el sprite a la dirección acorde a la velocidad de cada eje.
-        RotarSpriteADireccion(velocity, this.AnimatedSprite2D);
+        RotarSpriteADireccion(velocidad, this.AnimatedSprite2D);
     }
 
     private static Vector2 CalcularVectorVelocidadMedianteBotonesPulsados()
@@ -152,8 +171,18 @@ public partial class Jugador : CharacterBody2D
         }
     }
 
+    private void ProcessPowerUps(double delta)
+    {
+        foreach (var powerUp in PowerUpsActivos.ToList())
+        {
+            powerUp.ProcessPowerUp(delta, this);
+        }
+    }
+
     public void Start(Vector2 position)
     {
+        LimpiarPowerUps();
+
         // Ponemos al jugador en la posición inicial indicada.
         this.Position = position;
 
@@ -169,13 +198,26 @@ public partial class Jugador : CharacterBody2D
     {
         if (body is Enemigo)
         {
-            OnBodyEnteredEnemigo();
+            this.CallDeferred(nameof(OnBodyEnteredEnemigo));
         }
     }
 
     private async void OnBodyEnteredEnemigo()
     {
+        if (this.Invulnerable)
+        {
+            LoggerJuego.Info("Jugador golpeado por enemigo pero es invulnerable.");
+            return;
+        }
+
         LoggerJuego.Info("Jugador golpeado por enemigo.");
+
+        Morir();
+    }
+
+    public async void Morir()
+    {
+        LimpiarPowerUps();
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.
@@ -216,4 +258,113 @@ public partial class Jugador : CharacterBody2D
 
         EmitSignal(SignalName.AnimacionMuerteJugadorTerminada);
     }
+
+    public void SetSpriteAlpha(float alpha)
+    {
+        var color = AnimatedSprite2D.Modulate;
+        color.A = alpha;
+        AnimatedSprite2D.Modulate = color;
+    }
+    public void SetSpriteColor(Color color)
+    {
+        AnimatedSprite2D.Modulate = color;
+    }
+
+    #region PowerUps
+
+    // Añade un PowerUp como hijo del jugador
+    internal void AnadirPowerUp(PowerUp powerUp)
+    {
+        if (powerUp == null) return;
+        if (_PowerUpsActivos.Contains(powerUp)) return;
+
+        powerUp.Reparent(this);
+        _PowerUpsActivos.Add(powerUp);
+    }
+
+    // Comprueba si hay un PowerUp del tipo exacto
+    internal bool TienePowerUpDeTipo(Type type)
+    {
+        if (type == null) return false;
+        return PowerUpsActivos.Any(p => p.GetType() == type);
+    }
+
+    // Comprueba si hay un PowerUp del tipo T
+    public bool TienePowerUpDeTipo<T>() where T : PowerUp
+    {
+        return PowerUpsActivos.OfType<T>().Any();
+    }
+
+    // Comprueba si existe esta instancia concreta de PowerUp
+    internal bool TienePowerUp(PowerUp powerUp)
+    {
+        return powerUp?.GetParent() == this;
+    }
+
+    // Obtiene todos los PowerUps del tipo T
+    public List<T> ObtenerPowerUps<T>() where T : PowerUp
+    {
+        return PowerUpsActivos.OfType<T>().ToList();
+    }
+
+    // Obtiene el primer PowerUp del tipo T
+    public T ObtenerPowerUp<T>() where T : PowerUp
+    {
+        return PowerUpsActivos.OfType<T>().FirstOrDefault();
+    }
+
+    // Obtiene el primer PowerUp del tipo indicado
+    public PowerUp ObtenerPowerUp(Type type)
+    {
+        if (type == null) return null;
+        return PowerUpsActivos.FirstOrDefault(p => p.GetType() == type);
+    }
+
+    // Quita todos los PowerUps de un tipo específico
+    internal void QuitarPowerUps(Type type)
+    {
+        if (type == null) return;
+        foreach (var powerUp in _PowerUpsActivos.ToArray())
+        {
+            if (powerUp.GetType() == type)
+                QuitarPowerUp(powerUp);
+        }
+    }
+
+    // Quita un PowerUp específico (por instancia)
+    internal void QuitarPowerUp(PowerUp powerUp)
+    {
+        if (powerUp == null) return;
+        if (!_PowerUpsActivos.Remove(powerUp)) return;
+        if (powerUp.GetParent() != this) return;
+
+        RemoveChild(powerUp);
+        powerUp.CallDeferred(Node.MethodName.QueueFree);
+    }
+
+    public void QuitarPowerUps<T>() where T : PowerUp
+    {
+        foreach (var powerUp in ObtenerPowerUps<T>())
+            QuitarPowerUp(powerUp);
+    }
+
+    private void LimpiarPowerUps()
+    {
+        foreach (var powerUp in _PowerUpsActivos.ToList())
+        {
+            QuitarPowerUp(powerUp);
+        }
+
+        List<PowerUp> powerUps = UtilidadesNodos.ObtenerNodosDeTipo<PowerUp>(this);
+        if (powerUps.Any())
+        {
+            LoggerJuego.Warn("Existen PowerUps en Jugador no registrados en la lista de PowerUpsActivos.");
+            foreach (var powerUp in powerUps.ToList())
+            {
+                RemoveChild(powerUp);
+                powerUp.CallDeferred(Node.MethodName.QueueFree);
+            }
+        }
+    }
+    #endregion
 }

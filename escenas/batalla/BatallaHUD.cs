@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Primerjuego2D.escenas.menuPrincipal;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -11,57 +12,58 @@ public partial class BatallaHUD : CanvasLayer
     private Label _MessageLabel;
     private Label MessageLabel => _MessageLabel ??= GetNode<Label>("Message");
 
-    private Timer _MessageTimer;
-    private Timer MessageTimer => _MessageTimer ??= GetNode<Timer>("MessageTimer");
+    private Label _LabelGameOver;
+    private Label LabelGameOver => _LabelGameOver ??= GetNode<Label>("LabelGameOver");
 
     private Label _ScoreLabel;
     private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
 
-    private Label _MensajePausa;
-    private Label MensajePausa => _MensajePausa ??= GetNode<Label>("MensajePausa");
-
-    private Batalla _Batalla;
-    private Batalla Batalla => _Batalla ??= GetParent<Batalla>();
-
-    private BatallaControlador _Batallacontrolador;
-    private BatallaControlador BatallaControlador => _Batallacontrolador ??= GetNode<BatallaControlador>("../BatallaControlador");
+    private PanelMenuPausa _PanelMenuPausa;
+    public PanelMenuPausa PanelMenuPausa => _PanelMenuPausa ??= GetNode<PanelMenuPausa>("PanelMenuPausa");
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.LabelGameOver.Hide();
     }
 
-    async public void MostrarMensajePreparate()
+    async public void MostrarMensajesIniciarBatalla()
     {
-        await UtilidadesNodos.EsperarSegundos(this, 1.0);
+        // Cambiamos el texto al inicial de la partida.
+        ActualizarMensaje("BatallaHUD.mensaje.preparate");
+
+        await UtilidadesNodos.EsperarSegundos(this, 2.0);
         await UtilidadesNodos.EsperarRenaudar(this);
 
-        // Cambiamos el texto al inicial de la partida.
-        this.MessageLabel.Text = "BatallaHUD.mensaje.preparate";
-    }
-
-    async private void MostrarMensajeIniciarBatalla()
-    {
-        this.MessageLabel.Text = "BatallaHUD.mensaje.vamos";
+        ActualizarMensaje("BatallaHUD.mensaje.vamos");
 
         // Creamos un timer de 1 segundo y esperamos.
         await UtilidadesNodos.EsperarSegundos(this, 1.0);
-        this.MessageLabel.Hide();
+        await UtilidadesNodos.EsperarRenaudar(this);
+
+        MostrarMensaje(false);
     }
 
-    async public void ShowGameOver()
+    public void MostrarMensajeGameOver()
     {
-        await UtilidadesNodos.EsperarRenaudar(this);
+        this.MessageLabel.Hide();
+        this.LabelGameOver.Show();
+    }
 
-        // Mostramos el mensaje de "Game Over" en el Label del centro de la pantalla.
-        this.MessageLabel.Text = "BatallaHUD.mensaje.gameOver";
-        this.MessageLabel.Show();
+    public void ActualizarMensaje(string mensaje)
+    {
+        this.MessageLabel.Text = mensaje;
+    }
 
-        // Esperamos 2 segundos.
-        await UtilidadesNodos.EsperarSegundos(this, 2.0);
-        await UtilidadesNodos.EsperarRenaudar(this);
+    public void MostrarMensaje(bool mostrar)
+    {
+        if (mostrar)
+            this.MessageLabel.Show();
+        else
+            this.MessageLabel.Hide();
     }
 
     public void ActualizarPuntuacion(int score)
@@ -69,30 +71,40 @@ public partial class BatallaHUD : CanvasLayer
         this.ScoreLabel.Text = score.ToString();
     }
 
-    public void OnPauseBattle()
+    private void EsconderHUD()
     {
-        if (this.BatallaControlador.JuegoPausado)
-        {
-            this.VisibilidadElementosPausa = this.GetChildren()
-                .OfType<CanvasItem>()
-                .Where(item => item != this.MensajePausa && item != this.ScoreLabel)
-                .ToDictionary(item => item, item => item.Visible);
+        this.VisibilidadElementosPausa = this.GetChildren()
+            .OfType<CanvasItem>()
+            .Where(item => item != this.PanelMenuPausa && item != this.ScoreLabel)
+            .ToDictionary(item => item, item => item.Visible);
 
-            UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
+        UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
 
-            this.MensajePausa.Show();
-        }
-        else
-        {
-            var elementosVisibles = this.VisibilidadElementosPausa
-                .Where(kv => !kv.Key.Visible && kv.Value)
-                .Select(kv => kv.Key)
-                .ToList();
+        MostrarContenedorPausa();
+    }
 
-            foreach (var elemento in elementosVisibles)
-                elemento.Show();
+    private void MostrarHUD()
+    {
+        EsconderContenedorPausa();
 
-            this.MensajePausa.Hide();
-        }
+        var elementosVisibles = this.VisibilidadElementosPausa
+            .Where(kv => !kv.Key.Visible && kv.Value)
+            .Select(kv => kv.Key)
+            .ToList();
+
+        foreach (var elemento in elementosVisibles)
+            elemento.Show();
+    }
+
+    public void MostrarContenedorPausa()
+    {
+        Global.GestorAudio.ReproducirSonido("pause.mp3");
+        this.PanelMenuPausa.Show();
+    }
+
+    public void EsconderContenedorPausa()
+    {
+        Global.GestorAudio.ReproducirSonido("unpause.mp3");
+        this.PanelMenuPausa.Hide();
     }
 }

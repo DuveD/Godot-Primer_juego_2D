@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
+using Primerjuego2D.escenas.miscelaneo;
 
 namespace Primerjuego2D.nucleo.utilidades;
 
@@ -168,7 +169,7 @@ public static class UtilidadesNodos
         T resultado = null;
 
         if (nodoPadre == null)
-            return resultado;
+            return null;
 
         if (nodoPadre is T nodoDelTipo)
         {

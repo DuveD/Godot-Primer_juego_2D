@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhnex31dy268l"]
+
+[ext_resource type="Script" uid="uid://b8e7u5yywuqqh" path="res://escenas/ui/menu/ControlCheckButton.cs" id="1_v8xqr"]
+[ext_resource type="Script" uid="uid://do6da06hsh5cr" path="res://escenas/ui/controles/CheckButtonPersonalizado.cs" id="2_v8xqr"]
+
+[node name="ControlCheckButton" type="HBoxContainer"]
+script = ExtResource("1_v8xqr")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Label Control CheckButton"
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+script = ExtResource("2_v8xqr")
+
+[node name="Spacer2" type="Control" parent="."]
+layout_mode = 2
