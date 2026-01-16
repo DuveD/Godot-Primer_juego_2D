@@ -28,6 +28,8 @@ public partial class SpawnPowerUps : Control
 
   private Jugador Jugador { get; set; }
 
+  private Timer _TimerSpawn;
+
   public override void _Ready()
   {
     LoggerJuego.Trace(this.Name + " Ready.");
@@ -36,18 +38,30 @@ public partial class SpawnPowerUps : Control
   public void IniciarSpawnLoop(Jugador jugador)
   {
     this.Jugador = jugador;
-    SpawnLoop();
+    InicializarTimer();
   }
 
-  private async void SpawnLoop()
+  public void InicializarTimer()
   {
-    while (true)
-    {
-      await ToSignal(GetTree().CreateTimer(_TiempoSpawn), Timer.SignalName.Timeout);
+    this._TimerSpawn = new Timer();
+    this._TimerSpawn.WaitTime = _TiempoSpawn;
 
-      SpawnPowerUp();
-    }
+    this._TimerSpawn.Timeout += SpawnPowerUp;
+
+    this.AddChild(this._TimerSpawn);
+    this._TimerSpawn.Start();
   }
+
+  public void ReiniciarTimer()
+  {
+    if (_TimerSpawn == null)
+      return;
+
+    this._TimerSpawn.Stop();
+    this._TimerSpawn.WaitTime = _TiempoSpawn;
+    this._TimerSpawn.Start();
+  }
+
   private void SpawnPowerUp()
   {
     if (Randomizador.GetRandomFloat() >= 0.5)
@@ -58,6 +72,8 @@ public partial class SpawnPowerUps : Control
     {
       SpawnPowerUp(PowerUpInvulnerabilidadpacPackedScene);
     }
+
+    ReiniciarTimer();
   }
 
   private void SpawnPowerUp(PackedScene powerUpPackedScene)

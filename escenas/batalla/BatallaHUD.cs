@@ -80,12 +80,12 @@ public partial class BatallaHUD : CanvasLayer
 
         UtilidadesNodos.EsconderMenos(this, this.ScoreLabel);
 
-        MostrarContenedorPausa(true);
+        MostrarContenedorPausa();
     }
 
     private void MostrarHUD()
     {
-        MostrarContenedorPausa(false);
+        EsconderContenedorPausa();
 
         var elementosVisibles = this.VisibilidadElementosPausa
             .Where(kv => !kv.Key.Visible && kv.Value)
@@ -96,11 +96,15 @@ public partial class BatallaHUD : CanvasLayer
             elemento.Show();
     }
 
-    public void MostrarContenedorPausa(bool mostrar)
+    public void MostrarContenedorPausa()
     {
-        if (mostrar)
-            this.PanelMenuPausa.Show();
-        else
-            this.PanelMenuPausa.Hide();
+        Global.GestorAudio.ReproducirSonido("pause.mp3");
+        this.PanelMenuPausa.Show();
+    }
+
+    public void EsconderContenedorPausa()
+    {
+        Global.GestorAudio.ReproducirSonido("unpause.mp3");
+        this.PanelMenuPausa.Hide();
     }
 }

@@ -1,9 +1,9 @@
-using System;
-using System.Diagnostics;
 using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
+
+namespace Primerjuego2D.escenas.batalla;
 
 public partial class SpawnEnemigos : Control
 {

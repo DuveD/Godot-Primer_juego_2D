@@ -19,12 +19,10 @@ public partial class Invulnerabilidad : PowerUp
     [Export]
     private float DuracionParpadeo = 1f;       // Último tramo donde parpadea
 
-    private float _tiempo;
-
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {
         jugador.Invulnerable = true;
-        _tiempo = 0f;
+        jugador.Velocidad += 100;
 
         // Al principio solo azul fijo
         jugador.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(ConstantesColores.AZUL_CLARO));
@@ -74,6 +72,7 @@ public partial class Invulnerabilidad : PowerUp
     public override void EfectoPowerUpExpirado(Jugador jugador)
     {
         jugador.Invulnerable = false;
+        jugador.Velocidad -= 100;
 
         // Restauramos visibilidad total y color normal
         jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
