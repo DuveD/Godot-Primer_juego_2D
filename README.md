@@ -17,7 +17,16 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ### v1.5.0
 
-- Añadidas monedas especiales que spawnean de manera aleatória y desaparecen pasado un tiempo.
+- Imeplementación de sistema de Consumibles.
+- Creadas monedas recogibles por el jugador.
+- Añadido texto flotante al recoger monedas.
+- Creado Spawn de PowerUps en batalla.
+- Creado Spawn de Monedas en batalla.
+- Añadido menú de pausa con las opciones "Renaudar", "Ajustes" y "Terminar Batalla".
+- Añadida animación de apagado de televisión al cerrar el juego.
+- Creada pantalla y sistema de gestión de estadísticas.
+- Creada pantalla y sistema de gestión de logros.
+- Apadidas opciones en el menú principal.
 
 ### v1.4.0
 
