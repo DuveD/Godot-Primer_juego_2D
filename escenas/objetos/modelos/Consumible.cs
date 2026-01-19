@@ -18,7 +18,18 @@ public abstract partial class Consumible : Area2D
     [Export]
     public long TiempoDestruccion { get; set; } = -1;
 
-    public Timer _TimerDestruccion;
+    [Export]
+    public float AlphaMin = 0.1f;
+
+    [Export]
+    public float AlphaMax = 0.8f;
+
+    [Export]
+    public float VelocidadParpadeoFinal = 8f; // Oscilación
+
+    public double DuracionParpadeo = 1;       // Últimos segundos donde parpadea
+
+    public Timer TimerDestruccion;
 
     public override void _Ready()
     {
@@ -32,14 +43,39 @@ public abstract partial class Consumible : Area2D
 
         if (TiempoDestruccion > 0)
         {
-            _TimerDestruccion = new Timer
+            TimerDestruccion = new Timer
             {
                 WaitTime = TiempoDestruccion,
                 OneShot = true,
                 Autostart = true
             };
-            _TimerDestruccion.Timeout += OnTimerDestruccionTimeout;
-            AddChild(_TimerDestruccion);
+            TimerDestruccion.Timeout += OnTimerDestruccionTimeout;
+            AddChild(TimerDestruccion);
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (this.TimerDestruccion == null)
+            return;
+
+        double timeLeft = this.TimerDestruccion.TimeLeft;
+
+        // Fase final
+        if (timeLeft <= 1)
+        {
+            double tiempoFinal = DuracionParpadeo - timeLeft;
+
+            // Onda rápida
+            float onda =
+                (Mathf.Sin((float)tiempoFinal * VelocidadParpadeoFinal * Mathf.Pi * 2f) + 1f) * 0.5f;
+
+            float alpha = Mathf.Lerp(AlphaMin, AlphaMax, onda);
+
+            // Aplica transparencia al Sprite2D
+            Color color = this.Sprite2D.Modulate;
+            color.A = alpha;
+            this.Sprite2D.Modulate = color;
         }
     }
 
@@ -53,12 +89,12 @@ public abstract partial class Consumible : Area2D
     }
     private void DetenerYEliminarTimer()
     {
-        if (_TimerDestruccion == null)
+        if (TimerDestruccion == null)
             return;
 
-        _TimerDestruccion.Stop();
-        _TimerDestruccion.QueueFree();
-        _TimerDestruccion = null;
+        TimerDestruccion.Stop();
+        TimerDestruccion.QueueFree();
+        TimerDestruccion = null;
     }
 
     private void OnBodyEntered(Node2D body)

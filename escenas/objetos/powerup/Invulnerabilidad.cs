@@ -11,16 +11,16 @@ namespace Primerjuego2D.escenas.objetos.powerup;
 public partial class Invulnerabilidad : PowerUp
 {
     [Export]
-    private float AlphaMin = 0.1f;
+    private float AlphaMinJudaor = 0.1f;
 
     [Export]
-    private float AlphaMax = 0.8f;
+    private float AlphaMaxJudador = 0.8f;
 
     [Export]
     private float VelocidadParpadeoFinal = 15f; // Oscilación muy rápida al final
 
     [Export]
-    private float DuracionParpadeo = 1f;       // Último tramo donde parpadea
+    private double DuracionParpadeo = 1;       // Último tramo donde parpadea
 
     private ModificadorAtributo<long> _modificadorVelocidad = new ModificadorAtributo<long>(nameof(Jugador.Velocidad), 100, (valor) => valor + 100);
 
@@ -51,7 +51,6 @@ public partial class Invulnerabilidad : PowerUp
         jugador.Invulnerable.InvalidarValor();
     }
 
-
     private static void PonerColorAzurJugador(Jugador jugador)
     {
         jugador?.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(ConstantesColores.AZUL_CLARO));
@@ -77,18 +76,18 @@ public partial class Invulnerabilidad : PowerUp
             // Fase final
             if (timeLeft <= DuracionParpadeo)
             {
-                float tiempoFinal = DuracionParpadeo - timeLeft;
+                double tiempoFinal = DuracionParpadeo - timeLeft;
 
                 // Onda rápida
                 float onda =
-                    (Mathf.Sin(tiempoFinal * VelocidadParpadeoFinal * Mathf.Pi * 2f) + 1f) * 0.5f;
+                    (Mathf.Sin((float)tiempoFinal * VelocidadParpadeoFinal * Mathf.Pi * 2f) + 1f) * 0.5f;
 
                 Color color = new Color(ConstantesColores.AZUL_CLARO)
                     .Lerp(new Color(1, 1, 1), onda);
 
                 jugador.CallDeferred(nameof(Jugador.SetSpriteColor), color);
 
-                float alpha = Mathf.Lerp(AlphaMin, AlphaMax, onda);
+                float alpha = Mathf.Lerp(AlphaMinJudaor, AlphaMaxJudador, onda);
                 jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), alpha);
             }
             else

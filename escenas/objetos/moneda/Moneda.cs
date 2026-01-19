@@ -52,7 +52,7 @@ public partial class Moneda : Consumible
 
 		// Cancelamos el timer si estaba activo.
 
-		_TimerDestruccion?.Stop();
+		TimerDestruccion?.Stop();
 
 		// Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
 		CallDeferred(Node.MethodName.QueueFree);
