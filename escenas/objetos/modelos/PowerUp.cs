@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.nucleo.entidades;
+using Primerjuego2D.nucleo.entidades.atributo;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.objetos.modelos;
@@ -33,6 +36,11 @@ public abstract partial class PowerUp : Consumible
         LoggerJuego.Trace(this.Name + " Ready.");
 
         base._Ready();
+    }
+
+    public virtual List<ModificadorAtributo<T>> ObtenerModificadoresAtributos<T>()
+    {
+        return [];
     }
 
     public override void OnRecogida(Jugador jugador)

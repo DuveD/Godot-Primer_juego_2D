@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.entidades.atributo;
 
 namespace Primerjuego2D.escenas.objetos.powerup;
 
@@ -19,14 +22,36 @@ public partial class Invulnerabilidad : PowerUp
     [Export]
     private float DuracionParpadeo = 1f;       // Último tramo donde parpadea
 
+    private ModificadorAtributo<long> _modificadorVelocidad = new ModificadorAtributo<long>(nameof(Jugador.Velocidad), 100, (valor) => valor + 100);
+
+    private ModificadorAtributo<bool> _modificadorVInvulnerable = new ModificadorAtributo<bool>(nameof(Jugador.Invulnerable), false, (_) => true);
+
+    public override List<ModificadorAtributo<T>> ObtenerModificadoresAtributos<T>()
+    {
+        var todos = new List<object>
+        {
+            _modificadorVelocidad,
+            _modificadorVInvulnerable
+        };
+
+        return todos.OfType<ModificadorAtributo<T>>().ToList();
+    }
+
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {
-        jugador.Invulnerable = true;
-        jugador.Velocidad += 100;
-
         // Al principio solo azul fijo
-        jugador.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(ConstantesColores.AZUL_CLARO));
+        PonerColorAzurJugador(jugador);
+    }
+
+    private static void PonerColorAzurJugador(Jugador jugador)
+    {
+        jugador?.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(ConstantesColores.AZUL_CLARO));
+        jugador?.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
+    }
+    private static void RestaurarColorJugador(Jugador jugador)
+    {
         jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
+        jugador.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(1, 1, 1));
     }
 
     public override void ProcessPowerUp(double delta, Jugador jugador)
@@ -34,9 +59,7 @@ public partial class Invulnerabilidad : PowerUp
         // Si es permanente o no hay timer, efecto fijo
         if (this.TimerDuracionPowerUp == null || TiempoDuracion <= 0)
         {
-            jugador.CallDeferred(nameof(Jugador.SetSpriteColor),
-                new Color(ConstantesColores.AZUL_CLARO));
-            jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
+            PonerColorAzurJugador(jugador);
         }
         else
         {
@@ -62,20 +85,17 @@ public partial class Invulnerabilidad : PowerUp
             else
             {
                 // Fase estable
-                jugador.CallDeferred(nameof(Jugador.SetSpriteColor),
-                    new Color(ConstantesColores.AZUL_CLARO));
-                jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
+                PonerColorAzurJugador(jugador);
             }
         }
     }
 
     public override void EfectoPowerUpExpirado(Jugador jugador)
     {
-        jugador.Invulnerable = false;
-        jugador.Velocidad -= 100;
-
         // Restauramos visibilidad total y color normal
-        jugador.CallDeferred(nameof(Jugador.SetSpriteAlpha), 1f);
-        jugador.CallDeferred(nameof(Jugador.SetSpriteColor), new Color(1, 1, 1));
+        RestaurarColorJugador(jugador);
+
+        jugador.Velocidad.MarcarSucio();
+        jugador.Invulnerable.MarcarSucio();
     }
 }

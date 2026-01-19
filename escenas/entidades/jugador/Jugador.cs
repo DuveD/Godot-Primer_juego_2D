@@ -6,6 +6,7 @@ using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.entidades.atributo;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -16,11 +17,6 @@ public partial class Jugador : CharacterBody2D
     public const string ANIMATION_UP = "up";
 
     public const string ANIMATION_WALK = "walk";
-
-    [Export]
-    public int Velocidad { get; set; } = 400; // Velocidad de movimiento del jugador (pixels/sec).
-
-    public bool Muerto { get; private set; } = false;
 
     // Señal "MuerteJugador" para indicar colisión con el jugador.
     [Signal]
@@ -43,7 +39,30 @@ public partial class Jugador : CharacterBody2D
     private readonly List<PowerUp> _PowerUpsActivos = [];
     public IReadOnlyList<PowerUp> PowerUpsActivos => _PowerUpsActivos;
 
-    public bool Invulnerable = false;
+    private IEnumerable<ModificadorAtributo<T>> ObtenerModificadores<T>(Atributo<T> atributo)
+    {
+        // Devuelve todos los modificadores de los powerups que afecten a este atributo.
+        return _PowerUpsActivos
+            .SelectMany(p => p.ObtenerModificadoresAtributos<T>())
+            .Where(m => m.NombreAtributo == atributo.Nombre);
+    }
+
+    #region Atributos
+    [Export]
+    public int VelocidadBase { get; set; } = 400; // Velocidad de movimiento del jugador (pixels/sec).
+
+    public Atributo<long> Velocidad { get; }
+
+    public Atributo<bool> Invulnerable { get; }
+    #endregion
+
+    public bool Muerto { get; private set; } = false;
+
+    public Jugador()
+    {
+        Velocidad = new Atributo<long>(nameof(Velocidad), VelocidadBase, () => ObtenerModificadores(Velocidad));
+        Invulnerable = new Atributo<bool>(nameof(Invulnerable), false, () => ObtenerModificadores(Invulnerable));
+    }
 
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
@@ -79,7 +98,7 @@ public partial class Jugador : CharacterBody2D
         if (velocidad.Length() > 0)
         {
             velocidad = velocidad.Normalized();
-            velocidad *= this.Velocidad;
+            velocidad *= this.Velocidad.Valor;
 
             this.AnimatedSprite2D.Play();
         }
@@ -204,7 +223,7 @@ public partial class Jugador : CharacterBody2D
 
     private async void OnBodyEnteredEnemigo()
     {
-        if (this.Invulnerable)
+        if (this.Invulnerable.Valor)
         {
             LoggerJuego.Info("Jugador golpeado por enemigo pero es invulnerable.");
             return;
