@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
-using Primerjuego2D.nucleo.entidades;
 using Primerjuego2D.nucleo.entidades.atributo;
 using Primerjuego2D.nucleo.utilidades.log;
 

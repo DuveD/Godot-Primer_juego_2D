@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.nucleo.entidades.atributo;
 
@@ -8,7 +9,7 @@ public class Atributo<T>
 {
   public string Nombre { get; internal set; }
 
-  internal bool Sucio { get; set; } = true;
+  internal bool ValorValido { get; set; } = true;
 
   public T ValorBase { get; set; }
 
@@ -18,8 +19,11 @@ public class Atributo<T>
   {
     get
     {
-      if (Sucio)
+      if (!ValorValido)
+      {
+        LoggerJuego.Trace("Recalculando valor del atributo " + Nombre);
         CalcularValor();
+      }
 
       return _cache;
     }
@@ -30,8 +34,8 @@ public class Atributo<T>
   public Atributo(string nombre, T valorBase, Func<IEnumerable<ModificadorAtributo<T>>> obtenerModificadores)
   {
     this.Nombre = nombre;
-    ValorBase = valorBase;
-    _obtenerModificadores = obtenerModificadores;
+    this._cache = ValorBase = valorBase;
+    this._obtenerModificadores = obtenerModificadores;
   }
 
   internal void CalcularValor()
@@ -49,11 +53,12 @@ public class Atributo<T>
     }
 
     this._cache = valorCalculado;
-    this.Sucio = false;
+    this.ValorValido = true;
   }
 
-  public void MarcarSucio()
+  public void InvalidarValor()
   {
-    this.Sucio = true;
+    LoggerJuego.Trace("Marcando cómo súcio el atributo " + Nombre);
+    this.ValorValido = false;
   }
 }

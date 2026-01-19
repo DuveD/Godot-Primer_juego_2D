@@ -39,9 +39,18 @@ public partial class Invulnerabilidad : PowerUp
 
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {
+        InvalidarAtributosModificados(jugador);
+
         // Al principio solo azul fijo
         PonerColorAzurJugador(jugador);
     }
+
+    private static void InvalidarAtributosModificados(Jugador jugador)
+    {
+        jugador.Velocidad.InvalidarValor();
+        jugador.Invulnerable.InvalidarValor();
+    }
+
 
     private static void PonerColorAzurJugador(Jugador jugador)
     {
@@ -95,7 +104,6 @@ public partial class Invulnerabilidad : PowerUp
         // Restauramos visibilidad total y color normal
         RestaurarColorJugador(jugador);
 
-        jugador.Velocidad.MarcarSucio();
-        jugador.Invulnerable.MarcarSucio();
+        InvalidarAtributosModificados(jugador);
     }
 }
