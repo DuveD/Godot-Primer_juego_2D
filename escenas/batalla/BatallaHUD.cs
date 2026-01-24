@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.menuPrincipal;
+using Primerjuego2D.escenas.sistema.audio.efectos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -99,12 +100,14 @@ public partial class BatallaHUD : CanvasLayer
     public void MostrarContenedorPausa()
     {
         Global.GestorAudio.ReproducirSonido("pause.mp3");
+        Global.GestorEfectosAudio.Activar(EfectoBajoElAgua.ID);
         this.PanelMenuPausa.Show();
     }
 
     public void EsconderContenedorPausa()
     {
         Global.GestorAudio.ReproducirSonido("unpause.mp3");
+        Global.GestorEfectosAudio.Desactivar(EfectoBajoElAgua.ID);
         this.PanelMenuPausa.Hide();
     }
 }

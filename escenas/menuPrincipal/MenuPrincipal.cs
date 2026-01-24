@@ -11,30 +11,21 @@ public partial class MenuPrincipal : Control
 {
     public bool ModoNavegacionTeclado = false;
 
-    private ColorRect _Fondo;
-    private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
-
-    private ContenedorMenuPrincipal _ContenedorBotonesPrincipal;
-    public ContenedorMenuPrincipal ContenedorMenuPrincipal => _ContenedorBotonesPrincipal ??= GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
-
-    private ContenedorMenuAjustes _ContenedorMenuAjustes;
-    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
-
-    private ContenedorMenuLogros _ContenedorMenuLogros;
-    public ContenedorMenuLogros ContenedorMenuLogros => _ContenedorMenuLogros ??= GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
-
-    private ContenedorMenuEstadisticas _ContenedorMenuEstadisticas;
-    public ContenedorMenuEstadisticas ContenedorMenuEstadisticas => _ContenedorMenuEstadisticas ??= GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
-
-    private IEnumerable<ContenedorMenu> Menus => UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+    #region Nodos escena
+    public ContenedorMenuPrincipal ContenedorMenuPrincipal;
+    public ContenedorMenuAjustes ContenedorMenuAjustes;
+    public ContenedorMenuLogros ContenedorMenuLogros;
+    public ContenedorMenuEstadisticas ContenedorMenuEstadisticas;
+    public Label LabelVersion;
+    #endregion
 
     public ContenedorMenu UltimoContenedorMostrado;
 
-    private Label _LabelVersion;
-    private Label LabelVersion => _LabelVersion ??= GetNode<Label>("LabelVersion");
+    public IEnumerable<ContenedorMenu> Menus;
 
     public override void _Ready()
     {
+        CargarNodos();
         LoggerJuego.Trace(this.Name + " Ready.");
 
         LabelVersion.Text = "v" + Ajustes.Version;
@@ -43,6 +34,16 @@ public partial class MenuPrincipal : Control
         {
             contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
         }
+    }
+
+    private void CargarNodos()
+    {
+        ContenedorMenuPrincipal = GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
+        ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+        ContenedorMenuLogros = GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
+        ContenedorMenuEstadisticas = GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
+        Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+        LabelVersion = GetNode<Label>("LabelVersion");
     }
 
     private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)

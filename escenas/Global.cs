@@ -1,10 +1,10 @@
 using Godot;
 using Primerjuego2D.escenas.sistema;
+using Primerjuego2D.escenas.sistema.audio;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;
-using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas;
@@ -18,6 +18,9 @@ public partial class Global : Node
 
     public GestorAudio _GestorAudio { get; private set; }
     public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
+
+    public static GestorEfectosAudio _GestorEfectosAudio { get; private set; }
+    public static GestorEfectosAudio GestorEfectosAudio => Global._GestorEfectosAudio;
 
     public Global()
     {
@@ -47,5 +50,6 @@ public partial class Global : Node
 
         _GestorColor = GetNode<GestorColor>("GestorColor");
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");
+        _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
     }
 }
