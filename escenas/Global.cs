@@ -13,15 +13,14 @@ public partial class Global : Node
 {
     public static Global Instancia { get; private set; }
 
-    public GestorColor _GestorColor { get; private set; }
+    private GestorColor _GestorColor;
     public static GestorColor GestorColor => Global.Instancia._GestorColor;
 
-    public GestorAudio _GestorAudio { get; private set; }
+    private GestorAudio _GestorAudio;
     public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
 
-    public static GestorEfectosAudio _GestorEfectosAudio { get; private set; }
-    public static GestorEfectosAudio GestorEfectosAudio => Global._GestorEfectosAudio;
-
+    private GestorEfectosAudio _GestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
     public Global()
     {
         Ajustes.CargarAjustes();
@@ -37,19 +36,14 @@ public partial class Global : Node
     {
         LoggerJuego.Trace(this.Name + " Ready.");
 
-        InicializarValoresEstaticos();
-
-        // Mostramos colisiones.
-        bool verColisiones = Ajustes.VerColisiones;
-        GetTree().DebugCollisionsHint = verColisiones;
-    }
-
-    private void InicializarValoresEstaticos()
-    {
         Global.Instancia = this;
 
         _GestorColor = GetNode<GestorColor>("GestorColor");
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");
         _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+
+        // Mostramos colisiones.
+        bool verColisiones = Ajustes.VerColisiones;
+        GetTree().DebugCollisionsHint = verColisiones;
     }
 }

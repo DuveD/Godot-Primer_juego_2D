@@ -5,22 +5,18 @@ namespace Primerjuego2D.escenas.sistema.audio.efectos;
 
 public abstract class EfectoAudio
 {
-    public abstract string Id { get; }
+    protected abstract string _id { get; }
 
     public abstract string Bus { get; }
 
-    private int? _indiceBus;
     public int? IndiceBus
     {
         get
         {
-            if (_indiceBus == null)
-                _indiceBus = Global.GestorAudio.ObtenerIndiceBus(Bus);
-            return _indiceBus;
+            field ??= Global.GestorAudio.ObtenerIndiceBus(Bus);
+            return field;
         }
     }
-
-    public abstract string Nombre { get; }
 
     public abstract bool Perenne { get; }
 
@@ -29,7 +25,7 @@ public abstract class EfectoAudio
 
     protected int ObtenerIndiceEfecto()
     {
-        if (IndiceBus == null || IndiceBus == -1)
+        if (IndiceBus is null or -1)
             return -1;
 
         int count = AudioServer.GetBusEffectCount(IndiceBus.Value);
@@ -42,41 +38,9 @@ public abstract class EfectoAudio
         return -1;
     }
 
-    protected void EliminarEfecto()
-    {
-        if (Efecto != null)
-        {
-            if (IndiceBus == null || IndiceBus == -1)
-                return;
-
-            int effectIdx = ObtenerIndiceEfecto();
-            if (effectIdx != -1)
-                AudioServer.RemoveBusEffect(IndiceBus.Value, effectIdx);
-
-            Efecto = null;
-
-            LoggerJuego.Trace($"Efecto {this.Nombre} del bus {this.Bus} eliminado.");
-        }
-    }
-
-    public void Activar()
-    {
-        if (IndiceBus == null || IndiceBus == -1)
-            return;
-
-        if (Efecto == null)
-            CrearEfectoInterno();
-
-        int indiceEfecto = ObtenerIndiceEfecto();
-        if (indiceEfecto >= 0)
-            AudioServer.SetBusEffectEnabled(IndiceBus.Value, indiceEfecto, true);
-
-        LoggerJuego.Trace($"Efecto {this.Nombre} del bus {this.Bus} activado.");
-    }
-
     protected void CrearEfectoInterno()
     {
-        if (IndiceBus == null || IndiceBus == -1)
+        if (IndiceBus is null or -1)
             return;
 
         if (Efecto != null)
@@ -87,16 +51,48 @@ public abstract class EfectoAudio
         if (Efecto != null)
         {
             AudioServer.AddBusEffect(IndiceBus.Value, Efecto);
-        }
 
-        LoggerJuego.Trace($"Efecto {this.Nombre} creado.");
+            LoggerJuego.Trace($"Efecto '{this._id}' añadido al bus '{this.Bus}'.");
+        }
     }
 
     protected abstract AudioEffect CrearEfecto();
 
+    protected void EliminarEfecto()
+    {
+        if (Efecto != null)
+        {
+            if (IndiceBus is null or -1)
+                return;
+
+            int effectIdx = ObtenerIndiceEfecto();
+            if (effectIdx != -1)
+                AudioServer.RemoveBusEffect(IndiceBus.Value, effectIdx);
+
+            Efecto = null;
+
+            LoggerJuego.Trace($"Efecto '{this._id}' del bus '{this.Bus}' eliminado.");
+        }
+    }
+
+    public void Activar()
+    {
+        if (IndiceBus is null or -1)
+            return;
+
+        if (Efecto == null)
+            CrearEfectoInterno();
+
+        int indiceEfecto = ObtenerIndiceEfecto();
+        if (indiceEfecto >= 0)
+            AudioServer.SetBusEffectEnabled(IndiceBus.Value, indiceEfecto, true);
+
+        LoggerJuego.Trace($"Efecto '{this._id}' del bus '{this.Bus}' activado.");
+    }
+
     public void Desactivar()
     {
-        if (IndiceBus == null || IndiceBus == -1)
+        if (IndiceBus is null or -1)
             return;
 
         int indiceEfecto = ObtenerIndiceEfecto();
@@ -106,18 +102,20 @@ public abstract class EfectoAudio
         if (!Perenne)
             EliminarEfecto();
 
-        LoggerJuego.Trace($"Efecto {this.Nombre} desactivado.");
+        LoggerJuego.Trace($"Efecto '{this._id}' desactivado.");
     }
 
     public virtual bool Activo
     {
         get
         {
-            if (IndiceBus == null || IndiceBus == -1)
+            if (IndiceBus is null or -1)
                 return false;
 
             int idx = ObtenerIndiceEfecto();
-            if (idx < 0) return false;
+            if (idx < 0)
+                return false;
+
             return AudioServer.IsBusEffectEnabled(IndiceBus.Value, idx);
         }
     }

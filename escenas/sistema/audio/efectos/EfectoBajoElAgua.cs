@@ -6,11 +6,9 @@ public class EfectoBajoElAgua : EfectoAudio
 {
   public const string ID = "bajo_el_agua";
 
-  public override string Id => ID;
+  protected override string _id => ID;
 
   public override string Bus => GestorAudio.BUS_MUSICA;
-
-  public override string Nombre => nameof(EfectoBajoElAgua);
 
   public override bool Perenne => true;
 
