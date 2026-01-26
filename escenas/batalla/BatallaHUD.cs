@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Primerjuego2D.escenas.menuPrincipal;
 using Primerjuego2D.escenas.sistema.audio.efectos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -10,23 +9,24 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class BatallaHUD : CanvasLayer
 {
-    private Label _MessageLabel;
-    private Label MessageLabel => _MessageLabel ??= GetNode<Label>("Message");
+    private Label MessageLabel;
 
-    private Label _LabelGameOver;
-    private Label LabelGameOver => _LabelGameOver ??= GetNode<Label>("LabelGameOver");
+    private Label LabelGameOver;
 
-    private Label _ScoreLabel;
-    private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
+    private Label ScoreLabel;
 
-    private PanelMenuPausa _PanelMenuPausa;
-    public PanelMenuPausa PanelMenuPausa => _PanelMenuPausa ??= GetNode<PanelMenuPausa>("PanelMenuPausa");
+    private PanelMenuPausa PanelMenuPausa;
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.MessageLabel = GetNode<Label>("Message");
+        this.LabelGameOver = GetNode<Label>("LabelGameOver");
+        this.ScoreLabel = GetNode<Label>("ScoreLabel");
+        this.PanelMenuPausa = GetNode<PanelMenuPausa>("PanelMenuPausa");
 
         this.LabelGameOver.Hide();
     }

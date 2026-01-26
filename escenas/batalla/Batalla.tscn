@@ -20,7 +20,7 @@ _data = {
 point_count = 5
 
 [node name="Batalla" type="Node"]
-process_mode = 3
+process_mode = 1
 script = ExtResource("1_jxdra")
 
 [node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
@@ -29,11 +29,11 @@ anchors_preset = 0
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
-
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
 
 [node name="SpawnEnemigos" type="Control" parent="."]
 layout_mode = 3

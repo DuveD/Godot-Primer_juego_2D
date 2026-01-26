@@ -56,24 +56,25 @@ public partial class BatallaControlador : Control
         }
     }
 
-    private BatallaHUD _BatallaHUD;
-    private BatallaHUD BatallaHUD => _BatallaHUD ??= GetNode<BatallaHUD>("../BatallaHUD");
+    private BatallaHUD BatallaHUD;
 
-    private SpawnEnemigos _SpawnEnemigos;
-    private SpawnEnemigos SpawnEnemigos => _SpawnEnemigos ??= GetNode<SpawnEnemigos>("../SpawnEnemigos");
+    private SpawnEnemigos SpawnEnemigos;
 
-    private SpawnMonedas _SpawnMonedas;
-    private SpawnMonedas SpawnMonedas => _SpawnMonedas ??= GetNode<SpawnMonedas>("../SpawnMonedas");
+    private SpawnMonedas SpawnMonedas;
 
-    private SpawnPowerUps _SpawnPowerUps;
-    private SpawnPowerUps SpawnPowerUps => _SpawnPowerUps ??= GetNode<SpawnPowerUps>("../SpawnPowerUps");
+    private SpawnPowerUps SpawnPowerUps;
 
-    private Jugador _Jugador;
-    private Jugador Jugador => _Jugador ??= GetNode<Jugador>("../Jugador");
+    private Jugador Jugador;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.BatallaHUD = GetNode<BatallaHUD>("../BatallaHUD");
+        this.SpawnEnemigos = GetNode<SpawnEnemigos>("../SpawnEnemigos");
+        this.SpawnMonedas = GetNode<SpawnMonedas>("../SpawnMonedas");
+        this.SpawnPowerUps = GetNode<SpawnPowerUps>("../SpawnPowerUps");
+        this.Jugador = GetNode<Jugador>("../Jugador");
 
         GestorEstadisticas.InicializarPartida();
     }

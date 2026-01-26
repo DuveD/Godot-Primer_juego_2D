@@ -25,14 +25,11 @@ public partial class Jugador : CharacterBody2D
     [Signal]
     public delegate void AnimacionMuerteJugadorTerminadaEventHandler();
 
-    private CollisionShape2D _CollisionShape2D;
-    private CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("HitBox/HitBoxCollisionShape2D");
+    private CollisionShape2D CollisionShape2D;
 
-    private AnimatedSprite2D _AnimatedSprite2D;
-    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    private AnimatedSprite2D AnimatedSprite2D;
 
-    private CpuParticles2D _ExplosionMuerte;
-    private CpuParticles2D ExplosionMuerte => _ExplosionMuerte ??= GetNode<CpuParticles2D>("ExplosionMuerte");
+    private CpuParticles2D ExplosionMuerte;
 
     private Vector2 TamanoPantalla => UtilidadesPantalla.ObtenerTamanoPantalla(this);
 
@@ -68,6 +65,10 @@ public partial class Jugador : CharacterBody2D
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.CollisionShape2D = GetNode<CollisionShape2D>("HitBox/HitBoxCollisionShape2D");
+        this.AnimatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        this.ExplosionMuerte = GetNode<CpuParticles2D>("ExplosionMuerte");
 
         UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.JUGADOR);
 

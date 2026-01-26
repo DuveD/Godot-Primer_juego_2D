@@ -6,15 +6,11 @@ namespace Primerjuego2D.escenas.objetos.modelos;
 
 public abstract partial class Consumible : Area2D
 {
-    private Sprite2D _Sprite2D;
-    public Sprite2D Sprite2D => _Sprite2D ??= GetNode<Sprite2D>("Sprite2D");
+    public Sprite2D Sprite2D;
 
-
-    private CollisionShape2D _CollisionShape2D;
-    public CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("CollisionShape2D");
+    public CollisionShape2D CollisionShape2D;
 
     // Si es -1, no se autodestruye. Si >0, se destruye automáticamente después de ese tiempo.
-
     [Export]
     public long TiempoDestruccion { get; set; } = -1;
 
@@ -33,6 +29,9 @@ public abstract partial class Consumible : Area2D
 
     public override void _Ready()
     {
+        Sprite2D = GetNode<Sprite2D>("Sprite2D");
+        CollisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+
         BodyEntered += OnBodyEntered;
 
         ConfigurarTimerDestruccion();

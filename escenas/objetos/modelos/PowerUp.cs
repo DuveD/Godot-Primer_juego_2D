@@ -15,8 +15,6 @@ public abstract partial class PowerUp : Consumible
         AcumulaEfecto
     }
 
-    public string Id { get; } = System.Guid.NewGuid().ToString();
-
     // Si es -1 es permanente.
     [Export]
     public float TiempoDuracion { get; set; } = -1f;
@@ -28,13 +26,6 @@ public abstract partial class PowerUp : Consumible
     public bool PermiteDuplicados = false;
 
     public Timer TimerDuracionPowerUp;
-
-    public override void _Ready()
-    {
-        LoggerJuego.Trace(this.Name + " Ready.");
-
-        base._Ready();
-    }
 
     public virtual List<ModificadorAtributo<T>> ObtenerModificadoresAtributos<T>()
     {

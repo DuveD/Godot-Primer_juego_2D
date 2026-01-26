@@ -62,27 +62,6 @@ public static class GestorLogros
         }
     }
 
-    public static void GuardarLogro(Logro logro)
-    {
-        Godot.Collections.Dictionary datosLogro = [];
-        datosLogro.Add("desbloqueado", logro.Desbloqueado);
-        if (logro is LogroContador logroContador)
-        {
-            datosLogro.Add("progreso", logroContador.Progreso);
-        }
-
-        ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
-
-        if (!Directory.Exists(Ajustes.RutaJuego))
-            Directory.CreateDirectory(Ajustes.RutaJuego);
-
-        var err = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
-        if (err != Error.Ok)
-            LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {err}");
-        else
-            LoggerJuego.Trace("Logro guardado.");
-    }
-
     private static void RegistrarLogros()
     {
         Registrar(new LogroUnico(
@@ -281,16 +260,48 @@ public static class GestorLogros
         if (!_logros.TryGetValue(evento, out var logrosEvento))
             return logrosDesbloqueados;
 
-        foreach (var logro in logrosEvento)
+        if (logrosEvento != null && logrosEvento.Count > 0)
         {
-            bool desbloqueado = logro.ProcesarEvento(evento, datos);
+            foreach (var logro in logrosEvento)
+            {
+                bool desbloqueado = logro.ProcesarEvento(evento, datos);
 
-            if (desbloqueado)
-                logrosDesbloqueados.Add(logro);
+                if (desbloqueado)
+                    logrosDesbloqueados.Add(logro);
 
-            GuardarLogro(logro);
+                GuardarLogro(logro);
+            }
+
+            GuardarLogros();
         }
 
         return logrosDesbloqueados;
+    }
+
+    public static void GuardarLogro(Logro logro, bool guardar = false)
+    {
+        Godot.Collections.Dictionary datosLogro = [];
+        datosLogro.Add("desbloqueado", logro.Desbloqueado);
+        if (logro is LogroContador logroContador)
+        {
+            datosLogro.Add("progreso", logroContador.Progreso);
+        }
+
+        ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
+
+        if (!Directory.Exists(Ajustes.RutaJuego))
+            Directory.CreateDirectory(Ajustes.RutaJuego);
+
+        if (guardar)
+            GuardarLogros();
+    }
+
+    public static void GuardarLogros()
+    {
+        var err = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
+        if (err != Error.Ok)
+            LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {err}");
+        else
+            LoggerJuego.Trace("Logros guardados.");
     }
 }

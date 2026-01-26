@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.escenas.miscelaneo;
 using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
@@ -31,9 +32,13 @@ public partial class SpawnMonedas : Control
 
 	private Jugador Jugador { get; set; }
 
+	private PackedScene TextoFlotanteScene;
+
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
+
+		this.TextoFlotanteScene = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<TextoFlotante>());
 
 		this.MonedasRecogidas = 0;
 	}
@@ -77,6 +82,7 @@ public partial class SpawnMonedas : Control
 			moneda = MonedaPackedScene.Instantiate<Moneda>();
 		}
 
+		moneda.TextoFlotanteScene = this.TextoFlotanteScene;
 		moneda.Recogida += OnMonedaRecogida;
 
 		this.GetParent().AddChild(moneda);

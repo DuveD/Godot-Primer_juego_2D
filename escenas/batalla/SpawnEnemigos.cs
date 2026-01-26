@@ -10,11 +10,9 @@ public partial class SpawnEnemigos : Control
     [Signal]
     public delegate void EnemigoSpawneadoEventHandler(Enemigo enemigo);
 
-    private Timer _TimerSpawnEnemigo;
-    public Timer TimerSpawnEnemigo => _TimerSpawnEnemigo ??= GetNode<Timer>("TimerSpawnEnemigo");
+    private Timer TimerSpawnEnemigo;
 
-    private PathFollow2D _EnemySpawnLocation;
-    public PathFollow2D EnemySpawnLocation => _EnemySpawnLocation ??= GetNode<PathFollow2D>("EnemyPath/EnemySpawnLocation");
+    private PathFollow2D EnemySpawnLocation;
 
     [Export]
     public PackedScene PackedSceneEnemigo { get; set; }
@@ -22,6 +20,9 @@ public partial class SpawnEnemigos : Control
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.TimerSpawnEnemigo = GetNode<Timer>("TimerSpawnEnemigo");
+        this.EnemySpawnLocation = GetNode<PathFollow2D>("EnemyPath/EnemySpawnLocation");
 
         this.TimerSpawnEnemigo.Timeout += SpawnEnemigo;
     }

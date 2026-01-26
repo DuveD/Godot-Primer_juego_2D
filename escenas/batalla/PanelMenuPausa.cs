@@ -10,17 +10,19 @@ public partial class PanelMenuPausa : Control
 {
     public bool ModoNavegacionTeclado = false;
 
-    private ContenedorMenuPausa _ContenedorMenuPausa;
-    private ContenedorMenuPausa ContenedorMenuPausa => _ContenedorMenuPausa ??= GetNode<ContenedorMenuPausa>("ContenedorMenuPausa");
+    private ContenedorMenuPausa ContenedorMenuPausa;
 
-    private ContenedorMenuAjustes _ContenedorMenuAjustes;
-    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+    private ContenedorMenuAjustes ContenedorMenuAjustes;
 
-    private IEnumerable<ContenedorMenu> Menus => UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+    private IEnumerable<ContenedorMenu> Menus;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.ContenedorMenuPausa = GetNode<ContenedorMenuPausa>("ContenedorMenuPausa");
+        this.ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+        this.Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
 
         this.VisibilityChanged += OnVisibilityChanged;
 

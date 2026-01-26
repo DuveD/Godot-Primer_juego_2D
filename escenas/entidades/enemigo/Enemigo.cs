@@ -19,12 +19,13 @@ public partial class Enemigo : RigidBody2D
 
     public const string GROUP_ENEMIES_NAME = "Enemies";
 
-    private AnimatedSprite2D _AnimatedSprite2D;
-    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    private AnimatedSprite2D AnimatedSprite2D;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.AnimatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.ENEMIGOS);
 

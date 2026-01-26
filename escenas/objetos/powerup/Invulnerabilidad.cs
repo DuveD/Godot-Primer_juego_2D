@@ -5,6 +5,7 @@ using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.entidades.atributo;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.objetos.powerup;
 
@@ -35,6 +36,13 @@ public partial class Invulnerabilidad : PowerUp
         };
 
         return todos.OfType<ModificadorAtributo<T>>().ToList();
+    }
+
+    public override void _Ready()
+    {
+        LoggerJuego.Trace(this.Name + " Ready.");
+
+        base._Ready();
     }
 
     public override void AplicarEfectoPowerUp(Jugador jugador)

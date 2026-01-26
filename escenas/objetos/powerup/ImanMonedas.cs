@@ -4,6 +4,7 @@ using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.objetos.powerup;
 
@@ -18,6 +19,13 @@ public partial class ImanMonedas : PowerUp
     private Area2D _areaIman;
     private CollisionShape2D _collisionShape;
     private readonly HashSet<Node2D> _monedasEnRango = [];
+
+    public override void _Ready()
+    {
+        LoggerJuego.Trace(this.Name + " Ready.");
+
+        base._Ready();
+    }
 
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {

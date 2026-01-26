@@ -5,11 +5,9 @@ using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
-using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
 namespace Primerjuego2D.escenas.objetos.moneda;
 
-[AtributoNivelLog(NivelLog.Info)]
 public partial class Moneda : Consumible
 {
 	[Signal]
@@ -24,16 +22,17 @@ public partial class Moneda : Consumible
 	[Export]
 	public Color ColorTextoFlotante { get; set; } = Colors.Gold;
 
-	public static readonly PackedScene TextoFlotanteScene = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<TextoFlotante>());
+	public PackedScene TextoFlotanteScene;
 
-	private AnimationPlayer _AnimationPlayerRotacion;
-	public AnimationPlayer AnimationPlayerRotacion => _AnimationPlayerRotacion ??= GetNode<AnimationPlayer>("AnimationPlayerRotacion");
+	public AnimationPlayer AnimationPlayerRotacion;
 
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
 
 		base._Ready();
+
+		this.AnimationPlayerRotacion = GetNode<AnimationPlayer>("AnimationPlayerRotacion");
 
 		UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.OBJETOS);
 

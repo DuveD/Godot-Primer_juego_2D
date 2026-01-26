@@ -42,8 +42,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	private ButtonPersonalizado _ButtonGuardar;
 	private ButtonPersonalizado ButtonGuardar => _ButtonGuardar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
-	// Ajustes actuales.
-
+	#region Valor ajustes
 	public int VolumenGeneral;
 	public int VolumenMusica;
 	public int VolumenSonidos;
@@ -51,6 +50,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	public NivelLog NivelLog;
 	public bool EscribirLogEnFichero;
 	public bool VerColisiones;
+	#endregion
 
 	public override void _Ready()
 	{

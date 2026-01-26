@@ -11,18 +11,28 @@ public partial class ControlSlider : VBoxContainer
 	[Signal]
 	public delegate void ValorCambiadoEventHandler(double valor);
 
+	private string _textoLabel = "";
 	[Export]
 	public string TextoLabel
 	{
-		get => Label.Text;
-		set => Label.Text = value;
+		get => _textoLabel;
+		set
+		{
+			_textoLabel = value;
+			Label?.Text = _textoLabel;
+		}
 	}
 
+	private bool _mostrarValorNumerico = true;
 	[Export]
 	public bool MostrarValorNumerico
 	{
-		get => SpinBox.Visible;
-		set => SpinBox.Visible = value;
+		get => _mostrarValorNumerico;
+		set
+		{
+			_mostrarValorNumerico = value;
+			SpinBox?.Visible = _mostrarValorNumerico;
+		}
 	}
 
 	public bool _ModoEntero = true;
@@ -30,7 +40,12 @@ public partial class ControlSlider : VBoxContainer
 	public bool ModoEntero
 	{
 		get => _ModoEntero;
-		set => _ModoEntero = value;
+		set
+		{
+			_ModoEntero = value;
+			AplicarRango();
+			SetValorInterno(_valor, emitirSenal: false);
+		}
 	}
 
 	private double _valor;
@@ -81,26 +96,29 @@ public partial class ControlSlider : VBoxContainer
 		}
 	}
 
-	private Label _label;
-	public Label Label => _label ??= UtilidadesNodos.ObtenerNodoDeTipo<Label>(this);
+	private Label Label;
 
-	private SpinBox _spinBox;
-	public SpinBox SpinBox => _spinBox ??= UtilidadesNodos.ObtenerNodoDeTipo<SpinBox>(this);
+	private SpinBox SpinBox;
 
-	private HSliderPersonalizado _slider;
-	public HSliderPersonalizado SliderVolumen =>
-		_slider ??= UtilidadesNodos.ObtenerNodoDeTipo<HSliderPersonalizado>(this);
-
+	public HSliderPersonalizado SliderVolumen;
 
 	public override void _Ready()
 	{
 		LoggerJuego.Trace($"{Name} Ready.");
 
+		this.Label = UtilidadesNodos.ObtenerNodoDeTipo<Label>(this);
+		this.Label.Text = _textoLabel;
+
+		this.SpinBox = UtilidadesNodos.ObtenerNodoDeTipo<SpinBox>(this);
+		this.SpinBox.Visible = _mostrarValorNumerico;
+
+		this.SliderVolumen = UtilidadesNodos.ObtenerNodoDeTipo<HSliderPersonalizado>(this);
+
 		AplicarRango();
 		SetValorInterno(_valor, emitirSenal: false);
 
-		SpinBox.ValueChanged += OnSpinBoxValueChanged;
-		SliderVolumen.ValueChanged += OnSliderValueChanged;
+		this.SpinBox.ValueChanged += OnSpinBoxValueChanged;
+		this.SliderVolumen.ValueChanged += OnSliderValueChanged;
 	}
 
 	private void OnSpinBoxValueChanged(double value)
@@ -134,7 +152,7 @@ public partial class ControlSlider : VBoxContainer
 
 	private void AplicarRango()
 	{
-		if (_spinBox == null || _slider == null)
+		if (SpinBox == null || SliderVolumen == null)
 			return;
 
 		SpinBox.MinValue = _MinValor;
