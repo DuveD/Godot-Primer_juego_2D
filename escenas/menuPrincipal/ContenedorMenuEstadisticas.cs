@@ -10,34 +10,31 @@ using Primerjuego2D.nucleo.utilidades.log;
 public partial class ContenedorMenuEstadisticas : ContenedorMenu
 {
     private Label _LabelPartidasJugadasValor;
-    private Label LabelPartidasJugadasValor => _LabelPartidasJugadasValor ??= UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelPartidasJugadasValor");
-
     private Label _LabelMejorPuntuacionValor;
-    private Label LabelMejorPuntuacionValor => _LabelMejorPuntuacionValor ??= UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMejorPuntuacionValor");
-
     private Label _LabelMonedasRecogidasValor;
-    private Label LabelMonedasRecogidasValor => _LabelMonedasRecogidasValor ??= UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMonedasRecogidasValor");
-
     private Label _LabelMonedasEspecialesRecogidasValor;
-    private Label LabelMonedasEspecialesRecogidasValor => _LabelMonedasEspecialesRecogidasValor ??= UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMonedasEspecialesRecogidasValor");
-
     private Label _LabelEnemigosDerrotadosValor;
-    private Label LabelEnemigosDerrotadosValor => _LabelEnemigosDerrotadosValor ??= UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
 
     private ButtonPersonalizado _ButtonAtras;
-    public ButtonPersonalizado ButtonAtras => _ButtonAtras ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
     public override void _Ready()
     {
         base._Ready();
 
-        LoggerJuego.Trace(this.Name + " Ready.");
+        _LabelPartidasJugadasValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelPartidasJugadasValor");
+        _LabelMejorPuntuacionValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMejorPuntuacionValor");
+        _LabelMonedasRecogidasValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMonedasRecogidasValor");
+        _LabelMonedasEspecialesRecogidasValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMonedasEspecialesRecogidasValor");
+        _LabelEnemigosDerrotadosValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
+        _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
-        LabelPartidasJugadasValor.Text = GestorEstadisticas.Globales.PartidasJugadas.ToString();
-        LabelMejorPuntuacionValor.Text = GestorEstadisticas.Globales.MejorPuntuacion.ToString();
-        LabelMonedasRecogidasValor.Text = GestorEstadisticas.Globales.MonedasRecogidas.ToString();
-        LabelMonedasEspecialesRecogidasValor.Text = GestorEstadisticas.Globales.MonedasEspecialesRecogidas.ToString();
-        LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
+        _LabelPartidasJugadasValor.Text = GestorEstadisticas.Globales.PartidasJugadas.ToString();
+        _LabelMejorPuntuacionValor.Text = GestorEstadisticas.Globales.MejorPuntuacion.ToString();
+        _LabelMonedasRecogidasValor.Text = GestorEstadisticas.Globales.MonedasRecogidas.ToString();
+        _LabelMonedasEspecialesRecogidasValor.Text = GestorEstadisticas.Globales.MonedasEspecialesRecogidas.ToString();
+        _LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -50,7 +47,7 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         {
             if (this.ModoNavegacionTeclado)
             {
-                UtilidadesNodos.PulsarBoton(ButtonAtras);
+                UtilidadesNodos.PulsarBoton(_ButtonAtras);
                 AcceptEvent();
             }
         }
@@ -58,12 +55,12 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return ButtonAtras;
+        return _ButtonAtras;
     }
 
     public override List<Control> ObtenerElementosConFoco()
     {
-        return [ButtonAtras];
+        return [_ButtonAtras];
     }
 
 }

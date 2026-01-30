@@ -52,8 +52,11 @@ public abstract partial class ContenedorMenu : CenterContainer
 
     public override void _Ready()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
+        CallDeferred(nameof(PostReady));
+    }
 
+    protected virtual void PostReady()
+    {
         ConfigurarElementosConFoco();
 
         this.VisibilityChanged += OnVisibilityChanged;

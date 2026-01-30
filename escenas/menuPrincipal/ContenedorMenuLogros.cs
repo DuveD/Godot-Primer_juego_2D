@@ -25,19 +25,18 @@ public partial class ContenedorMenuLogros : ContenedorMenu
     private List<ContenedorLogro> _ListaContenedoresLogros = [];
 
     private ScrollContainer _ScrollContainer;
-    public ScrollContainer ScrollContainer => _ScrollContainer ??= UtilidadesNodos.ObtenerNodoPorNombre<ScrollContainer>(this, "ScrollContainer");
-
     private VBoxContainer _VBoxContainerLogros;
-    public VBoxContainer VBoxContainerLogros => _VBoxContainerLogros ??= UtilidadesNodos.ObtenerNodoPorNombre<VBoxContainer>(this, "VBoxContainerLogros");
-
     private ButtonPersonalizado _ButtonAtras;
-    public ButtonPersonalizado ButtonAtras => _ButtonAtras ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
     public override void _Ready()
     {
-        CargarLogros();
-
         base._Ready();
+
+        _ScrollContainer = UtilidadesNodos.ObtenerNodoPorNombre<ScrollContainer>(this, "ScrollContainer");
+        _VBoxContainerLogros = UtilidadesNodos.ObtenerNodoPorNombre<VBoxContainer>(this, "VBoxContainerLogros");
+        _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
+
+        CargarLogros();
 
         LoggerJuego.Trace(this.Name + " Ready.");
     }
@@ -61,7 +60,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
                 continue;
 
             contenedorLogro.Inicializar(logro);
-            VBoxContainerLogros.AddChild(contenedorLogro);
+            _VBoxContainerLogros.AddChild(contenedorLogro);
             _ListaContenedoresLogros.Add(contenedorLogro);
 
             if (this._PrimerLogroLista == null)
@@ -79,8 +78,8 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         if (contenedorLogroAnterior != null)
         {
             this._UltimoLogroLista = contenedorLogroAnterior;
-            this._UltimoLogroLista.FocusNeighborBottom = this._UltimoLogroLista.GetPathTo(this.ButtonAtras);
-            this.ButtonAtras.FocusNeighborTop = this.ButtonAtras.GetPathTo(this._UltimoLogroLista);
+            this._UltimoLogroLista.FocusNeighborBottom = this._UltimoLogroLista.GetPathTo(this._ButtonAtras);
+            this._ButtonAtras.FocusNeighborTop = this._ButtonAtras.GetPathTo(this._UltimoLogroLista);
         }
     }
 
@@ -90,14 +89,14 @@ public partial class ContenedorMenuLogros : ContenedorMenu
             return;
 
         actual.FocusNeighborTop = actual.GetPathTo(anterior);
-        actual.FocusNeighborLeft = actual.GetPathTo(ButtonAtras);
+        actual.FocusNeighborLeft = actual.GetPathTo(this._ButtonAtras);
         anterior.FocusNeighborBottom = anterior.GetPathTo(actual);
     }
 
 
     private void CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(ContenedorLogro contenedorLogro)
     {
-        this.ButtonAtras.FocusNeighborRight = this.ButtonAtras.GetPathTo(contenedorLogro);
+        this._ButtonAtras.FocusNeighborRight = this._ButtonAtras.GetPathTo(contenedorLogro);
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -110,7 +109,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         {
             if (this.ModoNavegacionTeclado)
             {
-                UtilidadesNodos.PulsarBoton(ButtonAtras);
+                UtilidadesNodos.PulsarBoton(this._ButtonAtras);
                 AcceptEvent();
             }
         }
@@ -118,7 +117,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return this._PrimerLogroLista != null ? _PrimerLogroLista : ButtonAtras;
+        return this._PrimerLogroLista != null ? _PrimerLogroLista : this._ButtonAtras;
     }
 
     public override List<Control> ObtenerElementosConFoco()
@@ -126,7 +125,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         List<Control> elementos = [];
 
         elementos.AddRange(_ListaContenedoresLogros);
-        elementos.Add(ButtonAtras);
+        elementos.Add(this._ButtonAtras);
 
         return elementos;
     }
