@@ -11,6 +11,8 @@ namespace Primerjuego2D.nucleo.sistema.logros;
 
 public static class GestorLogros
 {
+    private static readonly object _lock = new();
+
     private const string SECCION_LOGROS = "logros";
 
     private static ConfigFile ArchivoLogros { get; } = new ConfigFile();
@@ -24,7 +26,12 @@ public static class GestorLogros
     private static Dictionary<string, List<Logro>> _logros = [];
 
     public static IEnumerable<Logro> ObtenerLogros()
-           => _logros.Values.SelectMany(l => l).Distinct();
+    {
+        lock (_lock)
+        {
+            return _logros.Values.SelectMany(l => l);
+        }
+    }
 
     public static void CargarLogros()
     {
@@ -261,53 +268,62 @@ public static class GestorLogros
 
     public static List<Logro> EmitirEvento(string evento, object datos = null)
     {
-        List<Logro> logrosDesbloqueados = [];
-
-        if (!_logros.TryGetValue(evento, out var logrosEvento))
-            return logrosDesbloqueados;
-
-        if (logrosEvento != null && logrosEvento.Count > 0)
+        lock (_lock)
         {
-            foreach (var logro in logrosEvento)
+            List<Logro> logrosDesbloqueados = [];
+
+            if (!_logros.TryGetValue(evento, out var logrosEvento))
+                return logrosDesbloqueados;
+
+            if (logrosEvento != null && logrosEvento.Count > 0)
             {
-                bool desbloqueado = logro.ProcesarEvento(evento, datos);
+                foreach (var logro in logrosEvento)
+                {
+                    bool desbloqueado = logro.ProcesarEvento(evento, datos);
 
-                if (desbloqueado)
-                    logrosDesbloqueados.Add(logro);
+                    if (desbloqueado)
+                        logrosDesbloqueados.Add(logro);
 
-                GuardarLogro(logro);
+                    GuardarLogro(logro);
+                }
+
+                GuardarLogros();
             }
 
-            GuardarLogros();
+            return logrosDesbloqueados;
         }
-
-        return logrosDesbloqueados;
     }
 
-    public static void GuardarLogro(Logro logro, bool guardar = false)
+    private static void GuardarLogro(Logro logro, bool guardar = false)
     {
-        Godot.Collections.Dictionary datosLogro = [];
-        datosLogro.Add("desbloqueado", logro.Desbloqueado);
-        if (logro is LogroContador logroContador)
+        lock (_lock)
         {
-            datosLogro.Add("progreso", logroContador.Progreso);
+            Godot.Collections.Dictionary datosLogro = [];
+            datosLogro.Add("desbloqueado", logro.Desbloqueado);
+            if (logro is LogroContador logroContador)
+            {
+                datosLogro.Add("progreso", logroContador.Progreso);
+            }
+
+            ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
+
+            if (!Directory.Exists(Ajustes.RutaJuego))
+                Directory.CreateDirectory(Ajustes.RutaJuego);
+
+            if (guardar)
+                GuardarLogros();
         }
-
-        ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
-
-        if (!Directory.Exists(Ajustes.RutaJuego))
-            Directory.CreateDirectory(Ajustes.RutaJuego);
-
-        if (guardar)
-            GuardarLogros();
     }
 
-    public static void GuardarLogros()
+    private static void GuardarLogros()
     {
-        var err = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
-        if (err != Error.Ok)
-            LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {err}");
-        else
-            LoggerJuego.Trace("Logros guardados.");
+        lock (_lock)
+        {
+            var err = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
+            if (err != Error.Ok)
+                LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {err}");
+            else
+                LoggerJuego.Trace("Logros guardados.");
+        }
     }
 }
