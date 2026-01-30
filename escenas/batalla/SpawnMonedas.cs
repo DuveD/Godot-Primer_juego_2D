@@ -34,6 +34,8 @@ public partial class SpawnMonedas : Control
 
 	private PackedScene TextoFlotanteScene;
 
+	List<Moneda> MonedasEnEscena = new List<Moneda>();
+
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
@@ -51,26 +53,28 @@ public partial class SpawnMonedas : Control
 
 	private void Spawn()
 	{
-		LoggerJuego.Trace("Spawneamos una nueva moneda.");
-
 		// Moneda normal
 		SpawnMoneda();
 
-		bool existeMonedaEspecial = UtilidadesNodos.ObtenerNodosDeTipo<MonedaEspecial>(GetTree().CurrentScene).Any();
+		bool existeMonedaEspecial = MonedasEnEscena.Any(m => m is MonedaEspecial);
 		if (!existeMonedaEspecial)
 		{
 			// Moneda especial según probabilidad
 			float prob = (float)ProbabilidadSpawnMonedaEspecial / 100;
 			if (Randomizador.GetRandomFloat() <= prob)
 			{
-				LoggerJuego.Trace("Spawneamos una moneda especial.");
-				SpawnMoneda(true);
+				CallDeferred(nameof(SpawnMoneda), true);
 			}
 		}
 	}
 
 	private Moneda SpawnMoneda(bool monedaEspecial = false)
 	{
+		if (monedaEspecial)
+			LoggerJuego.Trace("Spawneamos una moneda especial.");
+		else
+			LoggerJuego.Trace("Spawneamos una moneda.");
+
 		Moneda moneda;
 
 		if (monedaEspecial)
@@ -87,6 +91,8 @@ public partial class SpawnMonedas : Control
 
 		this.GetParent().AddChild(moneda);
 		moneda.Position = ObtenerPosicionAleatoriaSegura();
+
+		MonedasEnEscena.Add(moneda);
 
 		return moneda;
 	}
@@ -121,11 +127,13 @@ public partial class SpawnMonedas : Control
 		// Emitimos la señal de que el jugador ha recogido una moneda.
 		EmitSignal(SignalName.MonedaRecogida, moneda);
 
+		MonedasEnEscena.Remove(moneda);
+
+		GestorLogros.EmitirEventoAsync(GestorLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
+
 		bool esMonedaEspecial = moneda is MonedaEspecial;
 		if (!esMonedaEspecial)
 			CallDeferred(nameof(Spawn));
-
-		GestorLogros.EmitirEvento(GestorLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
 	}
 
 	public void DestruirMonedas()

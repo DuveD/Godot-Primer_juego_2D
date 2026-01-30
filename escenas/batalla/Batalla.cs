@@ -15,8 +15,6 @@ public partial class Batalla : Node
 
     private BatallaControlador BatallaControlador;
 
-    private CanvasLayer CanvasLayer;
-
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -24,7 +22,6 @@ public partial class Batalla : Node
         this.Jugador = GetNode<Jugador>("Jugador");
         this.StartPosition = GetNode<Marker2D>("StartPosition");
         this.BatallaControlador = GetNode<BatallaControlador>("BatallaControlador");
-        this.CanvasLayer = GetNode<CanvasLayer>("CanvasLayer");
 
         this.NuevoJuego();
     }

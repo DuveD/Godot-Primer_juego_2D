@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -251,6 +252,11 @@ public static class GestorLogros
         }
 
         lista.Add(logro);
+    }
+
+    public static Task<List<Logro>> EmitirEventoAsync(string evento, object datos = null)
+    {
+        return Task.Run(() => EmitirEvento(evento, datos));
     }
 
     public static List<Logro> EmitirEvento(string evento, object datos = null)

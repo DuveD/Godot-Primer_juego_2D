@@ -141,14 +141,11 @@ public partial class BatallaControlador : Control
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
 
-        GestorLogros.EmitirEvento(GestorLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        GestorLogros.EmitirEventoAsync(GestorLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
     }
 
     public void SumarPuntuacion(Moneda moneda)
     {
-        if (!this.BatallaEnCurso)
-            return;
-
         this.Puntuacion += moneda.Valor;
         GestorEstadisticas.PartidaActual.RegistrarMoneda(moneda is MonedaEspecial);
 
