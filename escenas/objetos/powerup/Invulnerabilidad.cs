@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.escenas.miscelaneo.animaciones;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.entidades.atributo;
@@ -23,6 +25,8 @@ public partial class Invulnerabilidad : PowerUp
     [Export]
     private double DuracionParpadeo = 1;       // Último tramo donde parpadea
 
+    private EfectoEstelaSprite2D _estelaJugador;
+
     private ModificadorAtributo<long> _modificadorVelocidad = new ModificadorAtributo<long>(nameof(Jugador.Velocidad), 100, (valor) => valor + 100);
 
     private ModificadorAtributo<bool> _modificadorVInvulnerable = new ModificadorAtributo<bool>(nameof(Jugador.Invulnerable), false, (_) => true);
@@ -40,9 +44,9 @@ public partial class Invulnerabilidad : PowerUp
 
     public override void _Ready()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
-
         base._Ready();
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public override void AplicarEfectoPowerUp(Jugador jugador)
@@ -51,6 +55,20 @@ public partial class Invulnerabilidad : PowerUp
 
         // Al principio solo azul fijo
         PonerColorAzurJugador(jugador);
+
+        PonerEstelaJugador(jugador);
+    }
+
+    private void PonerEstelaJugador(Jugador jugador)
+    {
+        _estelaJugador = new EfectoEstelaSprite2D();
+        _estelaJugador.Inicializar(
+            jugador.AnimatedSprite2D,
+            0.05f
+        );
+
+        jugador.AddChild(_estelaJugador);
+        _estelaJugador.Activar();
     }
 
     private static void InvalidarAtributosModificados(Jugador jugador)
@@ -112,5 +130,19 @@ public partial class Invulnerabilidad : PowerUp
         RestaurarColorJugador(jugador);
 
         InvalidarAtributosModificados(jugador);
+
+        // Quitamos estela
+        QuitarEstelaJugador(jugador);
+    }
+
+    private void QuitarEstelaJugador(Jugador jugador)
+    {
+        if (_estelaJugador != null)
+        {
+            _estelaJugador.Desactivar();
+            _estelaJugador.QueueFree();
+            jugador.RemoveChild(_estelaJugador);
+            _estelaJugador = null;
+        }
     }
 }

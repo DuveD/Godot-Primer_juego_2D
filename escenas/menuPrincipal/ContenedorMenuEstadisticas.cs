@@ -7,6 +7,8 @@ using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.menuPrincipal;
+
 public partial class ContenedorMenuEstadisticas : ContenedorMenu
 {
     private Label _LabelPartidasJugadasValor;

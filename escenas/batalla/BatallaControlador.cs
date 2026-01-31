@@ -146,6 +146,12 @@ public partial class BatallaControlador : Control
 
     public void SumarPuntuacion(Moneda moneda)
     {
+        if (moneda == null)
+        {
+            LoggerJuego.Error("La moneda es nula.");
+            return;
+        }
+
         this.Puntuacion += moneda.Valor;
         GestorEstadisticas.PartidaActual.RegistrarMoneda(moneda is MonedaEspecial);
 

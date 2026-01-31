@@ -27,7 +27,7 @@ public partial class Jugador : CharacterBody2D
 
     private CollisionShape2D CollisionShape2D;
 
-    private AnimatedSprite2D AnimatedSprite2D;
+    public AnimatedSprite2D AnimatedSprite2D;
 
     private CpuParticles2D ExplosionMuerte;
 

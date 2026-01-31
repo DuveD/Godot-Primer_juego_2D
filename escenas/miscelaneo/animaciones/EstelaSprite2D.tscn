@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0q1af0avm1es"]
+
+[ext_resource type="Script" uid="uid://bru70epi80on8" path="res://escenas/miscelaneo/animaciones/EstelaSprite2d.cs" id="1_ro1s8"]
+
+[node name="EstelaSprite2d" type="AnimatedSprite2D"]
+script = ExtResource("1_ro1s8")
