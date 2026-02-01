@@ -53,6 +53,11 @@ public partial class EfectoEstelaSprite2D : Node2D
     }
   }
 
+  public override void _ExitTree()
+  {
+    EliminarEstela();
+  }
+
   private void EmitirEstela()
   {
     if (Sprite is AnimatedSprite2D animatedSprite2D)
@@ -120,7 +125,6 @@ public partial class EfectoEstelaSprite2D : Node2D
   private void LiberarSpriteEstela(Node2D estela)
   {
     _spritesEstela.Remove(estela);
-
     if (IsInstanceValid(estela))
       estela.QueueFree();
   }
@@ -134,7 +138,11 @@ public partial class EfectoEstelaSprite2D : Node2D
   public void Desactivar()
   {
     Activo = false;
+    EliminarEstela();
+  }
 
+  public void EliminarEstela()
+  {
     foreach (var estela in _spritesEstela.ToList())
       LiberarSpriteEstela(estela);
   }
