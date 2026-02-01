@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -135,7 +136,7 @@ public partial class EfectoEstelaSprite2D : Node2D
   {
     Activo = false;
 
-    foreach (var estela in _spritesEstela)
+    foreach (var estela in _spritesEstela.ToList())
       LiberarSpriteEstela(estela);
   }
 }

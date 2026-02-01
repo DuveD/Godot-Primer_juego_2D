@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.ui.controles;
@@ -6,21 +7,19 @@ using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.batalla;
+namespace Primerjuego2D.escenas.ui;
 
-public partial class ContenedorMenuPausa : ContenedorMenu
+public partial class ContenedorConfirmacion : ContenedorMenu
 {
-    public ButtonPersonalizado ButtonRenaudar;
-    public ButtonPersonalizado ButtonAjustes;
-    public ButtonPersonalizado ButtonSalir;
+    public ButtonPersonalizado ButtonConfirmar;
+    public ButtonPersonalizado ButtonCancelar;
 
     public override void _Ready()
     {
         base._Ready();
 
-        ButtonRenaudar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonRenaudar");
-        ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAjustes");
-        ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonSalir");
+        ButtonConfirmar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonConfirmar");
+        ButtonCancelar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonCancelar");
 
         LoggerJuego.Trace(this.Name + " Ready.");
     }
@@ -35,7 +34,7 @@ public partial class ContenedorMenuPausa : ContenedorMenu
         {
             if (this.ModoNavegacionTeclado)
             {
-                UtilidadesNodos.PulsarBoton(ButtonRenaudar);
+                UtilidadesNodos.PulsarBoton(ButtonCancelar);
                 AcceptEvent();
             }
         }
@@ -43,11 +42,12 @@ public partial class ContenedorMenuPausa : ContenedorMenu
 
     public override List<Control> ObtenerElementosConFoco()
     {
-        return [ButtonRenaudar, ButtonAjustes, ButtonSalir];
+        return [ButtonConfirmar, ButtonCancelar];
     }
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return ButtonRenaudar;
+        return ButtonCancelar;
     }
+
 }

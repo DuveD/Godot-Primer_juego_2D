@@ -29,6 +29,9 @@ anchors_preset = 0
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
+[node name="ContenedorConfirmacionSalir" parent="BatallaHUD/PanelMenuPausa" index="2"]
+visible = false
+
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
 
@@ -90,8 +93,8 @@ PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
 [connection signal="PreparandoBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajesIniciarBatalla"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]
 [connection signal="RenaudarBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarHUD"]
-[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
-[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="." method="TerminarJuego"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorConfirmacionSalir/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonConfirmar" to="." method="TerminarJuego"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
 [connection signal="timeout" from="SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
@@ -106,3 +109,4 @@ PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
+[editable path="BatallaHUD/PanelMenuPausa/ContenedorConfirmacionSalir"]

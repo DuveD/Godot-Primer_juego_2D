@@ -33,38 +33,27 @@ public partial class BatallaHUD : CanvasLayer
 
     async public void MostrarMensajesIniciarBatalla()
     {
+        this.MessageLabel.Show();
+
         // Cambiamos el texto al inicial de la partida.
-        ActualizarMensaje("BatallaHUD.mensaje.preparate");
+        this.MessageLabel.Text = "BatallaHUD.mensaje.preparate";
 
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
         await UtilidadesNodos.EsperarRenaudar(this);
 
-        ActualizarMensaje("BatallaHUD.mensaje.vamos");
+        this.MessageLabel.Text = "BatallaHUD.mensaje.vamos";
 
         // Creamos un timer de 1 segundo y esperamos.
         await UtilidadesNodos.EsperarSegundos(this, 1.0);
         await UtilidadesNodos.EsperarRenaudar(this);
 
-        MostrarMensaje(false);
+        this.MessageLabel.Hide();
     }
 
     public void MostrarMensajeGameOver()
     {
         this.MessageLabel.Hide();
         this.LabelGameOver.Show();
-    }
-
-    public void ActualizarMensaje(string mensaje)
-    {
-        this.MessageLabel.Text = mensaje;
-    }
-
-    public void MostrarMensaje(bool mostrar)
-    {
-        if (mostrar)
-            this.MessageLabel.Show();
-        else
-            this.MessageLabel.Hide();
     }
 
     public void ActualizarPuntuacion(int score)

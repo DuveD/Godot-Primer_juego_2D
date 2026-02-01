@@ -148,7 +148,13 @@ public partial class BatallaControlador : Control
     {
         if (moneda == null)
         {
-            LoggerJuego.Error("La moneda es nula.");
+            LoggerJuego.Error("La moneda recogida es nula.");
+            return;
+        }
+
+        if (GestorEstadisticas.PartidaActual == null)
+        {
+            LoggerJuego.Error("Moneda recogida después de terminar la partida..");
             return;
         }
 

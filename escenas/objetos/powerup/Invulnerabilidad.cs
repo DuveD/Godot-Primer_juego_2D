@@ -20,10 +20,10 @@ public partial class Invulnerabilidad : PowerUp
     private float AlphaMaxJudador = 0.8f;
 
     [Export]
-    private float VelocidadParpadeoFinal = 15f; // Oscilación muy rápida al final
+    private float VelocidadParpadeoFinalJugador = 15f; // Oscilación muy rápida al final
 
     [Export]
-    private double DuracionParpadeo = 1;       // Último tramo donde parpadea
+    private double DuracionParpadeoJugador = 1;       // Último tramo donde parpadea
 
     private EfectoEstelaSprite2D _estelaJugador;
 
@@ -97,13 +97,13 @@ public partial class Invulnerabilidad : PowerUp
             float timeLeft = (float)this.TimerDuracionPowerUp.TimeLeft;
 
             // Fase final
-            if (timeLeft <= DuracionParpadeo)
+            if (timeLeft <= DuracionParpadeoJugador)
             {
-                double tiempoFinal = DuracionParpadeo - timeLeft;
+                double tiempoFinal = DuracionParpadeoJugador - timeLeft;
 
                 // Onda rápida
                 float onda =
-                    (Mathf.Sin((float)tiempoFinal * VelocidadParpadeoFinal * Mathf.Pi * 2f) + 1f) * 0.5f;
+                    (Mathf.Sin((float)tiempoFinal * VelocidadParpadeoFinalJugador * Mathf.Pi * 2f) + 1f) * 0.5f;
 
                 Color color = new Color(ConstantesColores.AZUL_CLARO)
                     .Lerp(new Color(1, 1, 1), onda);

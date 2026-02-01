@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkvjycp3edtfo"]
+[gd_scene load_steps=11 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
 [ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/BatallaHUD.cs" id="1_osa72"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_pb27p"]
 [ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/ContenedorMenuPausa.cs" id="3_v7ugp"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.tscn" id="5_i3enc"]
+[ext_resource type="PackedScene" uid="uid://wpvlkh5k6xp4" path="res://escenas/ui/ContenedorConfirmacion.tscn" id="7_gomma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 22.0
@@ -46,6 +47,7 @@ theme_override_font_sizes/font_size = 64
 text = "0"
 
 [node name="Message" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -64,6 +66,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LabelGameOver" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,32 +106,32 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_v7ugp")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelMenuPausa/ContenedorMenuPausa"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelMenuPausa/ContenedorMenuPausa"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MensajePausa" type="Label" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2"]
+[node name="MensajePausa" type="Label" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_gg8ny")
 theme_override_font_sizes/font_size = 40
 text = "BatallaHUD.mensaje.pausa"
 horizontal_alignment = 1
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2"]
+[node name="PanelContainerMargin" type="PanelContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1n7hr")
 
-[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin"]
 clip_contents = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v7ugp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ButtonRenaudar" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+[node name="ButtonRenaudar" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ButtonAjustes")
 theme_override_fonts/font = ExtResource("1_gg8ny")
@@ -137,7 +140,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonAjustes" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+[node name="ButtonAjustes" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonRenaudar")
 focus_neighbor_bottom = NodePath("../ButtonSalir")
@@ -147,7 +150,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonSalir" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
+[node name="ButtonSalir" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_pb27p")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ButtonAjustes")
 theme_override_fonts/font = ExtResource("1_gg8ny")
@@ -161,8 +164,13 @@ process_mode = 3
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="PanelMenuPausa" method="OnButtonAjustesPressed"]
+[node name="ContenedorConfirmacionSalir" parent="PanelMenuPausa" instance=ExtResource("7_gomma")]
+layout_mode = 1
+
+[connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="PanelMenuPausa" method="OnButtonAjustesPressed"]
+[connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="PanelMenuPausa" method="OnButtonSalirPressed"]
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="PanelMenuPausa" method="OnButtonAjustesAtrasPressed"]
+[connection signal="pressed" from="PanelMenuPausa/ContenedorConfirmacionSalir/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonCancelar" to="PanelMenuPausa" method="OnButtonSalirCancelarPressed"]
 
 [editable path="PanelMenuPausa/ContenedorMenuAjustes"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
@@ -172,3 +180,4 @@ layout_mode = 1
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
+[editable path="PanelMenuPausa/ContenedorConfirmacionSalir"]

@@ -9,6 +9,8 @@ BatallaHUD.mensaje.pausa,Juego Pausado,Game Paused
 BatallaHUD.boton.renaudar,Renaudar,Resume
 BatallaHUD.boton.ajustes,Ajustes,Settings
 BatallaHUD.boton.salir,Salir,Quit
+BatallaHUD.boton.cancelar,Cancelar,Cancel
+BatallaHUD.mensaje.preguntaSalir,¿Terminar la partida?, End the game?
 MenuPrincipal.boton.empezarPartida,Inicio,Start
 MenuPrincipal.boton.ajustes,Ajustes,Settings
 MenuPrincipal.boton.logros,Logros,Achievements
