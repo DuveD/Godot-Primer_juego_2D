@@ -96,6 +96,7 @@ PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
 [connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
 [connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorConfirmacionSalir/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonConfirmar" to="." method="TerminarJuego"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
+[connection signal="CambioVida" from="Jugador" to="BatallaHUD" method="OnCambioVida"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
 [connection signal="timeout" from="SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
 [connection signal="MonedaRecogida" from="SpawnMonedas" to="BatallaControlador" method="SumarPuntuacion"]

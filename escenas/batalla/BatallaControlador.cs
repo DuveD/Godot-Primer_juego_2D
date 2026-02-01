@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.moneda;

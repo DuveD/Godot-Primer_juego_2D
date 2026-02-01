@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Primerjuego2D.escenas.batalla.HUD;
 using Primerjuego2D.escenas.sistema.audio.efectos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -17,7 +18,15 @@ public partial class BatallaHUD : CanvasLayer
 
     private PanelMenuPausa PanelMenuPausa;
 
+    private HBoxContainer HBoxContainerVidas;
+
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
+
+    [Export]
+    public PackedScene VidaSpriteScene;
+
+    private List<Control> _spritesVidas = new();
+
 
     public override void _Ready()
     {
@@ -27,6 +36,7 @@ public partial class BatallaHUD : CanvasLayer
         this.LabelGameOver = GetNode<Label>("LabelGameOver");
         this.ScoreLabel = GetNode<Label>("ScoreLabel");
         this.PanelMenuPausa = GetNode<PanelMenuPausa>("PanelMenuPausa");
+        this.HBoxContainerVidas = UtilidadesNodos.ObtenerNodoPorNombre<HBoxContainer>(this, "HBoxContainerVidas");
 
         this.LabelGameOver.Hide();
     }
@@ -98,5 +108,24 @@ public partial class BatallaHUD : CanvasLayer
         Global.GestorAudio.ReproducirSonido("unpause.mp3");
         Global.GestorEfectosAudio.Desactivar(EfectoBajoElAgua.ID);
         this.PanelMenuPausa.Hide();
+    }
+
+    public void OnCambioVida(int vida)
+    {
+        // Limpiar sprites antiguos
+
+        var spritesVidas = UtilidadesNodos.ObtenerNodosDeTipo<SpriteVida>(HBoxContainerVidas);
+        foreach (var spriteVida in spritesVidas)
+            spriteVida.QueueFree();
+
+        _spritesVidas.Clear();
+
+        // Crear nuevas vidas
+        for (int i = 0; i < vida; i++)
+        {
+            SpriteVida spriteVida = VidaSpriteScene.Instantiate<SpriteVida>();
+            HBoxContainerVidas.AddChild(spriteVida);
+            _spritesVidas.Add(spriteVida);
+        }
     }
 }

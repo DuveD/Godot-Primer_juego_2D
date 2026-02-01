@@ -262,8 +262,10 @@ public partial class Jugador : CharacterBody2D
             LoggerJuego.Info("Jugador golpeado por enemigo.");
             // Provocamos un shacek de la cámara.
 
-            Juego.Camara?.AddTrauma(0.3f);
             this.Vida -= 1;
+
+            float shake = this.Vida == 0 ? 0.6f : 0.4f;
+            Juego.Camara?.AddTrauma(shake);
         }
     }
 

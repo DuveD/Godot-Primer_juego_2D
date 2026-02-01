@@ -61,6 +61,7 @@ public partial class CamaraPrincipal : Camera2D
     public void AddTrauma(float amount)
     {
         this.Trauma = Mathf.Clamp(this.Trauma + amount, 0f, 1f);
+        LoggerJuego.Trace("Trauma de la cámara a: " + this.Trauma);
     }
 
     private void Shake()
