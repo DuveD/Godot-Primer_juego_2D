@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.escenas.miscelaneo.animaciones;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.escenas.objetos.moneda;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.objetos.powerup;
@@ -18,7 +20,7 @@ public partial class ImanMonedas : PowerUp
 
     private Area2D _areaIman;
     private CollisionShape2D _collisionShape;
-    private readonly HashSet<Node2D> _monedasEnRango = [];
+    private readonly HashSet<Moneda> _monedasEnRango = [];
 
     public override void _Ready()
     {
@@ -30,6 +32,7 @@ public partial class ImanMonedas : PowerUp
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {
         CrearAreaIman(jugador);
+        jugador.MuerteJugador += () => LimpiarAreaIman();
     }
 
     public override void EfectoPowerUpExpirado(Jugador jugador)
@@ -71,25 +74,64 @@ public partial class ImanMonedas : PowerUp
     {
         if (body is Moneda moneda)
         {
-            _monedasEnRango.Add(moneda);
+            AreaImanOnMonedaEntered(moneda);
         }
     }
+
+    private void AreaImanOnMonedaEntered(Moneda moneda)
+    {
+        _monedasEnRango.Add(moneda);
+
+        CrearEstelaEnMoneda(moneda);
+    }
+
+    private static void CrearEstelaEnMoneda(Moneda moneda)
+    {
+
+        EfectoEstelaSprite2D estela = UtilidadesNodos.ObtenerNodoDeTipo<EfectoEstelaSprite2D>(moneda);
+        if (estela == null)
+        {
+            estela = new EfectoEstelaSprite2D();
+            estela.Inicializar(moneda.Sprite2D, 0.15f);
+            moneda.AddChild(estela);
+        }
+
+        estela.Activar();
+    }
+
 
     private void AreaImanOnAreaExited(Node body)
     {
         if (body is Moneda moneda)
         {
-            _monedasEnRango.Remove(moneda);
+            AreaImanOnMonedaExited(moneda);
         }
+    }
+
+    private void AreaImanOnMonedaExited(Moneda moneda)
+    {
+        _monedasEnRango.Remove(moneda);
+        QuitarEstelaDeMoneda(moneda);
     }
 
     private void LimpiarAreaIman()
     {
+        foreach (var moneda in _monedasEnRango)
+        {
+            QuitarEstelaDeMoneda(moneda);
+        }
+
         _monedasEnRango.Clear();
 
         if (_areaIman != null && IsInstanceValid(_areaIman))
         {
             _areaIman.QueueFree();
         }
+    }
+
+    private static void QuitarEstelaDeMoneda(Moneda moneda)
+    {
+        EfectoEstelaSprite2D estela = UtilidadesNodos.ObtenerNodoDeTipo<EfectoEstelaSprite2D>(moneda);
+        estela?.QueueFree();
     }
 }

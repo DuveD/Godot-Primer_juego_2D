@@ -62,10 +62,7 @@ public partial class Invulnerabilidad : PowerUp
     private void PonerEstelaJugador(Jugador jugador)
     {
         _estelaJugador = new EfectoEstelaSprite2D();
-        _estelaJugador.Inicializar(
-            jugador.AnimatedSprite2D,
-            0.05f
-        );
+        _estelaJugador.Inicializar(jugador.AnimatedSprite2D, 0.05f);
 
         jugador.AddChild(_estelaJugador);
         _estelaJugador.Activar();
