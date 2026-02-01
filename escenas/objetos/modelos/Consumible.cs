@@ -101,7 +101,14 @@ public abstract partial class Consumible : Area2D
         if (body is Jugador jugador)
         {
             DetenerYEliminarTimer();
-            OnRecogida(jugador);
+            if (jugador.Muerto)
+            {
+                LoggerJuego.Warn("Consumible " + this.Name + " recogido con el jugador muerto.");
+            }
+            else
+            {
+                OnRecogida(jugador);
+            }
         }
     }
 

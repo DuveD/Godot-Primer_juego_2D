@@ -32,12 +32,12 @@ public partial class ImanMonedas : PowerUp
     public override void AplicarEfectoPowerUp(Jugador jugador)
     {
         CrearAreaIman(jugador);
-        jugador.MuerteJugador += () => LimpiarAreaIman();
+        jugador.MuerteJugador += () => EliminarAreaIman();
     }
 
     public override void EfectoPowerUpExpirado(Jugador jugador)
     {
-        LimpiarAreaIman();
+        EliminarAreaIman();
     }
 
     public override void ProcessPowerUp(double delta, Jugador jugador)
@@ -114,8 +114,9 @@ public partial class ImanMonedas : PowerUp
         QuitarEstelaDeMoneda(moneda);
     }
 
-    private void LimpiarAreaIman()
+    private void EliminarAreaIman()
     {
+        LoggerJuego.Trace("Eliminando el área del imán.");
         foreach (var moneda in _monedasEnRango)
         {
             QuitarEstelaDeMoneda(moneda);
@@ -132,6 +133,10 @@ public partial class ImanMonedas : PowerUp
     private static void QuitarEstelaDeMoneda(Moneda moneda)
     {
         EfectoEstelaSprite2D estela = UtilidadesNodos.ObtenerNodoDeTipo<EfectoEstelaSprite2D>(moneda);
-        estela?.QueueFree();
+        if (estela != null)
+        {
+            LoggerJuego.Trace("Eliminada este la de moneda.");
+            estela.QueueFree();
+        }
     }
 }
