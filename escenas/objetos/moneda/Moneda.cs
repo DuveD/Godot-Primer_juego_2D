@@ -48,13 +48,6 @@ public partial class Moneda : Consumible
 		Global.GestorAudio.ReproducirSonido("retro_coin.mp3");
 
 		MostrarTextoFlotante();
-
-		// Cancelamos el timer si estaba activo.
-
-		TimerDestruccion?.Stop();
-
-		// Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
-		CallDeferred(Node.MethodName.QueueFree);
 	}
 
 	public virtual void MostrarTextoFlotante()

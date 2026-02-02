@@ -25,10 +25,10 @@ resource_local_to_scene = true
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v7ugp"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 
 [node name="BatallaHUD" type="CanvasLayer"]
 process_mode = 3
@@ -196,6 +196,7 @@ visible = false
 layout_mode = 1
 
 [node name="ContenedorConfirmacionSalir" parent="PanelMenuPausa" instance=ExtResource("7_gomma")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="PanelMenuPausa" method="OnButtonAjustesPressed"]

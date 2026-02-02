@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=17 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -12,6 +12,22 @@
 [ext_resource type="PackedScene" uid="uid://p7vm3y0vldbo" path="res://escenas/objetos/powerup/ImanMonedas.tscn" id="10_bnba0"]
 [ext_resource type="PackedScene" uid="uid://bmttan7jakebe" path="res://escenas/objetos/powerup/Invulnerabilidad.tscn" id="11_svpxk"]
 [ext_resource type="Script" uid="uid://bu4jafkhrqpi7" path="res://escenas/batalla/SpawnPowerUps.cs" id="12_svpxk"]
+[ext_resource type="PackedScene" uid="uid://umkqdmkdi76e" path="res://escenas/objetos/powerup/Botiquin.tscn" id="13_ne2vf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ldsrh"]
+resource_local_to_scene = true
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -29,8 +45,11 @@ anchors_preset = 0
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
-[node name="ContenedorConfirmacionSalir" parent="BatallaHUD/PanelMenuPausa" index="2"]
-visible = false
+[node name="ContenedorVidas" parent="BatallaHUD" index="3"]
+theme = SubResource("Theme_ldsrh")
+
+[node name="PanelContainerMargin" parent="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer" index="1"]
+theme = SubResource("Theme_ldsrh")
 
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
@@ -82,7 +101,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_svpxk")
 PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
-PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
+PowerUpInvulnerabilidadPackedScene = ExtResource("11_svpxk")
+BotiquinPackedScene = ExtResource("13_ne2vf")
 
 [connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]

@@ -107,9 +107,20 @@ public abstract partial class Consumible : Area2D
             }
             else
             {
-                OnRecogida(jugador);
+                OnRecogidaInterno(jugador);
             }
         }
+    }
+
+    public void OnRecogidaInterno(Jugador jugador)
+    {
+        OnRecogida(jugador);
+
+        // Cancelamos el timer si estaba activo.
+        TimerDestruccion?.Stop();
+
+        // Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
+        CallDeferred(Node.MethodName.QueueFree);
     }
 
     public abstract void OnRecogida(Jugador jugador);

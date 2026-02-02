@@ -65,16 +65,30 @@ public partial class Jugador : CharacterBody2D
         get;
         set
         {
-            if (Invulnerable.Valor)
+            if (value == field)
+                return;
+
+            if (Invulnerable.Valor && value < field)
             {
-                LoggerJuego.Warn("Se ha intentado cambiar la vida del jugador mientras era invulnerable: Nueva cantidad: " + value + ", cantidad actual: " + field);
+                LoggerJuego.Warn("Se ha intentado quitar vida al jugador mientras era invulnerable: Nueva cantidad: " + value + ", cantidad actual: " + field);
                 return;
             }
 
             if (value > VidaMaxima)
+            {
+                LoggerJuego.Info("El jugador no puede tener más de " + VidaMaxima + " puntos de vida.");
                 field = VidaMaxima;
+            }
+            else if (value < 0)
+            {
+                LoggerJuego.Info("Los puntos de vida del jugador no puede ser menor a 0.");
+                field = 0;
+            }
             else
+            {
+                LoggerJuego.Info("Nueva vida del jugador: " + field);
                 field = value;
+            }
 
             EmitSignal(SignalName.CambioVida, field);
 

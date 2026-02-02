@@ -31,7 +31,7 @@ public partial class Enemigo : RigidBody2D
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };
-        int enemyAnimation = Randomizador.GetRandomInt(0, enemyAnimations.Count);
+        int enemyAnimation = Randomizador.GetRandomInt(0, enemyAnimations.Count - 1);
 
         this.AnimatedSprite2D.Animation = enemyAnimations[enemyAnimation];
         this.AnimatedSprite2D.Play();
