@@ -76,18 +76,18 @@ public partial class Jugador : CharacterBody2D
 
             if (value > VidaMaxima)
             {
-                LoggerJuego.Info("El jugador no puede tener más de " + VidaMaxima + " puntos de vida.");
                 field = VidaMaxima;
+                LoggerJuego.Info("El jugador no puede tener más de " + VidaMaxima + " puntos de vida.");
             }
             else if (value < 0)
             {
-                LoggerJuego.Info("Los puntos de vida del jugador no puede ser menor a 0.");
                 field = 0;
+                LoggerJuego.Info("Los puntos de vida del jugador no puede ser menor a 0.");
             }
             else
             {
-                LoggerJuego.Info("Nueva vida del jugador: " + field);
                 field = value;
+                LoggerJuego.Info("Nueva vida del jugador: " + field);
             }
 
             EmitSignal(SignalName.CambioVida, field);

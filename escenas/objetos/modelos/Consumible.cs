@@ -112,18 +112,21 @@ public abstract partial class Consumible : Area2D
         }
     }
 
-    public void OnRecogidaInterno(Jugador jugador)
+    public virtual void OnRecogidaInterno(Jugador jugador)
     {
-        OnRecogida(jugador);
+        bool eliminarNodo = OnRecogida(jugador);
 
         // Cancelamos el timer si estaba activo.
         TimerDestruccion?.Stop();
 
-        // Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
-        CallDeferred(Node.MethodName.QueueFree);
+        if (eliminarNodo)
+        {
+            // Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
+            CallDeferred(Node.MethodName.QueueFree);
+        }
     }
 
-    public abstract void OnRecogida(Jugador jugador);
+    public abstract bool OnRecogida(Jugador jugador);
 
     public float ObtenerRadioCollisionShape2D()
     {

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.miscelaneo;
@@ -39,7 +40,7 @@ public partial class Moneda : Consumible
 		this.AnimationPlayerRotacion.SpeedScale = this.VelocidadAnimacion;
 	}
 
-	public override void OnRecogida(Jugador jugador)
+	public override bool OnRecogida(Jugador jugador)
 	{
 		LoggerJuego.Info("Moneda (" + this.Valor + ") recogida.");
 
@@ -48,6 +49,8 @@ public partial class Moneda : Consumible
 		Global.GestorAudio.ReproducirSonido("retro_coin.mp3");
 
 		MostrarTextoFlotante();
+
+		return true;
 	}
 
 	public virtual void MostrarTextoFlotante()

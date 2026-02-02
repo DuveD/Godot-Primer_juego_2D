@@ -21,11 +21,17 @@ public class Atributo<T>
     {
       if (!ValorValido)
       {
-        LoggerJuego.Trace("Recalculando valor del atributo " + Nombre);
         CalcularValor();
+        LoggerJuego.Info("Nuevo valor del atributo " + Nombre + ": " + _cache);
       }
 
       return _cache;
+    }
+
+    set
+    {
+      InvalidarValor();
+      _cache = value;
     }
   }
 

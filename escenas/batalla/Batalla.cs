@@ -17,13 +17,13 @@ public partial class Batalla : Node
 
     public override void _Ready()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
-
         this.Jugador = GetNode<Jugador>("Jugador");
         this.StartPosition = GetNode<Marker2D>("StartPosition");
         this.BatallaControlador = GetNode<BatallaControlador>("BatallaControlador");
 
         this.NuevoJuego();
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public void NuevoJuego()

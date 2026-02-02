@@ -32,7 +32,7 @@ public abstract partial class PowerUp : Consumible
         return [];
     }
 
-    public override void OnRecogida(Jugador jugador)
+    public override bool OnRecogida(Jugador jugador)
     {
         LoggerJuego.Info("PowerUp " + this.Name + " recogido.");
 
@@ -63,6 +63,8 @@ public abstract partial class PowerUp : Consumible
 
         // Ocultamos el Sprite del consumible.
         Sprite2D.SetDeferred(CanvasItem.PropertyName.Visible, false);
+
+        return false;
     }
 
     private void AnadirPowerUpAJugador(Jugador jugador)
@@ -115,7 +117,7 @@ public abstract partial class PowerUp : Consumible
 
     public void ReiniciarTimer()
     {
-        if (TimerDuracionPowerUp == null)
+        if (TimerDuracionPowerUp == null || !IsInstanceValid(TimerDuracionPowerUp))
             return;
 
         this.TimerDuracionPowerUp.Stop();
@@ -125,7 +127,7 @@ public abstract partial class PowerUp : Consumible
 
     public void SumarTiempoTimer(float tiempo)
     {
-        if (TimerDuracionPowerUp == null)
+        if (TimerDuracionPowerUp == null || !IsInstanceValid(TimerDuracionPowerUp))
             return;
 
         this.TimerDuracionPowerUp.Stop();
