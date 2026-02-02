@@ -31,7 +31,7 @@ public class Atributo<T>
     set
     {
       InvalidarValor();
-      _cache = value;
+      _cache = ValorBase = value;
     }
   }
 
