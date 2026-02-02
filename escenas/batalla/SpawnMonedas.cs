@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.miscelaneo;
-using Primerjuego2D.escenas.objetos.moneda;
+using Primerjuego2D.escenas.objetos.consumible;
 using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;

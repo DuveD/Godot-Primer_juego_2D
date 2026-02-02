@@ -6,7 +6,7 @@ using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.objetos.moneda;
+namespace Primerjuego2D.escenas.objetos.consumible;
 
 public partial class Moneda : Consumible
 {

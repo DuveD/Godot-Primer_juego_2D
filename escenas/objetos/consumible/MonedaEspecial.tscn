@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj766hajq1d2u"]
 
-[ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/moneda/Moneda.tscn" id="1_0ek50"]
-[ext_resource type="Script" uid="uid://8istm0kbhkpi" path="res://escenas/objetos/moneda/MonedaEspecial.cs" id="2_wpava"]
+[ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/consumible/Moneda.tscn" id="1_0ek50"]
+[ext_resource type="Script" uid="uid://8istm0kbhkpi" path="res://escenas/objetos/consumible/MonedaEspecial.cs" id="2_wpava"]
 
 [node name="MonedaEspecial" instance=ExtResource("1_0ek50")]
 script = ExtResource("2_wpava")
