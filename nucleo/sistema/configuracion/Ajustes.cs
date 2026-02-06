@@ -11,7 +11,7 @@ public static class Ajustes
 {
     private static ConfigFile ArchivoAjustes { get; } = new ConfigFile();
 
-    private const int VERSION_AJUSTES = 2;
+    private const int VERSION_AJUSTES = 1;
 
     // ================= SECCIONES =================
 
@@ -176,12 +176,12 @@ public static class Ajustes
         NombreSlotPerfil3 = null;
     }
 
-    private static void Migrar()
+    private static void MigrarArchivoAjustes()
     {
         GuardarAjustesAlGuardarPropiedad = false;
 
         if (VersionArchivoAjustes < 2)
-            MigrarVersion2();
+            MigrarArchivoAjustesVersion2();
 
         VersionArchivoAjustes = VERSION_AJUSTES;
 
@@ -190,16 +190,12 @@ public static class Ajustes
         Guardar();
     }
 
-    private static void MigrarVersion2()
+    private static void MigrarArchivoAjustesVersion2()
     {
         // GENERAL
         VersionArchivoAjustes = 2;
 
-        // PERFILES
-        IdPerfilActivo = null;
-        NombreSlotPerfil1 = null;
-        NombreSlotPerfil2 = null;
-        NombreSlotPerfil3 = null;
+        // Añadir los nuevos valores aquí.
 
         LoggerJuego.Info("Archivo de ajustes migrado a la versión 2.");
     }
@@ -221,7 +217,7 @@ public static class Ajustes
             Cargar();
 
             if (VersionArchivoAjustes < VERSION_AJUSTES)
-                Migrar();
+                MigrarArchivoAjustes();
 
             LoggerJuego.Info("Ajustes cargados.");
         }

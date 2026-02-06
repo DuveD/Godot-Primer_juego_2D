@@ -7,7 +7,7 @@ namespace Primerjuego2D.nucleo.utilidades;
 
 public static class UtilidadesFechas
 {
-  public static string ToString(DateTime? dateTime, string formato)
+  public static string ToString(this DateTime? dateTime, string formato)
   {
     if (!dateTime.HasValue || String.IsNullOrWhiteSpace(formato))
       return null;
@@ -15,7 +15,7 @@ public static class UtilidadesFechas
     return dateTime.Value.ToString(formato, CultureInfo.InvariantCulture);
   }
 
-  public static DateTime? ToDateTime(string dateTimeStr, string formato)
+  public static DateTime? ToDateTime(this string dateTimeStr, string formato)
   {
     if (String.IsNullOrWhiteSpace(dateTimeStr) || String.IsNullOrWhiteSpace(formato))
       return null;

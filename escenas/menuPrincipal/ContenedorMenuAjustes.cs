@@ -257,8 +257,8 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		Ajustes.VolumenSonidos = (int)_ControlVolumenSonido.Valor;
 		Ajustes.Idioma = GestorIdioma.ObtenerIdiomaDeCodigo((string)_ControlLenguaje.Valor);
 		Ajustes.NivelLog = (NivelLog)(int)_ControlNivelLog.Valor;
-		Ajustes.Guardar();
 		Ajustes.GuardarAjustesAlGuardarPropiedad = true;
+		Ajustes.Guardar();
 
 		CargarValoresDeAjustes();
 

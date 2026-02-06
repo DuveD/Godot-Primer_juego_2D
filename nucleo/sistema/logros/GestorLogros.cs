@@ -66,7 +66,7 @@ public static class GestorLogros
                 logro.Desbloqueado = (bool)datosLogro.GetValueOrDefault("desbloqueado", false);
 
                 string fechaDesbloqueadoStr = (string)datosLogro.GetValueOrDefault("fecha_desbloqueado", (string)null);
-                logro.FechaDesbloqueado = UtilidadesFechas.ToDateTime(fechaDesbloqueadoStr, FORMATO_FECHA);
+                logro.FechaDesbloqueado = fechaDesbloqueadoStr.ToDateTime(FORMATO_FECHA);
 
                 if (logro is LogroContador logroContador)
                     logroContador.Progreso = (int)datosLogro.GetValueOrDefault("progreso", 0);
@@ -306,7 +306,7 @@ public static class GestorLogros
 
         datosLogro.Add("desbloqueado", logro.Desbloqueado);
 
-        string fechaDesbloqueadoStr = UtilidadesFechas.ToString(logro.FechaDesbloqueado, FORMATO_FECHA);
+        string fechaDesbloqueadoStr = logro.FechaDesbloqueado?.ToString(FORMATO_FECHA);
         datosLogro.Add("fecha_desbloqueado", fechaDesbloqueadoStr);
 
         if (logro is LogroContador logroContador)
