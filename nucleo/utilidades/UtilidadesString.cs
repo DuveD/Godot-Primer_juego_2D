@@ -41,5 +41,4 @@ public static class UtilidadesString
 
         return sb.ToString();
     }
-
 }

@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.nucleo.sistema.logros;
 
 public static class GestorLogros
 {
+    public const string FORMATO_FECHA = "yyyy-MM-dd HH:mm:ss";
+
     private static readonly object _lock = new();
 
     private const string SECCION_LOGROS = "logros";
@@ -59,10 +64,12 @@ public static class GestorLogros
                     continue;
 
                 logro.Desbloqueado = (bool)datosLogro.GetValueOrDefault("desbloqueado", false);
+
+                string fechaDesbloqueadoStr = (string)datosLogro.GetValueOrDefault("fecha_desbloqueado", (string)null);
+                logro.FechaDesbloqueado = UtilidadesFechas.ToDateTime(fechaDesbloqueadoStr, FORMATO_FECHA);
+
                 if (logro is LogroContador logroContador)
-                {
                     logroContador.Progreso = (int)datosLogro.GetValueOrDefault("progreso", 0);
-                }
             }
 
             LoggerJuego.Trace("Archivo de logros cargado correctamente.");
@@ -295,23 +302,23 @@ public static class GestorLogros
 
     private static void GuardarLogro(Logro logro, bool guardar = false)
     {
-        lock (_lock)
-        {
-            Godot.Collections.Dictionary datosLogro = [];
-            datosLogro.Add("desbloqueado", logro.Desbloqueado);
-            if (logro is LogroContador logroContador)
-            {
-                datosLogro.Add("progreso", logroContador.Progreso);
-            }
+        Godot.Collections.Dictionary datosLogro = [];
 
-            ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
+        datosLogro.Add("desbloqueado", logro.Desbloqueado);
 
-            if (!Directory.Exists(Ajustes.RutaJuego))
-                Directory.CreateDirectory(Ajustes.RutaJuego);
+        string fechaDesbloqueadoStr = UtilidadesFechas.ToString(logro.FechaDesbloqueado, FORMATO_FECHA);
+        datosLogro.Add("fecha_desbloqueado", fechaDesbloqueadoStr);
 
-            if (guardar)
-                GuardarLogros();
-        }
+        if (logro is LogroContador logroContador)
+            datosLogro.Add("progreso", logroContador.Progreso);
+
+        ArchivoLogros.SetValue(SECCION_LOGROS, logro.Id, datosLogro);
+
+        if (!Directory.Exists(Ajustes.RutaJuego))
+            Directory.CreateDirectory(Ajustes.RutaJuego);
+
+        if (guardar)
+            GuardarLogros();
     }
 
     private static void GuardarLogros()

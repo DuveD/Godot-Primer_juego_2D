@@ -1,4 +1,5 @@
 
+using System;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.nucleo.sistema.logros;
@@ -13,6 +14,8 @@ public abstract class Logro(string id, string nombre, string descripcion, string
 
     public bool Desbloqueado { get; set; }
 
+    public DateTime? FechaDesbloqueado { get; set; }
+
     public abstract bool ProcesarEvento(string evento, object datos);
 
     public virtual void Desbloquear()
@@ -20,6 +23,8 @@ public abstract class Logro(string id, string nombre, string descripcion, string
         if (Desbloqueado) return;
 
         Desbloqueado = true;
+        FechaDesbloqueado = DateTime.Now;
+
         LoggerJuego.Info($"Logro desbloqueado: {Id}");
     }
 }
