@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://gjj3jsejyedn"]
+
+[ext_resource type="Script" uid="uid://ouvfjuk27sls" path="res://escenas/menuPrincipal/ContenedorMenuPerfiles.cs" id="1_tnwug"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_tnwug"]
+[ext_resource type="PackedScene" uid="uid://caa1gmq58kvfj" path="res://escenas/menuPrincipal/perfil/SlotPerfil.tscn" id="3_1ojfe"]
+[ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_ruag3"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_0jq83"]
+[ext_resource type="Script" uid="uid://bneraj5pxlq8c" path="res://escenas/menuPrincipal/perfil/SlotPerfil.cs" id="4_itg3m"]
+[ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_jbwi7"]
+[ext_resource type="PackedScene" uid="uid://wpvlkh5k6xp4" path="res://escenas/ui/ContenedorConfirmacion.tscn" id="8_5ixvf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_0sanc"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0ac6"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ContenedorMenuPerfiles" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tnwug")
+
+[node name="ControlPanelPerfiles" type="Control" parent="."]
+layout_mode = 2
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="ControlPanelPerfiles"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -210.0
+offset_right = 200.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0sanc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlPanelPerfiles/PanelContainerMargin"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="LabelTituloEstadisticas" type="Label" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_tnwug")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.perfil.titulo"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SlotPerfil1" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../SlotPerfil2")
+script = ExtResource("4_itg3m")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="SlotPerfil2" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SlotPerfil1")
+focus_neighbor_bottom = NodePath("../SlotPerfil3")
+script = ExtResource("4_itg3m")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="SlotPerfil3" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SlotPerfil2")
+focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
+script = ExtResource("4_itg3m")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonAtras" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer/SlotPerfil3")
+theme_override_fonts/font = ExtResource("4_0jq83")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
+text = "MenuPrincipal.logros.atras"
+script = ExtResource("5_jbwi7")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="Spacer" type="Control" parent="ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ContenedorConfirmacionSeleccionarPerfil" parent="." instance=ExtResource("8_5ixvf")]
+visible = false
+layout_mode = 2
+
+[node name="MensajeConfirmacion" parent="ContenedorConfirmacionSeleccionarPerfil/VBoxContainer" index="0"]
+text = "MenuPrincipal.perfil.cambiarPerfil"
+
+[node name="ButtonConfirmar" parent="ContenedorConfirmacionSeleccionarPerfil/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" index="0"]
+text = "General.si"
+
+[node name="ButtonCancelar" parent="ContenedorConfirmacionSeleccionarPerfil/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" index="1"]
+text = "General.no"
+
+[connection signal="pressed" from="ContenedorConfirmacionSeleccionarPerfil/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonConfirmar" to="." method="OnSeleccionarPerfilConfirmar"]
+[connection signal="pressed" from="ContenedorConfirmacionSeleccionarPerfil/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonCancelar" to="." method="OnSeleccionarPerfilCancelar"]
+
+[editable path="ContenedorConfirmacionSeleccionarPerfil"]

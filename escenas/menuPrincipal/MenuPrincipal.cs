@@ -13,6 +13,7 @@ public partial class MenuPrincipal : Control
 
     #region Nodos escena
     public ContenedorMenuPrincipal ContenedorMenuPrincipal;
+    public ContenedorMenuPerfiles ContenedorMenuPerfiles;
     public ContenedorMenuAjustes ContenedorMenuAjustes;
     public ContenedorMenuLogros ContenedorMenuLogros;
     public ContenedorMenuEstadisticas ContenedorMenuEstadisticas;
@@ -26,7 +27,6 @@ public partial class MenuPrincipal : Control
     public override void _Ready()
     {
         CargarNodos();
-        LoggerJuego.Trace(this.Name + " Ready.");
 
         LabelVersion.Text = "v" + Ajustes.Version;
 
@@ -34,11 +34,14 @@ public partial class MenuPrincipal : Control
         {
             contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
         }
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     private void CargarNodos()
     {
         ContenedorMenuPrincipal = GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
+        ContenedorMenuPerfiles = GetNode<ContenedorMenuPerfiles>("ContenedorMenuPerfiles");
         ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
         ContenedorMenuLogros = GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
         ContenedorMenuEstadisticas = GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
@@ -54,6 +57,11 @@ public partial class MenuPrincipal : Control
     public void MostrarMenuPrincipal()
     {
         MostrarMenu(this.ContenedorMenuPrincipal);
+    }
+
+    private void MostrarMenuPartidas()
+    {
+        MostrarMenu(this.ContenedorMenuPerfiles);
     }
 
     private void MostrarMenuAjustes()

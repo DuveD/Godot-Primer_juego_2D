@@ -5,7 +5,7 @@ using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.ui.menu;
 
-public abstract partial class ContenedorMenu : CenterContainer
+public abstract partial class ContenedorMenu : Container
 {
     [Signal]
     public delegate void ModoNavegacionTecladoChangedEventHandler(bool modoNavegacionTeclado);
@@ -97,7 +97,7 @@ public abstract partial class ContenedorMenu : CenterContainer
         }
     }
 
-    private void GrabFocusUltimoElementoConFoco()
+    public void GrabFocusUltimoElementoConFoco()
     {
         if (!this.Visible || !this.ModoNavegacionTeclado)
             return;

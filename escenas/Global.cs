@@ -11,16 +11,23 @@ namespace Primerjuego2D.escenas;
 
 public partial class Global : Node
 {
-    public static Global Instancia { get; private set; }
+    private static Global _instancia;
 
     private GestorColor _GestorColor;
-    public static GestorColor GestorColor => Global.Instancia._GestorColor;
+    public static GestorColor GestorColor => Global._instancia._GestorColor;
 
     private GestorAudio _GestorAudio;
-    public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
+    public static GestorAudio GestorAudio => Global._instancia._GestorAudio;
 
     private GestorEfectosAudio _GestorEfectosAudio;
-    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global._instancia._GestorEfectosAudio;
+
+    private Perfil _perfilActivoActiva;
+    public static Perfil perfilActivo => Global._instancia._perfilActivoActiva;
+
+    private string _nombreUltimoPerfil;
+    public static string NombreUltimoPerfil => Global._instancia._nombreUltimoPerfil;
+
     public Global()
     {
         Ajustes.CargarAjustes();
@@ -36,7 +43,7 @@ public partial class Global : Node
     {
         LoggerJuego.Trace(this.Name + " Ready.");
 
-        Global.Instancia = this;
+        Global._instancia = this;
 
         _GestorColor = GetNode<GestorColor>("GestorColor");
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");

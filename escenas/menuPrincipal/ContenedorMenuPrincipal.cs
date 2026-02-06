@@ -23,7 +23,6 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
 
     private AnimacionCrtShutdown _AnimacionCrtShutdown;
 
-
     public ButtonPersonalizado UltimoBotonPulsado;
 
     public override void _Ready()

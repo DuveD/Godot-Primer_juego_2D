@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene load_steps=8 format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="PackedScene" uid="uid://ycovtsmeppks" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.tscn" id="2_oupjs"]
+[ext_resource type="PackedScene" uid="uid://gjj3jsejyedn" path="res://escenas/menuPrincipal/ContenedorMenuPerfiles.tscn" id="3_q0njl"]
 [ext_resource type="PackedScene" uid="uid://d12g1b8xgemee" path="res://escenas/menuPrincipal/ContenedorMenuEstadisticas.tscn" id="4_6ip4d"]
 [ext_resource type="PackedScene" uid="uid://dvu0j7x4qun2s" path="res://escenas/menuPrincipal/ContenedorMenuLogros.tscn" id="5_rs0f5"]
 [ext_resource type="PackedScene" uid="uid://cn4a2lupb544v" path="res://escenas/miscelaneo/animaciones/AnimacionCrtShutdown.tscn" id="6_rs0f5"]
@@ -28,14 +29,25 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="ButtonAjustes" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="1"]
+[node name="ButtonEmpezarPartida" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="0"]
+focus_neighbor_bottom = NodePath("../ButtonPerfil")
+
+[node name="ButtonPerfil" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="1"]
+focus_neighbor_bottom = NodePath("../ButtonAjustes")
+
+[node name="ButtonAjustes" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="2"]
+focus_neighbor_top = NodePath("../ButtonPerfil")
 focus_neighbor_bottom = NodePath("../ButtonLogros")
 
-[node name="ButtonLogros" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="2"]
+[node name="ButtonLogros" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="3"]
 focus_neighbor_top = NodePath("../ButtonAjustes")
 
-[node name="ButtonEstadisticas" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="3"]
+[node name="ButtonEstadisticas" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="4"]
 focus_neighbor_top = NodePath("../ButtonLogros")
+
+[node name="ContenedorMenuPerfiles" parent="." instance=ExtResource("3_q0njl")]
+visible = false
+layout_mode = 1
 
 [node name="ContenedorMenuAjustes" parent="." instance=ExtResource("10_sgq14")]
 visible = false
@@ -78,16 +90,20 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonPerfil" to="." method="MostrarMenuPartidas"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="." method="MostrarMenuAjustes"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonLogros" to="." method="MostrarMenuLogros"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEstadisticas" to="." method="MostrarMenuEstadisticas"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="ContenedorMenuPrincipal" method="OnButtonSalirPressed"]
+[connection signal="pressed" from="ContenedorMenuPerfiles/ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonGuardar" to="ContenedorMenuAjustes" method="OnButtonGuardarPressed"]
 [connection signal="pressed" from="ContenedorMenuLogros/PanelContainerMargin/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuEstadisticas/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 
 [editable path="ContenedorMenuPrincipal"]
+[editable path="ContenedorMenuPerfiles"]
+[editable path="ContenedorMenuPerfiles/ContenedorConfirmacionSeleccionarPerfil"]
 [editable path="ContenedorMenuAjustes"]
 [editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
 [editable path="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica"]

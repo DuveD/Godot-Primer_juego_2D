@@ -1,6 +1,10 @@
 KEYS,es,en
 General.dioma.es,Español 🇪🇸,Spanish 🇪🇸
 General.dioma.en,Inglés 🇬🇧,English 🇬🇧
+General.seleccionar,Seleccionar,Select
+General.eliminar,Eliminar,Delete
+General.si,Sí,No
+General.no,No,No
 BatallaHUD.mensaje.esquivaLosEnemigos,¡Esquiva los\nenemigos!,Dodge the\nCreeps!
 BatallaHUD.mensaje.preparate,¡Prepárate!,Get Ready!
 BatallaHUD.mensaje.vamos,¡Vamos!,GO!
@@ -11,7 +15,8 @@ BatallaHUD.boton.ajustes,Ajustes,Settings
 BatallaHUD.boton.salir,Salir,Quit
 BatallaHUD.boton.cancelar,Cancelar,Cancel
 BatallaHUD.mensaje.preguntaSalir,¿Terminar la partida?, End the game?
-MenuPrincipal.boton.empezarPartida,Inicio,Start
+MenuPrincipal.boton.empezarPartida,Jugar,Play
+MenuPrincipal.boton.perfil,Perfil,Profile
 MenuPrincipal.boton.ajustes,Ajustes,Settings
 MenuPrincipal.boton.logros,Logros,Achievements
 MenuPrincipal.boton.estadisticas,Estadísticas,Statistics
@@ -36,6 +41,16 @@ MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
 MenuPrincipal.estadisticas.monedasRecogidas,Monedas recogidas,Coins collected
 MenuPrincipal.estadisticas.monedasEspecialesRecogidas,Monedas especiales recogidas,Special coins collected
 MenuPrincipal.estadisticas.enemigosDerrotados,Enemigos derrotados,Defeated enemies
+MenuPrincipal.perfil.titulo,Elige el perfil, Choose the profile
+MenuPrincipal.perfil.perfil1,Perfil 1,Profile 1
+MenuPrincipal.perfil.perfil2,Perfil 2,Profile 2
+MenuPrincipal.perfil.perfil3,Perfil 3,Profile 3
+MenuPrincipal.perfil.confirmarCargar,¿Cargar perfil?,Load profile?
+MenuPrincipal.perfil.confirmarEliminar,¿Eliminar perfil?,Delete profile?
+MenuPrincipal.perfil.cambiarPerfil,¿Quieres cambiar el perfil?,Do you want to change profile?
+SlotPerfil.ultimaPartida,Última partida:,Last game:
+SlotPerfil.partidasJugadas,Partidas jugadas:,Played games:
+SlotPerfil.vacio,Vacío,Empty
 Logro.primeraPartida.nombre,Bienvenido,Welcome
 Logro.primeraPartida.descripcion,Juega una partida,Play a game
 Logro.enemigosDerrotados10.nombre,No me gustan,Don't like them
