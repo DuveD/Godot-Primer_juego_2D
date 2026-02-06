@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Primerjuego2D.escenas.ui.controles;
+using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -75,8 +76,8 @@ public partial class SlotPerfil : ButtonPersonalizado
     {
         _labelNombre.Text = perfil.Nombre;
         _labelFechaUltimaPartidaFecha.Text = (perfil.FechaUltimaPartida != null) ? perfil.FechaUltimaPartida?.ToLongDateString() : "-";
-        _labelPartidasJugadasNumero.Text = perfil.PartidasJugadas.ToString();
-        _labelMonedasRecogidas.Text = perfil.Monedasrecogidas.ToString();
+        _labelPartidasJugadasNumero.Text = perfil.EstadisticasGlobales.PartidasJugadas.ToString();
+        _labelMonedasRecogidas.Text = perfil.EstadisticasGlobales.MonedasRecogidas.ToString();
 
         _contenedorVacio.Hide();
         _contenedorInformacion.Show();

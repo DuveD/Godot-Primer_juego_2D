@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +14,7 @@ public static class GestorLogros
 
     private const string SECCION_LOGROS = "logros";
 
-    private static ConfigFile ArchivoLogros { get; } = new ConfigFile();
+    private static ConfigFile ArchivoLogros { get; } = new();
 
     public static string EVENTO_LOGRO_PRIMERA_PARTIDA = "primera_partida";
 
@@ -46,10 +45,10 @@ public static class GestorLogros
 
         if (File.Exists(Ajustes.RutaArchivoLogros))
         {
-            var err = ArchivoLogros.Load(Ajustes.RutaArchivoLogros);
-            if (err != Error.Ok)
+            var error = ArchivoLogros.Load(Ajustes.RutaArchivoLogros);
+            if (error != Error.Ok)
             {
-                LoggerJuego.Error($"No se pudo cargar el archivo de logros: {err}");
+                LoggerJuego.Error($"No se pudo cargar el archivo de logros: {error}");
                 return;
             }
 
@@ -252,7 +251,7 @@ public static class GestorLogros
 
     private static void Registrar(Logro logro)
     {
-        if (!_logros.TryGetValue(logro.Evento, out var lista))
+        if (!_logros.TryGetValue(logro.Evento, out List<Logro> lista))
         {
             lista = [];
             _logros[logro.Evento] = lista;
@@ -319,9 +318,9 @@ public static class GestorLogros
     {
         lock (_lock)
         {
-            var err = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
-            if (err != Error.Ok)
-                LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {err}");
+            var error = ArchivoLogros.Save(Ajustes.RutaArchivoLogros);
+            if (error != Error.Ok)
+                LoggerJuego.Error($"No se ha podido guardar el archivo de logros: {error}");
             else
                 LoggerJuego.Trace("Logros guardados.");
         }

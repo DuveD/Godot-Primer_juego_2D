@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
@@ -138,6 +139,8 @@ public partial class BatallaControlador : Control
 
         GestorEstadisticas.PartidaActual.RegistrarPuntuacion(this.Puntuacion);
         GestorEstadisticas.FinalizarPartida();
+        Global.PerfilActivo.FechaUltimaPartida = DateTime.Now;
+        Global.GuardarPerfilActivo();
 
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);

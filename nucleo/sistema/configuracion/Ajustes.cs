@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Godot;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -7,11 +9,17 @@ namespace Primerjuego2D.nucleo.sistema.configuracion;
 
 public static class Ajustes
 {
+    private static ConfigFile ArchivoAjustes { get; } = new ConfigFile();
+
+    private const int VERSION_AJUSTES = 2;
+
     // ================= SECCIONES =================
 
+    public const string SECCION_GENERAL = "general";
     public const string SECCION_SONIDO = "sonido";
     public const string SECCION_INTERFAZ = "interfaz";
     public const string SECCION_DESARROLLO = "desarrollo";
+    public const string SECCION_PERFILES = "perfiles";
 
     // ================= INTERNOS =================
 
@@ -32,25 +40,35 @@ public static class Ajustes
     public static string NombreArchivoLogros { get; } = "logros.cfg";
     public static string RutaArchivoLogros { get; } = $"{RutaJuego}/{NombreArchivoLogros}";
 
+    public static string RutaPerfiles { get; } = $"{RutaJuego}/perfiles";
+
     public static string Version { get; } = (string)ProjectSettings.GetSetting("application/config/version");
+
+    // ================= GENERAL =================
+
+    public static int VersionArchivoAjustes
+    {
+        get => (int)ArchivoAjustes.GetValue(SECCION_GENERAL, "version_archivo", -1);
+        set => GuardarValor(SECCION_GENERAL, "version_archivo", value);
+    }
 
     // ================= SONIDO =================
     public static int VolumenGeneral
     {
-        get => GestorAjustes.ObtenerValor(SECCION_SONIDO, "volumen_general", 100);
-        set => GuardarPropiedad(SECCION_SONIDO, "volumen_general", value);
+        get => (int)ArchivoAjustes.GetValue(SECCION_SONIDO, "volumen_general", 100);
+        set => GuardarValor(SECCION_SONIDO, "volumen_general", value);
     }
 
     public static int VolumenMusica
     {
-        get => GestorAjustes.ObtenerValor(SECCION_SONIDO, "volumen_musica", 100);
-        set => GuardarPropiedad(SECCION_SONIDO, "volumen_musica", value);
+        get => (int)ArchivoAjustes.GetValue(SECCION_SONIDO, "volumen_musica", 100);
+        set => GuardarValor(SECCION_SONIDO, "volumen_musica", value);
     }
 
     public static int VolumenSonidos
     {
-        get => GestorAjustes.ObtenerValor(SECCION_SONIDO, "volumen_sonidos", 100);
-        set => GuardarPropiedad(SECCION_SONIDO, "volumen_sonidos", value);
+        get => (int)ArchivoAjustes.GetValue(SECCION_SONIDO, "volumen_sonidos", 100);
+        set => GuardarValor(SECCION_SONIDO, "volumen_sonidos", value);
     }
 
     // ================= INTERFAZ =================
@@ -59,15 +77,15 @@ public static class Ajustes
     {
         get
         {
-            string codigo = GestorAjustes.ObtenerValor(SECCION_INTERFAZ, "idioma", Idioma.ES.Codigo);
-            var idioma = GestorIdioma.ObtenerIdiomaDeCodigo(codigo);
+            string codigoIdioma = (string)ArchivoAjustes.GetValue(SECCION_INTERFAZ, "idioma", Idioma.ES.Codigo);
+            var idioma = GestorIdioma.ObtenerIdiomaDeCodigo(codigoIdioma);
             return idioma ?? Idioma.ES;
         }
 
         set
         {
-            string valor = value.Codigo;
-            GuardarPropiedad(SECCION_INTERFAZ, "idioma", valor);
+            string codigoIdioma = value.Codigo;
+            GuardarValor(SECCION_INTERFAZ, "idioma", codigoIdioma);
         }
     }
 
@@ -75,20 +93,58 @@ public static class Ajustes
 
     public static NivelLog NivelLog
     {
-        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "nivel_log", NivelLog.Trace);
-        set => GuardarPropiedad(SECCION_DESARROLLO, "nivel_log", value);
+        get
+        {
+            string nivelLogStr = (string)ArchivoAjustes.GetValue(SECCION_DESARROLLO, "nivel_log", NivelLog.Info.ToString());
+            if (Enum.TryParse(typeof(NivelLog), nivelLogStr, ignoreCase: true, out var enumRes))
+                return (NivelLog)enumRes;
+            else
+                return NivelLog.Info;
+        }
+
+        set
+        {
+            string nivelLogStr = value.ToString().ToLower();
+            GuardarValor(SECCION_DESARROLLO, "nivel_log", nivelLogStr);
+        }
     }
 
     public static bool EscribirLogEnFichero
     {
-        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "escribir_log_en_fichero", false);
-        set => GuardarPropiedad(SECCION_DESARROLLO, "escribir_log_en_fichero", value);
+        get => (bool)ArchivoAjustes.GetValue(SECCION_DESARROLLO, "escribir_log_en_fichero", false);
+        set => GuardarValor(SECCION_DESARROLLO, "escribir_log_en_fichero", value);
     }
 
     public static bool VerColisiones
     {
-        get => GestorAjustes.ObtenerValor(SECCION_DESARROLLO, "ver_colisiones", false);
-        set => GuardarPropiedad(SECCION_DESARROLLO, "ver_colisiones", value);
+        get => (bool)ArchivoAjustes.GetValue(SECCION_DESARROLLO, "ver_colisiones", false);
+        set => GuardarValor(SECCION_DESARROLLO, "ver_colisiones", value);
+    }
+
+    // ================= PERFILES =================
+
+    public static string IdPerfilActivo
+    {
+        get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_activo", "");
+        set => GuardarValor(SECCION_PERFILES, "id_perfil_activo", value);
+    }
+
+    public static string NombreSlotPerfil1
+    {
+        get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_1", "");
+        set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_1", value);
+    }
+
+    public static string NombreSlotPerfil2
+    {
+        get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_2", "");
+        set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_2", value);
+    }
+
+    public static string NombreSlotPerfil3
+    {
+        get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_3", "");
+        set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_3", value);
     }
 
     // ================= CARGA Y GUARDADO =================
@@ -97,48 +153,111 @@ public static class Ajustes
 
     private static void InicializarValoresPorDefecto()
     {
-        GuardarAjustesAlGuardarPropiedad = false;
+        // GENERAL
+        VersionArchivoAjustes = VERSION_AJUSTES;
 
+        // SONIDO
         VolumenGeneral = 100;
         VolumenMusica = 100;
         VolumenSonidos = 100;
 
+        // INTERFAZ
         Idioma = Idioma.ES;
+
+        // DESARROLLO
         NivelLog = NivelLog.Trace;
         EscribirLogEnFichero = false;
         VerColisiones = false;
 
+        // PERFILES
+        IdPerfilActivo = null;
+        NombreSlotPerfil1 = null;
+        NombreSlotPerfil2 = null;
+        NombreSlotPerfil3 = null;
+    }
+
+    private static void Migrar()
+    {
+        GuardarAjustesAlGuardarPropiedad = false;
+
+        if (VersionArchivoAjustes < 2)
+            MigrarVersion2();
+
+        VersionArchivoAjustes = VERSION_AJUSTES;
+
         GuardarAjustesAlGuardarPropiedad = true;
+
+        Guardar();
+    }
+
+    private static void MigrarVersion2()
+    {
+        // GENERAL
+        VersionArchivoAjustes = 2;
+
+        // PERFILES
+        IdPerfilActivo = null;
+        NombreSlotPerfil1 = null;
+        NombreSlotPerfil2 = null;
+        NombreSlotPerfil3 = null;
+
+        LoggerJuego.Info("Archivo de ajustes migrado a la versión 2.");
     }
 
     public static void CargarAjustes()
     {
-        if (!FileAccess.FileExists(RutaArchivoAjustes))
+        if (!File.Exists(RutaArchivoAjustes))
         {
+            GuardarAjustesAlGuardarPropiedad = false;
             InicializarValoresPorDefecto();
+            GuardarAjustesAlGuardarPropiedad = true;
 
-            GestorAjustes.Guardar(RutaJuego, NombreArchivoAjustes);
+            Guardar();
 
             LoggerJuego.Info($"Creado archivo '{NombreArchivoAjustes}' con la configuración por defecto.");
         }
         else
         {
-            GestorAjustes.Cargar(RutaArchivoAjustes);
+            Cargar();
+
+            if (VersionArchivoAjustes < VERSION_AJUSTES)
+                Migrar();
+
             LoggerJuego.Info("Ajustes cargados.");
         }
     }
 
-    public static void GuardarPropiedad<[MustBeVariant] T>(string seccion, string clave, T valor)
+    public static void GuardarValor(string seccion, string clave, Variant valor)
     {
-        GestorAjustes.GuardarValor(seccion, clave, valor);
+        ArchivoAjustes.SetValue(seccion, clave, valor);
         if (GuardarAjustesAlGuardarPropiedad)
-            GuardarAjustes();
+            Guardar();
+    }
+
+    private static void Cargar()
+    {
+        if (!File.Exists(RutaArchivoAjustes))
+        {
+            LoggerJuego.EscribirLog("ERROR", $"No existe el archivo de ajustes: {RutaArchivoAjustes}", null, "red");
+            return;
+        }
+
+        var error = ArchivoAjustes.Load(RutaArchivoAjustes);
+        if (error != Godot.Error.Ok)
+            LoggerJuego.EscribirLog("ERROR", $"No se pudo cargar el archivo de ajustes: {error}", null, "red");
     }
 
 
-    public static void GuardarAjustes()
+    public static void Guardar()
     {
-        GestorAjustes.Guardar(RutaJuego, NombreArchivoAjustes);
+        if (!Directory.Exists(RutaJuego))
+            Directory.CreateDirectory(RutaJuego);
+
+        string rutaArchivoAjustes = $"{RutaJuego}/{NombreArchivoAjustes}";
+        var error = ArchivoAjustes.Save(rutaArchivoAjustes);
+        if (error != Godot.Error.Ok)
+            LoggerJuego.EscribirLog("ERROR", $"No se pudo guardar el archivo de ajustes: {error}", null, "red");
+
         LoggerJuego.Info("Ajustes guardados.");
     }
 }

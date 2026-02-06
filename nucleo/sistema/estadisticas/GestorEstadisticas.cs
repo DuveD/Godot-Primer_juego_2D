@@ -18,8 +18,8 @@ public static class GestorEstadisticas
     {
         if (File.Exists(Ajustes.RutaArchivoEstadisticas))
         {
-            var err = ArchivoEstadisticas.Load(Ajustes.RutaArchivoEstadisticas);
-            if (err != Error.Ok)
+            var error = ArchivoEstadisticas.Load(Ajustes.RutaArchivoEstadisticas);
+            if (error != Error.Ok)
             {
                 Globales = new EstadisticasGlobales();
             }
@@ -80,9 +80,9 @@ public static class GestorEstadisticas
         if (!Directory.Exists(Ajustes.RutaJuego))
             Directory.CreateDirectory(Ajustes.RutaJuego);
 
-        var err = ArchivoEstadisticas.Save(Ajustes.RutaArchivoEstadisticas);
-        if (err != Error.Ok)
-            LoggerJuego.Error($"No se ha podido guardar el archivo de estadísticas: {err}");
+        var error = ArchivoEstadisticas.Save(Ajustes.RutaArchivoEstadisticas);
+        if (error != Error.Ok)
+            LoggerJuego.Error($"No se ha podido guardar el archivo de estadísticas: {error}");
         else
             LoggerJuego.Trace("Estadísticas guardadas.");
     }

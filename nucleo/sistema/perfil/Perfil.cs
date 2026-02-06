@@ -1,23 +1,21 @@
 using System;
 using System.Collections.Generic;
+using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;
 
-public class Perfil
+namespace Primerjuego2D.nucleo.sistema.perfil;
+
+public class Perfil(string id, string nombre, DateTime fechaCreacion, DateTime? fechaUltimaPartida)
 {
-  public string Nombre { get; private set; }
+    public string Id { get; private set; } = id;
 
-  public List<Logro> Logros { get; private set; }
+    public string Nombre { get; private set; } = nombre;
 
-  public DateTime? FechaUltimaPartida { get; set; }
+    public DateTime FechaCreacion { get; set; } = fechaCreacion;
 
-  public int PartidasJugadas { get; set; }
+    public DateTime? FechaUltimaPartida { get; set; } = fechaUltimaPartida;
 
-  public int Monedasrecogidas { get; set; }
+    public EstadisticasGlobales EstadisticasGlobales { get; private set; } = new();
 
-  public Perfil(string nombre)
-  {
-    this.Nombre = nombre;
-    this.PartidasJugadas = 0;
-    this.Monedasrecogidas = 0;
-  }
+    public List<Logro> Logros { get; private set; }
 }
