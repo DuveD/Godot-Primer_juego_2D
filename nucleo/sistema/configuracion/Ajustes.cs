@@ -34,12 +34,6 @@ public static class Ajustes
     public static string NombreArchivoAjustes { get; } = "ajustes.cfg";
     public static string RutaArchivoAjustes { get; } = $"{RutaJuego}/{NombreArchivoAjustes}";
 
-    public static string NombreArchivoEstadisticas { get; } = "estadisticas.cfg";
-    public static string RutaArchivoEstadisticas { get; } = $"{RutaJuego}/{NombreArchivoEstadisticas}";
-
-    public static string NombreArchivoLogros { get; } = "logros.cfg";
-    public static string RutaArchivoLogros { get; } = $"{RutaJuego}/{NombreArchivoLogros}";
-
     public static string RutaPerfiles { get; } = $"{RutaJuego}/perfiles";
 
     public static string Version { get; } = (string)ProjectSettings.GetSetting("application/config/version");
@@ -151,6 +145,28 @@ public static class Ajustes
 
     public static bool GuardarAjustesAlGuardarPropiedad = true;
 
+    public static void CargarAjustes()
+    {
+        if (!File.Exists(RutaArchivoAjustes))
+        {
+            GuardarAjustesAlGuardarPropiedad = false;
+            InicializarValoresPorDefecto();
+            GuardarAjustesAlGuardarPropiedad = true;
+
+            Guardar();
+
+            LoggerJuego.Info($"Creado archivo '{NombreArchivoAjustes}' con la configuración por defecto.");
+        }
+        else
+        {
+            Cargar();
+
+            if (VersionArchivoAjustes < VERSION_AJUSTES)
+                MigrarArchivoAjustes();
+
+            LoggerJuego.Info("Ajustes cargados.");
+        }
+    }
     private static void InicializarValoresPorDefecto()
     {
         // GENERAL
@@ -198,29 +214,6 @@ public static class Ajustes
         // Añadir los nuevos valores aquí.
 
         LoggerJuego.Info("Archivo de ajustes migrado a la versión 2.");
-    }
-
-    public static void CargarAjustes()
-    {
-        if (!File.Exists(RutaArchivoAjustes))
-        {
-            GuardarAjustesAlGuardarPropiedad = false;
-            InicializarValoresPorDefecto();
-            GuardarAjustesAlGuardarPropiedad = true;
-
-            Guardar();
-
-            LoggerJuego.Info($"Creado archivo '{NombreArchivoAjustes}' con la configuración por defecto.");
-        }
-        else
-        {
-            Cargar();
-
-            if (VersionArchivoAjustes < VERSION_AJUSTES)
-                MigrarArchivoAjustes();
-
-            LoggerJuego.Info("Ajustes cargados.");
-        }
     }
 
     public static void GuardarValor(string seccion, string clave, Variant valor)

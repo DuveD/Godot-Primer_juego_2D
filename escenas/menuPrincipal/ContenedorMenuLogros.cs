@@ -43,7 +43,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
     private void CargarLogros()
     {
-        IEnumerable<Logro> logros = GestorLogros.ObtenerLogros();
+        IEnumerable<Logro> logros = Global.PerfilActivo.Logros.ToList();
         logros = logros.OrderBy(l => !l.Desbloqueado);
 
         ContenedorLogro contenedorLogroAnterior = null;

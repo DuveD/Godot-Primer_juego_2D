@@ -30,11 +30,13 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         _LabelEnemigosDerrotadosValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
         _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
-        _LabelPartidasJugadasValor.Text = GestorEstadisticas.Globales.PartidasJugadas.ToString();
-        _LabelMejorPuntuacionValor.Text = GestorEstadisticas.Globales.MejorPuntuacion.ToString();
-        _LabelMonedasRecogidasValor.Text = GestorEstadisticas.Globales.MonedasRecogidas.ToString();
-        _LabelMonedasEspecialesRecogidasValor.Text = GestorEstadisticas.Globales.MonedasEspecialesRecogidas.ToString();
-        _LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
+        EstadisticasGlobales estadisticasGlobalesPartida = Global.PerfilActivo.EstadisticasGlobales;
+
+        _LabelPartidasJugadasValor.Text = estadisticasGlobalesPartida.PartidasJugadas.ToString();
+        _LabelMejorPuntuacionValor.Text = estadisticasGlobalesPartida.MejorPuntuacion.ToString();
+        _LabelMonedasRecogidasValor.Text = estadisticasGlobalesPartida.MonedasRecogidas.ToString();
+        _LabelMonedasEspecialesRecogidasValor.Text = estadisticasGlobalesPartida.MonedasEspecialesRecogidas.ToString();
+        _LabelEnemigosDerrotadosValor.Text = estadisticasGlobalesPartida.EnemigosDerrotados.ToString();
 
         LoggerJuego.Trace(this.Name + " Ready.");
     }
