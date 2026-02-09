@@ -41,7 +41,7 @@ public static class GestorLogros
                 IndexarLogroEnCache(logro);
         }
 
-        LoggerJuego.Info($"Logros del perfil '{perfil.Id}' cargados.");
+        LoggerJuego.Trace($"Logros del perfil '{perfil.Id}' cargados.");
     }
 
     private static void IndexarLogroEnCache(Logro logro)

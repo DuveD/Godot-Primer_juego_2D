@@ -24,7 +24,7 @@ public static class GestorEstadisticas
                 (int)archivoPerfil.GetValue(SECCION_ESTADISTICAS, "monedas_especiales_recogidas", 0);
         perfil.EstadisticasGlobales.EnemigosDerrotados = (int)archivoPerfil.GetValue(SECCION_ESTADISTICAS, "enemigos_derrotados", 0);
 
-        LoggerJuego.Info($"Estadísticas del perfil '{perfil.Id}' cargadas.");
+        LoggerJuego.Trace($"Estadísticas del perfil '{perfil.Id}' cargadas.");
     }
 
     public static void InicializarPartida()

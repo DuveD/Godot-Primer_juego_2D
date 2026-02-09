@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.menuPrincipal.perfil;
 using Primerjuego2D.escenas.ui;
@@ -19,6 +20,8 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
     private SlotPerfil _slotPerfil2;
     private SlotPerfil _slotPerfil3;
 
+    private List<SlotPerfil> slotPerfiles;
+
     private Control _controlPanelPerfiles;
 
     private ContenedorConfirmacion _contenedorConfirmacionSeleccionarPerfil;
@@ -26,16 +29,21 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
 
     private ButtonPersonalizado _buttonAtras;
 
+    private bool _ocultarBotonAtras = false;
+
     public override void _Ready()
     {
         base._Ready();
 
         _slotPerfil1 = UtilidadesNodos.ObtenerNodoPorNombre<SlotPerfil>(this, "SlotPerfil1");
-        _slotPerfil1.Pressed += () => OnSlotPerfilPressed(_slotPerfil1);
+        _slotPerfil1.Pressed += OnSlotPerfil1Pressed;
         _slotPerfil2 = UtilidadesNodos.ObtenerNodoPorNombre<SlotPerfil>(this, "SlotPerfil2");
-        _slotPerfil2.Pressed += () => OnSlotPerfilPressed(_slotPerfil2);
+        _slotPerfil2.Pressed += OnSlotPerfil2Pressed;
         _slotPerfil3 = UtilidadesNodos.ObtenerNodoPorNombre<SlotPerfil>(this, "SlotPerfil3");
-        _slotPerfil3.Pressed += () => OnSlotPerfilPressed(_slotPerfil3);
+        _slotPerfil3.Pressed += OnSlotPerfil3Pressed;
+
+        slotPerfiles = [_slotPerfil1, _slotPerfil2, _slotPerfil3];
+
         _controlPanelPerfiles = GetNode<Control>("ControlPanelPerfiles");
         _contenedorConfirmacionSeleccionarPerfil = GetNode<ContenedorConfirmacion>("ContenedorConfirmacionSeleccionarPerfil");
         _buttonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
@@ -88,8 +96,11 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
         {
             if (this.ModoNavegacionTeclado)
             {
-                UtilidadesNodos.PulsarBoton(this._buttonAtras);
-                AcceptEvent();
+                if (!_ocultarBotonAtras)
+                {
+                    UtilidadesNodos.PulsarBoton(this._buttonAtras);
+                    AcceptEvent();
+                }
             }
         }
     }
@@ -101,23 +112,47 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return _buttonAtras;
+        return _slotPerfil1;
     }
+
+    private void OnSlotPerfil1Pressed() => OnSlotPerfilPressed(_slotPerfil1);
+    private void OnSlotPerfil2Pressed() => OnSlotPerfilPressed(_slotPerfil2);
+    private void OnSlotPerfil3Pressed() => OnSlotPerfilPressed(_slotPerfil3);
+
 
     public void OnSlotPerfilPressed(SlotPerfil slotPerfil)
     {
-        _slotPerfilSeleccionado = slotPerfil;
-        _controlPanelPerfiles.Hide();
-        _contenedorConfirmacionSeleccionarPerfil.Show(this.ModoNavegacionTeclado, true);
+        if (!slotPerfil.Vacio && !slotPerfil.Seleccionado)
+        {
+            _slotPerfilSeleccionado = slotPerfil;
+            _controlPanelPerfiles.Hide();
+            _contenedorConfirmacionSeleccionarPerfil.Show(this.ModoNavegacionTeclado, true);
+        }
     }
 
     public void OnSeleccionarPerfilConfirmar()
     {
+        Perfil perfilSeleccionado = _slotPerfilSeleccionado.Perfil;
+        CambiarPerfilActivo(perfilSeleccionado);
+
         _slotPerfilSeleccionado = null;
         _contenedorConfirmacionSeleccionarPerfil.Hide();
         _controlPanelPerfiles.Show();
         this.GrabFocusUltimoElementoConFoco();
+
+        UtilidadesNodos.PulsarBoton(this._buttonAtras);
     }
+
+    private void CambiarPerfilActivo(Perfil perfilSeleccionado)
+    {
+        Global.CambiarPerfilActivo(perfilSeleccionado);
+
+        foreach (var slotPerfil in slotPerfiles.Where(sp => !sp.Vacio && sp.Seleccionado))
+            slotPerfil.SetSeleccionado(false);
+
+        _slotPerfilSeleccionado.SetSeleccionado(true);
+    }
+
 
     public void OnSeleccionarPerfilCancelar()
     {
@@ -125,5 +160,14 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
         _contenedorConfirmacionSeleccionarPerfil.Hide();
         _controlPanelPerfiles.Show();
         this.GrabFocusUltimoElementoConFoco();
+    }
+
+    public void Show(bool modoNavegacionTeclado, bool seleccionarPrimerElemento, bool ocultarBotonAtras = false)
+    {
+        base.Show(modoNavegacionTeclado, seleccionarPrimerElemento);
+
+        _ocultarBotonAtras = ocultarBotonAtras;
+        if (ocultarBotonAtras)
+            this._buttonAtras.Hide();
     }
 }

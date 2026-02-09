@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
@@ -90,11 +91,11 @@ public partial class GestorAudio : Node
 	private void RecalcularVolumenes()
 	{
 		// Master siempre recibe el volumen general
-		AjustarVolumenBus(BUS_MASTER, _VolumenGeneral);
+		UtilidadesAudio.AjustarVolumenBus(BUS_MASTER, _VolumenGeneral);
 
 		// Música y sonidos son relativos al general
-		AjustarVolumenBus(BUS_MUSICA, _VolumenMusica * _VolumenGeneral);
-		AjustarVolumenBus(BUS_SONIDOS, _VolumenSonidos * _VolumenGeneral);
+		UtilidadesAudio.AjustarVolumenBus(BUS_MUSICA, _VolumenMusica * _VolumenGeneral);
+		UtilidadesAudio.AjustarVolumenBus(BUS_SONIDOS, _VolumenSonidos * _VolumenGeneral);
 	}
 	#endregion
 
@@ -226,17 +227,6 @@ public partial class GestorAudio : Node
 					_recursosSonidos[nombreArchivoSonido] = sonido;
 			}
 		}
-	}
-
-	private void AjustarVolumenBus(string busName, float linear)
-	{
-		int busIndex = ObtenerIndiceBus(busName);
-		if (busIndex < 0) return;
-
-		linear = Mathf.Max(linear, 0.0001f);
-		float db = Mathf.LinearToDb(linear);
-
-		AudioServer.SetBusVolumeDb(busIndex, db);
 	}
 
 	private string[] FiltrarExtensionesAceptadas(string[] nombresArchivos)

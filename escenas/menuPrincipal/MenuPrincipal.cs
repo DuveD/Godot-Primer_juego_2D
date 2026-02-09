@@ -35,7 +35,15 @@ public partial class MenuPrincipal : Control
             contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
         }
 
+        MostrarMenuPerfilesSiNoHayPartida();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    private void MostrarMenuPerfilesSiNoHayPartida()
+    {
+        if (Global.PerfilActivo == null)
+            MostrarMenuPerfiles(true);
     }
 
     private void CargarNodos()
@@ -59,22 +67,30 @@ public partial class MenuPrincipal : Control
         MostrarMenu(this.ContenedorMenuPrincipal);
     }
 
-    private void MostrarMenuPartidas()
+    public void MostrarMenuPerfiles()
     {
-        MostrarMenu(this.ContenedorMenuPerfiles);
+        MostrarMenuPerfiles(false);
     }
 
-    private void MostrarMenuAjustes()
+    public void MostrarMenuPerfiles(bool ocultarBotonAtras)
+    {
+        foreach (var menu in Menus)
+            menu.Visible = false;
+
+        ContenedorMenuPerfiles.Show(this.ModoNavegacionTeclado, true, ocultarBotonAtras);
+    }
+
+    public void MostrarMenuAjustes()
     {
         MostrarMenu(this.ContenedorMenuAjustes);
     }
 
-    private void MostrarMenuLogros()
+    public void MostrarMenuLogros()
     {
         MostrarMenu(this.ContenedorMenuLogros);
     }
 
-    private void MostrarMenuEstadisticas()
+    public void MostrarMenuEstadisticas()
     {
         MostrarMenu(this.ContenedorMenuEstadisticas);
     }

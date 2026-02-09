@@ -45,7 +45,7 @@ public static class GestorPerfiles
     // Cargamos los logros del perfil.
     GestorLogros.CargarLogros(perfil, archivoPerfil, cargarCache);
 
-    LoggerJuego.Info($"Perfil '{perfil.Nombre}' ({perfil.Id}) cargado correctamente.");
+    LoggerJuego.Trace($"Perfil '{perfil.Nombre}' ({perfil.Id}) cargado correctamente.");
 
     return perfil;
   }

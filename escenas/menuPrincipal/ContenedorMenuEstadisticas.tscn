@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://d12g1b8xgemee"]
+[gd_scene load_steps=14 format=3 uid="uid://d12g1b8xgemee"]
 
 [ext_resource type="Script" uid="uid://b7bol732bm7nq" path="res://escenas/menuPrincipal/ContenedorMenuEstadisticas.cs" id="1_qe0mb"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_s6ov0"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_dl8u0"]
+[ext_resource type="Texture2D" uid="uid://85ugxays0w5s" path="res://recursos/imagenes/objetos/star-coin.png" id="3_s6ov0"]
+[ext_resource type="Texture2D" uid="uid://bxi2iaa7muomi" path="res://recursos/imagenes/enemigo/enemySwimming_1.png" id="4_dl8u0"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_q0m6h"]
 [ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_tlwam"]
 
@@ -173,6 +175,13 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_s6ov0")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="ContainerMonedasEspecialesRecogidas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
 layout_mode = 2
 
@@ -197,6 +206,16 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+self_modulate = Color(1, 0.46666667, 0, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_s6ov0")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="ContainerEnemigosDerrotados" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
 layout_mode = 2
 
@@ -219,6 +238,13 @@ theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("4_dl8u0")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
