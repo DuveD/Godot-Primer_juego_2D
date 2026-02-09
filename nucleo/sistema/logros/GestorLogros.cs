@@ -13,16 +13,17 @@ public static class GestorLogros
 
     private const string SECCION_LOGROS = "logros";
 
-    private static Dictionary<string, List<Logro>> _logrosPorEvento = new();
+    private static Dictionary<string, List<Logro>> _logrosPorEvento = null;
 
-    public static void CargarLogros(Perfil perfil, ConfigFile archivoPerfil)
+    public static void CargarLogros(Perfil perfil, ConfigFile archivoPerfil, bool cargarCacheLogros = false)
     {
         if (perfil?.EstadisticasGlobales == null || archivoPerfil == null)
             return;
 
         List<Logro> logros = DefinicionLogros.ObtenerLogros().ToList();
 
-        _logrosPorEvento.Clear();
+        if (cargarCacheLogros)
+            _logrosPorEvento = [];
 
         foreach (Logro logro in logros)
         {
@@ -36,21 +37,25 @@ public static class GestorLogros
 
             perfil.AnadirOActualizarLogro(logro);
 
-            IndexarLogro(logro);
+            if (cargarCacheLogros)
+                IndexarLogroEnCache(logro);
         }
 
         LoggerJuego.Info($"Logros del perfil '{perfil.Id}' cargados.");
     }
 
-    private static void IndexarLogro(Logro logro)
+    private static void IndexarLogroEnCache(Logro logro)
     {
+        if (_logrosPorEvento == null)
+            return;
+
         if (!_logrosPorEvento.TryGetValue(logro.Evento, out var lista))
         {
             lista = new List<Logro>();
             _logrosPorEvento[logro.Evento] = lista;
         }
 
-        if (!lista.Contains(logro))
+        if (!lista.Any(l => l.Id == logro.Id))
             lista.Add(logro);
     }
 
@@ -72,8 +77,16 @@ public static class GestorLogros
 
         List<Logro> logrosDesbloqueados = [];
 
-        if (!_logrosPorEvento.TryGetValue(evento, out var logrosEvento))
-            return [];
+        List<Logro> logrosEvento;
+        if (_logrosPorEvento != null)
+        {
+            if (!_logrosPorEvento.TryGetValue(evento, out logrosEvento))
+                return [];
+        }
+        else
+        {
+            logrosEvento = perfil.Logros.Where(l => l.Evento == evento).ToList();
+        }
 
         foreach (var logro in logrosEvento)
         {

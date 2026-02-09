@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     public delegate void BotonEmpezarPartidaPulsadoEventHandler();
 
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
+    private ButtonPerfil _ButtonPerfil;
     private ButtonAjustes _ButtonAjustes;
+    private ButtonLogros _ButtonLogros;
     private ButtonEstadisticas _ButtonEstadisticas;
     private ButtonSalir _ButtonSalir;
 
@@ -30,12 +33,25 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         base._Ready();
 
         _ButtonEmpezarPartida = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEmpezarPartida>(this, "ButtonEmpezarPartida");
+        _ButtonPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPerfil>(this, "ButtonPerfil");
         _ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonAjustes>(this, "ButtonAjustes");
+        _ButtonLogros = UtilidadesNodos.ObtenerNodoPorNombre<ButtonLogros>(this, "ButtonLogros");
         _ButtonEstadisticas = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEstadisticas>(this, "ButtonEstadisticas");
         _ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonSalir>(this, "ButtonSalir");
         _AnimacionCrtShutdown = GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
+        BloquearBotonesPerfil();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    public void BloquearBotonesPerfil()
+    {
+        bool desactivarBotonesDePerfil = Global.PerfilActivo == null;
+
+        _ButtonPerfil.Desactivar(desactivarBotonesDePerfil);
+        _ButtonLogros.Desactivar(desactivarBotonesDePerfil);
+        _ButtonEstadisticas.Desactivar(desactivarBotonesDePerfil);
     }
 
     public override List<Control> ObtenerElementosConFoco()

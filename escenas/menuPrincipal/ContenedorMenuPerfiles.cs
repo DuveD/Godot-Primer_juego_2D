@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.menuPrincipal.perfil;
@@ -5,6 +6,8 @@ using Primerjuego2D.escenas.ui;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -37,7 +40,42 @@ public partial class ContenedorMenuPerfiles : ContenedorMenu
         _contenedorConfirmacionSeleccionarPerfil = GetNode<ContenedorConfirmacion>("ContenedorConfirmacionSeleccionarPerfil");
         _buttonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
+        CargarSlotsPerfiles();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    private void CargarSlotsPerfiles()
+    {
+        if (!String.IsNullOrWhiteSpace(Ajustes.IdSlotPerfil1))
+        {
+            CargarSlotPerfil(_slotPerfil1, Ajustes.IdSlotPerfil1);
+        }
+
+        if (!String.IsNullOrWhiteSpace(Ajustes.IdSlotPerfil2))
+        {
+            CargarSlotPerfil(_slotPerfil2, Ajustes.IdSlotPerfil2);
+        }
+
+        if (!String.IsNullOrWhiteSpace(Ajustes.IdSlotPerfil3))
+        {
+            CargarSlotPerfil(_slotPerfil3, Ajustes.IdSlotPerfil3);
+        }
+    }
+
+    private void CargarSlotPerfil(SlotPerfil slotPerfil, string idSlotPerfil)
+    {
+        if (slotPerfil == null || String.IsNullOrWhiteSpace(idSlotPerfil))
+            return;
+
+        Perfil perfil = GestorPerfiles.CargarPerfil(idSlotPerfil);
+        if (perfil == null)
+            return;
+
+        slotPerfil.Perfil = perfil;
+
+        if (Global.PerfilActivo != null && Global.PerfilActivo.Id == perfil.Id)
+            slotPerfil.SetSeleccionado(true);
     }
 
     public override void _UnhandledInput(InputEvent @event)

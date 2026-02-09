@@ -123,19 +123,19 @@ public static class Ajustes
         set => GuardarValor(SECCION_PERFILES, "id_perfil_activo", value);
     }
 
-    public static string NombreSlotPerfil1
+    public static string IdSlotPerfil1
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_1", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_1", value);
     }
 
-    public static string NombreSlotPerfil2
+    public static string IdSlotPerfil2
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_2", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_2", value);
     }
 
-    public static string NombreSlotPerfil3
+    public static string IdSlotPerfil3
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_3", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_3", value);
@@ -187,9 +187,9 @@ public static class Ajustes
 
         // PERFILES
         IdPerfilActivo = null;
-        NombreSlotPerfil1 = null;
-        NombreSlotPerfil2 = null;
-        NombreSlotPerfil3 = null;
+        IdSlotPerfil1 = null;
+        IdSlotPerfil2 = null;
+        IdSlotPerfil3 = null;
     }
 
     private static void MigrarArchivoAjustes()

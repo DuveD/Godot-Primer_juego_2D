@@ -41,8 +41,11 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    private void CargarLogros()
+    public void CargarLogros()
     {
+        if (Global.PerfilActivo == null)
+            return;
+
         IEnumerable<Logro> logros = Global.PerfilActivo.Logros.ToList();
         logros = logros.OrderBy(l => !l.Desbloqueado);
 

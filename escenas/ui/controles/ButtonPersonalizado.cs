@@ -52,4 +52,11 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         this.GrabFocus();
         this._reproducirSonido = true;
     }
+
+    public void Desactivar(bool desactivar)
+    {
+        Disabled = desactivar;
+        FocusMode = desactivar ? FocusModeEnum.None : FocusModeEnum.All;
+        MouseFilter = desactivar ? MouseFilterEnum.Ignore : MouseFilterEnum.Pass;
+    }
 }

@@ -29,22 +29,6 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="ButtonEmpezarPartida" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="0"]
-focus_neighbor_bottom = NodePath("../ButtonPerfil")
-
-[node name="ButtonPerfil" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="1"]
-focus_neighbor_bottom = NodePath("../ButtonAjustes")
-
-[node name="ButtonAjustes" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="2"]
-focus_neighbor_top = NodePath("../ButtonPerfil")
-focus_neighbor_bottom = NodePath("../ButtonLogros")
-
-[node name="ButtonLogros" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="3"]
-focus_neighbor_top = NodePath("../ButtonAjustes")
-
-[node name="ButtonEstadisticas" parent="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer" index="4"]
-focus_neighbor_top = NodePath("../ButtonLogros")
-
 [node name="ContenedorMenuPerfiles" parent="." instance=ExtResource("3_q0njl")]
 visible = false
 layout_mode = 1
@@ -91,9 +75,9 @@ vertical_alignment = 2
 
 [connection signal="PressedAnimationEnd" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEmpezarPartida" to="ContenedorMenuPrincipal" method="OnButtonEmpezarPartidaPressedAnimationEnd"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonPerfil" to="." method="MostrarMenuPartidas"]
-[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="." method="MostrarMenuAjustes"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonLogros" to="." method="MostrarMenuLogros"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonEstadisticas" to="." method="MostrarMenuEstadisticas"]
+[connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="." method="MostrarMenuAjustes"]
 [connection signal="pressed" from="ContenedorMenuPrincipal/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="ContenedorMenuPrincipal" method="OnButtonSalirPressed"]
 [connection signal="pressed" from="ContenedorMenuPerfiles/ControlPanelPerfiles/PanelContainerMargin/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]
 [connection signal="pressed" from="ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="." method="MostrarMenuPrincipal"]

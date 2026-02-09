@@ -30,6 +30,16 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         _LabelEnemigosDerrotadosValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
         _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
+        CargarEstadisticas();
+
+        LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    public void CargarEstadisticas()
+    {
+        if (Global.PerfilActivo == null)
+            return;
+
         EstadisticasGlobales estadisticasGlobalesPartida = Global.PerfilActivo.EstadisticasGlobales;
 
         _LabelPartidasJugadasValor.Text = estadisticasGlobalesPartida.PartidasJugadas.ToString();
@@ -37,9 +47,8 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         _LabelMonedasRecogidasValor.Text = estadisticasGlobalesPartida.MonedasRecogidas.ToString();
         _LabelMonedasEspecialesRecogidasValor.Text = estadisticasGlobalesPartida.MonedasEspecialesRecogidas.ToString();
         _LabelEnemigosDerrotadosValor.Text = estadisticasGlobalesPartida.EnemigosDerrotados.ToString();
-
-        LoggerJuego.Trace(this.Name + " Ready.");
     }
+
 
     public override void _UnhandledInput(InputEvent @event)
     {

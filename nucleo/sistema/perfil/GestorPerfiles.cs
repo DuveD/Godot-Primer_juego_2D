@@ -26,7 +26,7 @@ public static class GestorPerfiles
         && idPerfil.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
   }
 
-  public static Perfil CargarPerfil(string idPerfil)
+  public static Perfil CargarPerfil(string idPerfil, bool cargarCache = false)
   {
     if (!IdPerfilValido(idPerfil))
       return null;
@@ -42,7 +42,7 @@ public static class GestorPerfiles
     GestorEstadisticas.CargarGlobales(perfil, archivoPerfil);
 
     // Cargamos los logros del perfil.
-    GestorLogros.CargarLogros(perfil, archivoPerfil);
+    GestorLogros.CargarLogros(perfil, archivoPerfil, cargarCache);
 
     LoggerJuego.Info($"Perfil '{perfil.Nombre}' ({perfil.Id}) cargado correctamente.");
 
