@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Godot;
+using Primerjuego2D.escenas;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;
@@ -113,7 +114,7 @@ public static class GestorPerfiles
     archivoPerfil.SetValue(SECCION_DATOS_PERFIL, "fecha_ultima_partida", fechaUltimaPartidaTicks);
   }
 
-  public static ConfigFile CargarArchivoPerfil(string idPerfil)
+  private static ConfigFile CargarArchivoPerfil(string idPerfil)
   {
     if (!IdPerfilValido(idPerfil))
     {
@@ -173,6 +174,14 @@ public static class GestorPerfiles
       LoggerJuego.Error($"Error al guardar el perfil '{idPerfil}': {e.Message}");
       return false;
     }
+  }
+
+  public static bool EliminarPerfil(Perfil perfil)
+  {
+    if (perfil == null)
+      return false;
+
+    return EliminarArchivoPerfil(perfil.Id);
   }
 
   private static bool EliminarArchivoPerfil(string idPerfil)

@@ -52,13 +52,20 @@ public partial class Global : Node
 
     private void CargarPerfilActivo()
     {
-        if (!String.IsNullOrWhiteSpace(Ajustes.IdPerfilActivo))
+        if (String.IsNullOrWhiteSpace(Ajustes.IdPerfilActivo))
         {
-            Perfil perfilActivo = GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
-            if (perfilActivo != null)
-            {
-                _perfilActivo = perfilActivo;
-            }
+            LoggerJuego.Info("No hay perfil activo configurado en ajustes.");
+            return;
+        }
+
+        Perfil perfilActivo = GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
+        if (perfilActivo != null)
+        {
+            CambiarPerfilActivo(perfilActivo);
+        }
+        else
+        {
+            LoggerJuego.Warn($"No se pudo cargar el perfil ({Ajustes.IdPerfilActivo}) activo configurado en ajustes.");
         }
     }
 
