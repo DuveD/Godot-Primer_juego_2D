@@ -11,17 +11,63 @@ namespace Primerjuego2D.escenas.ui;
 
 public partial class ContenedorConfirmacion : ContenedorMenu
 {
+    public Label LabelMensaje;
     public ButtonPersonalizado ButtonConfirmar;
     public ButtonPersonalizado ButtonCancelar;
+
+    private Action _onConfirmar;
+    private Action _onCancelar;
+
+    private static readonly PackedScene _escena = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<ContenedorConfirmacion>());
+
+    public static ContenedorConfirmacion Instanciar(Node nodoPadre, string textoMensaje, string textoConfirmar, string textoCancelar, Action onConfirmar, Action onCancelar)
+    {
+        ArgumentNullException.ThrowIfNull(nodoPadre);
+
+        var instancia = _escena.Instantiate<ContenedorConfirmacion>();
+        instancia.Visible = false;
+        nodoPadre.GetParent().AddChild(instancia);
+        instancia.Inicializar(textoMensaje, textoConfirmar, textoCancelar, onConfirmar, onCancelar);
+        return instancia;
+    }
 
     public override void _Ready()
     {
         base._Ready();
 
+        SetProcessUnhandledInput(true);
+
+        LabelMensaje = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "MensajeConfirmacion");
         ButtonConfirmar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonConfirmar");
         ButtonCancelar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonCancelar");
 
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    public void Inicializar(string textoMensaje, string textoConfirmar, string textoCancelar, Action onConfirmar, Action onCancelar)
+    {
+        LabelMensaje.Text = textoMensaje;
+        ButtonConfirmar.Text = textoConfirmar;
+        ButtonCancelar.Text = textoCancelar;
+        _onConfirmar = onConfirmar;
+        _onCancelar = onCancelar;
+
+        ButtonConfirmar.Pressed += OnButtonConfirmarPressed;
+        ButtonCancelar.Pressed += OnButtonCancelarPressed;
+
+        Show(true);
+    }
+
+    private void OnButtonConfirmarPressed()
+    {
+        _onConfirmar?.Invoke();
+        this.QueueFree();
+    }
+
+    private void OnButtonCancelarPressed()
+    {
+        _onCancelar?.Invoke();
+        this.QueueFree();
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -32,7 +78,7 @@ public partial class ContenedorConfirmacion : ContenedorMenu
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
+            if (Global.NavegacionTeclado)
             {
                 UtilidadesNodos.PulsarBoton(ButtonCancelar);
                 AcceptEvent();

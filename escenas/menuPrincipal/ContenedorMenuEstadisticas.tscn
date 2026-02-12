@@ -66,6 +66,7 @@ offset_right = 303.5
 offset_bottom = 245.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_qe0mb")
 
 [node name="PanelContainerMargin" type="PanelContainer" parent="."]

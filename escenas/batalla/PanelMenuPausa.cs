@@ -10,8 +10,6 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class PanelMenuPausa : Control
 {
-    public bool ModoNavegacionTeclado = false;
-
     private ContenedorMenuPausa ContenedorMenuPausa;
 
     private ContenedorMenuAjustes ContenedorMenuAjustes;
@@ -30,24 +28,19 @@ public partial class PanelMenuPausa : Control
         this.Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
 
         this.VisibilityChanged += OnVisibilityChanged;
-
-        foreach (ContenedorMenu contenedorMenu in Menus)
-        {
-            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
-        }
     }
 
     private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
     {
-        this.ModoNavegacionTeclado = modoNavegacionTeclado;
+        Global.NavegacionTeclado = modoNavegacionTeclado;
     }
 
     private void OnVisibilityChanged()
     {
         if (this.Visible)
         {
-            this.ModoNavegacionTeclado = false;
-            this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, true);
+            Global.NavegacionTeclado = false;
+            this.ContenedorMenuPausa.Show(true);
             this.ContenedorMenuAjustes.Hide();
             this.ContenedorConfirmacionSalir.Hide();
         }
@@ -72,13 +65,13 @@ public partial class PanelMenuPausa : Control
     public void OnButtonAjustesPressed()
     {
         this.ContenedorMenuPausa.Hide();
-        this.ContenedorMenuAjustes.Show(this.ModoNavegacionTeclado, true);
+        this.ContenedorMenuAjustes.Show(true);
         this.ContenedorConfirmacionSalir.Hide();
     }
 
     public void OnButtonAjustesAtrasPressed()
     {
-        this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, false);
+        this.ContenedorMenuPausa.Show(false);
         this.ContenedorMenuAjustes.Hide();
         this.ContenedorConfirmacionSalir.Hide();
     }
@@ -87,12 +80,12 @@ public partial class PanelMenuPausa : Control
     {
         this.ContenedorMenuPausa.Hide();
         this.ContenedorMenuAjustes.Hide();
-        this.ContenedorConfirmacionSalir.Show(this.ModoNavegacionTeclado, true);
+        this.ContenedorConfirmacionSalir.Show(true);
     }
 
     public void OnButtonSalirCancelarPressed()
     {
-        this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, false);
+        this.ContenedorMenuPausa.Show(false);
         this.ContenedorMenuAjustes.Hide();
         this.ContenedorConfirmacionSalir.Hide();
     }

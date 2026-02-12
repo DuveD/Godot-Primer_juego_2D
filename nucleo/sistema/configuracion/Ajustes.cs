@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Godot;
 using Primerjuego2D.nucleo.localizacion;
@@ -123,22 +124,44 @@ public static class Ajustes
         set => GuardarValor(SECCION_PERFILES, "id_perfil_activo", value);
     }
 
-    public static string IdSlotPerfil1
+    public static string IdPerfilSlot1
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_1", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_1", value);
     }
 
-    public static string IdSlotPerfil2
+    public static string IdPerfilSlot2
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_2", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_2", value);
     }
 
-    public static string IdSlotPerfil3
+    public static string IdPerfilSlot3
     {
         get => (string)ArchivoAjustes.GetValue(SECCION_PERFILES, "id_perfil_slot_3", "");
         set => GuardarValor(SECCION_PERFILES, "id_perfil_slot_3", value);
+    }
+
+    public static void SetIdPerfil(int numeroSlot, string value)
+    {
+        switch (numeroSlot)
+        {
+            case 1: IdPerfilSlot1 = value; break;
+            case 2: IdPerfilSlot2 = value; break;
+            case 3: IdPerfilSlot3 = value; break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public static string GetIdPerfil(int numeroSlot)
+    {
+        return numeroSlot switch
+        {
+            1 => IdPerfilSlot1,
+            2 => IdPerfilSlot2,
+            3 => IdPerfilSlot3,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     // ================= CARGA Y GUARDADO =================
@@ -187,9 +210,9 @@ public static class Ajustes
 
         // PERFILES
         IdPerfilActivo = null;
-        IdSlotPerfil1 = null;
-        IdSlotPerfil2 = null;
-        IdSlotPerfil3 = null;
+        IdPerfilSlot1 = null;
+        IdPerfilSlot2 = null;
+        IdPerfilSlot3 = null;
     }
 
     private static void MigrarArchivoAjustes()

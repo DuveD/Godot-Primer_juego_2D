@@ -30,9 +30,14 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         _LabelEnemigosDerrotadosValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
         _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
-        CargarEstadisticas();
-
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    public override void OnMenuVisible()
+    {
+        base.OnMenuVisible();
+
+        CargarEstadisticas();
     }
 
     public void CargarEstadisticas()
@@ -58,7 +63,7 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
+            if (Global.NavegacionTeclado)
             {
                 UtilidadesNodos.PulsarBoton(_ButtonAtras);
                 AcceptEvent();
@@ -75,5 +80,4 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
     {
         return [_ButtonAtras];
     }
-
 }

@@ -11,28 +11,47 @@ namespace Primerjuego2D.escenas;
 
 public partial class Global : Node
 {
-    private static Global _instancia;
+    [Signal]
+    public delegate void OnCambioPerfilActivoEventHandler();
+
+    [Signal]
+    public delegate void OnNavegacionTecladoCambiadoEventHandler(bool nuevoValor);
+
+    public static bool NavegacionTeclado
+    {
+        get;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                Instancia.EmitSignal(SignalName.OnNavegacionTecladoCambiado, value);
+            }
+        }
+    }
+
+    public static Global Instancia;
 
     private GestorColor _GestorColor;
-    public static GestorColor GestorColor => Global._instancia._GestorColor;
+    public static GestorColor GestorColor => Global.Instancia._GestorColor;
 
     private GestorAudio _GestorAudio;
-    public static GestorAudio GestorAudio => Global._instancia._GestorAudio;
+    public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
 
     private GestorEfectosAudio _GestorEfectosAudio;
-    public static GestorEfectosAudio GestorEfectosAudio => Global._instancia._GestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
 
     private Perfil _perfilActivo;
-    public static Perfil PerfilActivo => Global._instancia._perfilActivo;
+    public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
 
     public Global()
     {
-        Global._instancia = this;
+        Global.Instancia = this;
+        Ajustes.CargarAjustes();
     }
 
     public override void _Ready()
     {
-        Ajustes.CargarAjustes();
         CargarPerfilActivo();
 
         // Informar idioma.
@@ -46,6 +65,8 @@ public partial class Global : Node
         // Mostramos colisiones.
         bool verColisiones = Ajustes.VerColisiones;
         GetTree().DebugCollisionsHint = verColisiones;
+
+        NavegacionTeclado = false;
 
         LoggerJuego.Trace(this.Name + " Ready.");
     }
@@ -74,8 +95,10 @@ public partial class Global : Node
         if (perfil == null)
             throw new ArgumentNullException(nameof(perfil));
 
-        Global._instancia._perfilActivo = perfil;
+        Global.Instancia._perfilActivo = perfil;
         Ajustes.IdPerfilActivo = perfil.Id;
+
+        Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
     }
 
     public static void GuardarPerfilActivo()

@@ -136,7 +136,11 @@ public static class UtilidadesNodos
     public static void BorrarHijos(Node node)
     {
         foreach (Node child in node.GetChildren())
+        {
+            node.RemoveChild(child);
             child.QueueFree();
+        }
+
     }
 
     /// <summary>

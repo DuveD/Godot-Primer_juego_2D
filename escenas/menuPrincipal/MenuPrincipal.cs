@@ -9,8 +9,6 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
-    public bool ModoNavegacionTeclado = false;
-
     #region Nodos escena
     public ContenedorMenuPrincipal ContenedorMenuPrincipal;
     public ContenedorMenuPerfiles ContenedorMenuPerfiles;
@@ -30,20 +28,7 @@ public partial class MenuPrincipal : Control
 
         LabelVersion.Text = "v" + Ajustes.Version;
 
-        foreach (ContenedorMenu contenedorMenu in Menus)
-        {
-            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
-        }
-
-        MostrarMenuPerfilesSiNoHayPartida();
-
         LoggerJuego.Trace(this.Name + " Ready.");
-    }
-
-    private void MostrarMenuPerfilesSiNoHayPartida()
-    {
-        if (Global.PerfilActivo == null)
-            MostrarMenuPerfiles(true);
     }
 
     private void CargarNodos()
@@ -57,15 +42,16 @@ public partial class MenuPrincipal : Control
         LabelVersion = GetNode<Label>("LabelVersion");
     }
 
-    private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
-    {
-        this.ModoNavegacionTeclado = modoNavegacionTeclado;
-    }
-
     public void MostrarMenuPrincipal()
     {
         MostrarMenu(this.ContenedorMenuPrincipal);
     }
+
+    public void MostrarMenuPerfilesSinBotonAtras()
+    {
+        MostrarMenuPerfiles(true);
+    }
+
 
     public void MostrarMenuPerfiles()
     {
@@ -74,10 +60,8 @@ public partial class MenuPrincipal : Control
 
     public void MostrarMenuPerfiles(bool ocultarBotonAtras)
     {
-        foreach (var menu in Menus)
-            menu.Visible = false;
-
-        ContenedorMenuPerfiles.Show(this.ModoNavegacionTeclado, true, ocultarBotonAtras);
+        OcultarMenus();
+        ContenedorMenuPerfiles.Show(true, ocultarBotonAtras);
     }
 
     public void MostrarMenuAjustes()
@@ -97,10 +81,16 @@ public partial class MenuPrincipal : Control
 
     private void MostrarMenu(ContenedorMenu contenedorMenu)
     {
-        foreach (var menu in Menus)
-            menu.Visible = false;
+        OcultarMenus();
 
         bool seleccionarPrimerElemento = !(contenedorMenu is ContenedorMenuPrincipal);
-        contenedorMenu.Show(this.ModoNavegacionTeclado, seleccionarPrimerElemento);
+        contenedorMenu.Show(seleccionarPrimerElemento);
     }
+
+    private void OcultarMenus()
+    {
+        foreach (var menu in Menus)
+            menu.Visible = false;
+    }
+
 }

@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.nucleo.sistema.perfil;
@@ -25,9 +24,9 @@ public partial class SlotPerfil : ButtonPersonalizado
         get;
     }
 
-    private bool _seleccionado;
+    private bool _activo;
 
-    public bool Seleccionado => _seleccionado;
+    public bool Activo => _activo;
 
     private Label _labelNombre;
 
@@ -43,7 +42,7 @@ public partial class SlotPerfil : ButtonPersonalizado
 
     #region Estilos slot con partida
     private static readonly StyleBox _estiloNormal = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfil_normal.tres");
-    private static readonly StyleBox _estiloNormalSeleccionado = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfilSeleccionado_normal.tres");
+    private static readonly StyleBox _estiloNormalActivo = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfilActivo_normal.tres");
     private static readonly StyleBox _estiloPressed = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfil_pressed.tres");
     private static readonly StyleBox _estiloHover = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfil_hover.tres");
     private static readonly StyleBox _estiloFocus = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfil_focus.tres");
@@ -106,15 +105,15 @@ public partial class SlotPerfil : ButtonPersonalizado
         AddThemeStyleboxOverride("focus", focus);
     }
 
-    public void SetSeleccionado(bool seleccionado)
+    public void SetActivo(bool activo)
     {
         if (this.Perfil == null)
             return;
 
-        _seleccionado = seleccionado;
+        _activo = activo;
 
-        if (seleccionado)
-            AddThemeStyleboxOverride("normal", _estiloNormalSeleccionado);
+        if (activo)
+            AddThemeStyleboxOverride("normal", _estiloNormalActivo);
         else
             AddThemeStyleboxOverride("normal", _estiloNormal);
     }

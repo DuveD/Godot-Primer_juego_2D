@@ -119,6 +119,7 @@ NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ButtonSalir" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
