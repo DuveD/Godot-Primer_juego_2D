@@ -132,7 +132,7 @@ public abstract partial class ContenedorMenu : Container
 
     private void ConfigurarElementosConFoco()
     {
-        if (!EjecutarAccion)
+        if (!IsInstanceValid(this))
             return;
 
         var elementosConFoco = ObtenerElementosConFoco();
