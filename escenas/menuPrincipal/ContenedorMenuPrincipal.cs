@@ -60,7 +60,6 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
 
         _ButtonEmpezarPartida.Visible = !desactivarBotonesDeperfil;
         _ButtonEmpezarPartidaSinPerfil.Visible = desactivarBotonesDeperfil;
-        _ButtonPerfil.Desactivar(desactivarBotonesDeperfil);
         _ButtonLogros.Desactivar(desactivarBotonesDeperfil);
         _ButtonEstadisticas.Desactivar(desactivarBotonesDeperfil);
     }

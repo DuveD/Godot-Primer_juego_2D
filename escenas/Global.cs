@@ -92,11 +92,8 @@ public partial class Global : Node
 
     public static void CambiarPerfilActivo(Perfil perfil)
     {
-        if (perfil == null)
-            throw new ArgumentNullException(nameof(perfil));
-
         Global.Instancia._perfilActivo = perfil;
-        Ajustes.IdPerfilActivo = perfil.Id;
+        Ajustes.IdPerfilActivo = perfil?.Id;
 
         Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
     }

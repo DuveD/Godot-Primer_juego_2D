@@ -33,11 +33,8 @@ public partial class ContenedorMenuPausa : ContenedorMenu
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (Global.NavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(ButtonRenaudar);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(ButtonRenaudar);
+            AcceptEvent();
         }
     }
 

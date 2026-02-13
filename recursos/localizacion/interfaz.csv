@@ -6,6 +6,7 @@ General.eliminar,Eliminar,Delete
 General.confirmar,Confirar,Confirm
 General.cancelar,Cancelar,Cancel
 General.atras,Atrás,Back
+General.volver,Volver,Back
 General.volverIcono,Volver ⏎,Back ⏎
 General.si,Sí,No
 General.no,No,No
@@ -53,6 +54,7 @@ MenuPrincipal.perfil.confirmarCambiarPerfil,¿Cambiar el perfil?,Change profile?
 MenuPrincipal.perfil.confirmarCargarPerfil,¿Cargar el perfil?,Load profile?
 MenuPrincipal.perfil.nuevoPerfil,Nuevo perfil,New profile
 MenuPrincipal.perfil.confirmarEliminarPerfil,¿Eliminar el perfil?,Delete profile?
+MenuPrincipal.perfil.borrar,Borrar,Delete
 SlotPerfil.ultimaPartida,Última partida:,Last game:
 SlotPerfil.partidasJugadas,Partidas jugadas:,Played games:
 SlotPerfil.vacio,Vacío,Empty

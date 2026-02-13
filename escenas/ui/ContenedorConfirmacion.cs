@@ -78,11 +78,8 @@ public partial class ContenedorConfirmacion : ContenedorMenu
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (Global.NavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(ButtonCancelar);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(ButtonCancelar);
+            AcceptEvent();
         }
     }
 

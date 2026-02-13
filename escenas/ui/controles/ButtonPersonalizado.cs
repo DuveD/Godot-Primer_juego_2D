@@ -16,6 +16,25 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
 
     private bool _reproducirSonido = true;
 
+    public new bool Disabled
+    {
+        get => base.Disabled;
+        set
+        {
+            base.Disabled = value;
+            if (value)
+            {
+                this.FocusMode = FocusModeEnum.None;
+                this.MouseFilter = MouseFilterEnum.Ignore;
+            }
+            else
+            {
+                this.FocusMode = FocusModeEnum.All;
+                this.MouseFilter = MouseFilterEnum.Pass;
+            }
+        }
+    }
+
     public override void _Ready()
     {
         this.FocusEntered += OnFocusedEntered;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://gjj3jsejyedn"]
+[gd_scene load_steps=13 format=3 uid="uid://gjj3jsejyedn"]
 
 [ext_resource type="Script" uid="uid://ouvfjuk27sls" path="res://escenas/menuPrincipal/ContenedorMenuPerfiles.cs" id="1_tnwug"]
 [ext_resource type="Script" uid="uid://djdicu1loavr0" path="res://escenas/menuPrincipal/perfil/PanelContainerPerfiles.cs" id="2_5ixvf"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_ruag3"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_0jq83"]
 [ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_jbwi7"]
+[ext_resource type="Script" uid="uid://bhs60pm0yt1f8" path="res://escenas/menuPrincipal/botones/ButtonBorrar.cs" id="8_4es6c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0
@@ -45,6 +46,7 @@ mouse_filter = 2
 script = ExtResource("1_tnwug")
 
 [node name="PanelContainerPerfiles" type="PanelContainer" parent="."]
+visible = false
 clip_contents = true
 layout_mode = 2
 theme = SubResource("Theme_0sanc")
@@ -91,16 +93,18 @@ NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerPerfiles/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="ButtonAtras" parent="PanelContainerPerfiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
 clip_contents = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../VBoxContainer/SlotPerfil3")
+focus_neighbor_right = NodePath("../ButtonBorrar")
 theme_override_fonts/font = ExtResource("4_0jq83")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
-text = "MenuPrincipal.logros.atras"
+text = "General.volverIcono"
 script = ExtResource("5_jbwi7")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
@@ -110,8 +114,19 @@ NombreSonidoOnPressed = "digital_click.mp3"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ButtonBorrar" parent="PanelContainerPerfiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
+clip_contents = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonAtras")
+focus_neighbor_top = NodePath("../../VBoxContainer/SlotPerfil3")
+theme_override_fonts/font = ExtResource("4_0jq83")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
+toggle_mode = true
+text = "MenuPrincipal.perfil.borrar"
+script = ExtResource("8_4es6c")
+
 [node name="PanelContainerNuevoPerfil" type="PanelContainer" parent="."]
-visible = false
 clip_contents = true
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
@@ -139,7 +154,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../HBoxContainer/ButtonCrearPerfilConfirmar")
+focus_neighbor_bottom = NodePath("../HBoxContainer/ButtonCrearPerfilCancelar")
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerNuevoPerfil/VBoxContainer"]

@@ -27,6 +27,15 @@ public static class GestorPerfiles
         && idPerfil.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
   }
 
+  public static void InicializarPerfil(Perfil perfil)
+  {
+    if (perfil == null)
+      return;
+
+    // Inicializamos los logros del perfil.
+    GestorLogros.InicializarLogros(perfil, true);
+  }
+
   public static Perfil CargarPerfil(string idPerfil, bool cargarCache = false)
   {
     if (!IdPerfilValido(idPerfil))

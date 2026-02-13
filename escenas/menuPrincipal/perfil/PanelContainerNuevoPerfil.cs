@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
+using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.menuPrincipal.perfil;
@@ -16,7 +17,10 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
 
     private LineEdit _lineEdit;
     private ButtonPersonalizado _buttonConfirmar;
+    public ButtonPersonalizado ButtonConfirmar => _buttonConfirmar;
+
     private ButtonPersonalizado _buttonCancelar;
+    public ButtonPersonalizado ButtonCancelar => _buttonCancelar;
 
     public override void _Ready()
     {
@@ -24,6 +28,7 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
 
         _lineEdit = GetNode<LineEdit>("VBoxContainer/LineEdit");
         _lineEdit.TextChanged += OnLineEditTextChanged;
+        _lineEdit.GuiInput += OnLineEditGuiInput;
 
         _buttonConfirmar = GetNode<ButtonPersonalizado>("VBoxContainer/HBoxContainer/ButtonCrearPerfilConfirmar");
         _buttonConfirmar.Pressed += () => EmitSignal(SignalName.OnButtonConfirmarPressed, _lineEdit.Text);
@@ -34,14 +39,46 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    private void OnLineEditTextChanged(string newText)
+    private void OnLineEditGuiInput(InputEvent @event)
     {
-        _buttonConfirmar.Disabled = string.IsNullOrWhiteSpace(newText);
+        if (@event is InputEventKey key &&
+            key.Pressed &&
+            key.Keycode == Key.Down)
+        {
+            NodePath path = _lineEdit.FocusNeighborBottom;
+            if (!path.IsEmpty && _lineEdit.HasNode(path))
+            {
+                Control neighbor = _lineEdit.GetNode<Control>(path);
+                neighbor.GrabFocus();
+            }
+        }
     }
 
-    public override List<Control> ObtenerElementosConFoco() => new List<Control> { _lineEdit, _buttonConfirmar, _buttonCancelar };
+    private void OnLineEditTextChanged(string newText)
+    {
+        bool desactivarButtonConfirmar = string.IsNullOrWhiteSpace(newText) /*|| newText.Length > ConstantesGenerales.LONGITUD_MAXIMA_NOMBRE_PERFIL*/;
+        _buttonConfirmar.Disabled = desactivarButtonConfirmar;
+        _lineEdit.FocusNeighborBottom = desactivarButtonConfirmar ? _lineEdit.GetPathTo(_buttonCancelar) : _lineEdit.GetPathTo(_buttonConfirmar);
+    }
+
+    public override List<Control> ObtenerElementosConFoco() =>
+        new List<Control> { _buttonConfirmar, _buttonCancelar };
 
     public override Control ObtenerPrimerElementoConFoco() => _lineEdit;
 
-    public void Limpiar() => _lineEdit.Text = "";
+    public override void OnVisibilityChanged()
+    {
+        base.OnVisibilityChanged();
+
+        if (!this.Visible)
+        {
+            Limpiar();
+        }
+    }
+
+    private void Limpiar()
+    {
+        _lineEdit.Text = "";
+        OnLineEditTextChanged(_lineEdit.Text);
+    }
 }

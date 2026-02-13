@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.modelos.interfaces;
+using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.ui.menu;
@@ -54,7 +56,7 @@ public abstract partial class ContenedorMenu : Container
             CallDeferred(nameof(OnMenuVisible));
     }
 
-    public void OnVisibilityChanged()
+    public virtual void OnVisibilityChanged()
     {
         if (!IsInstanceValid(this))
             return;
@@ -152,8 +154,8 @@ public abstract partial class ContenedorMenu : Container
             {
                 if (buttonConFoco.Disabled)
                 {
-                    elementoConFoco.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
-                    elementoConFoco.FocusMode = FocusModeEnum.None; // Ignora teclado
+                    // elementoConFoco.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
+                    // elementoConFoco.FocusMode = FocusModeEnum.None; // Ignora teclado
                 }
                 else
                 {
@@ -191,8 +193,8 @@ public abstract partial class ContenedorMenu : Container
             {
                 if (!buttonConFoco.Disabled)
                 {
-                    elementoConFoco.MouseFilter = MouseFilterEnum.Pass; // Aceptamos clicks
-                    elementoConFoco.FocusMode = FocusModeEnum.All; // Aceptamos teclado
+                    // elementoConFoco.MouseFilter = MouseFilterEnum.Pass; // Aceptamos clicks
+                    // elementoConFoco.FocusMode = FocusModeEnum.All; // Aceptamos teclado
                 }
             }
             else
@@ -220,8 +222,8 @@ public abstract partial class ContenedorMenu : Container
             {
                 if (buttonConFoco.Disabled)
                 {
-                    elementoConFoco.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
-                    elementoConFoco.FocusMode = FocusModeEnum.None; // Ignora teclado
+                    // elementoConFoco.MouseFilter = MouseFilterEnum.Ignore; // Ignora clicks
+                    // elementoConFoco.FocusMode = FocusModeEnum.None; // Ignora teclado
                 }
             }
             else
@@ -243,10 +245,13 @@ public abstract partial class ContenedorMenu : Container
         // if (@event is InputEventKey keyEvent && UtilidadesControles.IsActionPressed(keyEvent, ConstantesAcciones.ACCIONES_NAVEGACION_MENU))
         if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
-            if (!Global.NavegacionTeclado)
+            if (!UtilidadesControles.IsActionPressed(keyEvent, ConstantesAcciones.ESCAPE))
             {
-                Global.NavegacionTeclado = true;
-                AcceptEvent();
+                if (!Global.NavegacionTeclado)
+                {
+                    Global.NavegacionTeclado = true;
+                    //AcceptEvent();
+                }
             }
         }
         else if (@event is InputEventMouse)

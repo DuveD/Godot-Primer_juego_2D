@@ -8,6 +8,8 @@ namespace Primerjuego2D.escenas.menuPrincipal.perfil;
 
 public partial class SlotPerfil : ButtonPersonalizado
 {
+    public int NumeroSlot { get; set; }
+
     public bool Vacio => this.Perfil == null;
 
     public Perfil Perfil

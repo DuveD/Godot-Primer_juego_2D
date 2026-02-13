@@ -15,11 +15,13 @@ public static class GestorLogros
 
     private static Dictionary<string, List<Logro>> _logrosPorEvento = null;
 
+    public static void InicializarLogros(Perfil perfil, bool cargarCacheLogros = false)
+    {
+        CargarLogros(perfil, null, cargarCacheLogros);
+    }
+
     public static void CargarLogros(Perfil perfil, ConfigFile archivoPerfil, bool cargarCacheLogros = false)
     {
-        if (perfil?.EstadisticasGlobales == null || archivoPerfil == null)
-            return;
-
         List<Logro> logros = DefinicionLogros.ObtenerLogros().ToList();
 
         if (cargarCacheLogros)
@@ -27,12 +29,12 @@ public static class GestorLogros
 
         foreach (Logro logro in logros)
         {
-            Godot.Collections.Dictionary datosLogro =
+            Godot.Collections.Dictionary datosLogro = archivoPerfil != null ?
                 (Godot.Collections.Dictionary)archivoPerfil.GetValue(SECCION_LOGROS, logro.Id,
-                    new Godot.Collections.Dictionary());
+                    new Godot.Collections.Dictionary()) : null;
 
             // Si hay datos guardados, los aplicamos.
-            if (datosLogro.Count > 0)
+            if (datosLogro != null && datosLogro.Count > 0)
                 InformarDatosLogro(logro, datosLogro);
 
             perfil.AnadirOActualizarLogro(logro);
