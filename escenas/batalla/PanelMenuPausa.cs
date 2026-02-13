@@ -52,8 +52,10 @@ public partial class PanelMenuPausa : Control
         }
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
             return;

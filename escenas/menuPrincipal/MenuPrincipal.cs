@@ -52,7 +52,6 @@ public partial class MenuPrincipal : Control
         MostrarMenuPerfiles(true);
     }
 
-
     public void MostrarMenuPerfiles()
     {
         MostrarMenuPerfiles(false);

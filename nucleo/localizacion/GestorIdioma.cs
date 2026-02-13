@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using Godot;
 
 namespace Primerjuego2D.nucleo.localizacion;
@@ -22,6 +24,10 @@ public static class GestorIdioma
             idioma = IdiomaPorDefecto;
 
         TranslationServer.SetLocale(idioma.Codigo);
+
+        var culture = new CultureInfo(idioma.Codigo.Replace("_", "-"));
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
     }
 
     /// <summary>

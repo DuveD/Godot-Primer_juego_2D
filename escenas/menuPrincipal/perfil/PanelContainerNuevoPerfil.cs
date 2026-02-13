@@ -3,6 +3,7 @@ using Godot;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.menuPrincipal.perfil;
@@ -36,20 +37,34 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
         _buttonCancelar = GetNode<ButtonPersonalizado>("VBoxContainer/HBoxContainer/ButtonCrearPerfilCancelar");
         _buttonCancelar.Pressed += () => EmitSignal(SignalName.OnButtonCancelarPressed);
 
+        this.VisibilityChanged += OnVisibilityChanged;
+
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     private void OnLineEditGuiInput(InputEvent @event)
     {
-        if (@event is InputEventKey key &&
-            key.Pressed &&
-            key.Keycode == Key.Down)
+        if (@event.IsActionPressed(ConstantesAcciones.DOWN))
         {
             NodePath path = _lineEdit.FocusNeighborBottom;
             if (!path.IsEmpty && _lineEdit.HasNode(path))
             {
                 Control neighbor = _lineEdit.GetNode<Control>(path);
                 neighbor.GrabFocus();
+                AcceptEvent();
+            }
+        }
+        else if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
+        {
+            UtilidadesNodos.PulsarBoton(_buttonCancelar);
+            AcceptEvent();
+        }
+        else if (@event.IsActionPressed(ConstantesAcciones.ENTER))
+        {
+            if (!_buttonConfirmar.Disabled)
+            {
+                UtilidadesNodos.PulsarBoton(_buttonConfirmar);
+                AcceptEvent();
             }
         }
     }
@@ -62,18 +77,14 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
     }
 
     public override List<Control> ObtenerElementosConFoco() =>
-        new List<Control> { _buttonConfirmar, _buttonCancelar };
+        new List<Control> { _lineEdit, _buttonConfirmar, _buttonCancelar };
 
     public override Control ObtenerPrimerElementoConFoco() => _lineEdit;
 
-    public override void OnVisibilityChanged()
+    private void OnVisibilityChanged()
     {
-        base.OnVisibilityChanged();
-
-        if (!this.Visible)
-        {
+        if (this.Visible)
             Limpiar();
-        }
     }
 
     private void Limpiar()

@@ -125,8 +125,10 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         this._ButtonAtras.FocusNeighborRight = this._ButtonAtras.GetPathTo(contenedorLogro);
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
             return;

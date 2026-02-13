@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Primerjuego2D.nucleo.utilidades;
 
@@ -24,5 +25,30 @@ public static class UtilidadesFechas
       return dateTime;
 
     return null;
+  }
+
+  public static string FormatearFechaSinDiaSemana(DateTime fecha)
+  {
+    var culture = CultureInfo.CurrentCulture;
+
+    // Patrón largo dependiente del idioma
+    var pattern = culture.DateTimeFormat.LongDatePattern;
+
+    // Eliminamos el día de la semana (dddd)
+    pattern = Regex.Replace(
+        pattern,
+        @"(^dddd,\s*|\s*,?\s*dddd)",
+        "",
+        RegexOptions.IgnoreCase
+    );
+
+    return fecha.ToString(pattern, culture);
+  }
+
+  public static string FormatearFechaSinDiaSemana(DateTime? fecha)
+  {
+    return fecha.HasValue
+        ? FormatearFechaSinDiaSemana(fecha.Value)
+        : null;
   }
 }

@@ -13,4 +13,9 @@ public static class UtilidadesControles
     {
         return acciones.Any(accion => inputEvent.IsActionPressed(accion));
     }
+
+    public static bool IsMouseMovementEvent(InputEvent inputEvent)
+    {
+        return inputEvent is InputEventMouseMotion inputEventMouseMotion && inputEventMouseMotion.Relative.Length() > 0;
+    }
 }

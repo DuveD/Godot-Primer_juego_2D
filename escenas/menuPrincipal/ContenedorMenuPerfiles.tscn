@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://gjj3jsejyedn"]
+[gd_scene load_steps=15 format=3 uid="uid://gjj3jsejyedn"]
 
 [ext_resource type="Script" uid="uid://ouvfjuk27sls" path="res://escenas/menuPrincipal/ContenedorMenuPerfiles.cs" id="1_tnwug"]
 [ext_resource type="Script" uid="uid://djdicu1loavr0" path="res://escenas/menuPrincipal/perfil/PanelContainerPerfiles.cs" id="2_5ixvf"]
@@ -30,6 +30,24 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t74wt"]
+bg_color = Color(0.07058824, 0.07058824, 0.09019608, 0.63529414)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4es6c"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -155,6 +173,8 @@ focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../HBoxContainer/ButtonCrearPerfilCancelar")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t74wt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4es6c")
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerNuevoPerfil/VBoxContainer"]

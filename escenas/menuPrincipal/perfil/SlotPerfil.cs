@@ -76,7 +76,7 @@ public partial class SlotPerfil : ButtonPersonalizado
     private void InformarPerfil(Perfil perfil)
     {
         _labelNombre.Text = perfil.Nombre;
-        _labelFechaUltimaPartidaFecha.Text = (perfil.FechaUltimaPartida != null) ? perfil.FechaUltimaPartida?.ToLongDateString() : "-";
+        _labelFechaUltimaPartidaFecha.Text = (perfil.FechaUltimaPartida != null) ? UtilidadesFechas.FormatearFechaSinDiaSemana(perfil.FechaUltimaPartida) : "-";
         _labelPartidasJugadasNumero.Text = perfil.EstadisticasGlobales.PartidasJugadas.ToString();
         _labelMonedasRecogidas.Text = perfil.EstadisticasGlobales.MonedasRecogidas.ToString();
 

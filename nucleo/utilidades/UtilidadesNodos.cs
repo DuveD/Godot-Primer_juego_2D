@@ -166,7 +166,8 @@ public static class UtilidadesNodos
         }
 
         if (nivel == 0)
-            LoggerJuego.Warn("No se ha encontrado ningún nodo con el nombre '" + nombre + "' del tipo '" + typeof(T).Name + "'.");
+            LoggerJuego.Warn("No se ha encontrado ningún nodo con el nombre '" + nombre + "' del tipo '" +
+                             typeof(T).Name + "'.");
 
         return null;
     }
@@ -220,8 +221,20 @@ public static class UtilidadesNodos
         return resultado;
     }
 
-    public static void PulsarBoton(Button boton)
+    public static void PulsarBoton(Button boton, bool soloSiNoEstaDesactivado = true)
     {
-        boton?.EmitSignal(BaseButton.SignalName.Pressed);
+        if (boton == null)
+        {
+            LoggerJuego.Warn("Intentando pulsar un botón nulo.");
+            return;
+        }
+
+        if (soloSiNoEstaDesactivado && boton.Disabled)
+        {
+            LoggerJuego.Warn("Intentando pulsar el botón '" + boton.Name + "' pero está desactivado.");
+            return;
+        }
+
+        boton.EmitSignal(BaseButton.SignalName.Pressed);
     }
 }

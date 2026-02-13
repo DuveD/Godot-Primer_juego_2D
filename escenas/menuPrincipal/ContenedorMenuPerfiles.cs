@@ -218,8 +218,10 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         this.Show();
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
             return;
@@ -227,9 +229,13 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
             if (PanelContainerPerfiles.Visible)
+            {
                 UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
+            }
             else if (PanelNuevoPerfil.Visible)
+            {
                 UtilidadesNodos.PulsarBoton(PanelNuevoPerfil.ButtonCancelar);
+            }
 
             AcceptEvent();
         }
