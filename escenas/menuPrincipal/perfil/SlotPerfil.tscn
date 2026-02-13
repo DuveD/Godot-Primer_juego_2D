@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://caa1gmq58kvfj"]
+[gd_scene load_steps=14 format=3 uid="uid://caa1gmq58kvfj"]
 
 [ext_resource type="StyleBox" uid="uid://b8473o531ddrv" path="res://recursos/temas/perfil/SlotPerfilVacio_normal.tres" id="1_5ms3b"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="1_nmxy3"]
@@ -17,6 +17,43 @@ content_margin_top = 15.0
 content_margin_right = 15.0
 content_margin_bottom = 15.0
 
+[sub_resource type="Animation" id="Animation_q0m6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tlwam"]
+resource_name = "Rotar"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0m6h"]
+_data = {
+&"RESET": SubResource("Animation_q0m6h"),
+&"Rotar": SubResource("Animation_tlwam")
+}
+
 [node name="SlotPerfil" type="Button"]
 custom_minimum_size = Vector2(325, 100)
 anchors_preset = 15
@@ -34,7 +71,6 @@ theme_override_styles/focus = ExtResource("4_5ms3b")
 script = ExtResource("5_xcphe")
 
 [node name="ContenedorInformacion" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,10 +136,28 @@ theme_override_font_sizes/font_size = 20
 text = "0"
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="Control" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+clip_contents = true
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+
+[node name="TextureRectMonedaNormal" type="TextureRect" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 0)
 texture = ExtResource("2_1x165")
-expand_mode = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal"]
+libraries = {
+&"": SubResource("AnimationLibrary_q0m6h")
+}
 
 [node name="ContenedorVacio" type="PanelContainer" parent="."]
 layout_mode = 1

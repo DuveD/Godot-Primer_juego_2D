@@ -57,6 +57,8 @@ public partial class SlotPerfil : ButtonPersonalizado
     private static readonly StyleBox _estiloFocusVacio = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfilVacio_focus.tres");
     #endregion
 
+    private AnimationPlayer _animationPlayer;
+
     public override void _Ready()
     {
         base._Ready();
@@ -67,6 +69,7 @@ public partial class SlotPerfil : ButtonPersonalizado
         _labelMonedasRecogidas = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelMonedasRecogidas");
         _contenedorInformacion = GetNode<PanelContainer>("ContenedorInformacion");
         _contenedorVacio = GetNode<PanelContainer>("ContenedorVacio");
+        _animationPlayer = GetNode<AnimationPlayer>("ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal/AnimationPlayer");
 
         VaciarPerfil();
 
@@ -115,8 +118,14 @@ public partial class SlotPerfil : ButtonPersonalizado
         _activo = activo;
 
         if (activo)
+        {
+            _animationPlayer.Play("Rotar");
             AddThemeStyleboxOverride("normal", _estiloNormalActivo);
+        }
         else
+        {
+            _animationPlayer.Stop();
             AddThemeStyleboxOverride("normal", _estiloNormal);
+        }
     }
 }
