@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=19 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://p7vm3y0vldbo" path="res://escenas/objetos/powerup/ImanMonedas.tscn" id="10_bnba0"]
 [ext_resource type="PackedScene" uid="uid://bmttan7jakebe" path="res://escenas/objetos/powerup/Invulnerabilidad.tscn" id="11_svpxk"]
 [ext_resource type="Script" uid="uid://bu4jafkhrqpi7" path="res://escenas/batalla/SpawnPowerUps.cs" id="12_svpxk"]
-[ext_resource type="PackedScene" path="res://escenas/objetos/consumible/Botiquin.tscn" id="13_ne2vf"]
+[ext_resource type="PackedScene" uid="uid://umkqdmkdi76e" path="res://escenas/objetos/consumible/Botiquin.tscn" id="13_ne2vf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 10.0
@@ -28,6 +28,13 @@ corner_radius_bottom_left = 15
 [sub_resource type="Theme" id="Theme_ldsrh"]
 resource_local_to_scene = true
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne2vf"]
+bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
+
+[sub_resource type="Theme" id="Theme_rk4e7"]
+resource_local_to_scene = true
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ne2vf")
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -47,6 +54,9 @@ anchors_preset = 0
 
 [node name="ContenedorVidas" parent="BatallaHUD" index="3"]
 theme = SubResource("Theme_ldsrh")
+
+[node name="PanelContainer" parent="BatallaHUD/PanelMenuPausa" index="0"]
+theme = SubResource("Theme_rk4e7")
 
 [node name="PanelContainerMargin" parent="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer" index="1"]
 theme = SubResource("Theme_ldsrh")
@@ -113,8 +123,8 @@ BotiquinPackedScene = ExtResource("13_ne2vf")
 [connection signal="PreparandoBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajesIniciarBatalla"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]
 [connection signal="RenaudarBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarHUD"]
+[connection signal="OnButtonSalirConfirmarPressed" from="BatallaHUD/PanelMenuPausa" to="." method="TerminarJuego"]
 [connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
-[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorConfirmacionSalir/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonConfirmar" to="." method="TerminarJuego"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
 [connection signal="CambioVida" from="Jugador" to="BatallaHUD" method="OnCambioVida"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
@@ -130,4 +140,3 @@ BotiquinPackedScene = ExtResource("13_ne2vf")
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
-[editable path="BatallaHUD/PanelMenuPausa/ContenedorConfirmacionSalir"]

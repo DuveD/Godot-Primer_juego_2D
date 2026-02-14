@@ -43,7 +43,10 @@ public abstract partial class ContenedorMenu : Container
         ConfigurarElementosConFoco();
 
         if (this.IsVisibleInTree())
+        {
             CallDeferred(nameof(OnMenuVisible));
+            CallDeferred(nameof(GrabFocusPrimerElemento));
+        }
     }
 
     public new void Show()

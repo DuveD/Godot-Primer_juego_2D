@@ -30,7 +30,7 @@ public partial class ContenedorMenuPausa : ContenedorMenu
         base._Input(@event);
 
         // Solo respondemos si el menú es visible.
-        if (!this.Visible)
+        if (!this.IsVisibleInTree())
             return;
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
