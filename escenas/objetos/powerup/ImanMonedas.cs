@@ -93,7 +93,6 @@ public partial class ImanMonedas : PowerUp
 
     private static void CrearEstelaEnMoneda(Moneda moneda)
     {
-
         EfectoEstelaSprite2D estela = UtilidadesNodos.ObtenerNodoDeTipo<EfectoEstelaSprite2D>(moneda);
         if (estela == null)
         {

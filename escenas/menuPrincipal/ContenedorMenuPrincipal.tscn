@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://ycovtsmeppks"]
+[gd_scene load_steps=15 format=3 uid="uid://ycovtsmeppks"]
 
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/ContenedorMenuPrincipal.cs" id="1_xrmji"]
 [ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="2_2ul6g"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="3_dyvyh"]
 [ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/botones/ButtonEmpezarPartida.cs" id="4_qsbvf"]
 [ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="5_50208"]
+[ext_resource type="Script" uid="uid://dmi75dlwcuhah" path="res://escenas/menuPrincipal/botones/ButtonPerfil.cs" id="6_dyvyh"]
 [ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/botones/ButtonAjustes.cs" id="6_wrtnk"]
 [ext_resource type="Script" uid="uid://bcvada4heal8t" path="res://escenas/menuPrincipal/botones/ButtonLogros.cs" id="7_2ul6g"]
 [ext_resource type="Script" uid="uid://brkccj2o1ury8" path="res://escenas/menuPrincipal/botones/ButtonEstadisticas.cs" id="7_urm1o"]
@@ -64,7 +65,6 @@ theme_override_constants/separation = 18
 [node name="ButtonEmpezarPartida" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../ButtonAjustes")
 theme = ExtResource("2_2ul6g")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
@@ -73,23 +73,19 @@ script = ExtResource("4_qsbvf")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 
-[node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
-focus_neighbor_bottom = NodePath("../ButtonEstadisticas")
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
-text = "MenuPrincipal.boton.ajustes"
-script = ExtResource("6_wrtnk")
+text = "MenuPrincipal.boton.perfil"
+script = ExtResource("6_dyvyh")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ButtonLogros" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../ButtonEmpezarPartida")
-focus_neighbor_bottom = NodePath("../ButtonEstadisticas")
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
@@ -101,8 +97,6 @@ NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ButtonEstadisticas" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../ButtonAjustes")
-focus_neighbor_bottom = NodePath("../ButtonSalir")
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
@@ -112,9 +106,19 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
+[node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_50208")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+text = "MenuPrincipal.boton.ajustes"
+script = ExtResource("6_wrtnk")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
 [node name="ButtonSalir" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../ButtonEstadisticas")
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27

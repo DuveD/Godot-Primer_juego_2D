@@ -17,12 +17,14 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     public delegate void BotonEmpezarPartidaPulsadoEventHandler();
 
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
+    private ButtonPerfil _ButtonEmpezarPartidaSinPerfil;
+    private ButtonPerfil _ButtonPerfil;
     private ButtonAjustes _ButtonAjustes;
+    private ButtonLogros _ButtonLogros;
     private ButtonEstadisticas _ButtonEstadisticas;
     private ButtonSalir _ButtonSalir;
 
     private AnimacionCrtShutdown _AnimacionCrtShutdown;
-
 
     public ButtonPersonalizado UltimoBotonPulsado;
 
@@ -31,12 +33,35 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         base._Ready();
 
         _ButtonEmpezarPartida = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEmpezarPartida>(this, "ButtonEmpezarPartida");
+        _ButtonEmpezarPartidaSinPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPerfil>(this, "ButtonEmpezarPartidaSinPerfil");
+        _ButtonPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPerfil>(this, "ButtonPerfil");
         _ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonAjustes>(this, "ButtonAjustes");
+        _ButtonLogros = UtilidadesNodos.ObtenerNodoPorNombre<ButtonLogros>(this, "ButtonLogros");
         _ButtonEstadisticas = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEstadisticas>(this, "ButtonEstadisticas");
         _ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonSalir>(this, "ButtonSalir");
         _AnimacionCrtShutdown = GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
+        this.VisibilityChanged += OnVisibilityChanged;
+
+        CalcularEstadosBotonesSinPerfil();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    private void OnVisibilityChanged()
+    {
+        if (this.IsVisibleInTree())
+            CalcularEstadosBotonesSinPerfil();
+    }
+
+    public void CalcularEstadosBotonesSinPerfil()
+    {
+        bool desactivarBotonesDeperfil = Global.PerfilActivo == null;
+
+        _ButtonEmpezarPartida.Visible = !desactivarBotonesDeperfil;
+        _ButtonEmpezarPartidaSinPerfil.Visible = desactivarBotonesDeperfil;
+        _ButtonLogros.Desactivar(desactivarBotonesDeperfil);
+        _ButtonEstadisticas.Desactivar(desactivarBotonesDeperfil);
     }
 
     public override List<Control> ObtenerElementosConFoco()
@@ -57,13 +82,14 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     {
         LoggerJuego.Trace("Configuramos el focus de los botones del menú.");
 
-        foreach (var boton in this.ElementosConFoco.OfType<ButtonPersonalizado>())
+        var elementosConFoco = ObtenerElementosConFoco();
+        foreach (var boton in elementosConFoco.OfType<ButtonPersonalizado>())
             boton.Pressed += () => this.UltimoBotonPulsado = boton;
     }
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return this.UltimoBotonPulsado ?? _ButtonEmpezarPartida;
+        return this.UltimoBotonPulsado ?? (_ButtonEmpezarPartida.Visible ? _ButtonEmpezarPartida : _ButtonEmpezarPartidaSinPerfil);
     }
 
     private void OnButtonEmpezarPartidaPressedAnimationEnd()

@@ -25,19 +25,18 @@ public partial class ContenedorMenuPausa : ContenedorMenu
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
-        if (!this.Visible)
+        if (!this.IsVisibleInTree())
             return;
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(ButtonRenaudar);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(ButtonRenaudar);
+            AcceptEvent();
         }
     }
 

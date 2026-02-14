@@ -30,28 +30,43 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
         _LabelEnemigosDerrotadosValor = UtilidadesNodos.ObtenerNodoPorNombre<Label>(this, "LabelEnemigosDerrotadosValor");
         _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
-        _LabelPartidasJugadasValor.Text = GestorEstadisticas.Globales.PartidasJugadas.ToString();
-        _LabelMejorPuntuacionValor.Text = GestorEstadisticas.Globales.MejorPuntuacion.ToString();
-        _LabelMonedasRecogidasValor.Text = GestorEstadisticas.Globales.MonedasRecogidas.ToString();
-        _LabelMonedasEspecialesRecogidasValor.Text = GestorEstadisticas.Globales.MonedasEspecialesRecogidas.ToString();
-        _LabelEnemigosDerrotadosValor.Text = GestorEstadisticas.Globales.EnemigosDerrotados.ToString();
-
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void OnMenuVisible()
     {
+        base.OnMenuVisible();
+
+        CargarEstadisticas();
+    }
+
+    public void CargarEstadisticas()
+    {
+        if (Global.PerfilActivo == null)
+            return;
+
+        EstadisticasGlobales estadisticasGlobalesPartida = Global.PerfilActivo.EstadisticasGlobales;
+
+        _LabelPartidasJugadasValor.Text = estadisticasGlobalesPartida.PartidasJugadas.ToString();
+        _LabelMejorPuntuacionValor.Text = estadisticasGlobalesPartida.MejorPuntuacion.ToString();
+        _LabelMonedasRecogidasValor.Text = estadisticasGlobalesPartida.MonedasRecogidas.ToString();
+        _LabelMonedasEspecialesRecogidasValor.Text = estadisticasGlobalesPartida.MonedasEspecialesRecogidas.ToString();
+        _LabelEnemigosDerrotadosValor.Text = estadisticasGlobalesPartida.EnemigosDerrotados.ToString();
+    }
+
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
             return;
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(_ButtonAtras);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(_ButtonAtras);
+            AcceptEvent();
         }
     }
 
@@ -64,5 +79,4 @@ public partial class ContenedorMenuEstadisticas : ContenedorMenu
     {
         return [_ButtonAtras];
     }
-
 }

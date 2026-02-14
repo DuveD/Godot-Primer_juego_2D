@@ -74,17 +74,15 @@ public static class LoggerJuego
     private static NivelLog ObtenerNivelLog()
     {
         var frame = new StackTrace().GetFrame(2);
-        var metodo = frame.GetMethod();
-        Type tipoLlamador = metodo.DeclaringType;
+        var metodo = frame?.GetMethod();
+        Type tipoLlamador = metodo?.DeclaringType;
 
         return ObtenerNivelLog(tipoLlamador);
     }
 
     private static NivelLog ObtenerNivelLog(Type tipoLlamador)
     {
-        var atributoLogLevel = tipoLlamador.GetCustomAttributes(typeof(AtributoNivelLog), inherit: true)
-                   .FirstOrDefault() as AtributoNivelLog;
-
+        var atributoLogLevel = tipoLlamador?.GetCustomAttributes(typeof(AtributoNivelLog), inherit: true).FirstOrDefault() as AtributoNivelLog;
         return atributoLogLevel?.NivelLog ?? NivelLogJuego; // si no tiene atributo, usa NivelLog global
     }
 
@@ -125,13 +123,13 @@ public static class LoggerJuego
         if (metodo == null)
         {
             var frame = stack.GetFrame(2);
-            metodo = frame.GetMethod();
-            tipoClase = metodo.DeclaringType;
-            linea = frame.GetFileLineNumber();
+            metodo = frame?.GetMethod();
+            tipoClase = metodo?.DeclaringType;
+            linea = frame?.GetFileLineNumber() ?? 0;
         }
 
         string clase = tipoClase?.Name ?? "UnknownClass";
-        string nombre = metodo.Name;
+        string nombre = metodo?.Name ?? "UnknownMethodName";
 
         return linea > 0 ? $"{clase}.{nombre}:{linea}" : $"{clase}.{nombre}";
     }

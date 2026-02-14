@@ -48,6 +48,7 @@ public partial class Juego : Control
 		MenuPrincipal menuPrincipal = (MenuPrincipal)CambiarPantalla(rutaMenuprincipal);
 
 		menuPrincipal.ContenedorMenuPrincipal.BotonEmpezarPartidaPulsado += CargarBatalla;
+		menuPrincipal.ContenedorMenuPerfiles.OnCrearPrimerPerfil += CargarBatalla;
 	}
 
 	public void CargarBatalla()

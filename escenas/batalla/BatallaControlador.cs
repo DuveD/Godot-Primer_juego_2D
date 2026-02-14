@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.consumible;
@@ -137,12 +139,16 @@ public partial class BatallaControlador : Control
         BatallaEnCurso = false;
 
         GestorEstadisticas.PartidaActual.RegistrarPuntuacion(this.Puntuacion);
-        GestorEstadisticas.FinalizarPartida();
+        GestorEstadisticas.FinalizarPartida(Global.PerfilActivo);
+        Global.PerfilActivo.FechaUltimaPartida = DateTime.Now;
+        Global.GuardarPerfilActivo();
 
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
 
-        GestorLogros.EmitirEventoAsync(GestorLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        List<Logro> logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        if (logrosDesbloqueados.Any())
+            Global.GuardarPerfilActivo();
     }
 
     public void SumarPuntuacion(Moneda moneda)

@@ -36,6 +36,8 @@ public partial class SpawnMonedas : Control
 
 	List<Moneda> MonedasEnEscena = new List<Moneda>();
 
+	public Node NodoContenedorMonedas => this.GetParent();
+
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
@@ -89,7 +91,7 @@ public partial class SpawnMonedas : Control
 		moneda.TextoFlotanteScene = this.TextoFlotanteScene;
 		moneda.Recogida += OnMonedaRecogida;
 
-		this.GetParent().AddChild(moneda);
+		NodoContenedorMonedas.AddChild(moneda);
 		moneda.Position = ObtenerPosicionAleatoriaSegura();
 
 		MonedasEnEscena.Add(moneda);
@@ -103,7 +105,7 @@ public partial class SpawnMonedas : Control
 		Vector2 centroJugador = Jugador.GlobalPosition;
 		bool cercaJugador;
 
-		List<Moneda> monedas = UtilidadesNodos.ObtenerNodosDeTipo<Moneda>(GetTree().CurrentScene);
+		List<Moneda> monedas = UtilidadesNodos.ObtenerNodosDeTipo<Moneda>(this.NodoContenedorMonedas);
 		bool cercaOtraMoneda;
 
 		do
@@ -129,7 +131,9 @@ public partial class SpawnMonedas : Control
 
 		MonedasEnEscena.Remove(moneda);
 
-		GestorLogros.EmitirEventoAsync(GestorLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
+		List<Logro> logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
+		if (logrosDesbloqueados.Any())
+			Global.GuardarPerfilActivo();
 
 		bool esMonedaEspecial = moneda is MonedaEspecial;
 		if (!esMonedaEspecial)
@@ -138,8 +142,11 @@ public partial class SpawnMonedas : Control
 
 	public void DestruirMonedas()
 	{
-		IEnumerable<Moneda> monedas = GetTree().CurrentScene.GetChildren().OfType<Moneda>();
-		foreach (Moneda moneda in monedas)
+		IEnumerable<Moneda> monedas = NodoContenedorMonedas.GetChildren().OfType<Moneda>();
+		foreach (var moneda in monedas)
 			moneda.QueueFree();
+
+		if (monedas.Any())
+			LoggerJuego.Trace($"Destruida(s) {monedas.Count()} moneda(s).");
 	}
 }

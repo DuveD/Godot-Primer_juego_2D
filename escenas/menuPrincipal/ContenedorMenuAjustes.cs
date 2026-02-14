@@ -132,19 +132,18 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		_ControlVerColisiones.ValorCambiado += OnControlVerColisionesValorCambiado;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
+		base._Input(@event);
+
 		// Solo respondemos si el menú es visible.
 		if (!this.Visible)
 			return;
 
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
-			if (this.ModoNavegacionTeclado)
-			{
-				UtilidadesNodos.PulsarBoton(_ButtonAtras);
-				AcceptEvent();
-			}
+			UtilidadesNodos.PulsarBoton(_ButtonAtras);
+			AcceptEvent();
 		}
 	}
 
@@ -257,8 +256,8 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		Ajustes.VolumenSonidos = (int)_ControlVolumenSonido.Valor;
 		Ajustes.Idioma = GestorIdioma.ObtenerIdiomaDeCodigo((string)_ControlLenguaje.Valor);
 		Ajustes.NivelLog = (NivelLog)(int)_ControlNivelLog.Valor;
-		Ajustes.GuardarAjustes();
 		Ajustes.GuardarAjustesAlGuardarPropiedad = true;
+		Ajustes.Guardar();
 
 		CargarValoresDeAjustes();
 

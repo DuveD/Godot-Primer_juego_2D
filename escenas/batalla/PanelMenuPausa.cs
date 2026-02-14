@@ -10,15 +10,12 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class PanelMenuPausa : Control
 {
-    public bool ModoNavegacionTeclado = false;
+    [Signal]
+    public delegate void OnButtonSalirConfirmarPressedEventHandler();
 
     private ContenedorMenuPausa ContenedorMenuPausa;
 
     private ContenedorMenuAjustes ContenedorMenuAjustes;
-
-    private ContenedorConfirmacion ContenedorConfirmacionSalir;
-
-    private IEnumerable<ContenedorMenu> Menus;
 
     public override void _Ready()
     {
@@ -26,43 +23,30 @@ public partial class PanelMenuPausa : Control
 
         this.ContenedorMenuPausa = GetNode<ContenedorMenuPausa>("ContenedorMenuPausa");
         this.ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
-        this.ContenedorConfirmacionSalir = GetNode<ContenedorConfirmacion>("ContenedorConfirmacionSalir");
-        this.Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
 
         this.VisibilityChanged += OnVisibilityChanged;
-
-        foreach (ContenedorMenu contenedorMenu in Menus)
-        {
-            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
-        }
-    }
-
-    private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
-    {
-        this.ModoNavegacionTeclado = modoNavegacionTeclado;
     }
 
     private void OnVisibilityChanged()
     {
         if (this.Visible)
         {
-            this.ModoNavegacionTeclado = false;
-            this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, true);
+            this.ContenedorMenuPausa.Show(true);
             this.ContenedorMenuAjustes.Hide();
-            this.ContenedorConfirmacionSalir.Hide();
         }
         else
         {
             this.ContenedorMenuPausa.Hide();
             this.ContenedorMenuAjustes.Hide();
-            this.ContenedorConfirmacionSalir.Hide();
         }
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
+        base._UnhandledInput(@event);
+
         // Solo respondemos si el menú es visible.
-        if (!this.Visible)
+        if (!this.IsVisibleInTree())
             return;
 
         // Bloqueamos todos los eventos hacia abajo.
@@ -72,28 +56,30 @@ public partial class PanelMenuPausa : Control
     public void OnButtonAjustesPressed()
     {
         this.ContenedorMenuPausa.Hide();
-        this.ContenedorMenuAjustes.Show(this.ModoNavegacionTeclado, true);
-        this.ContenedorConfirmacionSalir.Hide();
+        this.ContenedorMenuAjustes.Show(true);
     }
 
     public void OnButtonAjustesAtrasPressed()
     {
-        this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, false);
+        this.ContenedorMenuPausa.Show(false);
         this.ContenedorMenuAjustes.Hide();
-        this.ContenedorConfirmacionSalir.Hide();
     }
 
     public void OnButtonSalirPressed()
     {
         this.ContenedorMenuPausa.Hide();
         this.ContenedorMenuAjustes.Hide();
-        this.ContenedorConfirmacionSalir.Show(this.ModoNavegacionTeclado, true);
+        ContenedorConfirmacion.Instanciar(this,
+            "BatallaHUD.mensaje.preguntaSalir",
+            "BatallaHUD.boton.salir",
+            "BatallaHUD.boton.cancelar",
+            () => EmitSignal(SignalName.OnButtonSalirConfirmarPressed),
+            OnButtonSalirCancelarPressed);
     }
 
     public void OnButtonSalirCancelarPressed()
     {
-        this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, false);
+        this.ContenedorMenuPausa.Show(false);
         this.ContenedorMenuAjustes.Hide();
-        this.ContenedorConfirmacionSalir.Hide();
     }
 }

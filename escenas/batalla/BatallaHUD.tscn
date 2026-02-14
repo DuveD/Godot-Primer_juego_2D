@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkvjycp3edtfo"]
+[gd_scene load_steps=11 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
 [ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/BatallaHUD.cs" id="1_osa72"]
@@ -7,18 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_pb27p"]
 [ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/ContenedorMenuPausa.cs" id="3_v7ugp"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.tscn" id="5_i3enc"]
-[ext_resource type="PackedScene" uid="uid://wpvlkh5k6xp4" path="res://escenas/ui/ContenedorConfirmacion.tscn" id="7_gomma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
+bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
 
 [sub_resource type="Theme" id="Theme_1n7hr"]
 resource_local_to_scene = true
@@ -126,6 +117,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_ovsv8")
 
+[node name="PanelContainer" type="PanelContainer" parent="PanelMenuPausa"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1n7hr")
+
 [node name="ContenedorMenuPausa" type="CenterContainer" parent="PanelMenuPausa"]
 process_mode = 3
 visible = false
@@ -195,14 +195,9 @@ process_mode = 3
 visible = false
 layout_mode = 1
 
-[node name="ContenedorConfirmacionSalir" parent="PanelMenuPausa" instance=ExtResource("7_gomma")]
-visible = false
-layout_mode = 1
-
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="PanelMenuPausa" method="OnButtonAjustesPressed"]
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="PanelMenuPausa" method="OnButtonSalirPressed"]
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer/ButtonAtras" to="PanelMenuPausa" method="OnButtonAjustesAtrasPressed"]
-[connection signal="pressed" from="PanelMenuPausa/ContenedorConfirmacionSalir/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer/ButtonCancelar" to="PanelMenuPausa" method="OnButtonSalirCancelarPressed"]
 
 [editable path="PanelMenuPausa/ContenedorMenuAjustes"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
@@ -212,4 +207,3 @@ layout_mode = 1
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
 [editable path="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]
-[editable path="PanelMenuPausa/ContenedorConfirmacionSalir"]

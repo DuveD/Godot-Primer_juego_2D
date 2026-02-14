@@ -14,10 +14,14 @@ public static class UtilidadesAudio
         return busIndex;
     }
 
-    public static void AjustarVolumenBus(string busName, float volumenDb)
+    public static void AjustarVolumenBus(string busName, float linear)
     {
         int busIndex = ObtenerIndiceBus(busName);
-        if (busIndex != -1)
-            AudioServer.SetBusVolumeDb(busIndex, volumenDb);
+        if (busIndex < 0) return;
+
+        linear = Mathf.Max(linear, 0.0001f);
+        float db = Mathf.LinearToDb(linear);
+
+        AudioServer.SetBusVolumeDb(busIndex, db);
     }
 }

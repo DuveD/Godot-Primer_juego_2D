@@ -1,0 +1,185 @@
+[gd_scene load_steps=14 format=3 uid="uid://caa1gmq58kvfj"]
+
+[ext_resource type="StyleBox" uid="uid://b8473o531ddrv" path="res://recursos/temas/perfil/SlotPerfilVacio_normal.tres" id="1_5ms3b"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="1_nmxy3"]
+[ext_resource type="Texture2D" uid="uid://85ugxays0w5s" path="res://recursos/imagenes/objetos/star-coin.png" id="2_1x165"]
+[ext_resource type="StyleBox" uid="uid://cgql6hg4fgh84" path="res://recursos/temas/perfil/SlotPerfilVacio_pressed.tres" id="2_xcphe"]
+[ext_resource type="StyleBox" uid="uid://b6cpevrkcrsnr" path="res://recursos/temas/perfil/SlotPerfilVacio_hover.tres" id="3_5ms3b"]
+[ext_resource type="StyleBox" uid="uid://dixykk2cynfiy" path="res://recursos/temas/perfil/SlotPerfilVacio_focus.tres" id="4_5ms3b"]
+[ext_resource type="Script" uid="uid://bneraj5pxlq8c" path="res://escenas/menuPrincipal/perfil/SlotPerfil.cs" id="5_xcphe"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="6_5ms3b"]
+
+[sub_resource type="Theme" id="Theme_put7q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_put7q"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="Animation" id="Animation_q0m6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tlwam"]
+resource_name = "Rotar"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0m6h"]
+_data = {
+&"RESET": SubResource("Animation_q0m6h"),
+&"Rotar": SubResource("Animation_tlwam")
+}
+
+[node name="SlotPerfil" type="Button"]
+custom_minimum_size = Vector2(325, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 20.0
+offset_bottom = -620.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"FlatButton"
+theme_override_styles/normal = ExtResource("1_5ms3b")
+theme_override_styles/pressed = ExtResource("2_xcphe")
+theme_override_styles/hover = ExtResource("3_5ms3b")
+theme_override_styles/focus = ExtResource("4_5ms3b")
+script = ExtResource("5_xcphe")
+
+[node name="ContenedorInformacion" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_put7q")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_put7q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorInformacion"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LabelNombre" type="Label" parent="ContenedorInformacion/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_nmxy3")
+theme_override_font_sizes/font_size = 25
+text = "Nombre Perfil"
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="HBoxContainerFecha" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelFechaUltimaPartidaTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha"]
+layout_mode = 2
+text = "SlotPerfil.ultimaPartida"
+vertical_alignment = 1
+
+[node name="LabelFechaUltimaPartidaFecha" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha"]
+layout_mode = 2
+text = "-"
+vertical_alignment = 1
+
+[node name="HBoxContainerDatos" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LabelPartidasJugadasTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+layout_mode = 2
+text = "SlotPerfil.partidasJugadas"
+vertical_alignment = 1
+
+[node name="LabelPartidasJugadasNumero" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5ms3b")
+text = "0"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+
+[node name="LabelMonedasRecogidas" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5ms3b")
+theme_override_font_sizes/font_size = 20
+text = "0"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+clip_contents = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="TextureRectMonedaNormal" type="TextureRect" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 0)
+texture = ExtResource("2_1x165")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal"]
+libraries = {
+&"": SubResource("AnimationLibrary_q0m6h")
+}
+
+[node name="ContenedorVacio" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_put7q")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_put7q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorVacio"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LabelNombre" type="Label" parent="ContenedorVacio/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_nmxy3")
+theme_override_font_sizes/font_size = 25
+text = "SlotPerfil.vacio"
+vertical_alignment = 1
+text_overrun_behavior = 1

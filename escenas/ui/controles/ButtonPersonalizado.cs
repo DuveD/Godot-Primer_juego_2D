@@ -16,6 +16,25 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
 
     private bool _reproducirSonido = true;
 
+    public new bool Disabled
+    {
+        get => base.Disabled;
+        set
+        {
+            base.Disabled = value;
+            if (value)
+            {
+                this.FocusMode = FocusModeEnum.None;
+                this.MouseFilter = MouseFilterEnum.Ignore;
+            }
+            else
+            {
+                this.FocusMode = FocusModeEnum.All;
+                this.MouseFilter = MouseFilterEnum.Pass;
+            }
+        }
+    }
+
     public override void _Ready()
     {
         this.FocusEntered += OnFocusedEntered;
@@ -51,5 +70,12 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         this._reproducirSonido = false;
         this.GrabFocus();
         this._reproducirSonido = true;
+    }
+
+    public void Desactivar(bool desactivar)
+    {
+        Disabled = desactivar;
+        FocusMode = desactivar ? FocusModeEnum.None : FocusModeEnum.All;
+        MouseFilter = desactivar ? MouseFilterEnum.Ignore : MouseFilterEnum.Pass;
     }
 }

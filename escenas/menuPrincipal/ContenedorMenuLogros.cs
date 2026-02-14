@@ -14,13 +14,10 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class ContenedorMenuLogros : ContenedorMenu
 {
-    [Export]
-    public PackedScene ContenedorLogroUnicoScene;
-    [Export]
-    public PackedScene ContenedorLogroContadorScene;
+    [Export] public PackedScene ContenedorLogroUnicoScene;
+    [Export] public PackedScene ContenedorLogroContadorScene;
 
     private ContenedorLogro _PrimerLogroLista;
-    private ContenedorLogro _UltimoLogroLista;
 
     private List<ContenedorLogro> _ListaContenedoresLogros = [];
 
@@ -36,14 +33,25 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         _VBoxContainerLogros = UtilidadesNodos.ObtenerNodoPorNombre<VBoxContainer>(this, "VBoxContainerLogros");
         _ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
 
-        CargarLogros();
-
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    private void CargarLogros()
+    public override void OnMenuVisible()
     {
-        IEnumerable<Logro> logros = GestorLogros.ObtenerLogros();
+        base.OnMenuVisible();
+
+        CargarLogros();
+        CallDeferred(nameof(ReiniciarScroll));
+    }
+
+    public void CargarLogros()
+    {
+        if (Global.PerfilActivo == null)
+            return;
+
+        LimpiarListaLogros();
+
+        IEnumerable<Logro> logros = Global.PerfilActivo.Logros.ToList();
         logros = logros.OrderBy(l => !l.Desbloqueado);
 
         ContenedorLogro contenedorLogroAnterior = null;
@@ -69,7 +77,7 @@ public partial class ContenedorMenuLogros : ContenedorMenu
                 CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(contenedorLogro);
             }
 
-            contenedorLogro.FocusEntered += () => CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(contenedorLogro);
+            contenedorLogro.FocusEntered += OnLogroFocusEntered;
 
             EnlazarFoco(contenedorLogro, contenedorLogroAnterior);
             contenedorLogroAnterior = contenedorLogro;
@@ -77,11 +85,30 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
         if (contenedorLogroAnterior != null)
         {
-            this._UltimoLogroLista = contenedorLogroAnterior;
-            this._UltimoLogroLista.FocusNeighborBottom = this._UltimoLogroLista.GetPathTo(this._ButtonAtras);
-            this._ButtonAtras.FocusNeighborTop = this._ButtonAtras.GetPathTo(this._UltimoLogroLista);
+            contenedorLogroAnterior.FocusNeighborBottom = contenedorLogroAnterior.GetPathTo(this._ButtonAtras);
+            this._ButtonAtras.FocusNeighborTop = this._ButtonAtras.GetPathTo(contenedorLogroAnterior);
         }
     }
+
+    private void OnLogroFocusEntered()
+    {
+        var logro = (ContenedorLogro)GetViewport().GuiGetFocusOwner();
+        CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(logro);
+    }
+
+    private void LimpiarListaLogros()
+    {
+        // Limpiamos referencias internas
+        _PrimerLogroLista = null;
+        UltimoElementoConFoco = null;
+
+        _ListaContenedoresLogros?.Clear();
+
+        // Borramos hijos de VBox
+        UtilidadesNodos.BorrarHijos(_VBoxContainerLogros);
+    }
+
+    private void ReiniciarScroll() => _ScrollContainer.ScrollVertical = 0;
 
     private void EnlazarFoco(ContenedorLogro actual, ContenedorLogro anterior)
     {
@@ -93,25 +120,23 @@ public partial class ContenedorMenuLogros : ContenedorMenu
         anterior.FocusNeighborBottom = anterior.GetPathTo(actual);
     }
 
-
     private void CambiarFocoButtonAtrasAUltimoContenedorLogroFocused(ContenedorLogro contenedorLogro)
     {
         this._ButtonAtras.FocusNeighborRight = this._ButtonAtras.GetPathTo(contenedorLogro);
     }
 
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
         if (!this.Visible)
             return;
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(this._ButtonAtras);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(this._ButtonAtras);
+            AcceptEvent();
         }
     }
 
