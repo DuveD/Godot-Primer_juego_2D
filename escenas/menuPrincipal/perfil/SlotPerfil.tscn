@@ -114,12 +114,13 @@ theme_override_constants/separation = 5
 
 [node name="LabelPartidasJugadasTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
 layout_mode = 2
+size_flags_vertical = 1
 text = "SlotPerfil.partidasJugadas"
 vertical_alignment = 1
 
 [node name="LabelPartidasJugadasNumero" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_5ms3b")
+size_flags_vertical = 1
 text = "0"
 vertical_alignment = 1
 
