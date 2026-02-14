@@ -256,9 +256,8 @@ vertical_alignment = 1
 
 [node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
 clip_contents = true
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="TextureRectMonedaNormal" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas/Control"]
 custom_minimum_size = Vector2(20, 20)
@@ -311,7 +310,7 @@ vertical_alignment = 1
 
 [node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
 clip_contents = true
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
 [node name="TextureRectMonedaEspecial" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas/Control"]
