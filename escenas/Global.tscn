@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgc5nilniw74x"]
+[gd_scene load_steps=6 format=3 uid="uid://bgc5nilniw74x"]
 
 [ext_resource type="Script" uid="uid://p1uecrgigdne" path="res://escenas/Global.cs" id="1_xqdlq"]
 [ext_resource type="PackedScene" uid="uid://dm87xdho0pugq" path="res://escenas/sistema/GestorColor.tscn" id="2_ui3bf"]
 [ext_resource type="PackedScene" uid="uid://cakgl1bhgbmfq" path="res://escenas/sistema/audio/GestorAudio.tscn" id="3_2sanu"]
 [ext_resource type="PackedScene" uid="uid://bvhak6kp1wy16" path="res://escenas/sistema/audio/GestorEfectosAudio.tscn" id="4_2sanu"]
+[ext_resource type="PackedScene" uid="uid://cfcrhp3oysfra" path="res://escenas/ui/overlays/IndicadorCarga.tscn" id="5_6k4c3"]
 
 [node name="Global" type="Node"]
 script = ExtResource("1_xqdlq")
@@ -13,3 +14,5 @@ script = ExtResource("1_xqdlq")
 [node name="GestorAudio" parent="." instance=ExtResource("3_2sanu")]
 
 [node name="GestorEfectosAudio" parent="." instance=ExtResource("4_2sanu")]
+
+[node name="IndicadorCarga" parent="." instance=ExtResource("5_6k4c3")]

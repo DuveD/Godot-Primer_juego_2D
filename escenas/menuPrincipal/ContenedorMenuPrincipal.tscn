@@ -68,10 +68,23 @@ layout_mode = 2
 theme = ExtResource("2_2ul6g")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
+disabled = true
 text = "MenuPrincipal.boton.empezarPartida"
 script = ExtResource("4_qsbvf")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
+
+[node name="ButtonEmpezarPartidaSinPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_50208")
+theme_override_fonts/font = ExtResource("3_dyvyh")
+theme_override_font_sizes/font_size = 27
+disabled = true
+text = "MenuPrincipal.boton.empezarPartida"
+script = ExtResource("6_dyvyh")
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="ButtonPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
 layout_mode = 2
@@ -89,6 +102,7 @@ layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
+disabled = true
 text = "MenuPrincipal.boton.logros"
 script = ExtResource("7_2ul6g")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -100,6 +114,7 @@ layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
+disabled = true
 text = "MenuPrincipal.boton.estadisticas"
 script = ExtResource("7_urm1o")
 NombreSonidoOnFocusEntered = "kick.mp3"

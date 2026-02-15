@@ -42,6 +42,7 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         _AnimacionCrtShutdown = GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
         this.VisibilityChanged += OnVisibilityChanged;
+        this.Global.OnCambioPerfilActivo += CalcularEstadosBotonesSinPerfil;
 
         CalcularEstadosBotonesSinPerfil();
 
@@ -59,7 +60,9 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         bool desactivarBotonesDeperfil = Global.PerfilActivo == null;
 
         _ButtonEmpezarPartida.Visible = !desactivarBotonesDeperfil;
+        _ButtonEmpezarPartida.Disabled = false;
         _ButtonEmpezarPartidaSinPerfil.Visible = desactivarBotonesDeperfil;
+        _ButtonEmpezarPartidaSinPerfil.Disabled = false;
         _ButtonLogros.Desactivar(desactivarBotonesDeperfil);
         _ButtonEstadisticas.Desactivar(desactivarBotonesDeperfil);
     }

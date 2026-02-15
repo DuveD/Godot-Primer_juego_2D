@@ -1,7 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.sistema;
 using Primerjuego2D.escenas.sistema.audio;
+using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.sistema.perfil;
@@ -44,6 +46,9 @@ public partial class Global : Node
     private Perfil _perfilActivo;
     public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
 
+    private IndicadorCarga _indicadorCarga;
+    public static IndicadorCarga IndicadorCarga => Global.Instancia._indicadorCarga;
+
     public Global()
     {
         Global.Instancia = this;
@@ -52,8 +57,6 @@ public partial class Global : Node
 
     public override void _Ready()
     {
-        CargarPerfilActivo();
-
         // Informar idioma.
         Idioma idioma = Ajustes.Idioma;
         GestorIdioma.CambiarIdioma(idioma);
@@ -61,17 +64,20 @@ public partial class Global : Node
         _GestorColor = GetNode<GestorColor>("GestorColor");
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");
         _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
 
         // Mostramos colisiones.
         bool verColisiones = Ajustes.VerColisiones;
         GetTree().DebugCollisionsHint = verColisiones;
+
+        CargarPerfilActivo();
 
         NavegacionTeclado = false;
 
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    private void CargarPerfilActivo()
+    private async void CargarPerfilActivo()
     {
         if (String.IsNullOrWhiteSpace(Ajustes.IdPerfilActivo))
         {
@@ -79,7 +85,15 @@ public partial class Global : Node
             return;
         }
 
-        Perfil perfilActivo = GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
+        IndicadorCarga.Mostrar();
+
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        Perfil perfilActivo = await Task.Run(() =>
+        {
+            return GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
+        });
+
         if (perfilActivo != null)
         {
             CambiarPerfilActivo(perfilActivo);
@@ -88,6 +102,8 @@ public partial class Global : Node
         {
             LoggerJuego.Warn($"No se pudo cargar el perfil ({Ajustes.IdPerfilActivo}) activo configurado en ajustes.");
         }
+
+        IndicadorCarga.Esconder();
     }
 
     public static void CambiarPerfilActivo(Perfil perfil)
