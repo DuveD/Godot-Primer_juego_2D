@@ -81,6 +81,8 @@ public partial class ContenedorMenuLogros : ContenedorMenu
 
             EnlazarFoco(contenedorLogro, contenedorLogroAnterior);
             contenedorLogroAnterior = contenedorLogro;
+
+            ConfigurarElementoConFoco(contenedorLogro);
         }
 
         if (contenedorLogroAnterior != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.modelos.interfaces;
@@ -159,17 +160,30 @@ public abstract partial class ContenedorMenu : Container
 
         foreach (var elementoConFoco in elementosConFoco)
         {
-            if (elementoConFoco == null || !IsInstanceValid(elementoConFoco))
-                continue;
-
-            elementoConFoco.FocusEntered += () => OnElementoConFocoFocusEntered(elementoConFoco);
-
-            elementoConFoco.GuiInput += @event =>
+            bool flowControl = ConfigurarElementoConFoco(elementoConFoco);
+            if (!flowControl)
             {
-                if (@event is InputEventMouseButton iem && iem.Pressed)
-                    OnElementoConFocoFocusEntered(elementoConFoco);
-            };
+                continue;
+            }
         }
+    }
+
+    public bool ConfigurarElementoConFoco(Control elementoConFoco)
+    {
+        if (elementoConFoco == null || !IsInstanceValid(elementoConFoco))
+            return false;
+
+        Action onElementoConFocoFocusEntered = () => OnElementoConFocoFocusEntered(elementoConFoco);
+        elementoConFoco.FocusEntered += onElementoConFocoFocusEntered;
+
+        GuiInputEventHandler onClickOnElement = @event =>
+        {
+            if (@event is InputEventMouseButton iem && iem.Pressed)
+                OnElementoConFocoFocusEntered(elementoConFoco);
+        };
+        elementoConFoco.GuiInput += onClickOnElement;
+
+        return true;
     }
 
     public void OnElementoConFocoFocusEntered(Control control)
@@ -255,8 +269,6 @@ public abstract partial class ContenedorMenu : Container
 
             elementoConFoco.FocusMode = FocusModeEnum.All;
         }
-
-        CallDeferred(nameof(GrabFocusUltimoElementoConFoco));
     }
 
     private void OnDesactivarNavegacionTeclado()
