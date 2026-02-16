@@ -15,6 +15,18 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
+### v1.6.0
+
+- Implementado gestor de atributos del jugador con modificadores vivos.
+- Añadidos diferentes efectos a powerups y jugador.
+- Implementado gestor de perfiles/partidas: creación, carga y borrado.
+- Implementadas vidas para el jugador.
+- Creado consumible 'Botiquín' +1 vida.
+- Modificada posibilidad de aparecer powerups para no mostrar botiquines si el jugador tiene el máximo de vida.
+- Añadido cambio de cultura al thread de C#.
+- Añadidas animaciones a elementos de menú.
+- Creado Overlay/Cargando y mostrado al cargar el perfil activo al empezar la partida.
+
 ### v1.5.0
 
 - Imeplementación de sistema de Consumibles.
@@ -82,6 +94,10 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - _iman.png_ by Giuseppe Ramos ([Magnet cartoon icon](https://www.vecteezy.com/vector-art/10793480-magnet-cartoon-icon))
 - _Tronicles-Sirius_Beat.mp3_ by Sirius Beat ([Tronicles](https://www.youtube.com/watch?v=2DNpupwQPJI))
 - _tv_shutdown.mp3_ by SoundReality ([TV Shut Down](https://pixabay.com/es/sound-effects/pel%c3%adculas-y-efectos-especiales-tv-shut-down-185446/))
+- _cargando.png_ by ([loading_3305879](https://www.flaticon.com/free-icon/loading_3305879))
+- _star-coin.png_ ([moneda-estrella_17155297](https://www.flaticon.es/icono-gratis/moneda-estrella_17155297))
+- _imang.png_ ([10793480-icono-de-dibujos-animados-de-iman](https://es.vecteezy.com/arte-vectorial/10793480-icono-de-dibujos-animados-de-iman))
+- _medkit.png_ ([medkit.png](https://opengameart.org/content/medkit-and-take-effect))
 
 ## ⚖️ Aviso de uso
 
