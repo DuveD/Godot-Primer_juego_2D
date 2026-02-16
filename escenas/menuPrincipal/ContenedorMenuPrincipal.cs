@@ -42,7 +42,7 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         _AnimacionCrtShutdown = GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
         this.VisibilityChanged += OnVisibilityChanged;
-        this.Global.OnCambioPerfilActivo += CalcularEstadosBotonesSinPerfil;
+        Global.Instancia.OnCambioPerfilActivo += CalcularEstadosBotonesSinPerfil;
 
         CalcularEstadosBotonesSinPerfil();
 
