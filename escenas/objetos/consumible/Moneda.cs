@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.miscelaneo;
@@ -5,11 +6,9 @@ using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
-using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 
-namespace Primerjuego2D.escenas.objetos.moneda;
+namespace Primerjuego2D.escenas.objetos.consumible;
 
-[AtributoNivelLog(NivelLog.Info)]
 public partial class Moneda : Consumible
 {
 	[Signal]
@@ -24,10 +23,9 @@ public partial class Moneda : Consumible
 	[Export]
 	public Color ColorTextoFlotante { get; set; } = Colors.Gold;
 
-	public static readonly PackedScene TextoFlotanteScene = GD.Load<PackedScene>(UtilidadesNodos.ObtenerRutaEscena<TextoFlotante>());
+	public PackedScene TextoFlotanteScene;
 
-	private AnimationPlayer _AnimationPlayerRotacion;
-	public AnimationPlayer AnimationPlayerRotacion => _AnimationPlayerRotacion ??= GetNode<AnimationPlayer>("AnimationPlayerRotacion");
+	public AnimationPlayer AnimationPlayerRotacion;
 
 	public override void _Ready()
 	{
@@ -35,12 +33,14 @@ public partial class Moneda : Consumible
 
 		base._Ready();
 
+		this.AnimationPlayerRotacion = GetNode<AnimationPlayer>("AnimationPlayerRotacion");
+
 		UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.OBJETOS);
 
 		this.AnimationPlayerRotacion.SpeedScale = this.VelocidadAnimacion;
 	}
 
-	public override void OnRecogida(Jugador jugador)
+	public override bool OnRecogida(Jugador jugador)
 	{
 		LoggerJuego.Info("Moneda (" + this.Valor + ") recogida.");
 
@@ -50,12 +50,7 @@ public partial class Moneda : Consumible
 
 		MostrarTextoFlotante();
 
-		// Cancelamos el timer si estaba activo.
-
-		_TimerDestruccion?.Stop();
-
-		// Usamos CallDeferred para evitar conflictos si el spawn ocurre durante la señal.
-		CallDeferred(Node.MethodName.QueueFree);
+		return true;
 	}
 
 	public virtual void MostrarTextoFlotante()

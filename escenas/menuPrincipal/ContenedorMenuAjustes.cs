@@ -16,34 +16,19 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 public partial class ContenedorMenuAjustes : ContenedorMenu
 {
 	private ControlSlider _ControlVolumenGeneral;
-	public ControlSlider ControlVolumenGeneral => _ControlVolumenGeneral ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenGeneral");
-
 	private ControlSlider _ControlVolumenMusica;
-	private ControlSlider ControlVolumenMusica => _ControlVolumenMusica ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenMusica");
-
 	private ControlSlider _ControlVolumenSonido;
-	private ControlSlider ControlVolumenSonido => _ControlVolumenSonido ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenSonido");
 
 	private ControlSeleccion _ControlLenguaje;
-	private ControlSeleccion ControlLenguaje => _ControlLenguaje ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSeleccion>(this, "ControlLenguaje");
-
 	private ControlSeleccion _ControlNivelLog;
-	private ControlSeleccion ControlNivelLog => _ControlNivelLog ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlSeleccion>(this, "ControlNivelLog");
 
 	private ControlCheckButton _ControlEscribirLogEnFichero;
-	private ControlCheckButton ControlEscribirLogEnFichero => _ControlEscribirLogEnFichero ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlEscribirLogEnFichero");
-
 	private ControlCheckButton _ControlVerColisiones;
-	private ControlCheckButton ControlVerColisiones => _ControlVerColisiones ??= UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlVerColisiones");
 
 	private ButtonPersonalizado _ButtonAtras;
-	private ButtonPersonalizado ButtonAtras => _ButtonAtras ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
-
 	private ButtonPersonalizado _ButtonGuardar;
-	private ButtonPersonalizado ButtonGuardar => _ButtonGuardar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
-	// Ajustes actuales.
-
+	#region Valor ajustes
 	public int VolumenGeneral;
 	public int VolumenMusica;
 	public int VolumenSonidos;
@@ -51,24 +36,34 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 	public NivelLog NivelLog;
 	public bool EscribirLogEnFichero;
 	public bool VerColisiones;
+	#endregion
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		LoggerJuego.Trace(this.Name + " Ready.");
+		_ControlVolumenGeneral = UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenGeneral");
+		_ControlVolumenMusica = UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenMusica");
+		_ControlVolumenSonido = UtilidadesNodos.ObtenerNodoPorNombre<ControlSlider>(this, "ControlVolumenSonido");
+		_ControlLenguaje = UtilidadesNodos.ObtenerNodoPorNombre<ControlSeleccion>(this, "ControlLenguaje");
+		_ControlNivelLog = UtilidadesNodos.ObtenerNodoPorNombre<ControlSeleccion>(this, "ControlNivelLog");
+		_ControlEscribirLogEnFichero = UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlEscribirLogEnFichero");
+		_ControlVerColisiones = UtilidadesNodos.ObtenerNodoPorNombre<ControlCheckButton>(this, "ControlVerColisiones");
+		_ButtonAtras = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAtras");
+		_ButtonGuardar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonGuardar");
 
 		CargarOpcionesLenguaje();
 		CargarOpcionesNivelLog();
 
 		// Cargar ajustes actuales.
-
 		CargarValoresDeAjustes();
+
+		LoggerJuego.Trace(this.Name + " Ready.");
 	}
 
 	public override Control ObtenerPrimerElementoConFoco()
 	{
-		return ControlVolumenGeneral.SliderVolumen;
+		return _ControlVolumenGeneral.SliderVolumen;
 	}
 
 	public override List<Control> ObtenerElementosConFoco()
@@ -87,7 +82,7 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 			idioma => (Variant)idioma.Codigo,
 			idioma => idioma.TagNombre
 		);
-		ControlLenguaje.AgregarOpciones(opcionesLenguajes);
+		_ControlLenguaje.AgregarOpciones(opcionesLenguajes);
 	}
 
 	private void CargarOpcionesNivelLog()
@@ -96,72 +91,70 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 			nivel => (Variant)(int)nivel,
 			nivel => nivel.ToString()
 		);
-		ControlNivelLog.AgregarOpciones(opcionesNivelLog);
+		_ControlNivelLog.AgregarOpciones(opcionesNivelLog);
 	}
 
 	private void CargarValoresDeAjustes()
 	{
-		ControlVolumenGeneral.ValorCambiado -= OnControlVolumenGeneralValorCambiado;
-		ControlVolumenMusica.ValorCambiado -= OnControlVolumenMusicaValorCambiado;
-		ControlVolumenSonido.ValorCambiado -= OnControlVolumenSonidosValorCambiado;
-		ControlLenguaje.ValorCambiado -= OnControlLenguajeValorCambiado;
-		ControlNivelLog.ValorCambiado -= OnControlNivelLogValorCambiado;
+		_ControlVolumenGeneral.ValorCambiado -= OnControlVolumenGeneralValorCambiado;
+		_ControlVolumenMusica.ValorCambiado -= OnControlVolumenMusicaValorCambiado;
+		_ControlVolumenSonido.ValorCambiado -= OnControlVolumenSonidosValorCambiado;
+		_ControlLenguaje.ValorCambiado -= OnControlLenguajeValorCambiado;
+		_ControlNivelLog.ValorCambiado -= OnControlNivelLogValorCambiado;
 
 		VolumenGeneral = Ajustes.VolumenGeneral;
-		ControlVolumenGeneral.Valor = VolumenGeneral;
+		_ControlVolumenGeneral.Valor = VolumenGeneral;
 
 		VolumenMusica = Ajustes.VolumenMusica;
-		ControlVolumenMusica.Valor = VolumenMusica;
+		_ControlVolumenMusica.Valor = VolumenMusica;
 
 		VolumenSonidos = Ajustes.VolumenSonidos;
-		ControlVolumenSonido.Valor = VolumenSonidos;
+		_ControlVolumenSonido.Valor = VolumenSonidos;
 
 		Lenguaje = Ajustes.Idioma;
-		ControlLenguaje.Valor = Ajustes.Idioma.Codigo;
+		_ControlLenguaje.Valor = Ajustes.Idioma.Codigo;
 
 		NivelLog = Ajustes.NivelLog;
-		ControlNivelLog.Valor = (int)Ajustes.NivelLog;
+		_ControlNivelLog.Valor = (int)Ajustes.NivelLog;
 
 		EscribirLogEnFichero = Ajustes.EscribirLogEnFichero;
-		ControlEscribirLogEnFichero.Valor = EscribirLogEnFichero;
+		_ControlEscribirLogEnFichero.Valor = EscribirLogEnFichero;
 
 		VerColisiones = Ajustes.VerColisiones;
-		ControlVerColisiones.Valor = VerColisiones;
+		_ControlVerColisiones.Valor = VerColisiones;
 
-		ControlVolumenGeneral.ValorCambiado += OnControlVolumenGeneralValorCambiado;
-		ControlVolumenMusica.ValorCambiado += OnControlVolumenMusicaValorCambiado;
-		ControlVolumenSonido.ValorCambiado += OnControlVolumenSonidosValorCambiado;
-		ControlLenguaje.ValorCambiado += OnControlLenguajeValorCambiado;
-		ControlNivelLog.ValorCambiado += OnControlNivelLogValorCambiado;
-		ControlEscribirLogEnFichero.ValorCambiado += OnControlEscribirLogEnFicheroValorCambiado;
-		ControlVerColisiones.ValorCambiado += OnControlVerColisionesValorCambiado;
+		_ControlVolumenGeneral.ValorCambiado += OnControlVolumenGeneralValorCambiado;
+		_ControlVolumenMusica.ValorCambiado += OnControlVolumenMusicaValorCambiado;
+		_ControlVolumenSonido.ValorCambiado += OnControlVolumenSonidosValorCambiado;
+		_ControlLenguaje.ValorCambiado += OnControlLenguajeValorCambiado;
+		_ControlNivelLog.ValorCambiado += OnControlNivelLogValorCambiado;
+		_ControlEscribirLogEnFichero.ValorCambiado += OnControlEscribirLogEnFicheroValorCambiado;
+		_ControlVerColisiones.ValorCambiado += OnControlVerColisionesValorCambiado;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
+		base._Input(@event);
+
 		// Solo respondemos si el menú es visible.
 		if (!this.Visible)
 			return;
 
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
-			if (this.ModoNavegacionTeclado)
-			{
-				UtilidadesNodos.PulsarBoton(ButtonAtras);
-				AcceptEvent();
-			}
+			UtilidadesNodos.PulsarBoton(_ButtonAtras);
+			AcceptEvent();
 		}
 	}
 
 	private void ActivarBotonGuardarSiCambio()
 	{
 		bool hayCambios =
-			!VolumenGeneral.Equals((int)ControlVolumenGeneral.Valor) ||
-			!VolumenMusica.Equals((int)ControlVolumenMusica.Valor) ||
-			!VolumenSonidos.Equals((int)ControlVolumenSonido.Valor) ||
-			!Lenguaje.Codigo.Equals(ControlLenguaje.Valor.AsString()) ||
-			!NivelLog.Equals((NivelLog)(int)ControlNivelLog.Valor);
-
+			!VolumenGeneral.Equals((int)_ControlVolumenGeneral.Valor) ||
+			!VolumenMusica.Equals((int)_ControlVolumenMusica.Valor) ||
+			!VolumenSonidos.Equals((int)_ControlVolumenSonido.Valor) ||
+			!Lenguaje.Codigo.Equals(_ControlLenguaje.Valor.AsString()) ||
+			!NivelLog.Equals((NivelLog)(int)_ControlNivelLog.Valor);
 		if (hayCambios)
 		{
 			ActivarNavegacionButtonGuardar();
@@ -174,28 +167,28 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 
 	private void ActivarNavegacionButtonGuardar()
 	{
-		ButtonGuardar.Disabled = false;
-		ButtonGuardar.FocusMode = FocusModeEnum.All;
+		_ButtonGuardar.Disabled = false;
+		_ButtonGuardar.FocusMode = FocusModeEnum.All;
 
 		// Informamos al ControlNivelLog que su vecino de abajo es el botón Guardar
 
-		ControlNivelLog.OptionButton.FocusNeighborBottom = ControlNivelLog.OptionButton.GetPathTo(ButtonGuardar);
+		_ControlNivelLog.OptionButton.FocusNeighborBottom = _ControlNivelLog.OptionButton.GetPathTo(_ButtonGuardar);
 		// Informamos al botón Atrás que su vecino a la derecha es el botón Guardar
 
-		ButtonAtras.FocusNeighborRight = ButtonAtras.GetPathTo(ButtonGuardar);
+		_ButtonAtras.FocusNeighborRight = _ButtonAtras.GetPathTo(_ButtonGuardar);
 	}
 
 	private void DesactivarNavegacionButtonGuardar()
 	{
-		ButtonGuardar.Disabled = true;
-		ButtonGuardar.FocusMode = FocusModeEnum.None;
+		_ButtonGuardar.Disabled = true;
+		_ButtonGuardar.FocusMode = FocusModeEnum.None;
 
 		// Informamos al ControlNivelLog que su vecino de abajo es el botón Atrás
 
-		ControlNivelLog.OptionButton.FocusNeighborBottom = ControlNivelLog.OptionButton.GetPathTo(ButtonAtras);
+		_ControlNivelLog.OptionButton.FocusNeighborBottom = _ControlNivelLog.OptionButton.GetPathTo(_ButtonAtras);
 		// Informamos al botón Atrás que su vecino a la derecha es el ControlNivelLog
 
-		ButtonAtras.FocusNeighborRight = ButtonAtras.GetPathTo(ControlNivelLog.OptionButton);
+		_ButtonAtras.FocusNeighborRight = _ButtonAtras.GetPathTo(_ControlNivelLog.OptionButton);
 	}
 
 	private void OnControlVolumenGeneralValorCambiado(double valor)
@@ -258,19 +251,18 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 		LoggerJuego.Trace("Botón Ajustes 'Guardar' pulsado.");
 
 		Ajustes.GuardarAjustesAlGuardarPropiedad = false;
-		Ajustes.VolumenGeneral = (int)ControlVolumenGeneral.Valor;
-		Ajustes.VolumenMusica = (int)ControlVolumenMusica.Valor;
-		Ajustes.VolumenSonidos = (int)ControlVolumenSonido.Valor;
-		Ajustes.Idioma = GestorIdioma.ObtenerIdiomaDeCodigo((string)ControlLenguaje.Valor);
-		Ajustes.NivelLog = (NivelLog)(int)ControlNivelLog.Valor;
-
-		Ajustes.GuardarAjustes();
+		Ajustes.VolumenGeneral = (int)_ControlVolumenGeneral.Valor;
+		Ajustes.VolumenMusica = (int)_ControlVolumenMusica.Valor;
+		Ajustes.VolumenSonidos = (int)_ControlVolumenSonido.Valor;
+		Ajustes.Idioma = GestorIdioma.ObtenerIdiomaDeCodigo((string)_ControlLenguaje.Valor);
+		Ajustes.NivelLog = (NivelLog)(int)_ControlNivelLog.Valor;
 		Ajustes.GuardarAjustesAlGuardarPropiedad = true;
+		Ajustes.Guardar();
 
 		CargarValoresDeAjustes();
 
 		DesactivarNavegacionButtonGuardar();
 
-		ButtonAtras.GrabFocusSilencioso();
+		_ButtonAtras.GrabFocusSilencioso();
 	}
 }

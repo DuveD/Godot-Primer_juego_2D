@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Primerjuego2D.escenas.menuPrincipal;
+using Primerjuego2D.escenas.batalla.HUD;
+using Primerjuego2D.escenas.sistema.audio.efectos;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -9,61 +10,60 @@ namespace Primerjuego2D.escenas.batalla;
 
 public partial class BatallaHUD : CanvasLayer
 {
-    private Label _MessageLabel;
-    private Label MessageLabel => _MessageLabel ??= GetNode<Label>("Message");
+    private Label MessageLabel;
 
-    private Label _LabelGameOver;
-    private Label LabelGameOver => _LabelGameOver ??= GetNode<Label>("LabelGameOver");
+    private Label LabelGameOver;
 
-    private Label _ScoreLabel;
-    private Label ScoreLabel => _ScoreLabel ??= GetNode<Label>("ScoreLabel");
+    private Label ScoreLabel;
 
-    private PanelMenuPausa _PanelMenuPausa;
-    public PanelMenuPausa PanelMenuPausa => _PanelMenuPausa ??= GetNode<PanelMenuPausa>("PanelMenuPausa");
+    private PanelMenuPausa PanelMenuPausa;
+
+    private HBoxContainer HBoxContainerVidas;
 
     Dictionary<CanvasItem, bool> VisibilidadElementosPausa;
+
+    [Export]
+    public PackedScene VidaSpriteScene;
+
+    private List<Control> _spritesVidas = new();
+
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.MessageLabel = GetNode<Label>("Message");
+        this.LabelGameOver = GetNode<Label>("LabelGameOver");
+        this.ScoreLabel = GetNode<Label>("ScoreLabel");
+        this.PanelMenuPausa = GetNode<PanelMenuPausa>("PanelMenuPausa");
+        this.HBoxContainerVidas = UtilidadesNodos.ObtenerNodoPorNombre<HBoxContainer>(this, "HBoxContainerVidas");
 
         this.LabelGameOver.Hide();
     }
 
     async public void MostrarMensajesIniciarBatalla()
     {
+        this.MessageLabel.Show();
+
         // Cambiamos el texto al inicial de la partida.
-        ActualizarMensaje("BatallaHUD.mensaje.preparate");
+        this.MessageLabel.Text = "BatallaHUD.mensaje.preparate";
 
         await UtilidadesNodos.EsperarSegundos(this, 2.0);
         await UtilidadesNodos.EsperarRenaudar(this);
 
-        ActualizarMensaje("BatallaHUD.mensaje.vamos");
+        this.MessageLabel.Text = "BatallaHUD.mensaje.vamos";
 
         // Creamos un timer de 1 segundo y esperamos.
         await UtilidadesNodos.EsperarSegundos(this, 1.0);
         await UtilidadesNodos.EsperarRenaudar(this);
 
-        MostrarMensaje(false);
+        this.MessageLabel.Hide();
     }
 
     public void MostrarMensajeGameOver()
     {
         this.MessageLabel.Hide();
         this.LabelGameOver.Show();
-    }
-
-    public void ActualizarMensaje(string mensaje)
-    {
-        this.MessageLabel.Text = mensaje;
-    }
-
-    public void MostrarMensaje(bool mostrar)
-    {
-        if (mostrar)
-            this.MessageLabel.Show();
-        else
-            this.MessageLabel.Hide();
     }
 
     public void ActualizarPuntuacion(int score)
@@ -99,12 +99,33 @@ public partial class BatallaHUD : CanvasLayer
     public void MostrarContenedorPausa()
     {
         Global.GestorAudio.ReproducirSonido("pause.mp3");
+        Global.GestorEfectosAudio.Activar(EfectoBajoElAgua.ID);
         this.PanelMenuPausa.Show();
     }
 
     public void EsconderContenedorPausa()
     {
         Global.GestorAudio.ReproducirSonido("unpause.mp3");
+        Global.GestorEfectosAudio.Desactivar(EfectoBajoElAgua.ID);
         this.PanelMenuPausa.Hide();
+    }
+
+    public void OnCambioVida(int vida)
+    {
+        // Limpiar sprites antiguos
+
+        var spritesVidas = UtilidadesNodos.ObtenerNodosDeTipo<SpriteVida>(HBoxContainerVidas);
+        foreach (var spriteVida in spritesVidas)
+            spriteVida.QueueFree();
+
+        _spritesVidas.Clear();
+
+        // Crear nuevas vidas
+        for (int i = 0; i < vida; i++)
+        {
+            SpriteVida spriteVida = VidaSpriteScene.Instantiate<SpriteVida>();
+            HBoxContainerVidas.AddChild(spriteVida);
+            _spritesVidas.Add(spriteVida);
+        }
     }
 }

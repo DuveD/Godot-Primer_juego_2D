@@ -6,6 +6,7 @@ using Godot;
 using Primerjuego2D.escenas.entidades.enemigo;
 using Primerjuego2D.escenas.objetos.modelos;
 using Primerjuego2D.nucleo.constantes;
+using Primerjuego2D.nucleo.entidades.atributo;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -17,11 +18,7 @@ public partial class Jugador : CharacterBody2D
 
     public const string ANIMATION_WALK = "walk";
 
-    [Export]
-    public int Velocidad { get; set; } = 400; // Velocidad de movimiento del jugador (pixels/sec).
-
-    public bool Muerto { get; private set; } = false;
-
+    #region Señales
     // Señal "MuerteJugador" para indicar colisión con el jugador.
     [Signal]
     public delegate void MuerteJugadorEventHandler();
@@ -29,26 +26,94 @@ public partial class Jugador : CharacterBody2D
     [Signal]
     public delegate void AnimacionMuerteJugadorTerminadaEventHandler();
 
-    private CollisionShape2D _CollisionShape2D;
-    private CollisionShape2D CollisionShape2D => _CollisionShape2D ??= GetNode<CollisionShape2D>("HitBox/HitBoxCollisionShape2D");
+    [Signal]
+    public delegate void CambioVidaEventHandler(int vida);
+    #endregion
 
-    private AnimatedSprite2D _AnimatedSprite2D;
-    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    private CollisionShape2D CollisionShape2D;
 
-    private CpuParticles2D _ExplosionMuerte;
-    private CpuParticles2D ExplosionMuerte => _ExplosionMuerte ??= GetNode<CpuParticles2D>("ExplosionMuerte");
+    public AnimatedSprite2D AnimatedSprite2D;
+
+    private CpuParticles2D ExplosionMuerte;
 
     private Vector2 TamanoPantalla => UtilidadesPantalla.ObtenerTamanoPantalla(this);
 
     private readonly List<PowerUp> _PowerUpsActivos = [];
     public IReadOnlyList<PowerUp> PowerUpsActivos => _PowerUpsActivos;
 
-    public bool Invulnerable = false;
+    private IEnumerable<ModificadorAtributo<T>> ObtenerModificadores<T>(Atributo<T> atributo)
+    {
+        // Devuelve todos los modificadores de los powerups que afecten a este atributo.
+        return _PowerUpsActivos
+            .SelectMany(p => p.ObtenerModificadoresAtributos<T>())
+            .Where(m => m.NombreAtributo == atributo.Nombre);
+    }
+
+    #region Atributos
+    [Export]
+    public int VelocidadBase { get; set; } = 400; // Velocidad de movimiento del jugador (pixels/sec).
+
+    public Atributo<long> Velocidad { get; }
+
+    public Atributo<bool> Invulnerable { get; }
+
+    [Export]
+    public int VidaMaxima { get; set; } = 3;
+
+    public int Vida
+    {
+        get;
+        set
+        {
+            if (value == field)
+                return;
+
+            if (Invulnerable.Valor && value < field)
+            {
+                LoggerJuego.Warn("Se ha intentado quitar vida al jugador mientras era invulnerable: Nueva cantidad: " + value + ", cantidad actual: " + field);
+                return;
+            }
+
+            if (value > VidaMaxima)
+            {
+                field = VidaMaxima;
+                LoggerJuego.Info("El jugador no puede tener más de " + VidaMaxima + " puntos de vida.");
+            }
+            else if (value < 0)
+            {
+                field = 0;
+                LoggerJuego.Info("Los puntos de vida del jugador no puede ser menor a 0.");
+            }
+            else
+            {
+                field = value;
+                LoggerJuego.Info("Nueva vida del jugador: " + field);
+            }
+
+            EmitSignal(SignalName.CambioVida, field);
+
+            if (field <= 0)
+                Morir();
+        }
+    }
+    #endregion
+
+    public bool Muerto { get; private set; } = false;
+
+    public Jugador()
+    {
+        Velocidad = new Atributo<long>(nameof(Velocidad), VelocidadBase, () => ObtenerModificadores(Velocidad));
+        Invulnerable = new Atributo<bool>(nameof(Invulnerable), false, () => ObtenerModificadores(Invulnerable));
+    }
 
     // Se llama cuando el nodo entra por primera vez en el árbol de escenas.
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.CollisionShape2D = GetNode<CollisionShape2D>("HitBox/HitBoxCollisionShape2D");
+        this.AnimatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        this.ExplosionMuerte = GetNode<CpuParticles2D>("ExplosionMuerte");
 
         UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.JUGADOR);
 
@@ -79,7 +144,7 @@ public partial class Jugador : CharacterBody2D
         if (velocidad.Length() > 0)
         {
             velocidad = velocidad.Normalized();
-            velocidad *= this.Velocidad;
+            velocidad *= this.Velocidad.Valor;
 
             this.AnimatedSprite2D.Play();
         }
@@ -190,6 +255,7 @@ public partial class Jugador : CharacterBody2D
         Show();
 
         this.Muerto = false;
+        this.Vida = this.VidaMaxima;
 
         this.CollisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
     }
@@ -204,27 +270,32 @@ public partial class Jugador : CharacterBody2D
 
     private async void OnBodyEnteredEnemigo()
     {
-        if (this.Invulnerable)
+        if (this.Invulnerable.Valor) { LoggerJuego.Info("Jugador golpeado por enemigo pero es invulnerable."); }
+        else
         {
-            LoggerJuego.Info("Jugador golpeado por enemigo pero es invulnerable.");
-            return;
+            LoggerJuego.Info("Jugador golpeado por enemigo.");
+            // Provocamos un shacek de la cámara.
+
+            this.Vida -= 1;
+
+            float shake = this.Vida == 0 ? 0.6f : 0.4f;
+            Juego.Camara?.AddTrauma(shake);
         }
-
-        LoggerJuego.Info("Jugador golpeado por enemigo.");
-
-        Morir();
     }
 
     public async void Morir()
     {
-        LimpiarPowerUps();
+        if (Muerto)
+            return;
+
+        // Marcamos al jugador como muerto.
+        this.Muerto = true;
 
         // Desactivamos la colisión para que la señal no se siga emitiendo.
         // Debe ser diferido ya que no podemos cambiar las propiedades físicas en un callback de física.
         this.CollisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-        // Marcamos al jugador como muerto.
-        this.Muerto = true;
+        LimpiarPowerUps();
 
         // Emitimos la señal de que hemos sido golpeados y esperamos dos segundos.
         EmitSignal(SignalName.MuerteJugador);
@@ -237,9 +308,6 @@ public partial class Jugador : CharacterBody2D
 
     private async Task AnimacionMuerte()
     {
-        // Provocamos un shacek de la cámara.
-        Juego.Camara?.AddTrauma(0.3f);
-
         // Paramamos la animación del sprite y cambiamos el color a rojo.
         this.AnimatedSprite2D.Stop();
         this.AnimatedSprite2D.Modulate = new Color(ConstantesColores.ROJO_PASTEL);

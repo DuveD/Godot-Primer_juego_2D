@@ -13,12 +13,13 @@ public partial class Juego : Control
 	public CamaraPrincipal _Camara { get; set; }    // Nodo de la escena
 	public static CamaraPrincipal Camara { get; private set; }
 
-	private Control _ContenedorEscena;
-	private Control ContenedorEscena => _ContenedorEscena ??= GetNode<Control>("ContenedorEscena");
+	private Control ContenedorEscena;
 
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
+
+		this.ContenedorEscena = GetNode<Control>("ContenedorEscena");
 
 		Juego.Camara ??= _Camara;
 
@@ -47,6 +48,7 @@ public partial class Juego : Control
 		MenuPrincipal menuPrincipal = (MenuPrincipal)CambiarPantalla(rutaMenuprincipal);
 
 		menuPrincipal.ContenedorMenuPrincipal.BotonEmpezarPartidaPulsado += CargarBatalla;
+		menuPrincipal.ContenedorMenuPerfiles.OnCrearPrimerPerfil += CargarBatalla;
 	}
 
 	public void CargarBatalla()

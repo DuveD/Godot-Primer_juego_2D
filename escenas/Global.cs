@@ -1,51 +1,122 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.sistema;
+using Primerjuego2D.escenas.sistema.audio;
+using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
-using Primerjuego2D.nucleo.sistema.estadisticas;
-using Primerjuego2D.nucleo.sistema.logros;
-using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas;
 
 public partial class Global : Node
 {
-    public static Global Instancia { get; private set; }
+    [Signal]
+    public delegate void OnCambioPerfilActivoEventHandler();
 
-    public GestorColor _GestorColor { get; private set; }
+    [Signal]
+    public delegate void OnNavegacionTecladoCambiadoEventHandler(bool nuevoValor);
+
+    public static bool NavegacionTeclado
+    {
+        get;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                Instancia.EmitSignal(SignalName.OnNavegacionTecladoCambiado, value);
+            }
+        }
+    }
+
+    public static Global Instancia;
+
+    private GestorColor _GestorColor;
     public static GestorColor GestorColor => Global.Instancia._GestorColor;
 
-    public GestorAudio _GestorAudio { get; private set; }
+    private GestorAudio _GestorAudio;
     public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
+
+    private GestorEfectosAudio _GestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
+
+    private Perfil _perfilActivo;
+    public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
+
+    private IndicadorCarga _indicadorCarga;
+    public static IndicadorCarga IndicadorCarga => Global.Instancia._indicadorCarga;
 
     public Global()
     {
+        Global.Instancia = this;
         Ajustes.CargarAjustes();
-        GestorEstadisticas.CargarEstadisticas();
-        GestorLogros.CargarLogros();
-
-        // Informar idioma.
-        Idioma idioma = Ajustes.Idioma;
-        GestorIdioma.CambiarIdioma(idioma);
     }
 
     public override void _Ready()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
+        // Informar idioma.
+        Idioma idioma = Ajustes.Idioma;
+        GestorIdioma.CambiarIdioma(idioma);
 
-        InicializarValoresEstaticos();
+        _GestorColor = GetNode<GestorColor>("GestorColor");
+        _GestorAudio = GetNode<GestorAudio>("GestorAudio");
+        _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
 
         // Mostramos colisiones.
         bool verColisiones = Ajustes.VerColisiones;
         GetTree().DebugCollisionsHint = verColisiones;
+
+        CargarPerfilActivo();
+
+        NavegacionTeclado = false;
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
-    private void InicializarValoresEstaticos()
+    private async void CargarPerfilActivo()
     {
-        Global.Instancia = this;
+        if (String.IsNullOrWhiteSpace(Ajustes.IdPerfilActivo))
+        {
+            LoggerJuego.Info("No hay perfil activo configurado en ajustes.");
+            return;
+        }
 
-        _GestorColor = GetNode<GestorColor>("GestorColor");
-        _GestorAudio = GetNode<GestorAudio>("GestorAudio");
+        IndicadorCarga.Mostrar();
+
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        Perfil perfilActivo = await Task.Run(() =>
+        {
+            return GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
+        });
+
+        if (perfilActivo != null)
+        {
+            CambiarPerfilActivo(perfilActivo);
+        }
+        else
+        {
+            LoggerJuego.Warn($"No se pudo cargar el perfil ({Ajustes.IdPerfilActivo}) activo configurado en ajustes.");
+        }
+
+        IndicadorCarga.Esconder();
+    }
+
+    public static void CambiarPerfilActivo(Perfil perfil)
+    {
+        Global.Instancia._perfilActivo = perfil;
+        Ajustes.IdPerfilActivo = perfil?.Id;
+
+        Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
+    }
+
+    public static void GuardarPerfilActivo()
+    {
+        if (Global.PerfilActivo != null)
+            GestorPerfiles.GuardarPerfil(Global.PerfilActivo);
     }
 }

@@ -11,12 +11,12 @@ public static class Randomizador
     // ---- MÉTODOS GENERALES ----
 
     /// <summary>
-    /// Devuelve un número entero aleatorio entre minValue (incluido) y maxValue (excluido).
+    /// Devuelve un número entero aleatorio entre minValue (incluido) y maxValue (incluido).
     /// Usa una instancia global compartida.
     /// </summary>
     public static int GetRandomInt(int minValue, int maxValue)
     {
-        return GlobalRandom.Next(minValue, maxValue);
+        return GlobalRandom.Next(minValue, maxValue + 1);
     }
 
     /// <summary>

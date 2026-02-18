@@ -9,28 +9,21 @@ public partial class Batalla : Node
     [Signal]
     public delegate void GameOverFinalizadoEventHandler();
 
-    ColorRect _Fondo;
-    private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
+    private Jugador Jugador;
 
-    private Jugador _Jugador;
-    private Jugador Jugador => _Jugador ??= GetNode<Jugador>("Jugador");
+    private Marker2D StartPosition;
 
-    private Marker2D _StartPosition;
-    private Marker2D StartPosition => _StartPosition ??= GetNode<Marker2D>("StartPosition");
-
-    private BatallaControlador _BatallaControlador;
-    private BatallaControlador BatallaControlador => _BatallaControlador ??= GetNode<BatallaControlador>("BatallaControlador");
-
-    private CanvasLayer _CanvasLayer;
-    private CanvasLayer CanvasLayer => _CanvasLayer ??= GetNode<CanvasLayer>("CanvasLayer");
+    private BatallaControlador BatallaControlador;
 
     public override void _Ready()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
-
-        ProcessMode = ProcessModeEnum.Pausable;
+        this.Jugador = GetNode<Jugador>("Jugador");
+        this.StartPosition = GetNode<Marker2D>("StartPosition");
+        this.BatallaControlador = GetNode<BatallaControlador>("BatallaControlador");
 
         this.NuevoJuego();
+
+        LoggerJuego.Trace(this.Name + " Ready.");
     }
 
     public void NuevoJuego()

@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://wpvlkh5k6xp4"]
+
+[ext_resource type="Script" uid="uid://c4nfp2ea8n24c" path="res://escenas/ui/ContenedorConfirmacion.cs" id="1_lxnim"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="2_vcuqh"]
+[ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_piy7o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_1n7hr"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v7ugp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[node name="ContenedorConfirmacion" type="CenterContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lxnim")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MensajeConfirmacion" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_vcuqh")
+theme_override_font_sizes/font_size = 30
+text = "BatallaHUD.mensaje.preguntaSalir"
+horizontal_alignment = 1
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1n7hr")
+
+[node name="PanelContainerContentSize" type="PanelContainer" parent="VBoxContainer/PanelContainerMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v7ugp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ButtonConfirmar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" instance=ExtResource("3_piy7o")]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_right = NodePath("../ButtonCancelar")
+theme_override_fonts/font = ExtResource("2_vcuqh")
+text = "BatallaHUD.boton.salir"
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="ButtonCancelar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" instance=ExtResource("3_piy7o")]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../ButtonConfirmar")
+theme_override_fonts/font = ExtResource("2_vcuqh")
+text = "BatallaHUD.boton.cancelar"
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"

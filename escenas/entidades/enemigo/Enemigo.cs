@@ -19,18 +19,19 @@ public partial class Enemigo : RigidBody2D
 
     public const string GROUP_ENEMIES_NAME = "Enemies";
 
-    private AnimatedSprite2D _AnimatedSprite2D;
-    private AnimatedSprite2D AnimatedSprite2D => _AnimatedSprite2D ??= GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    private AnimatedSprite2D AnimatedSprite2D;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
 
+        this.AnimatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
         UtilidadesNodos2D.AjustarZIndexNodo(this, ConstantesZIndex.ENEMIGOS);
 
         // Seleccionamos aleatoriamente una animación de entre todas las disponibles para enemigos.
         List<string> enemyAnimations = new() { ANIMATION_FLY, ANIMATION_SWIM, ANIMATION_WALK };
-        int enemyAnimation = Randomizador.GetRandomInt(0, enemyAnimations.Count);
+        int enemyAnimation = Randomizador.GetRandomInt(0, enemyAnimations.Count - 1);
 
         this.AnimatedSprite2D.Animation = enemyAnimations[enemyAnimation];
         this.AnimatedSprite2D.Play();

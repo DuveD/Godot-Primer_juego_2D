@@ -1,6 +1,7 @@
-using System;
+using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
+using Primerjuego2D.nucleo.entidades.atributo;
 using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.objetos.modelos;
@@ -14,8 +15,6 @@ public abstract partial class PowerUp : Consumible
         AcumulaEfecto
     }
 
-    public string Id { get; } = System.Guid.NewGuid().ToString();
-
     // Si es -1 es permanente.
     [Export]
     public float TiempoDuracion { get; set; } = -1f;
@@ -28,14 +27,12 @@ public abstract partial class PowerUp : Consumible
 
     public Timer TimerDuracionPowerUp;
 
-    public override void _Ready()
+    public virtual List<ModificadorAtributo<T>> ObtenerModificadoresAtributos<T>()
     {
-        LoggerJuego.Trace(this.Name + " Ready.");
-
-        base._Ready();
+        return [];
     }
 
-    public override void OnRecogida(Jugador jugador)
+    public override bool OnRecogida(Jugador jugador)
     {
         LoggerJuego.Info("PowerUp " + this.Name + " recogido.");
 
@@ -66,6 +63,8 @@ public abstract partial class PowerUp : Consumible
 
         // Ocultamos el Sprite del consumible.
         Sprite2D.SetDeferred(CanvasItem.PropertyName.Visible, false);
+
+        return false;
     }
 
     private void AnadirPowerUpAJugador(Jugador jugador)
@@ -118,7 +117,7 @@ public abstract partial class PowerUp : Consumible
 
     public void ReiniciarTimer()
     {
-        if (TimerDuracionPowerUp == null)
+        if (TimerDuracionPowerUp == null || !IsInstanceValid(TimerDuracionPowerUp))
             return;
 
         this.TimerDuracionPowerUp.Stop();
@@ -128,7 +127,7 @@ public abstract partial class PowerUp : Consumible
 
     public void SumarTiempoTimer(float tiempo)
     {
-        if (TimerDuracionPowerUp == null)
+        if (TimerDuracionPowerUp == null || !IsInstanceValid(TimerDuracionPowerUp))
             return;
 
         this.TimerDuracionPowerUp.Stop();

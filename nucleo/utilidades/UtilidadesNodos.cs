@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.miscelaneo;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.nucleo.utilidades;
 
@@ -135,14 +136,21 @@ public static class UtilidadesNodos
     public static void BorrarHijos(Node node)
     {
         foreach (Node child in node.GetChildren())
+        {
+            node.RemoveChild(child);
             child.QueueFree();
+        }
+
     }
 
     /// <summary>
     /// Obtiene un nodo hijo por su nombre.
     /// </summary>
-    public static T ObtenerNodoPorNombre<T>(Node nodoPadre, string nombre) where T : Node
+    public static T ObtenerNodoPorNombre<T>(Node nodoPadre, string nombre, int nivel = 0) where T : Node
     {
+        if (nodoPadre == null)
+            return null;
+
         if (nodoPadre.Name == nombre && nodoPadre is T match)
         {
             return match;
@@ -151,48 +159,49 @@ public static class UtilidadesNodos
         {
             foreach (Node child in nodoPadre.GetChildren())
             {
-                var result = ObtenerNodoPorNombre<T>(child, nombre);
+                var result = ObtenerNodoPorNombre<T>(child, nombre, nivel + 1);
                 if (result != null)
                     return result;
             }
         }
 
+        if (nivel == 0)
+            LoggerJuego.Warn("No se ha encontrado ningún nodo con el nombre '" + nombre + "' del tipo '" +
+                             typeof(T).Name + "'.");
+
         return null;
     }
-
 
     /// <summary>
     /// Obtiene el primer nodo hijo del tipo indicado.
     /// </summary>
-    public static T ObtenerNodoDeTipo<T>(Node nodoPadre, bool? visible = null) where T : Node
+    public static T ObtenerNodoDeTipo<T>(Node nodoPadre, int nivel = 0) where T : Node
     {
-        T resultado = null;
-
         if (nodoPadre == null)
             return null;
 
         if (nodoPadre is T nodoDelTipo)
         {
-            if (visible == null || (nodoDelTipo is CanvasItem ci && ci.Visible == visible))
-            {
-                resultado = nodoDelTipo;
-            }
+            return nodoDelTipo;
         }
 
         foreach (Node hijo in nodoPadre.GetChildren())
         {
-            resultado = ObtenerNodoDeTipo<T>(hijo, visible);
+            var resultado = ObtenerNodoDeTipo<T>(hijo, nivel + 1);
             if (resultado != null)
-                break;
+                return resultado;
         }
 
-        return resultado;
+        if (nivel == 0)
+            LoggerJuego.Warn("No se ha encontrado ningún nodo del tipo '" + typeof(T).Name + "'.");
+
+        return null;
     }
 
     /// <summary>
     /// Obtiene todos los nodos hijos del tipo indicado.
     /// </summary>
-    public static List<T> ObtenerNodosDeTipo<T>(Node nodoPadre, bool? visible = null) where T : Node
+    public static List<T> ObtenerNodosDeTipo<T>(Node nodoPadre) where T : Node
     {
         var resultado = new List<T>();
 
@@ -201,22 +210,31 @@ public static class UtilidadesNodos
 
         if (nodoPadre is T nodoDelTipo)
         {
-            if (visible == null || (nodoDelTipo is CanvasItem ci && ci.Visible == visible))
-            {
-                resultado.Add(nodoDelTipo);
-            }
+            resultado.Add(nodoDelTipo);
         }
 
         foreach (Node hijo in nodoPadre.GetChildren())
         {
-            resultado.AddRange(ObtenerNodosDeTipo<T>(hijo, visible));
+            resultado.AddRange(ObtenerNodosDeTipo<T>(hijo));
         }
 
         return resultado;
     }
 
-    public static void PulsarBoton(Button boton)
+    public static void PulsarBoton(Button boton, bool soloSiNoEstaDesactivado = true)
     {
-        boton?.EmitSignal(BaseButton.SignalName.Pressed);
+        if (boton == null)
+        {
+            LoggerJuego.Warn("Intentando pulsar un botón nulo.");
+            return;
+        }
+
+        if (soloSiNoEstaDesactivado && boton.Disabled)
+        {
+            LoggerJuego.Warn("Intentando pulsar el botón '" + boton.Name + "' pero está desactivado.");
+            return;
+        }
+
+        boton.EmitSignal(BaseButton.SignalName.Pressed);
     }
 }

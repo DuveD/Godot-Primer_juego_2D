@@ -1,46 +1,37 @@
 using System.Collections.Generic;
 using Godot;
-using Primerjuego2D.escenas.batalla;
 using Primerjuego2D.escenas.menuPrincipal;
+using Primerjuego2D.escenas.ui;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
+namespace Primerjuego2D.escenas.batalla;
+
 public partial class PanelMenuPausa : Control
 {
-    public bool ModoNavegacionTeclado = false;
+    [Signal]
+    public delegate void OnButtonSalirConfirmarPressedEventHandler();
 
-    private ContenedorMenuPausa _ContenedorMenuPausa;
-    private ContenedorMenuPausa ContenedorMenuPausa => _ContenedorMenuPausa ??= GetNode<ContenedorMenuPausa>("ContenedorMenuPausa");
+    private ContenedorMenuPausa ContenedorMenuPausa;
 
-    private ContenedorMenuAjustes _ContenedorMenuAjustes;
-    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
-
-    private IEnumerable<ContenedorMenu> Menus => UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+    private ContenedorMenuAjustes ContenedorMenuAjustes;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
 
+        this.ContenedorMenuPausa = GetNode<ContenedorMenuPausa>("ContenedorMenuPausa");
+        this.ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+
         this.VisibilityChanged += OnVisibilityChanged;
-
-        foreach (ContenedorMenu contenedorMenu in Menus)
-        {
-            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
-        }
-    }
-
-    private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
-    {
-        this.ModoNavegacionTeclado = modoNavegacionTeclado;
     }
 
     private void OnVisibilityChanged()
     {
         if (this.Visible)
         {
-            this.ModoNavegacionTeclado = false;
-            this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, true);
+            this.ContenedorMenuPausa.Show(true);
             this.ContenedorMenuAjustes.Hide();
         }
         else
@@ -50,11 +41,12 @@ public partial class PanelMenuPausa : Control
         }
     }
 
-
     public override void _UnhandledInput(InputEvent @event)
     {
+        base._UnhandledInput(@event);
+
         // Solo respondemos si el menú es visible.
-        if (!this.Visible)
+        if (!this.IsVisibleInTree())
             return;
 
         // Bloqueamos todos los eventos hacia abajo.
@@ -64,12 +56,30 @@ public partial class PanelMenuPausa : Control
     public void OnButtonAjustesPressed()
     {
         this.ContenedorMenuPausa.Hide();
-        this.ContenedorMenuAjustes.Show(this.ModoNavegacionTeclado, true);
+        this.ContenedorMenuAjustes.Show(true);
     }
 
     public void OnButtonAjustesAtrasPressed()
     {
+        this.ContenedorMenuPausa.Show(false);
         this.ContenedorMenuAjustes.Hide();
-        this.ContenedorMenuPausa.Show(this.ModoNavegacionTeclado, false);
+    }
+
+    public void OnButtonSalirPressed()
+    {
+        this.ContenedorMenuPausa.Hide();
+        this.ContenedorMenuAjustes.Hide();
+        ContenedorConfirmacion.Instanciar(this,
+            "BatallaHUD.mensaje.preguntaSalir",
+            "BatallaHUD.boton.salir",
+            "BatallaHUD.boton.cancelar",
+            () => EmitSignal(SignalName.OnButtonSalirConfirmarPressed),
+            OnButtonSalirCancelarPressed);
+    }
+
+    public void OnButtonSalirCancelarPressed()
+    {
+        this.ContenedorMenuPausa.Show(false);
+        this.ContenedorMenuAjustes.Hide();
     }
 }

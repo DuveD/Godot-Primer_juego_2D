@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfcrhp3oysfra"]
+
+[ext_resource type="Script" uid="uid://bjnuyf6klh4s0" path="res://escenas/ui/overlays/IndicadorCarga.cs" id="1_6kkib"]
+[ext_resource type="Texture2D" uid="uid://c2yyl8rppcmdf" path="res://recursos/imagenes/iconos/cargando.png" id="2_qycfk"]
+
+[node name="IndicadorCarga" type="CanvasLayer"]
+script = ExtResource("1_6kkib")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(60, 60)
+offset_right = 60.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("2_qycfk")
+expand_mode = 2
+stretch_mode = 4

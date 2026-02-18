@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.entidades.jugador;
-using Primerjuego2D.escenas.objetos.moneda;
+using Primerjuego2D.escenas.objetos.consumible;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;
@@ -56,24 +59,25 @@ public partial class BatallaControlador : Control
         }
     }
 
-    private BatallaHUD _BatallaHUD;
-    private BatallaHUD BatallaHUD => _BatallaHUD ??= GetNode<BatallaHUD>("../BatallaHUD");
+    private BatallaHUD BatallaHUD;
 
-    private SpawnEnemigos _SpawnEnemigos;
-    private SpawnEnemigos SpawnEnemigos => _SpawnEnemigos ??= GetNode<SpawnEnemigos>("../SpawnEnemigos");
+    private SpawnEnemigos SpawnEnemigos;
 
-    private SpawnMonedas _SpawnMonedas;
-    private SpawnMonedas SpawnMonedas => _SpawnMonedas ??= GetNode<SpawnMonedas>("../SpawnMonedas");
+    private SpawnMonedas SpawnMonedas;
 
-    private SpawnPowerUps _SpawnPowerUps;
-    private SpawnPowerUps SpawnPowerUps => _SpawnPowerUps ??= GetNode<SpawnPowerUps>("../SpawnPowerUps");
+    private SpawnPowerUps SpawnPowerUps;
 
-    private Jugador _Jugador;
-    private Jugador Jugador => _Jugador ??= GetNode<Jugador>("../Jugador");
+    private Jugador Jugador;
 
     public override void _Ready()
     {
         LoggerJuego.Trace(this.Name + " Ready.");
+
+        this.BatallaHUD = GetNode<BatallaHUD>("../BatallaHUD");
+        this.SpawnEnemigos = GetNode<SpawnEnemigos>("../SpawnEnemigos");
+        this.SpawnMonedas = GetNode<SpawnMonedas>("../SpawnMonedas");
+        this.SpawnPowerUps = GetNode<SpawnPowerUps>("../SpawnPowerUps");
+        this.Jugador = GetNode<Jugador>("../Jugador");
 
         GestorEstadisticas.InicializarPartida();
     }
@@ -135,18 +139,31 @@ public partial class BatallaControlador : Control
         BatallaEnCurso = false;
 
         GestorEstadisticas.PartidaActual.RegistrarPuntuacion(this.Puntuacion);
-        GestorEstadisticas.FinalizarPartida();
+        GestorEstadisticas.FinalizarPartida(Global.PerfilActivo);
+        Global.PerfilActivo.FechaUltimaPartida = DateTime.Now;
+        Global.GuardarPerfilActivo();
 
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
 
-        GestorLogros.EmitirEvento(GestorLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        List<Logro> logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        if (logrosDesbloqueados.Any())
+            Global.GuardarPerfilActivo();
     }
 
     public void SumarPuntuacion(Moneda moneda)
     {
-        if (!this.BatallaEnCurso)
+        if (moneda == null)
+        {
+            LoggerJuego.Error("La moneda recogida es nula.");
             return;
+        }
+
+        if (GestorEstadisticas.PartidaActual == null)
+        {
+            LoggerJuego.Error("Moneda recogida después de terminar la partida..");
+            return;
+        }
 
         this.Puntuacion += moneda.Valor;
         GestorEstadisticas.PartidaActual.RegistrarMoneda(moneda is MonedaEspecial);

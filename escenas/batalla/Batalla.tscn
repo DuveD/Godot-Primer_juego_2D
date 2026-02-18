@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene load_steps=19 format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -7,11 +7,34 @@
 [ext_resource type="PackedScene" uid="uid://qrdflnq7hp0f" path="res://escenas/batalla/BatallaControlador.tscn" id="5_kuqqq"]
 [ext_resource type="Script" uid="uid://cijph1iskyc4" path="res://escenas/batalla/SpawnEnemigos.cs" id="6_ddidh"]
 [ext_resource type="Script" uid="uid://b4ipj0a72tkyu" path="res://escenas/batalla/SpawnMonedas.cs" id="6_w3cb5"]
-[ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/moneda/Moneda.tscn" id="7_t4q4m"]
-[ext_resource type="PackedScene" uid="uid://cj766hajq1d2u" path="res://escenas/objetos/moneda/MonedaEspecial.tscn" id="8_c2dy2"]
+[ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/consumible/Moneda.tscn" id="7_t4q4m"]
+[ext_resource type="PackedScene" uid="uid://cj766hajq1d2u" path="res://escenas/objetos/consumible/MonedaEspecial.tscn" id="8_c2dy2"]
 [ext_resource type="PackedScene" uid="uid://p7vm3y0vldbo" path="res://escenas/objetos/powerup/ImanMonedas.tscn" id="10_bnba0"]
 [ext_resource type="PackedScene" uid="uid://bmttan7jakebe" path="res://escenas/objetos/powerup/Invulnerabilidad.tscn" id="11_svpxk"]
 [ext_resource type="Script" uid="uid://bu4jafkhrqpi7" path="res://escenas/batalla/SpawnPowerUps.cs" id="12_svpxk"]
+[ext_resource type="PackedScene" uid="uid://umkqdmkdi76e" path="res://escenas/objetos/consumible/Botiquin.tscn" id="13_ne2vf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ldsrh"]
+resource_local_to_scene = true
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne2vf"]
+bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
+
+[sub_resource type="Theme" id="Theme_rk4e7"]
+resource_local_to_scene = true
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ne2vf")
 
 [sub_resource type="Curve2D" id="Curve2D_w0at3"]
 _data = {
@@ -20,7 +43,7 @@ _data = {
 point_count = 5
 
 [node name="Batalla" type="Node"]
-process_mode = 3
+process_mode = 1
 script = ExtResource("1_jxdra")
 
 [node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
@@ -29,11 +52,20 @@ anchors_preset = 0
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+[node name="ContenedorVidas" parent="BatallaHUD" index="3"]
+theme = SubResource("Theme_ldsrh")
+
+[node name="PanelContainer" parent="BatallaHUD/PanelMenuPausa" index="0"]
+theme = SubResource("Theme_rk4e7")
+
+[node name="PanelContainerMargin" parent="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer" index="1"]
+theme = SubResource("Theme_ldsrh")
 
 [node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
 
 [node name="SpawnEnemigos" type="Control" parent="."]
 layout_mode = 3
@@ -79,7 +111,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_svpxk")
 PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
-PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
+PowerUpInvulnerabilidadPackedScene = ExtResource("11_svpxk")
+BotiquinPackedScene = ExtResource("13_ne2vf")
 
 [connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]
@@ -90,9 +123,10 @@ PowerUpInvulnerabilidadpacPackedScene = ExtResource("11_svpxk")
 [connection signal="PreparandoBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajesIniciarBatalla"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]
 [connection signal="RenaudarBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarHUD"]
-[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
-[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer2/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="." method="TerminarJuego"]
+[connection signal="OnButtonSalirConfirmarPressed" from="BatallaHUD/PanelMenuPausa" to="." method="TerminarJuego"]
+[connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
+[connection signal="CambioVida" from="Jugador" to="BatallaHUD" method="OnCambioVida"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
 [connection signal="timeout" from="SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
 [connection signal="MonedaRecogida" from="SpawnMonedas" to="BatallaControlador" method="SumarPuntuacion"]

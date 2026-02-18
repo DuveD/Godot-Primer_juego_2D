@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.ui.menu;
+using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -9,73 +10,87 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 
 public partial class MenuPrincipal : Control
 {
-    public bool ModoNavegacionTeclado = false;
+	#region Nodos escena
+	public ContenedorMenuPrincipal ContenedorMenuPrincipal;
+	public ContenedorMenuPerfiles ContenedorMenuPerfiles;
+	public ContenedorMenuAjustes ContenedorMenuAjustes;
+	public ContenedorMenuLogros ContenedorMenuLogros;
+	public ContenedorMenuEstadisticas ContenedorMenuEstadisticas;
+	public Label LabelVersion;
+	#endregion
 
-    private ColorRect _Fondo;
-    private ColorRect Fondo => _Fondo ??= GetNode<ColorRect>("Fondo");
+	public ContenedorMenu UltimoContenedorMostrado;
 
-    private ContenedorMenuPrincipal _ContenedorBotonesPrincipal;
-    public ContenedorMenuPrincipal ContenedorMenuPrincipal => _ContenedorBotonesPrincipal ??= GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
+	public IEnumerable<ContenedorMenu> Menus;
 
-    private ContenedorMenuAjustes _ContenedorMenuAjustes;
-    public ContenedorMenuAjustes ContenedorMenuAjustes => _ContenedorMenuAjustes ??= GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+	public override void _Ready()
+	{
+		CargarNodos();
 
-    private ContenedorMenuLogros _ContenedorMenuLogros;
-    public ContenedorMenuLogros ContenedorMenuLogros => _ContenedorMenuLogros ??= GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
+		LabelVersion.Text = "v" + Ajustes.Version;
 
-    private ContenedorMenuEstadisticas _ContenedorMenuEstadisticas;
-    public ContenedorMenuEstadisticas ContenedorMenuEstadisticas => _ContenedorMenuEstadisticas ??= GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
+		LoggerJuego.Trace(this.Name + " Ready.");
+	}
 
-    private IEnumerable<ContenedorMenu> Menus => UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+	private void CargarNodos()
+	{
+		ContenedorMenuPrincipal = GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
+		ContenedorMenuPerfiles = GetNode<ContenedorMenuPerfiles>("ContenedorMenuPerfiles");
+		ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+		ContenedorMenuLogros = GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
+		ContenedorMenuEstadisticas = GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
+		Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
+		LabelVersion = GetNode<Label>("LabelVersion");
+	}
 
-    public ContenedorMenu UltimoContenedorMostrado;
+	public void MostrarMenuPrincipal()
+	{
+		MostrarMenu(this.ContenedorMenuPrincipal);
+	}
 
-    private Label _LabelVersion;
-    private Label LabelVersion => _LabelVersion ??= GetNode<Label>("LabelVersion");
+	public void MostrarMenuPerfilesSinBotonAtras()
+	{
+		MostrarMenuPerfiles(true);
+	}
 
-    public override void _Ready()
-    {
-        LoggerJuego.Trace(this.Name + " Ready.");
+	public void MostrarMenuPerfiles()
+	{
+		MostrarMenuPerfiles(false);
+	}
 
-        LabelVersion.Text = "v" + Ajustes.Version;
+	public void MostrarMenuPerfiles(bool ocultarBotonAtras)
+	{
+		OcultarMenus();
+		ContenedorMenuPerfiles.Show(true, ocultarBotonAtras);
+	}
 
-        foreach (ContenedorMenu contenedorMenu in Menus)
-        {
-            contenedorMenu.ModoNavegacionTecladoChanged += ModoNavegacionTecladoChanged;
-        }
-    }
+	public void MostrarMenuAjustes()
+	{
+		MostrarMenu(this.ContenedorMenuAjustes);
+	}
 
-    private void ModoNavegacionTecladoChanged(bool modoNavegacionTeclado)
-    {
-        this.ModoNavegacionTeclado = modoNavegacionTeclado;
-    }
+	public void MostrarMenuLogros()
+	{
+		MostrarMenu(this.ContenedorMenuLogros);
+	}
 
-    public void MostrarMenuPrincipal()
-    {
-        MostrarMenu(this.ContenedorMenuPrincipal);
-    }
+	public void MostrarMenuEstadisticas()
+	{
+		MostrarMenu(this.ContenedorMenuEstadisticas);
+	}
 
-    private void MostrarMenuAjustes()
-    {
-        MostrarMenu(this.ContenedorMenuAjustes);
-    }
+	private void MostrarMenu(ContenedorMenu contenedorMenu)
+	{
+		OcultarMenus();
 
-    private void MostrarMenuLogros()
-    {
-        MostrarMenu(this.ContenedorMenuLogros);
-    }
+		bool seleccionarPrimerElemento = !(contenedorMenu is ContenedorMenuPrincipal);
+		contenedorMenu.Show(seleccionarPrimerElemento);
+	}
 
-    private void MostrarMenuEstadisticas()
-    {
-        MostrarMenu(this.ContenedorMenuEstadisticas);
-    }
+	private void OcultarMenus()
+	{
+		foreach (var menu in Menus)
+			menu.Visible = false;
+	}
 
-    private void MostrarMenu(ContenedorMenu contenedorMenu)
-    {
-        foreach (var menu in Menus)
-            menu.Visible = false;
-
-        bool seleccionarPrimerElemento = !(contenedorMenu is ContenedorMenuPrincipal);
-        contenedorMenu.Show(this.ModoNavegacionTeclado, seleccionarPrimerElemento);
-    }
 }

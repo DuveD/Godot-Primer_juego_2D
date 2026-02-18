@@ -8,7 +8,7 @@
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_nigbs"]
 [ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_ndu6r"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21hau"]
 content_margin_left = 30.0
 content_margin_top = 30.0
 content_margin_right = 30.0
@@ -20,7 +20,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="Theme" id="Theme_6ip4d"]
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_21hau")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64n87"]
 content_margin_left = 15.0
@@ -59,6 +59,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_wu7lp")
 ContenedorLogroUnicoScene = ExtResource("2_21hau")
 ContenedorLogroContadorScene = ExtResource("3_nigbs")

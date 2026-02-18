@@ -21,7 +21,10 @@ public partial class SpawnPowerUps : Control
   public PackedScene PowerUpImanMonedaPackedScene;
 
   [Export]
-  public PackedScene PowerUpInvulnerabilidadpacPackedScene;
+  public PackedScene PowerUpInvulnerabilidadPackedScene;
+
+  [Export]
+  public PackedScene BotiquinPackedScene;
 
   [Export]
   public int DistanciaMinima = 200;
@@ -64,14 +67,22 @@ public partial class SpawnPowerUps : Control
 
   private void SpawnPowerUp()
   {
-    if (Randomizador.GetRandomFloat() >= 0.5)
-    {
-      SpawnPowerUp(PowerUpImanMonedaPackedScene);
-    }
-    else
-    {
-      SpawnPowerUp(PowerUpInvulnerabilidadpacPackedScene);
-    }
+    List<PackedScene> posibles = new();
+
+    // Siempre permitido
+    posibles.Add(PowerUpImanMonedaPackedScene);
+    posibles.Add(PowerUpInvulnerabilidadPackedScene);
+
+    // Solo si NO tiene la vida al máximo
+    if (this.Jugador.Vida < this.Jugador.VidaMaxima)
+      posibles.Add(BotiquinPackedScene);
+
+    // Seguridad: si por algún motivo no hay ninguno
+    if (posibles.Count == 0)
+      return;
+
+    int index = Randomizador.GetRandomInt(0, posibles.Count - 1);
+    SpawnPowerUp(posibles[index]);
 
     ReiniciarTimer();
   }
@@ -80,8 +91,8 @@ public partial class SpawnPowerUps : Control
   {
     LoggerJuego.Trace("Spawneamos un nuevo PowerUp.");
 
-    PowerUp powerUp = powerUpPackedScene.Instantiate<PowerUp>();
-    powerUp.TiempoDestruccion = 3;
+    // Lo hacemos Consumible para los powerup cómo la vida, que no tienen efecto continuo, sólo al recogerse.
+    Consumible powerUp = powerUpPackedScene.Instantiate<Consumible>();
     powerUp.Position = ObtenerPosicionAleatoriaSegura();
 
     this.GetParent().AddChild(powerUp);

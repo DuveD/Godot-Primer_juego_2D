@@ -4,33 +4,39 @@ using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
+using Primerjuego2D.nucleo.utilidades.log;
 
 namespace Primerjuego2D.escenas.batalla;
 
 public partial class ContenedorMenuPausa : ContenedorMenu
 {
-    private ButtonPersonalizado _ButtonRenaudar;
-    public ButtonPersonalizado ButtonRenaudar => _ButtonRenaudar ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonRenaudar");
+    public ButtonPersonalizado ButtonRenaudar;
+    public ButtonPersonalizado ButtonAjustes;
+    public ButtonPersonalizado ButtonSalir;
 
-    private ButtonPersonalizado _ButtonAjustes;
-    public ButtonPersonalizado ButtonAjustes => _ButtonAjustes ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAjustes");
-
-    private ButtonPersonalizado _ButtonSalir;
-    public ButtonPersonalizado ButtonSalir => _ButtonSalir ??= UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonSalir");
-
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Ready()
     {
+        base._Ready();
+
+        ButtonRenaudar = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonRenaudar");
+        ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAjustes");
+        ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonSalir");
+
+        LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+
         // Solo respondemos si el menú es visible.
-        if (!this.Visible)
+        if (!this.IsVisibleInTree())
             return;
 
         if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
-            if (this.ModoNavegacionTeclado)
-            {
-                UtilidadesNodos.PulsarBoton(ButtonRenaudar);
-                AcceptEvent();
-            }
+            UtilidadesNodos.PulsarBoton(ButtonRenaudar);
+            AcceptEvent();
         }
     }
 
