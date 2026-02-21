@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.menuPrincipal.perfil;
 using Primerjuego2D.escenas.ui;
@@ -22,7 +22,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
     private SlotPerfil _slotSeleccionado;
 
-    private bool _ocultarBotonAtras;
+    private bool _ocultarBotones;
 
     private bool _modoBorrarActivo = false;
 
@@ -150,28 +150,40 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         PanelNuevoPerfil.Show(true);
     }
 
-    private void OnCrearNuevoPerfil(string nombrePerfil)
+    private async void OnCrearNuevoPerfil(string nombrePerfil)
     {
         if (_slotSeleccionado == null) return;
 
-        string idPerfil = GestorPerfiles.GenerarIdPerfil();
-        Perfil nuevoPerfil = new(idPerfil, nombrePerfil, DateTime.Now, null);
-        GestorPerfiles.InicializarPerfil(nuevoPerfil);
-        GestorPerfiles.GuardarPerfil(nuevoPerfil);
+        Global.IndicadorGuardado.Mostrar();
+
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        Perfil nuevoPerfil = await Task.Run(() =>
+        {
+            string idPerfil = GestorPerfiles.GenerarIdPerfil();
+            Perfil nuevoPerfil = new(idPerfil, nombrePerfil, DateTime.Now, null);
+            GestorPerfiles.InicializarPerfil(nuevoPerfil);
+            GestorPerfiles.GuardarPerfil(nuevoPerfil);
+
+            return nuevoPerfil;
+        });
 
         _slotSeleccionado.Perfil = nuevoPerfil;
         CambiarPerfilActivo(_slotSeleccionado);
 
         _perfiles[_slotSeleccionado.NumeroSlot - 1] = nuevoPerfil;
         Ajustes.SetIdPerfil(_slotSeleccionado.NumeroSlot, nuevoPerfil.Id);
+
         ActualizarSlots();
 
         _slotSeleccionado = null;
 
+        Global.IndicadorGuardado.Esconder();
+
         PanelNuevoPerfil.Hide();
         PanelContainerPerfiles.Show(false);
 
-        if (_ocultarBotonAtras)
+        if (_ocultarBotones)
             EmitSignal(SignalName.OnCrearPrimerPerfil);
     }
     private void EliminarPerfil(SlotPerfil slotPerfil)
@@ -184,7 +196,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (Ajustes.IdPerfilActivo == perfil.Id)
             Global.CambiarPerfilActivo(null);
 
-        PanelContainerPerfiles.Show(true, _ocultarBotonAtras);
+        PanelContainerPerfiles.Show(true, _ocultarBotones);
 
         _perfiles[slotPerfil.NumeroSlot - 1] = null;
         Ajustes.SetIdPerfil(slotPerfil.NumeroSlot, ""); // Limpia el ID del perfil en ajustes.
@@ -207,13 +219,13 @@ public partial class ContenedorMenuPerfiles : CenterContainer
     {
         _slotSeleccionado = null;
         PanelNuevoPerfil.Hide();
-        PanelContainerPerfiles.Show(false);
+        PanelContainerPerfiles.Show(false, _ocultarBotones);
     }
 
-    public void Show(bool seleccionarPrimerElemento, bool ocultarBotonAtras)
+    public void Show(bool seleccionarPrimerElemento, bool ocultarBotones)
     {
-        _ocultarBotonAtras = ocultarBotonAtras;
-        PanelContainerPerfiles.Show(seleccionarPrimerElemento, ocultarBotonAtras);
+        _ocultarBotones = ocultarBotones;
+        PanelContainerPerfiles.Show(seleccionarPrimerElemento, ocultarBotones);
         PanelNuevoPerfil.Hide();
         this.Show();
     }

@@ -153,7 +153,6 @@ layout_mode = 2
 theme = SubResource("Theme_1n7hr")
 
 [node name="PanelContainerContentSize" type="PanelContainer" parent="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin"]
-clip_contents = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v7ugp")

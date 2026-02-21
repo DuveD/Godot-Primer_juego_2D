@@ -63,8 +63,8 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         _ButtonEmpezarPartida.Disabled = false;
         _ButtonEmpezarPartidaSinPerfil.Visible = desactivarBotonesDeperfil;
         _ButtonEmpezarPartidaSinPerfil.Disabled = false;
-        _ButtonLogros.Desactivar(desactivarBotonesDeperfil);
-        _ButtonEstadisticas.Desactivar(desactivarBotonesDeperfil);
+        _ButtonLogros.Disabled = desactivarBotonesDeperfil;
+        _ButtonEstadisticas.Disabled = desactivarBotonesDeperfil;
     }
 
     public override List<Control> ObtenerElementosConFoco()

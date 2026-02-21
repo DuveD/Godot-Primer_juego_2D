@@ -48,7 +48,7 @@ public partial class MenuPrincipal : Control
 		MostrarMenu(this.ContenedorMenuPrincipal);
 	}
 
-	public void MostrarMenuPerfilesSinBotonAtras()
+	public void MostrarMenuPerfilesSinBotones()
 	{
 		MostrarMenuPerfiles(true);
 	}
@@ -58,10 +58,10 @@ public partial class MenuPrincipal : Control
 		MostrarMenuPerfiles(false);
 	}
 
-	public void MostrarMenuPerfiles(bool ocultarBotonAtras)
+	public void MostrarMenuPerfiles(bool ocultarBotones)
 	{
 		OcultarMenus();
-		ContenedorMenuPerfiles.Show(true, ocultarBotonAtras);
+		ContenedorMenuPerfiles.Show(true, ocultarBotones);
 	}
 
 	public void MostrarMenuAjustes()

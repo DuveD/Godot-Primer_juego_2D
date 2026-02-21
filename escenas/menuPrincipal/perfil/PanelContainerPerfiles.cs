@@ -30,24 +30,29 @@ public partial class PanelContainerPerfiles : ContenedorMenu
     private ButtonPersonalizado _buttonBorrar;
     public ButtonPersonalizado ButtonBorrar => _buttonBorrar;
 
+    private HBoxContainer _containerBotones;
+    public HBoxContainer ContainerBotones => _containerBotones;
+
     public override void _Ready()
     {
         base._Ready();
 
-        _slotPerfil1 = GetNode<SlotPerfil>("VBoxContainer/VBoxContainer/SlotPerfil1");
+        _slotPerfil1 = GetNode<SlotPerfil>("VBoxContainer/ContainerPerfiles/SlotPerfil1");
         _slotPerfil1.NumeroSlot = 1;
-        _slotPerfil2 = GetNode<SlotPerfil>("VBoxContainer/VBoxContainer/SlotPerfil2");
+        _slotPerfil2 = GetNode<SlotPerfil>("VBoxContainer/ContainerPerfiles/SlotPerfil2");
         _slotPerfil2.NumeroSlot = 2;
-        _slotPerfil3 = GetNode<SlotPerfil>("VBoxContainer/VBoxContainer/SlotPerfil3");
+        _slotPerfil3 = GetNode<SlotPerfil>("VBoxContainer/ContainerPerfiles/SlotPerfil3");
         _slotPerfil3.NumeroSlot = 3;
 
         _slotPerfil1.Pressed += () => EmitSignal(SignalName.OnSlotSeleccionadoPressed, _slotPerfil1);
         _slotPerfil2.Pressed += () => EmitSignal(SignalName.OnSlotSeleccionadoPressed, _slotPerfil2);
         _slotPerfil3.Pressed += () => EmitSignal(SignalName.OnSlotSeleccionadoPressed, _slotPerfil3);
 
-        _buttonAtras = GetNode<ButtonPersonalizado>("VBoxContainer/HBoxContainer/ButtonAtras");
-        _buttonBorrar = GetNode<ButtonPersonalizado>("VBoxContainer/HBoxContainer/ButtonBorrar");
+        _buttonAtras = GetNode<ButtonPersonalizado>("VBoxContainer/ContainerBotones/ButtonAtras");
+        _buttonBorrar = GetNode<ButtonPersonalizado>("VBoxContainer/ContainerBotones/ButtonBorrar");
         _buttonBorrar.Toggled += ButtonBorrarToggled;
+
+        _containerBotones = GetNode<HBoxContainer>("VBoxContainer/ContainerBotones");
     }
 
     private void ButtonBorrarToggled(bool toggledOn)
@@ -77,10 +82,11 @@ public partial class PanelContainerPerfiles : ContenedorMenu
     }
 
 
-    public void Show(bool seleccionarPrimerElemento, bool ocultarBotonAtras)
+    public void Show(bool seleccionarPrimerElemento, bool ocultarBotones)
     {
         this.Show(seleccionarPrimerElemento);
-        this._buttonAtras.Visible = !ocultarBotonAtras;
+        this._containerBotones.Visible = !ocultarBotones;
+
 
         // Aseguramos que el botón de borrar esté desactivado al mostrar el panel.
         ButtonBorrar.ButtonPressed = false;

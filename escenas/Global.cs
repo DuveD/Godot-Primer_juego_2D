@@ -49,6 +49,9 @@ public partial class Global : Node
     private IndicadorCarga _indicadorCarga;
     public static IndicadorCarga IndicadorCarga => Global.Instancia._indicadorCarga;
 
+    private IndicadorGuardado _indicadorGuardado;
+    public static IndicadorGuardado IndicadorGuardado => Global.Instancia._indicadorGuardado;
+
     public Global()
     {
         Global.Instancia = this;
@@ -65,6 +68,7 @@ public partial class Global : Node
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");
         _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
         _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
+        _indicadorGuardado = GetNode<IndicadorGuardado>("IndicadorGuardado");
 
         // Mostramos colisiones.
         bool verColisiones = Ajustes.VerColisiones;
@@ -89,10 +93,7 @@ public partial class Global : Node
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-        Perfil perfilActivo = await Task.Run(() =>
-        {
-            return GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
-        });
+        Perfil perfilActivo = await Task.Run(() => GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo));
 
         if (perfilActivo != null)
         {
@@ -114,9 +115,17 @@ public partial class Global : Node
         Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
     }
 
-    public static void GuardarPerfilActivo()
+    public static async void GuardarPerfilActivo()
     {
-        if (Global.PerfilActivo != null)
-            GestorPerfiles.GuardarPerfil(Global.PerfilActivo);
+        if (Global.PerfilActivo == null)
+            return;
+
+        IndicadorGuardado.Mostrar();
+
+        await Global.Instancia.ToSignal(Global.Instancia.GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        await Task.Run(() => GestorPerfiles.GuardarPerfil(Global.PerfilActivo));
+
+        IndicadorGuardado.Esconder();
     }
 }

@@ -64,7 +64,6 @@ mouse_filter = 2
 script = ExtResource("1_tnwug")
 
 [node name="PanelContainerPerfiles" type="PanelContainer" parent="."]
-visible = false
 clip_contents = true
 layout_mode = 2
 theme = SubResource("Theme_0sanc")
@@ -72,7 +71,7 @@ script = ExtResource("2_5ixvf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerPerfiles"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 15
 
 [node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerPerfiles/VBoxContainer"]
 layout_mode = 2
@@ -83,18 +82,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerPerfiles/VBoxContainer"]
+[node name="ContainerPerfiles" type="VBoxContainer" parent="PanelContainerPerfiles/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="SlotPerfil1" parent="PanelContainerPerfiles/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+[node name="SlotPerfil1" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" instance=ExtResource("3_1ojfe")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../SlotPerfil2")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="SlotPerfil2" parent="PanelContainerPerfiles/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+[node name="SlotPerfil2" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" instance=ExtResource("3_1ojfe")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../SlotPerfil1")
 focus_neighbor_bottom = NodePath("../SlotPerfil3")
@@ -102,23 +101,23 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="SlotPerfil3" parent="PanelContainerPerfiles/VBoxContainer/VBoxContainer" instance=ExtResource("3_1ojfe")]
+[node name="SlotPerfil3" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" instance=ExtResource("3_1ojfe")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../SlotPerfil2")
-focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
+focus_neighbor_bottom = NodePath("../../ContainerBotones/ButtonAtras")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerPerfiles/VBoxContainer"]
+[node name="ContainerBotones" type="HBoxContainer" parent="PanelContainerPerfiles/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="ButtonAtras" parent="PanelContainerPerfiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
+[node name="ButtonAtras" parent="PanelContainerPerfiles/VBoxContainer/ContainerBotones" instance=ExtResource("3_ruag3")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer/SlotPerfil3")
+focus_neighbor_top = NodePath("../../ContainerPerfiles/SlotPerfil3")
 focus_neighbor_right = NodePath("../ButtonBorrar")
 theme_override_fonts/font = ExtResource("4_0jq83")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
@@ -128,16 +127,16 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="Spacer" type="Control" parent="PanelContainerPerfiles/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="PanelContainerPerfiles/VBoxContainer/ContainerBotones"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ButtonBorrar" parent="PanelContainerPerfiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
+[node name="ButtonBorrar" parent="PanelContainerPerfiles/VBoxContainer/ContainerBotones" instance=ExtResource("3_ruag3")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 focus_neighbor_left = NodePath("../ButtonAtras")
-focus_neighbor_top = NodePath("../../VBoxContainer/SlotPerfil3")
+focus_neighbor_top = NodePath("../../ContainerPerfiles/SlotPerfil3")
 theme_override_fonts/font = ExtResource("4_0jq83")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
 toggle_mode = true
@@ -145,14 +144,13 @@ text = "MenuPrincipal.perfil.borrar"
 script = ExtResource("8_4es6c")
 
 [node name="PanelContainerNuevoPerfil" type="PanelContainer" parent="."]
-clip_contents = true
+visible = false
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_0sanc")
 script = ExtResource("2_itg3m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerNuevoPerfil"]
-clip_contents = true
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 25
@@ -178,7 +176,6 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_4es6c")
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerNuevoPerfil/VBoxContainer"]
-clip_contents = true
 layout_mode = 2
 
 [node name="ButtonCrearPerfilConfirmar" parent="PanelContainerNuevoPerfil/VBoxContainer/HBoxContainer" instance=ExtResource("3_ruag3")]
