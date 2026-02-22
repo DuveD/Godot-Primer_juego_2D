@@ -36,17 +36,17 @@ public partial class Global : Node
 
     public static Global Instancia;
 
-    private GestorColor _GestorColor;
-    public static GestorColor GestorColor => Global.Instancia._GestorColor;
+    private GestorColor _gestorColor;
+    public static GestorColor GestorColor => Global.Instancia._gestorColor;
 
-    private GestorAudio _GestorAudio;
-    public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
+    private GestorAudio _gestorAudio;
+    public static GestorAudio GestorAudio => Global.Instancia._gestorAudio;
 
-    private GestorEfectosAudio _GestorEfectosAudio;
-    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
+    private GestorEfectosAudio _gestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._gestorEfectosAudio;
 
-    private GestorNotificacionLogros _GestorNotificacionLogros;
-    public static GestorNotificacionLogros GestorNotificacionLogros => Global.Instancia._GestorNotificacionLogros;
+    private GestorNotificacionLogros _gestorNotificacionLogros;
+    public static GestorNotificacionLogros GestorNotificacionLogros => Global.Instancia._gestorNotificacionLogros;
 
     private Perfil _perfilActivo;
     public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
@@ -69,10 +69,10 @@ public partial class Global : Node
         Idioma idioma = Ajustes.Idioma;
         GestorIdioma.CambiarIdioma(idioma);
 
-        _GestorColor = GetNode<GestorColor>("GestorColor");
-        _GestorAudio = GetNode<GestorAudio>("GestorAudio");
-        _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
-        _GestorNotificacionLogros = GetNode<GestorNotificacionLogros>("GestorNotificacionLogros");
+        _gestorColor = GetNode<GestorColor>("GestorColor");
+        _gestorAudio = GetNode<GestorAudio>("GestorAudio");
+        _gestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _gestorNotificacionLogros = GetNode<GestorNotificacionLogros>("GestorNotificacionLogros");
         _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
         _indicadorGuardado = GetNode<IndicadorGuardado>("IndicadorGuardado");
 
