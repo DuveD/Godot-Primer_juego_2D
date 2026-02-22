@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d12g1b8xgemee"]
+[gd_scene load_steps=22 format=3 uid="uid://d12g1b8xgemee"]
 
 [ext_resource type="Script" uid="uid://b7bol732bm7nq" path="res://escenas/menuPrincipal/estadisticas/ContenedorMenuEstadisticas.cs" id="1_qe0mb"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_s6ov0"]
@@ -8,14 +8,13 @@
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_q0m6h"]
 [ext_resource type="Texture2D" uid="uid://cdt3x7xlqbfof" path="res://recursos/imagenes/enemigo/enemySwimming_2.png" id="4_tlwam"]
 [ext_resource type="Texture2D" uid="uid://dh65lrlh20del" path="res://recursos/imagenes/enemigo/enemyFlyingAlt_1.png" id="5_5eqvq"]
-[ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_tlwam"]
 [ext_resource type="Texture2D" uid="uid://bl0614rekaves" path="res://recursos/imagenes/enemigo/enemyWalking_2.png" id="6_tlwam"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0
-content_margin_top = 30.0
+content_margin_top = 20.0
 content_margin_right = 30.0
-content_margin_bottom = 30.0
+content_margin_bottom = 20.0
 bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
@@ -397,7 +396,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("4_q0m6h")
 theme_override_styles/focus = SubResource("StyleBoxFlat_658cm")
 text = "MenuPrincipal.ajustes.atras"
-script = ExtResource("5_tlwam")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"

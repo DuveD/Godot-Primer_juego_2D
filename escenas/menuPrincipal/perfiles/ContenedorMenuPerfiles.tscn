@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://caa1gmq58kvfj" path="res://escenas/menuPrincipal/perfiles/SlotPerfil.tscn" id="3_1ojfe"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_ruag3"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_0jq83"]
-[ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_jbwi7"]
-[ext_resource type="Script" uid="uid://bhs60pm0yt1f8" path="res://escenas/menuPrincipal/botones/ButtonBorrar.cs" id="8_4es6c"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="5_jbwi7"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="8_4es6c"]
 [ext_resource type="Script" uid="uid://cmidsg4ssmj8" path="res://escenas/menuPrincipal/perfiles/ButtonConfirmar.cs" id="10_t74wt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]

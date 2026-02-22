@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvu0j7x4qun2s"]
+[gd_scene load_steps=13 format=3 uid="uid://dvu0j7x4qun2s"]
 
 [ext_resource type="Script" uid="uid://lyop30qagtrk" path="res://escenas/menuPrincipal/logros/ContenedorMenuLogros.cs" id="1_wu7lp"]
 [ext_resource type="PackedScene" uid="uid://bsgbrqkigl02e" path="res://escenas/sistema/logros/ContenedorLogroUnico.tscn" id="2_21hau"]
@@ -6,13 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_21hau"]
 [ext_resource type="PackedScene" uid="uid://ddj7d6yer8pny" path="res://escenas/sistema/logros/ContenedorLogroContador.tscn" id="3_nigbs"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_nigbs"]
-[ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_ndu6r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21hau"]
 content_margin_left = 30.0
-content_margin_top = 30.0
+content_margin_top = 20.0
 content_margin_right = 30.0
-content_margin_bottom = 30.0
+content_margin_bottom = 20.0
 bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
@@ -119,7 +118,6 @@ focus_neighbor_top = NodePath("../../PanelContainerMarginInterno/ScrollContainer
 theme_override_fonts/font = ExtResource("4_nigbs")
 theme_override_styles/focus = SubResource("StyleBoxFlat_658cm")
 text = "MenuPrincipal.logros.atras"
-script = ExtResource("5_ndu6r")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"

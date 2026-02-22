@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkvjycp3edtfo"]
+[gd_scene load_steps=12 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
 [ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/HUD/BatallaHUD.cs" id="1_osa72"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_pb27p"]
 [ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/HUD/ContenedorMenuPausa.cs" id="3_v7ugp"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.tscn" id="5_i3enc"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="8_rfnj7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
@@ -193,6 +194,9 @@ NombreSonidoOnPressed = "digital_click.mp3"
 process_mode = 3
 visible = false
 layout_mode = 1
+
+[node name="ButtonAtras" parent="PanelMenuPausa/ContenedorMenuAjustes/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" index="0"]
+script = ExtResource("8_rfnj7")
 
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonAjustes" to="PanelMenuPausa" method="OnButtonAjustesPressed"]
 [connection signal="pressed" from="PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonSalir" to="PanelMenuPausa" method="OnButtonSalirPressed"]

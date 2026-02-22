@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://crie7qet36ab6"]
+[gd_scene load_steps=14 format=3 uid="uid://crie7qet36ab6"]
 
 [ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.cs" id="1_tfyqu"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_nncg4"]
@@ -7,13 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://doyxp6l6eg05" path="res://escenas/ui/menu/ControlSeleccion.tscn" id="5_lbyp5"]
 [ext_resource type="PackedScene" uid="uid://bhnex31dy268l" path="res://escenas/ui/menu/ControlCheckButton.tscn" id="6_nncg4"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="6_uf0bd"]
-[ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="7_8xu2b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0
-content_margin_top = 30.0
+content_margin_top = 20.0
 content_margin_right = 30.0
-content_margin_bottom = 30.0
+content_margin_bottom = 20.0
 bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
@@ -200,7 +199,6 @@ focus_neighbor_right = NodePath("../../ControlVerColisiones/CheckButton")
 theme_override_fonts/font = ExtResource("4_cb0ic")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i83gw")
 text = "MenuPrincipal.ajustes.atras"
-script = ExtResource("7_8xu2b")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using Primerjuego2D.escenas.menuPrincipal.botones;
 using Primerjuego2D.escenas.miscelaneo.animaciones;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
@@ -17,12 +16,12 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
     public delegate void BotonEmpezarPartidaPulsadoEventHandler();
 
     private ButtonEmpezarPartida _ButtonEmpezarPartida;
-    private ButtonPerfil _ButtonEmpezarPartidaSinPerfil;
-    private ButtonPerfil _ButtonPerfil;
-    private ButtonAjustes _ButtonAjustes;
-    private ButtonLogros _ButtonLogros;
-    private ButtonEstadisticas _ButtonEstadisticas;
-    private ButtonSalir _ButtonSalir;
+    private ButtonPersonalizado _ButtonEmpezarPartidaSinPerfil;
+    private ButtonPersonalizado _ButtonPerfil;
+    private ButtonPersonalizado _ButtonAjustes;
+    private ButtonPersonalizado _ButtonLogros;
+    private ButtonPersonalizado _ButtonEstadisticas;
+    private ButtonPersonalizado _ButtonSalir;
 
     private AnimacionCrtShutdown _AnimacionCrtShutdown;
 
@@ -33,12 +32,12 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         base._Ready();
 
         _ButtonEmpezarPartida = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEmpezarPartida>(this, "ButtonEmpezarPartida");
-        _ButtonEmpezarPartidaSinPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPerfil>(this, "ButtonEmpezarPartidaSinPerfil");
-        _ButtonPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPerfil>(this, "ButtonPerfil");
-        _ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonAjustes>(this, "ButtonAjustes");
-        _ButtonLogros = UtilidadesNodos.ObtenerNodoPorNombre<ButtonLogros>(this, "ButtonLogros");
-        _ButtonEstadisticas = UtilidadesNodos.ObtenerNodoPorNombre<ButtonEstadisticas>(this, "ButtonEstadisticas");
-        _ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonSalir>(this, "ButtonSalir");
+        _ButtonEmpezarPartidaSinPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonEmpezarPartidaSinPerfil");
+        _ButtonPerfil = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonPerfil");
+        _ButtonAjustes = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonAjustes");
+        _ButtonLogros = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonLogros");
+        _ButtonEstadisticas = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonEstadisticas");
+        _ButtonSalir = UtilidadesNodos.ObtenerNodoPorNombre<ButtonPersonalizado>(this, "ButtonSalir");
         _AnimacionCrtShutdown = GetNode<AnimacionCrtShutdown>("../AnimacionCrtShutdown");
 
         this.VisibilityChanged += OnVisibilityChanged;

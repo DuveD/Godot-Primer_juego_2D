@@ -1,15 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ycovtsmeppks"]
+[gd_scene load_steps=11 format=3 uid="uid://ycovtsmeppks"]
 
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/principal/ContenedorMenuPrincipal.cs" id="1_xrmji"]
 [ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="2_2ul6g"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="3_dyvyh"]
-[ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/botones/ButtonEmpezarPartida.cs" id="4_qsbvf"]
+[ext_resource type="Script" uid="uid://cicfsslle8hmx" path="res://escenas/menuPrincipal/principal/ButtonEmpezarPartida.cs" id="4_qsbvf"]
 [ext_resource type="Theme" uid="uid://dfuasivovo3du" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonSecundario.tres" id="5_50208"]
-[ext_resource type="Script" uid="uid://dmi75dlwcuhah" path="res://escenas/menuPrincipal/botones/ButtonPerfil.cs" id="6_dyvyh"]
-[ext_resource type="Script" uid="uid://bd05siqa7jip2" path="res://escenas/menuPrincipal/botones/ButtonAjustes.cs" id="6_wrtnk"]
-[ext_resource type="Script" uid="uid://bcvada4heal8t" path="res://escenas/menuPrincipal/botones/ButtonLogros.cs" id="7_2ul6g"]
-[ext_resource type="Script" uid="uid://brkccj2o1ury8" path="res://escenas/menuPrincipal/botones/ButtonEstadisticas.cs" id="7_urm1o"]
-[ext_resource type="Script" uid="uid://dafkl1d6lxkis" path="res://escenas/menuPrincipal/botones/ButtonSalir.cs" id="8_81n7g"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="8_81n7g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0
@@ -80,7 +76,7 @@ theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
 disabled = true
 text = "MenuPrincipal.boton.empezarPartida"
-script = ExtResource("6_dyvyh")
+script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
@@ -91,7 +87,7 @@ theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
 text = "MenuPrincipal.boton.perfil"
-script = ExtResource("6_dyvyh")
+script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
@@ -103,7 +99,7 @@ theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
 disabled = true
 text = "MenuPrincipal.boton.logros"
-script = ExtResource("7_2ul6g")
+script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
@@ -115,7 +111,7 @@ theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
 disabled = true
 text = "MenuPrincipal.boton.estadisticas"
-script = ExtResource("7_urm1o")
+script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
@@ -126,7 +122,7 @@ theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
 theme_override_font_sizes/font_size = 27
 text = "MenuPrincipal.boton.ajustes"
-script = ExtResource("6_wrtnk")
+script = ExtResource("8_81n7g")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
