@@ -1,5 +1,10 @@
 using System.Collections.Generic;
 using Godot;
+using Primerjuego2D.escenas.menuPrincipal.ajustes;
+using Primerjuego2D.escenas.menuPrincipal.estadisticas;
+using Primerjuego2D.escenas.menuPrincipal.logros;
+using Primerjuego2D.escenas.menuPrincipal.perfiles;
+using Primerjuego2D.escenas.menuPrincipal.principal;
 using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
@@ -10,11 +15,11 @@ namespace Primerjuego2D.escenas.menuPrincipal;
 public partial class MenuPrincipal : Control
 {
 	#region Nodos escena
-	public principal.ContenedorMenuPrincipal ContenedorMenuPrincipal;
-	public perfiles.ContenedorMenuPerfiles ContenedorMenuPerfiles;
-	public ajustes.ContenedorMenuAjustes ContenedorMenuAjustes;
-	public logros.ContenedorMenuLogros ContenedorMenuLogros;
-	public estadisticas.ContenedorMenuEstadisticas ContenedorMenuEstadisticas;
+	public ContenedorMenuPrincipal ContenedorMenuPrincipal;
+	public ContenedorMenuPerfiles ContenedorMenuPerfiles;
+	public ContenedorMenuAjustes ContenedorMenuAjustes;
+	public ContenedorMenuLogros ContenedorMenuLogros;
+	public ContenedorMenuEstadisticas ContenedorMenuEstadisticas;
 	public Label LabelVersion;
 	#endregion
 
@@ -33,11 +38,11 @@ public partial class MenuPrincipal : Control
 
 	private void CargarNodos()
 	{
-		ContenedorMenuPrincipal = GetNode<principal.ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
-		ContenedorMenuPerfiles = GetNode<perfiles.ContenedorMenuPerfiles>("ContenedorMenuPerfiles");
-		ContenedorMenuAjustes = GetNode<ajustes.ContenedorMenuAjustes>("ContenedorMenuAjustes");
-		ContenedorMenuLogros = GetNode<logros.ContenedorMenuLogros>("ContenedorMenuLogros");
-		ContenedorMenuEstadisticas = GetNode<estadisticas.ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
+		ContenedorMenuPrincipal = GetNode<ContenedorMenuPrincipal>("ContenedorMenuPrincipal");
+		ContenedorMenuPerfiles = GetNode<ContenedorMenuPerfiles>("ContenedorMenuPerfiles");
+		ContenedorMenuAjustes = GetNode<ContenedorMenuAjustes>("ContenedorMenuAjustes");
+		ContenedorMenuLogros = GetNode<ContenedorMenuLogros>("ContenedorMenuLogros");
+		ContenedorMenuEstadisticas = GetNode<ContenedorMenuEstadisticas>("ContenedorMenuEstadisticas");
 		Menus = UtilidadesNodos.ObtenerNodosDeTipo<ContenedorMenu>(this);
 		LabelVersion = GetNode<Label>("LabelVersion");
 	}
@@ -82,7 +87,7 @@ public partial class MenuPrincipal : Control
 	{
 		OcultarMenus();
 
-		bool seleccionarPrimerElemento = !(contenedorMenu is principal.ContenedorMenuPrincipal);
+		bool seleccionarPrimerElemento = !(contenedorMenu is ContenedorMenuPrincipal);
 		contenedorMenu.Show(seleccionarPrimerElemento);
 	}
 
