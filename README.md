@@ -15,6 +15,21 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
+### v1.7.0
+
+- Creado Gestor Notifiación de Logros para mostrar logros por pantalla.
+- Modificado Gestor de Logros para lanzar función al desbloquear logros.
+- Creado Contenedor Logro Notificación para mostrar el logro.
+- Creado indicador de guardado.
+- Mostrado indicador de guardado al guardar información del perfil.
+- Añadido animación a botones de aumentar tamaño al pasar el ratón o seleccionar.
+- Corrección de código.
+- Reorganización de código.
+- Añadido tiempo de destrucción a Botiquín.
+- Eliminados nodos Botones innecesarios.
+- Ajustes gráficos.
+- Corrección de errores.
+
 ### v1.6.0
 
 - Implementado gestor de atributos del jugador con modificadores vivos.
