@@ -30,6 +30,9 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         this.MouseEntered += OnMouseEntered;
         this.MouseExited += OnMouseExited;
         this.Pressed += OnPressed;    // Centrar pivote después de que el layout esté calculado
+
+        OnNotificationResized();
+        OnNotificationDisabled();
     }
 
     public override void _Notification(int what)

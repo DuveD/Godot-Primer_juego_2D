@@ -85,8 +85,7 @@ public partial class PanelContainerPerfiles : ContenedorMenu
     public void Show(bool seleccionarPrimerElemento, bool ocultarBotones)
     {
         this.Show(seleccionarPrimerElemento);
-        this._containerBotones.Visible = !ocultarBotones;
-
+        this._buttonBorrar.Visible = !ocultarBotones;
 
         // Aseguramos que el botón de borrar esté desactivado al mostrar el panel.
         ButtonBorrar.ButtonPressed = false;

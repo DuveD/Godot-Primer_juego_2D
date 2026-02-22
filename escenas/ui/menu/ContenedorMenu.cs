@@ -36,16 +36,17 @@ public abstract partial class ContenedorMenu : Container
     public override void _Ready()
     {
         CallDeferred(nameof(PostReady));
+
+        this.VisibilityChanged += OnVisibilityChanged;
+        OnVisibilityChanged();
+        ConfigurarElementosConFoco();
     }
 
     // PostReady: se ejecuta tras layout inicial para evitar problemas de focus.
     protected virtual void PostReady()
     {
-        ConfigurarElementosConFoco();
-
         if (this.IsVisibleInTree())
         {
-            CallDeferred(nameof(OnMenuVisible));
             CallDeferred(nameof(GrabFocusPrimerElemento));
         }
     }
@@ -66,19 +67,27 @@ public abstract partial class ContenedorMenu : Container
         base.Show();
 
         OnNavegacionTecladoCambiado(Global.NavegacionTeclado);
-        OnMenuVisible();
 
         // Asegúrate que los elementos de foco están listos
         CallDeferred(nameof(GrabFocusUltimoElementoConFoco));
     }
 
-    public new void Hide()
+    private void OnVisibilityChanged()
     {
-        if (!Visible)
-            return;
+        if (this.Visible)
+            OnMenuVisible();
+        else
+            OnMenuInvisible();
+    }
 
-        base.Hide();
-        OnMenuInvisible();
+    public virtual void OnMenuVisible()
+    {
+        this.SetProcessInput(true);
+    }
+
+    public virtual void OnMenuInvisible()
+    {
+        this.SetProcessInput(false);
     }
 
     private void OnNavegacionTecladoCambiado(bool navegacionTeclado)
@@ -90,16 +99,6 @@ public abstract partial class ContenedorMenu : Container
             OnActivarNavegacionTeclado();
         else
             OnDesactivarNavegacionTeclado();
-    }
-
-    public virtual void OnMenuVisible()
-    {
-        this.SetProcessInput(true);
-    }
-
-    public virtual void OnMenuInvisible()
-    {
-        this.SetProcessInput(false);
     }
 
     public void GrabFocusUltimoElementoConFoco()
@@ -160,18 +159,14 @@ public abstract partial class ContenedorMenu : Container
 
         foreach (var elementoConFoco in elementosConFoco)
         {
-            bool flowControl = ConfigurarElementoConFoco(elementoConFoco);
-            if (!flowControl)
-            {
-                continue;
-            }
+            ConfigurarElementoConFoco(elementoConFoco);
         }
     }
 
-    public bool ConfigurarElementoConFoco(Control elementoConFoco)
+    public void ConfigurarElementoConFoco(Control elementoConFoco)
     {
         if (elementoConFoco == null || !IsInstanceValid(elementoConFoco))
-            return false;
+            return;
 
         Action onElementoConFocoFocusEntered = () => OnElementoConFocoFocusEntered(elementoConFoco);
         elementoConFoco.FocusEntered += onElementoConFocoFocusEntered;
@@ -182,8 +177,6 @@ public abstract partial class ContenedorMenu : Container
                 OnElementoConFocoFocusEntered(elementoConFoco);
         };
         elementoConFoco.GuiInput += onClickOnElement;
-
-        return true;
     }
 
     public void OnElementoConFocoFocusEntered(Control control)
