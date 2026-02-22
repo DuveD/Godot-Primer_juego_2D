@@ -25,7 +25,8 @@ public partial class Juego : Control
 
 		AjustaViewPortYCamara();
 
-		CargarMenuPrincipal();
+		// Cargamos el menú principal de forma diferida para asegurarnos de que la escena esté completamente lista.
+		CallDeferred(nameof(CargarMenuPrincipal));
 	}
 
 	private void AjustaViewPortYCamara()
