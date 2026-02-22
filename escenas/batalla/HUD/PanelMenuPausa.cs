@@ -2,6 +2,7 @@ using Godot;
 using Primerjuego2D.escenas.menuPrincipal;
 using Primerjuego2D.escenas.ui;
 using Primerjuego2D.nucleo.utilidades.log;
+using ContenedorMenuAjustes = Primerjuego2D.escenas.menuPrincipal.ajustes.ContenedorMenuAjustes;
 
 namespace Primerjuego2D.escenas.batalla.HUD;
 

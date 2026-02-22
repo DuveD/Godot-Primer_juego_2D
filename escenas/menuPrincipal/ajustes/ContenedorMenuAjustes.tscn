@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://crie7qet36ab6"]
 
-[ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.cs" id="1_tfyqu"]
+[ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.cs" id="1_tfyqu"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_nncg4"]
 [ext_resource type="PackedScene" uid="uid://do1xqqv7m5xh6" path="res://escenas/ui/menu/ControlSlider.tscn" id="3_jfb1r"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_cb0ic"]

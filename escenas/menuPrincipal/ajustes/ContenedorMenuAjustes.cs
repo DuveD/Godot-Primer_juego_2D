@@ -11,7 +11,7 @@ using Primerjuego2D.nucleo.utilidades.log;
 using static Primerjuego2D.nucleo.utilidades.log.LoggerJuego;
 using ButtonPersonalizado = Primerjuego2D.escenas.ui.controles.ButtonPersonalizado;
 
-namespace Primerjuego2D.escenas.menuPrincipal;
+namespace Primerjuego2D.escenas.menuPrincipal.ajustes;
 
 public partial class ContenedorMenuAjustes : ContenedorMenu
 {

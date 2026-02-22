@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -10,7 +9,7 @@ using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.menuPrincipal;
+namespace Primerjuego2D.escenas.menuPrincipal.logros;
 
 public partial class ContenedorMenuLogros : ContenedorMenu
 {

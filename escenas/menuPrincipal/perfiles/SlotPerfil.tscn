@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://cgql6hg4fgh84" path="res://recursos/temas/perfil/SlotPerfilVacio_pressed.tres" id="2_xcphe"]
 [ext_resource type="StyleBox" uid="uid://b6cpevrkcrsnr" path="res://recursos/temas/perfil/SlotPerfilVacio_hover.tres" id="3_5ms3b"]
 [ext_resource type="StyleBox" uid="uid://dixykk2cynfiy" path="res://recursos/temas/perfil/SlotPerfilVacio_focus.tres" id="4_5ms3b"]
-[ext_resource type="Script" uid="uid://bneraj5pxlq8c" path="res://escenas/menuPrincipal/perfil/SlotPerfil.cs" id="5_xcphe"]
+[ext_resource type="Script" uid="uid://bneraj5pxlq8c" path="res://escenas/menuPrincipal/perfiles/SlotPerfil.cs" id="5_xcphe"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="6_5ms3b"]
 
 [sub_resource type="Theme" id="Theme_put7q"]

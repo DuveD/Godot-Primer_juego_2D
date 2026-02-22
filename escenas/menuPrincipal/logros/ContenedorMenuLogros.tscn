@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dvu0j7x4qun2s"]
 
-[ext_resource type="Script" uid="uid://lyop30qagtrk" path="res://escenas/menuPrincipal/ContenedorMenuLogros.cs" id="1_wu7lp"]
+[ext_resource type="Script" uid="uid://lyop30qagtrk" path="res://escenas/menuPrincipal/logros/ContenedorMenuLogros.cs" id="1_wu7lp"]
 [ext_resource type="PackedScene" uid="uid://bsgbrqkigl02e" path="res://escenas/sistema/logros/ContenedorLogroUnico.tscn" id="2_21hau"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_f6b88"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_21hau"]

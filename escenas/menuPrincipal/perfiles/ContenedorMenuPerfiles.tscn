@@ -1,15 +1,15 @@
 [gd_scene load_steps=16 format=3 uid="uid://gjj3jsejyedn"]
 
-[ext_resource type="Script" uid="uid://ouvfjuk27sls" path="res://escenas/menuPrincipal/ContenedorMenuPerfiles.cs" id="1_tnwug"]
-[ext_resource type="Script" uid="uid://djdicu1loavr0" path="res://escenas/menuPrincipal/perfil/PanelContainerPerfiles.cs" id="2_5ixvf"]
-[ext_resource type="Script" uid="uid://83bg12a3o1o3" path="res://escenas/menuPrincipal/perfil/PanelContainerNuevoPerfil.cs" id="2_itg3m"]
+[ext_resource type="Script" uid="uid://ouvfjuk27sls" path="res://escenas/menuPrincipal/perfiles/ContenedorMenuPerfiles.cs" id="1_tnwug"]
+[ext_resource type="Script" uid="uid://djdicu1loavr0" path="res://escenas/menuPrincipal/perfiles/PanelContainerPerfiles.cs" id="2_5ixvf"]
+[ext_resource type="Script" uid="uid://83bg12a3o1o3" path="res://escenas/menuPrincipal/perfiles/PanelContainerNuevoPerfil.cs" id="2_itg3m"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_tnwug"]
-[ext_resource type="PackedScene" uid="uid://caa1gmq58kvfj" path="res://escenas/menuPrincipal/perfil/SlotPerfil.tscn" id="3_1ojfe"]
+[ext_resource type="PackedScene" uid="uid://caa1gmq58kvfj" path="res://escenas/menuPrincipal/perfiles/SlotPerfil.tscn" id="3_1ojfe"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_ruag3"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_0jq83"]
 [ext_resource type="Script" uid="uid://c3tgy8asw5eyn" path="res://escenas/menuPrincipal/botones/ButtonAtras.cs" id="5_jbwi7"]
 [ext_resource type="Script" uid="uid://bhs60pm0yt1f8" path="res://escenas/menuPrincipal/botones/ButtonBorrar.cs" id="8_4es6c"]
-[ext_resource type="Script" uid="uid://cmidsg4ssmj8" path="res://escenas/menuPrincipal/perfil/ButtonConfirmar.cs" id="10_t74wt"]
+[ext_resource type="Script" uid="uid://cmidsg4ssmj8" path="res://escenas/menuPrincipal/perfiles/ButtonConfirmar.cs" id="10_t74wt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0

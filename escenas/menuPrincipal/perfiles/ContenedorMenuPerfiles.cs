@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
-using Primerjuego2D.escenas.menuPrincipal.perfil;
 using Primerjuego2D.escenas.ui;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.sistema.configuracion;
@@ -10,7 +9,7 @@ using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.menuPrincipal;
+namespace Primerjuego2D.escenas.menuPrincipal.perfiles;
 
 public partial class ContenedorMenuPerfiles : CenterContainer
 {

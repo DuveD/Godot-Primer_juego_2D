@@ -4,7 +4,7 @@ using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.menuPrincipal.perfil;
+namespace Primerjuego2D.escenas.menuPrincipal.perfiles;
 
 public partial class SlotPerfil : ButtonPersonalizado
 {

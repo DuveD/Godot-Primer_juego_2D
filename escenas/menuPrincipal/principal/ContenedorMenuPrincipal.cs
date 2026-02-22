@@ -9,7 +9,7 @@ using Primerjuego2D.escenas.ui.menu;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.menuPrincipal;
+namespace Primerjuego2D.escenas.menuPrincipal.principal;
 
 public partial class ContenedorMenuPrincipal : ContenedorMenu
 {
