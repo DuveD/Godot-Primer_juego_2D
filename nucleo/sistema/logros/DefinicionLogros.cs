@@ -27,8 +27,9 @@ public static class DefinicionLogros
             EVENTO_LOGRO_PRIMERA_PARTIDA
         ));
 
-        List<Logro> logrosEnemigosDerrotados = DefinirLogrosEnemigosDerrotados();
-        logros.AddRange(logrosEnemigosDerrotados);
+        // Comentamos para no añadir estos logros hasta que tengamos implementada la lógica de enemigos derrotados.
+        // List<Logro> logrosEnemigosDerrotados = DefinirLogrosEnemigosDerrotados();
+        // logros.AddRange(logrosEnemigosDerrotados);
 
         List<Logro> logrosMonedasObtenidas = DefinirLogrosMonedasObtenidas();
         logros.AddRange(logrosMonedasObtenidas);

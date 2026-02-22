@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using Godot;
+using Primerjuego2D.escenas.menuPrincipal.ajustes;
+using Primerjuego2D.escenas.menuPrincipal.estadisticas;
+using Primerjuego2D.escenas.menuPrincipal.logros;
+using Primerjuego2D.escenas.menuPrincipal.perfiles;
+using Primerjuego2D.escenas.menuPrincipal.principal;
 using Primerjuego2D.escenas.ui.menu;
-using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
@@ -48,7 +52,7 @@ public partial class MenuPrincipal : Control
 		MostrarMenu(this.ContenedorMenuPrincipal);
 	}
 
-	public void MostrarMenuPerfilesSinBotonAtras()
+	public void MostrarMenuPerfilesSinBotones()
 	{
 		MostrarMenuPerfiles(true);
 	}
@@ -58,10 +62,10 @@ public partial class MenuPrincipal : Control
 		MostrarMenuPerfiles(false);
 	}
 
-	public void MostrarMenuPerfiles(bool ocultarBotonAtras)
+	public void MostrarMenuPerfiles(bool ocultarBotones)
 	{
 		OcultarMenus();
-		ContenedorMenuPerfiles.Show(true, ocultarBotonAtras);
+		ContenedorMenuPerfiles.Show(true, ocultarBotones);
 	}
 
 	public void MostrarMenuAjustes()

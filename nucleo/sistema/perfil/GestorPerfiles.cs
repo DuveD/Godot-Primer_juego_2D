@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using Godot;
-using Primerjuego2D.escenas;
 using Primerjuego2D.nucleo.sistema.configuracion;
 using Primerjuego2D.nucleo.sistema.estadisticas;
 using Primerjuego2D.nucleo.sistema.logros;

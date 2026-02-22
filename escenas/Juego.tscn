@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://dxs3hj8yjrh2k" path="res://escenas/Juego.cs" id="1_aw244"]
 [ext_resource type="PackedScene" uid="uid://cvvqqqk473q1b" path="res://escenas/sistema/camara/CamaraPrincipal.tscn" id="3_7agf3"]
 
-[node name="Juego" type="Control" node_paths=PackedStringArray("_Camara")]
+[node name="Juego" type="Control" node_paths=PackedStringArray("NodoCamara")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 480.0
 offset_bottom = 720.0
 script = ExtResource("1_aw244")
-_Camara = NodePath("CamaraPrincipal")
+NodoCamara = NodePath("CamaraPrincipal")
 
 [node name="Fondo" parent="." instance=ExtResource("1_1ot1n")]
 

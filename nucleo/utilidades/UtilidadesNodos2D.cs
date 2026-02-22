@@ -7,8 +7,8 @@ public static class UtilidadesNodos2D
 {
     internal static void AjustarZIndexNodo(Node2D nodo2D, int zIndex)
     {
-        nodo2D.ZIndex = zIndex;         // Mayor que el jugador
-        nodo2D.ZAsRelative = false;     // Importante
+        nodo2D.ZIndex = zIndex;
+        nodo2D.ZAsRelative = false;
     }
 
     public static bool Solape(Node2D nodoA, Node2D nodoB)

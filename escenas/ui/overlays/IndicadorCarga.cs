@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace Primerjuego2D.escenas.ui.overlays;
 

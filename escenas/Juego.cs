@@ -10,22 +10,28 @@ namespace Primerjuego2D.escenas;
 public partial class Juego : Control
 {
 	[Export]
-	public CamaraPrincipal _Camara { get; set; }    // Nodo de la escena
-	public static CamaraPrincipal Camara { get; private set; }
+	public CamaraPrincipal NodoCamara { get; set; }    // Nodo de la escena
+	public static CamaraPrincipal Camara => Instancia.NodoCamara;
 
-	private Control ContenedorEscena;
+	public static Juego Instancia;
+
+	private Control _contenedorEscena;
+
+	public Juego()
+	{
+		Juego.Instancia = this;
+	}
 
 	public override void _Ready()
 	{
 		LoggerJuego.Trace(this.Name + " Ready.");
 
-		this.ContenedorEscena = GetNode<Control>("ContenedorEscena");
-
-		Juego.Camara ??= _Camara;
+		this._contenedorEscena = GetNode<Control>("ContenedorEscena");
 
 		AjustaViewPortYCamara();
 
-		CargarMenuPrincipal();
+		// Cargamos el menú principal de forma diferida para asegurarnos de que la escena esté completamente lista.
+		CallDeferred(nameof(CargarMenuPrincipal));
 	}
 
 	private void AjustaViewPortYCamara()
@@ -83,10 +89,10 @@ public partial class Juego : Control
 		}
 
 		// Limpiamos el contenedor de escenas actual.
-		UtilidadesNodos.BorrarHijos(this.ContenedorEscena);
+		UtilidadesNodos.BorrarHijos(this._contenedorEscena);
 
 		// Añadimos la nueva escena al contenedor.
-		this.ContenedorEscena.AddChild(instanciaEscena);
+		this._contenedorEscena.AddChild(instanciaEscena);
 
 		return instanciaEscena;
 	}

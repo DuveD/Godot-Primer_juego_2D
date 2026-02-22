@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.sistema;
 using Primerjuego2D.escenas.sistema.audio;
+using Primerjuego2D.escenas.sistema.logros;
 using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -34,20 +36,26 @@ public partial class Global : Node
 
     public static Global Instancia;
 
-    private GestorColor _GestorColor;
-    public static GestorColor GestorColor => Global.Instancia._GestorColor;
+    private GestorColor _gestorColor;
+    public static GestorColor GestorColor => Global.Instancia._gestorColor;
 
-    private GestorAudio _GestorAudio;
-    public static GestorAudio GestorAudio => Global.Instancia._GestorAudio;
+    private GestorAudio _gestorAudio;
+    public static GestorAudio GestorAudio => Global.Instancia._gestorAudio;
 
-    private GestorEfectosAudio _GestorEfectosAudio;
-    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
+    private GestorEfectosAudio _gestorEfectosAudio;
+    public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._gestorEfectosAudio;
+
+    private GestorNotificacionLogros _gestorNotificacionLogros;
+    public static GestorNotificacionLogros GestorNotificacionLogros => Global.Instancia._gestorNotificacionLogros;
 
     private Perfil _perfilActivo;
     public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
 
     private IndicadorCarga _indicadorCarga;
     public static IndicadorCarga IndicadorCarga => Global.Instancia._indicadorCarga;
+
+    private IndicadorGuardado _indicadorGuardado;
+    public static IndicadorGuardado IndicadorGuardado => Global.Instancia._indicadorGuardado;
 
     public Global()
     {
@@ -61,10 +69,12 @@ public partial class Global : Node
         Idioma idioma = Ajustes.Idioma;
         GestorIdioma.CambiarIdioma(idioma);
 
-        _GestorColor = GetNode<GestorColor>("GestorColor");
-        _GestorAudio = GetNode<GestorAudio>("GestorAudio");
-        _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _gestorColor = GetNode<GestorColor>("GestorColor");
+        _gestorAudio = GetNode<GestorAudio>("GestorAudio");
+        _gestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _gestorNotificacionLogros = GetNode<GestorNotificacionLogros>("GestorNotificacionLogros");
         _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
+        _indicadorGuardado = GetNode<IndicadorGuardado>("IndicadorGuardado");
 
         // Mostramos colisiones.
         bool verColisiones = Ajustes.VerColisiones;
@@ -74,7 +84,14 @@ public partial class Global : Node
 
         NavegacionTeclado = false;
 
+        ConfigurarGestorNotificacionLogros();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    private void ConfigurarGestorNotificacionLogros()
+    {
+        GestorLogros.LogrosDesbloqueados += GestorNotificacionLogros.MostrarLogros;
     }
 
     private async void CargarPerfilActivo()
@@ -89,10 +106,7 @@ public partial class Global : Node
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-        Perfil perfilActivo = await Task.Run(() =>
-        {
-            return GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo);
-        });
+        Perfil perfilActivo = await Task.Run(() => GestorPerfiles.CargarPerfil(Ajustes.IdPerfilActivo));
 
         if (perfilActivo != null)
         {
@@ -114,9 +128,17 @@ public partial class Global : Node
         Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
     }
 
-    public static void GuardarPerfilActivo()
+    public static async void GuardarPerfilActivo()
     {
-        if (Global.PerfilActivo != null)
-            GestorPerfiles.GuardarPerfil(Global.PerfilActivo);
+        if (Global.PerfilActivo == null)
+            return;
+
+        IndicadorGuardado.Mostrar();
+
+        await Global.Instancia.ToSignal(Global.Instancia.GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        await Task.Run(() => GestorPerfiles.GuardarPerfil(Global.PerfilActivo));
+
+        IndicadorGuardado.Esconder();
     }
 }

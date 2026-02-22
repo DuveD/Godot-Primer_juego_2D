@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -72,10 +73,10 @@ public static class GestorLogros
             logroContador.Progreso = (int)datosLogro.GetValueOrDefault("progreso", 0);
     }
 
-    public static List<Logro> EmitirEvento(Perfil perfil, string evento, object datos = null)
+    public static bool EmitirEvento(Perfil perfil, string evento, object datos = null)
     {
         if (perfil?.Logros == null || string.IsNullOrWhiteSpace(evento))
-            return [];
+            return false;
 
         List<Logro> logrosDesbloqueados = [];
 
@@ -83,7 +84,7 @@ public static class GestorLogros
         if (_logrosPorEvento != null)
         {
             if (!_logrosPorEvento.TryGetValue(evento, out logrosEvento))
-                return [];
+                return false;
         }
         else
         {
@@ -98,8 +99,16 @@ public static class GestorLogros
                 logrosDesbloqueados.Add(logro);
         }
 
-        return logrosDesbloqueados;
+        if (logrosDesbloqueados.Any())
+        {
+            LogrosDesbloqueados?.Invoke(logrosDesbloqueados);
+            return true;
+        }
+
+        return false;
     }
+
+    public static event Action<List<Logro>> LogrosDesbloqueados;
 
     public static void GuardarLogros(Perfil perfil, ConfigFile archivoPerfil)
     {

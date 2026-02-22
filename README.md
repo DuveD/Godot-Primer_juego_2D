@@ -90,14 +90,14 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - _retro_coin.mp3_ by Driken5482 ([Retro coin 4](https://pixabay.com/es/sound-effects/retro-coin-4-236671/))
 - _retro_wave.mp3_ by van_Wiese ([Retro wave loop 125 BPM](https://pixabay.com/es/sound-effects/retro-wave-loop-125-bpm-8963/))
 - _kick.mp3_ by u_9ikddrpcfz ([Kick](https://pixabay.com/es/sound-effects/kick-182227/))
-- _spacerangerexpand.ttf_ by Iconian Fonts ([Space Ranger](https://www.dafont.com/es/space-ranger.font)
+- _spacerangerexpand.ttf_ by Iconian Fonts ([Space Ranger](https://www.dafont.com/es/space-ranger.font))
 - _iman.png_ by Giuseppe Ramos ([Magnet cartoon icon](https://www.vecteezy.com/vector-art/10793480-magnet-cartoon-icon))
 - _Tronicles-Sirius_Beat.mp3_ by Sirius Beat ([Tronicles](https://www.youtube.com/watch?v=2DNpupwQPJI))
 - _tv_shutdown.mp3_ by SoundReality ([TV Shut Down](https://pixabay.com/es/sound-effects/pel%c3%adculas-y-efectos-especiales-tv-shut-down-185446/))
-- _cargando.png_ by ([loading_3305879](https://www.flaticon.com/free-icon/loading_3305879))
-- _star-coin.png_ ([moneda-estrella_17155297](https://www.flaticon.es/icono-gratis/moneda-estrella_17155297))
-- _imang.png_ ([10793480-icono-de-dibujos-animados-de-iman](https://es.vecteezy.com/arte-vectorial/10793480-icono-de-dibujos-animados-de-iman))
-- _medkit.png_ ([medkit.png](https://opengameart.org/content/medkit-and-take-effect))
+- _cargando.png_ by Freepik ([loading_3305879](https://www.flaticon.com/free-icon/loading_3305879))
+- _star-coin.png_ by Kason Koo ([moneda-estrella_17155297](https://www.flaticon.es/icono-gratis/moneda-estrella_17155297))
+- _medkit.png_ by knik1985 ([medkit.png](https://opengameart.org/content/medkit-and-take-effect))
+- _disquete.png_ by dinosoftlabs ([disquete](https://www.flaticon.es/icono-gratis/disquete_346091?term=disquete&page=1&position=19&origin=tag&related_id=346091))
 
 ## ⚖️ Aviso de uso
 

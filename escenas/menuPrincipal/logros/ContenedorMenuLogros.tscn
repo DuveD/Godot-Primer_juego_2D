@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://dvu0j7x4qun2s"]
+
+[ext_resource type="Script" uid="uid://lyop30qagtrk" path="res://escenas/menuPrincipal/logros/ContenedorMenuLogros.cs" id="1_wu7lp"]
+[ext_resource type="PackedScene" uid="uid://bsgbrqkigl02e" path="res://escenas/sistema/logros/ContenedorLogroUnico.tscn" id="2_21hau"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_f6b88"]
+[ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_21hau"]
+[ext_resource type="PackedScene" uid="uid://ddj7d6yer8pny" path="res://escenas/sistema/logros/ContenedorLogroContador.tscn" id="3_nigbs"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_nigbs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21hau"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_6ip4d"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_21hau")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64n87"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 9
+
+[sub_resource type="Theme" id="Theme_oupjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_658cm"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ContenedorMenuLogros" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_wu7lp")
+ContenedorLogroUnicoScene = ExtResource("2_21hau")
+ContenedorLogroContadorScene = ExtResource("3_nigbs")
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+theme = SubResource("Theme_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 18
+
+[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f6b88")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.logros.titulo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainerMarginInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_64n87")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno"]
+process_mode = 3
+clip_contents = false
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainerLogros" type="VBoxContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer/PanelContainerContentSizeInterno"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonAtras" parent="PanelContainerMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_21hau")]
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../PanelContainerMarginInterno/ScrollContainer")
+theme_override_fonts/font = ExtResource("4_nigbs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_658cm")
+text = "MenuPrincipal.logros.atras"
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="Spacer" type="Control" parent="PanelContainerMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

@@ -1,0 +1,235 @@
+[gd_scene load_steps=14 format=3 uid="uid://crie7qet36ab6"]
+
+[ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.cs" id="1_tfyqu"]
+[ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_nncg4"]
+[ext_resource type="PackedScene" uid="uid://do1xqqv7m5xh6" path="res://escenas/ui/menu/ControlSlider.tscn" id="3_jfb1r"]
+[ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_cb0ic"]
+[ext_resource type="PackedScene" uid="uid://doyxp6l6eg05" path="res://escenas/ui/menu/ControlSeleccion.tscn" id="5_lbyp5"]
+[ext_resource type="PackedScene" uid="uid://bhnex31dy268l" path="res://escenas/ui/menu/ControlCheckButton.tscn" id="6_nncg4"]
+[ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="6_uf0bd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 0.5019608)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_6ip4d"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
+
+[sub_resource type="Theme" id="Theme_oupjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ip4d"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i83gw"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0go8"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ContenedorMenuAjustes" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_tfyqu")
+
+[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_6ip4d")
+
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = SubResource("Theme_oupjs")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="LabelTituloSonido" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nncg4")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.ajustes.tituloSonido"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlVolumenGeneral" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+layout_mode = 2
+focus_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.volumenGeneral"
+
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="2"]
+focus_behavior_recursive = 2
+
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral" index="1"]
+focus_neighbor_bottom = NodePath("../../ControlVolumenMusica/HSlider")
+
+[node name="ControlVolumenMusica" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+layout_mode = 2
+focus_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.volumenMusica"
+
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="2"]
+focus_behavior_recursive = 2
+
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica" index="1"]
+focus_neighbor_top = NodePath("../../ControlVolumenGeneral/HSlider")
+focus_neighbor_bottom = NodePath("../../ControlVolumenSonido/HSlider")
+
+[node name="ControlVolumenSonido" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+layout_mode = 2
+focus_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.volumenEfectos"
+
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="2"]
+focus_behavior_recursive = 2
+
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido" index="1"]
+focus_neighbor_top = NodePath("../../ControlVolumenMusica/HSlider")
+focus_neighbor_bottom = NodePath("../../ControlLenguaje/OptionButton")
+
+[node name="LabelTituloInterfaz" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nncg4")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.ajustes.tituloInterfaz"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlLenguaje" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("5_lbyp5")]
+layout_mode = 2
+focus_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.lenguaje"
+
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="0"]
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="2"]
+focus_neighbor_top = NodePath("../../ControlVolumenSonido/HSlider")
+focus_neighbor_bottom = NodePath("../../ControlNivelLog/OptionButton")
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="LabelTituloDesarrollo" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nncg4")
+theme_override_font_sizes/font_size = 24
+text = "MenuPrincipal.ajustes.tituloDesarrollo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlNivelLog" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("5_lbyp5")]
+layout_mode = 2
+focus_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.nivelLog"
+
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="0"]
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="2"]
+focus_neighbor_top = NodePath("../../ControlLenguaje/OptionButton")
+focus_neighbor_bottom = NodePath("../../ControlEscribirLogEnFichero/CheckButton")
+theme_override_fonts/font = ExtResource("4_cb0ic")
+
+[node name="ControlEscribirLogEnFichero" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("6_nncg4")]
+layout_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.escribirLogEnFichero"
+
+[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero" index="2"]
+focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
+focus_neighbor_bottom = NodePath("../../ControlVerColisiones/CheckButton")
+
+[node name="ControlVerColisiones" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("6_nncg4")]
+process_mode = 3
+layout_mode = 2
+TextoLabel = "MenuPrincipal.ajustes.verColisiones"
+
+[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones" index="2"]
+focus_neighbor_left = NodePath("../../HBoxContainer/ButtonAtras")
+focus_neighbor_top = NodePath("../../ControlEscribirLogEnFichero/CheckButton")
+focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonAtras" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("6_uf0bd")]
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../ControlVerColisiones/CheckButton")
+focus_neighbor_right = NodePath("../../ControlVerColisiones/CheckButton")
+theme_override_fonts/font = ExtResource("4_cb0ic")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i83gw")
+text = "MenuPrincipal.ajustes.atras"
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonGuardar" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("6_uf0bd")]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonAtras")
+focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_cb0ic")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f0go8")
+disabled = true
+text = "MenuPrincipal.ajustes.guardar"
+NombreSonidoOnFocusEntered = "kick.mp3"
+NombreSonidoOnMouseEntered = "kick.mp3"
+NombreSonidoOnPressed = "digital_click.mp3"
+
+[node name="MenuAjustes" type="Control" parent="."]
+layout_mode = 2
+
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero"]
+[editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones"]

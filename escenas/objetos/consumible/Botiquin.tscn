@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://umkqdmkdi76e"]
 
-[ext_resource type="Script" uid="uid://cpf3p8e6niep1" path="res://escenas/objetos/powerup/Botiquin.cs" id="1_n8dum"]
+[ext_resource type="Script" uid="uid://cpf3p8e6niep1" path="res://escenas/objetos/consumible/Botiquin.cs" id="1_n8dum"]
 [ext_resource type="Texture2D" uid="uid://dftoqvb1slhvr" path="res://recursos/imagenes/objetos/powerUp/medkit.png" id="2_n8dum"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2jror"]
@@ -10,6 +10,7 @@ radius = 25.0
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_n8dum")
+TiempoDestruccion = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(9.536743e-07, 9.536743e-07)
