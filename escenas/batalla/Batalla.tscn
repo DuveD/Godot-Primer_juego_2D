@@ -14,6 +14,12 @@
 [ext_resource type="Script" uid="uid://bu4jafkhrqpi7" path="res://escenas/batalla/SpawnPowerUps.cs" id="12_svpxk"]
 [ext_resource type="PackedScene" uid="uid://umkqdmkdi76e" path="res://escenas/objetos/consumible/Botiquin.tscn" id="13_ne2vf"]
 
+[sub_resource type="Curve2D" id="Curve2D_w0at3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -36,19 +42,59 @@ bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
 resource_local_to_scene = true
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ne2vf")
 
-[sub_resource type="Curve2D" id="Curve2D_w0at3"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
-}
-point_count = 5
-
 [node name="Batalla" type="Node"]
 process_mode = 1
 script = ExtResource("1_jxdra")
 
 [node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
+process_mode = 0
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpawnEnemigos" type="Control" parent="BatallaControlador"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_ddidh")
+PackedSceneEnemigo = ExtResource("2_7rrnp")
+
+[node name="EnemyPath" type="Path2D" parent="BatallaControlador/SpawnEnemigos"]
+curve = SubResource("Curve2D_w0at3")
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="BatallaControlador/SpawnEnemigos/EnemyPath"]
+
+[node name="TimerSpawnEnemigo" type="Timer" parent="BatallaControlador/SpawnEnemigos"]
+wait_time = 0.5
+
+[node name="SpawnMonedas" type="Control" parent="BatallaControlador"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_w3cb5")
+MonedaPackedScene = ExtResource("7_t4q4m")
+MonedaEspecialPackedScene = ExtResource("8_c2dy2")
+
+[node name="SpawnPowerUps" type="Control" parent="BatallaControlador"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_svpxk")
+PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
+PowerUpInvulnerabilidadPackedScene = ExtResource("11_svpxk")
+BotiquinPackedScene = ExtResource("13_ne2vf")
 
 [node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
 
@@ -67,69 +113,22 @@ position = Vector2(-161, 113)
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
-[node name="SpawnEnemigos" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_ddidh")
-PackedSceneEnemigo = ExtResource("2_7rrnp")
-
-[node name="EnemyPath" type="Path2D" parent="SpawnEnemigos"]
-curve = SubResource("Curve2D_w0at3")
-
-[node name="EnemySpawnLocation" type="PathFollow2D" parent="SpawnEnemigos/EnemyPath"]
-
-[node name="TimerSpawnEnemigo" type="Timer" parent="SpawnEnemigos"]
-wait_time = 0.5
-
-[node name="SpawnMonedas" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_w3cb5")
-MonedaPackedScene = ExtResource("7_t4q4m")
-MonedaEspecialPackedScene = ExtResource("8_c2dy2")
-
-[node name="SpawnPowerUps" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("12_svpxk")
-PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
-PowerUpInvulnerabilidadPackedScene = ExtResource("11_svpxk")
-BotiquinPackedScene = ExtResource("13_ne2vf")
-
-[connection signal="GameOverFinalizado" from="." to="SpawnMonedas" method="DestruirMonedas"]
+[connection signal="GameOverFinalizado" from="." to="BatallaControlador/SpawnMonedas" method="DestruirMonedas"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]
-[connection signal="BatallaFinalizada" from="BatallaControlador" to="SpawnEnemigos" method="Stop"]
+[connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaControlador/SpawnEnemigos" method="Stop"]
 [connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeIniciarBatalla"]
-[connection signal="BatallaIniciada" from="BatallaControlador" to="SpawnEnemigos" method="Start"]
+[connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaControlador/SpawnEnemigos" method="Start"]
 [connection signal="PausarBatalla" from="BatallaControlador" to="BatallaHUD" method="EsconderHUD"]
 [connection signal="PreparandoBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajesIniciarBatalla"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]
 [connection signal="RenaudarBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarHUD"]
+[connection signal="timeout" from="BatallaControlador/SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
+[connection signal="MonedaRecogida" from="BatallaControlador/SpawnMonedas" to="BatallaControlador" method="SumarPuntuacion"]
 [connection signal="OnButtonSalirConfirmarPressed" from="BatallaHUD/PanelMenuPausa" to="." method="TerminarJuego"]
 [connection signal="pressed" from="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer/PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ButtonRenaudar" to="BatallaControlador" method="RenaudarJuego"]
 [connection signal="AnimacionMuerteJugadorTerminada" from="Jugador" to="." method="FinGameOver"]
 [connection signal="CambioVida" from="Jugador" to="BatallaHUD" method="OnCambioVida"]
 [connection signal="MuerteJugador" from="Jugador" to="." method="InicioGameOver"]
-[connection signal="timeout" from="SpawnEnemigos/TimerSpawnEnemigo" to="." method="OnEnemyTimerTimeout"]
-[connection signal="MonedaRecogida" from="SpawnMonedas" to="BatallaControlador" method="SumarPuntuacion"]
 
 [editable path="BatallaHUD"]
 [editable path="BatallaHUD/PanelMenuPausa/ContenedorMenuAjustes"]

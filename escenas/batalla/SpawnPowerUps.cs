@@ -33,6 +33,8 @@ public partial class SpawnPowerUps : Control
 
   private Timer _TimerSpawn;
 
+  public Node NodoContenedorPowerUps => this.GetParent().GetParent();
+
   public override void _Ready()
   {
     LoggerJuego.Trace(this.Name + " Ready.");
@@ -95,7 +97,7 @@ public partial class SpawnPowerUps : Control
     Consumible powerUp = powerUpPackedScene.Instantiate<Consumible>();
     powerUp.Position = ObtenerPosicionAleatoriaSegura();
 
-    this.GetParent().AddChild(powerUp);
+    NodoContenedorPowerUps.AddChild(powerUp);
   }
 
   private Vector2 ObtenerPosicionAleatoriaSegura()

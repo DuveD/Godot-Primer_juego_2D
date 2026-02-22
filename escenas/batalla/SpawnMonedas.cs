@@ -36,7 +36,7 @@ public partial class SpawnMonedas : Control
 
 	List<Moneda> MonedasEnEscena = new List<Moneda>();
 
-	public Node NodoContenedorMonedas => this.GetParent();
+	public Node NodoContenedorMonedas => this.GetParent().GetParent();
 
 	public override void _Ready()
 	{
@@ -91,8 +91,8 @@ public partial class SpawnMonedas : Control
 		moneda.TextoFlotanteScene = this.TextoFlotanteScene;
 		moneda.Recogida += OnMonedaRecogida;
 
-		NodoContenedorMonedas.AddChild(moneda);
 		moneda.Position = ObtenerPosicionAleatoriaSegura();
+		NodoContenedorMonedas.AddChild(moneda);
 
 		MonedasEnEscena.Add(moneda);
 
@@ -104,8 +104,6 @@ public partial class SpawnMonedas : Control
 		Vector2 nuevaPos;
 		Vector2 centroJugador = Jugador.GlobalPosition;
 		bool cercaJugador;
-
-		List<Moneda> monedas = UtilidadesNodos.ObtenerNodosDeTipo<Moneda>(this.NodoContenedorMonedas);
 		bool cercaOtraMoneda;
 
 		do
@@ -115,7 +113,8 @@ public partial class SpawnMonedas : Control
 			nuevaPos = new Vector2(x, y);
 
 			cercaJugador = UtilidadesMatematicas.PuntosCerca(centroJugador, nuevaPos, this.DistanciaMinima);
-			cercaOtraMoneda = monedas.Any(moneda => UtilidadesMatematicas.PuntosCerca(moneda.Position, nuevaPos, moneda.ObtenerRadioCollisionShape2D() * 2));
+			cercaOtraMoneda = MonedasEnEscena.FindAll(moneda => IsInstanceValid(moneda) && !moneda.IsQueuedForDeletion())
+																			 .Any(moneda => UtilidadesMatematicas.PuntosCerca(moneda.Position, nuevaPos, moneda.ObtenerRadioCollisionShape2D() * 2));
 		}
 		while (cercaJugador || cercaOtraMoneda);
 

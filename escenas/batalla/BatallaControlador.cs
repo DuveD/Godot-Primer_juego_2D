@@ -75,9 +75,9 @@ public partial class BatallaControlador : Control
         LoggerJuego.Trace(this.Name + " Ready.");
 
         this.BatallaHUD = GetNode<BatallaHUD>("../BatallaHUD");
-        this.SpawnEnemigos = GetNode<SpawnEnemigos>("../SpawnEnemigos");
-        this.SpawnMonedas = GetNode<SpawnMonedas>("../SpawnMonedas");
-        this.SpawnPowerUps = GetNode<SpawnPowerUps>("../SpawnPowerUps");
+        this.SpawnEnemigos = GetNode<SpawnEnemigos>("SpawnEnemigos");
+        this.SpawnMonedas = GetNode<SpawnMonedas>("SpawnMonedas");
+        this.SpawnPowerUps = GetNode<SpawnPowerUps>("SpawnPowerUps");
         this.Jugador = GetNode<Jugador>("../Jugador");
 
         GestorEstadisticas.InicializarPartida();

@@ -46,14 +46,18 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         InicializarSlots();
     }
 
-    private void InicializarSlots()
+    private async void InicializarSlots()
     {
-        _perfiles = new List<Perfil>
+        Global.IndicadorCarga.Mostrar();
+
+        _perfiles = await Task.Run(() => new List<Perfil>
         {
             GestorPerfiles.CargarPerfil(Ajustes.IdPerfilSlot1),
             GestorPerfiles.CargarPerfil(Ajustes.IdPerfilSlot2),
             GestorPerfiles.CargarPerfil(Ajustes.IdPerfilSlot3)
-        };
+        });
+
+        Global.IndicadorCarga.Esconder();
 
         ActualizarSlots();
     }

@@ -10,12 +10,15 @@ public partial class SpawnEnemigos : Control
     [Signal]
     public delegate void EnemigoSpawneadoEventHandler(Enemigo enemigo);
 
+    [Export]
+    public PackedScene PackedSceneEnemigo { get; set; }
+
     private Timer TimerSpawnEnemigo;
 
     private PathFollow2D EnemySpawnLocation;
 
-    [Export]
-    public PackedScene PackedSceneEnemigo { get; set; }
+    public Node NodoContenedorEnemigos => this.GetParent().GetParent();
+
 
     public override void _Ready()
     {
@@ -62,7 +65,7 @@ public partial class SpawnEnemigos : Control
         enemigo.LinearVelocity = velocity.Rotated(directionRad);
 
         // Spawneamos el enemigo en la escena principal.
-        this.AddChild(enemigo);
+        NodoContenedorEnemigos.AddChild(enemigo);
 
         EmitSignal(SignalName.EnemigoSpawneado, enemigo);
     }
