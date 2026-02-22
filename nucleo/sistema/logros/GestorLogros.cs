@@ -10,8 +10,6 @@ namespace Primerjuego2D.nucleo.sistema.logros;
 
 public static class GestorLogros
 {
-    public static event Action<List<Logro>> LogrosDesbloqueados;
-
     public const string FORMATO_FECHA = "yyyy-MM-dd HH:mm:ss";
 
     private const string SECCION_LOGROS = "logros";
@@ -109,6 +107,8 @@ public static class GestorLogros
 
         return false;
     }
+
+    public static event Action<List<Logro>> LogrosDesbloqueados;
 
     public static void GuardarLogros(Perfil perfil, ConfigFile archivoPerfil)
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Primerjuego2D.escenas.batalla.HUD;
 using Primerjuego2D.escenas.entidades.jugador;
 using Primerjuego2D.escenas.objetos.consumible;
 using Primerjuego2D.nucleo.constantes;

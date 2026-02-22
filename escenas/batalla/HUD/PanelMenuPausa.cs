@@ -3,7 +3,7 @@ using Primerjuego2D.escenas.menuPrincipal;
 using Primerjuego2D.escenas.ui;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.batalla;
+namespace Primerjuego2D.escenas.batalla.HUD;
 
 public partial class PanelMenuPausa : Control
 {

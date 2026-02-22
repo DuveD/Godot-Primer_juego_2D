@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://bkvjycp3edtfo"]
 
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="1_gg8ny"]
-[ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/BatallaHUD.cs" id="1_osa72"]
+[ext_resource type="Script" uid="uid://bpvxpjlb31nkf" path="res://escenas/batalla/HUD/BatallaHUD.cs" id="1_osa72"]
 [ext_resource type="PackedScene" uid="uid://bkdnqan0gq452" path="res://escenas/batalla/HUD/SpriteVida.tscn" id="2_ljfl2"]
-[ext_resource type="Script" uid="uid://duc4dn1ha4q5r" path="res://escenas/batalla/PanelMenuPausa.cs" id="3_ovsv8"]
+[ext_resource type="Script" uid="uid://duc4dn1ha4q5r" path="res://escenas/batalla/HUD/PanelMenuPausa.cs" id="3_ovsv8"]
 [ext_resource type="PackedScene" uid="uid://5ng42tilghqk" path="res://escenas/ui/controles/ButtonPersonalizado.tscn" id="3_pb27p"]
-[ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/ContenedorMenuPausa.cs" id="3_v7ugp"]
+[ext_resource type="Script" uid="uid://ckal5ut3nx4hi" path="res://escenas/batalla/HUD/ContenedorMenuPausa.cs" id="3_v7ugp"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ContenedorMenuAjustes.tscn" id="5_i3enc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]

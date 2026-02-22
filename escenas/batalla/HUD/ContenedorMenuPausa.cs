@@ -6,7 +6,7 @@ using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.batalla;
+namespace Primerjuego2D.escenas.batalla.HUD;
 
 public partial class ContenedorMenuPausa : ContenedorMenu
 {

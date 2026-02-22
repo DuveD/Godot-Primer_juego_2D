@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Primerjuego2D.escenas.batalla.HUD;
 using Primerjuego2D.escenas.sistema.audio.efectos;
 using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
-namespace Primerjuego2D.escenas.batalla;
+namespace Primerjuego2D.escenas.batalla.HUD;
 
 public partial class BatallaHUD : CanvasLayer
 {
