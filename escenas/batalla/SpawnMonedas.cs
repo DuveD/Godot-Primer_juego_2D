@@ -131,8 +131,8 @@ public partial class SpawnMonedas : Control
 
 		MonedasEnEscena.Remove(moneda);
 
-		List<Logro> logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
-		if (logrosDesbloqueados.Any())
+		bool logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_MONEDA_OBTENIDA);
+		if (logrosDesbloqueados)
 			Global.GuardarPerfilActivo();
 
 		bool esMonedaEspecial = moneda is MonedaEspecial;

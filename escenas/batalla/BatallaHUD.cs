@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Primerjuego2D.escenas.batalla.HUD;
 using Primerjuego2D.escenas.sistema.audio.efectos;
+using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -37,6 +38,9 @@ public partial class BatallaHUD : CanvasLayer
         this.ScoreLabel = GetNode<Label>("ScoreLabel");
         this.PanelMenuPausa = GetNode<PanelMenuPausa>("PanelMenuPausa");
         this.HBoxContainerVidas = UtilidadesNodos.ObtenerNodoPorNombre<HBoxContainer>(this, "HBoxContainerVidas");
+
+        UtilidadesLayer.AjustarLayerNodo(this, ConstantesLayer.HUD);
+        UtilidadesLayer.AjustarLayerNodo(PanelMenuPausa, ConstantesLayer.POPUPS);
 
         this.LabelGameOver.Hide();
     }

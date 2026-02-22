@@ -13,6 +13,20 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
     [Export]
     public string NombreSonidoOnPressed { get; set; }
 
+    public new bool Disabled
+    {
+        get => base.Disabled;
+        set
+        {
+            if (base.Disabled == value)
+                return;
+
+            base.Disabled = value;
+
+            OnDisabledChanged(value);
+        }
+    }
+
     private bool _reproducirSonido = true;
 
     private bool _tieneFocus;
@@ -32,7 +46,6 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         this.Pressed += OnPressed;    // Centrar pivote después de que el layout esté calculado
 
         OnNotificationResized();
-        OnNotificationDisabled();
     }
 
     public override void _Notification(int what)
@@ -40,11 +53,6 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         if (what == NotificationResized)
         {
             OnNotificationResized();
-        }
-
-        if (what == NotificationDisabled)
-        {
-            OnNotificationDisabled();
         }
     }
 
@@ -58,9 +66,10 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         PivotOffset = Size / 2f;
     }
 
-    private void OnNotificationDisabled()
+
+    private void OnDisabledChanged(bool disabled)
     {
-        if (Disabled)
+        if (disabled)
         {
             FocusMode = FocusModeEnum.None;
             MouseFilter = MouseFilterEnum.Ignore;

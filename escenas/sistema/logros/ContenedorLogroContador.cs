@@ -2,7 +2,7 @@ using Godot;
 using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.utilidades;
 
-namespace Primerjuego2D.escenas.ui.logros;
+namespace Primerjuego2D.escenas.sistema.logros;
 
 public partial class ContenedorLogroContador : ContenedorLogro
 {

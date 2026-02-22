@@ -115,4 +115,12 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
 
         this.GetTree().Quit();
     }
+
+    override public void _ExitTree()
+    {
+        base._ExitTree();
+
+        this.VisibilityChanged -= OnVisibilityChanged;
+        Global.Instancia.OnCambioPerfilActivo -= CalcularEstadosBotonesSinPerfil;
+    }
 }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ddj7d6yer8pny"]
 
 [ext_resource type="StyleBox" uid="uid://di1523x7j0qq1" path="res://recursos/temas/logros/ContenedorLogroNormal.tres" id="1_eaoi4"]
-[ext_resource type="Script" uid="uid://c022kmpgdqob7" path="res://escenas/ui/logros/ContenedorLogroContador.cs" id="1_m0lga"]
+[ext_resource type="Script" uid="uid://c022kmpgdqob7" path="res://escenas/sistema/logros/ContenedorLogroContador.cs" id="1_m0lga"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_eaoi4"]
 [ext_resource type="StyleBox" uid="uid://iuuxxeipoci7" path="res://recursos/temas/logros/ContenedorLogroFocused.tres" id="3_myme4"]
 

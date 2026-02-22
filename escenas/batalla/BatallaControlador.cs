@@ -146,8 +146,8 @@ public partial class BatallaControlador : Control
         LoggerJuego.Info("Batalla finalizada.");
         EmitSignal(SignalName.BatallaFinalizada);
 
-        List<Logro> logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
-        if (logrosDesbloqueados.Any())
+        bool logrosDesbloqueados = GestorLogros.EmitirEvento(Global.PerfilActivo, DefinicionLogros.EVENTO_LOGRO_PRIMERA_PARTIDA);
+        if (logrosDesbloqueados)
             Global.GuardarPerfilActivo();
     }
 

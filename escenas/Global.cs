@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Godot;
 using Primerjuego2D.escenas.sistema;
 using Primerjuego2D.escenas.sistema.audio;
+using Primerjuego2D.escenas.sistema.logros;
 using Primerjuego2D.escenas.ui.overlays;
 using Primerjuego2D.nucleo.localizacion;
 using Primerjuego2D.nucleo.sistema.configuracion;
+using Primerjuego2D.nucleo.sistema.logros;
 using Primerjuego2D.nucleo.sistema.perfil;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -43,6 +45,9 @@ public partial class Global : Node
     private GestorEfectosAudio _GestorEfectosAudio;
     public static GestorEfectosAudio GestorEfectosAudio => Global.Instancia._GestorEfectosAudio;
 
+    private GestorNotificacionLogros _GestorNotificacionLogros;
+    public static GestorNotificacionLogros GestorNotificacionLogros => Global.Instancia._GestorNotificacionLogros;
+
     private Perfil _perfilActivo;
     public static Perfil PerfilActivo => Global.Instancia._perfilActivo;
 
@@ -67,6 +72,7 @@ public partial class Global : Node
         _GestorColor = GetNode<GestorColor>("GestorColor");
         _GestorAudio = GetNode<GestorAudio>("GestorAudio");
         _GestorEfectosAudio = GetNode<GestorEfectosAudio>("GestorEfectosAudio");
+        _GestorNotificacionLogros = GetNode<GestorNotificacionLogros>("GestorNotificacionLogros");
         _indicadorCarga = GetNode<IndicadorCarga>("IndicadorCarga");
         _indicadorGuardado = GetNode<IndicadorGuardado>("IndicadorGuardado");
 
@@ -78,7 +84,14 @@ public partial class Global : Node
 
         NavegacionTeclado = false;
 
+        ConfigurarGestorNotificacionLogros();
+
         LoggerJuego.Trace(this.Name + " Ready.");
+    }
+
+    private void ConfigurarGestorNotificacionLogros()
+    {
+        GestorLogros.LogrosDesbloqueados += GestorNotificacionLogros.MostrarLogros;
     }
 
     private async void CargarPerfilActivo()
