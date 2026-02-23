@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://caa1gmq58kvfj"]
+[gd_scene format=3 uid="uid://caa1gmq58kvfj"]
 
 [ext_resource type="StyleBox" uid="uid://b8473o531ddrv" path="res://recursos/temas/perfil/SlotPerfilVacio_normal.tres" id="1_5ms3b"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="1_nmxy3"]
@@ -54,7 +54,7 @@ _data = {
 &"Rotar": SubResource("Animation_tlwam")
 }
 
-[node name="SlotPerfil" type="Button"]
+[node name="SlotPerfil" type="Button" unique_id=543410041]
 custom_minimum_size = Vector2(325, 100)
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,7 +70,7 @@ theme_override_styles/hover = ExtResource("3_5ms3b")
 theme_override_styles/focus = ExtResource("4_5ms3b")
 script = ExtResource("5_xcphe")
 
-[node name="ContenedorInformacion" type="PanelContainer" parent="."]
+[node name="ContenedorInformacion" type="PanelContainer" parent="." unique_id=74814121]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,12 +81,12 @@ mouse_filter = 2
 theme = SubResource("Theme_put7q")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_put7q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorInformacion"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorInformacion" unique_id=636213418]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="LabelNombre" type="Label" parent="ContenedorInformacion/VBoxContainer"]
+[node name="LabelNombre" type="Label" parent="ContenedorInformacion/VBoxContainer" unique_id=1063481383]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_nmxy3")
@@ -95,54 +95,54 @@ text = "Nombre Perfil"
 vertical_alignment = 1
 text_overrun_behavior = 1
 
-[node name="HBoxContainerFecha" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer"]
+[node name="HBoxContainerFecha" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer" unique_id=2065047795]
 layout_mode = 2
 
-[node name="LabelFechaUltimaPartidaTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha"]
+[node name="LabelFechaUltimaPartidaTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha" unique_id=2133905798]
 layout_mode = 2
 text = "SlotPerfil.ultimaPartida"
 vertical_alignment = 1
 
-[node name="LabelFechaUltimaPartidaFecha" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha"]
+[node name="LabelFechaUltimaPartidaFecha" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerFecha" unique_id=322930828]
 layout_mode = 2
 text = "-"
 vertical_alignment = 1
 
-[node name="HBoxContainerDatos" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer"]
+[node name="HBoxContainerDatos" type="HBoxContainer" parent="ContenedorInformacion/VBoxContainer" unique_id=395238660]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="LabelPartidasJugadasTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="LabelPartidasJugadasTexto" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos" unique_id=1874863440]
 layout_mode = 2
 size_flags_vertical = 1
 text = "SlotPerfil.partidasJugadas"
 vertical_alignment = 1
 
-[node name="LabelPartidasJugadasNumero" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="LabelPartidasJugadasNumero" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos" unique_id=229332598]
 layout_mode = 2
 size_flags_vertical = 1
 text = "0"
 vertical_alignment = 1
 
-[node name="Spacer" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="Spacer" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos" unique_id=1557153388]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
 
-[node name="LabelMonedasRecogidas" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="LabelMonedasRecogidas" type="Label" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos" unique_id=2021402682]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_5ms3b")
 theme_override_font_sizes/font_size = 20
 text = "0"
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos"]
+[node name="Control" type="Control" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos" unique_id=1098454908]
 clip_contents = true
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="TextureRectMonedaNormal" type="TextureRect" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control"]
+[node name="TextureRectMonedaNormal" type="TextureRect" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control" unique_id=825261182]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 15
@@ -155,12 +155,10 @@ texture = ExtResource("2_1x165")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal"]
-libraries = {
-&"": SubResource("AnimationLibrary_q0m6h")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal" unique_id=1377569754]
+libraries/ = SubResource("AnimationLibrary_q0m6h")
 
-[node name="ContenedorVacio" type="PanelContainer" parent="."]
+[node name="ContenedorVacio" type="PanelContainer" parent="." unique_id=2009857242]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,12 +169,12 @@ mouse_filter = 2
 theme = SubResource("Theme_put7q")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_put7q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorVacio"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContenedorVacio" unique_id=621031053]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="LabelNombre" type="Label" parent="ContenedorVacio/VBoxContainer"]
+[node name="LabelNombre" type="Label" parent="ContenedorVacio/VBoxContainer" unique_id=1746262508]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_nmxy3")

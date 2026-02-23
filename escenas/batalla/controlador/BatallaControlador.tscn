@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://qrdflnq7hp0f"]
+[gd_scene format=3 uid="uid://qrdflnq7hp0f"]
 
 [ext_resource type="Script" uid="uid://cmrjpx6xn17ja" path="res://escenas/batalla/controlador/BatallaControlador.cs" id="1_trjjg"]
 
-[node name="BatallaControlador" type="Control"]
+[node name="BatallaControlador" type="Control" unique_id=1268437908]
 process_mode = 3
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_trjjg")

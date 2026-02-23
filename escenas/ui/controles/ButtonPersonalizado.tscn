@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://5ng42tilghqk"]
+[gd_scene format=3 uid="uid://5ng42tilghqk"]
 
 [ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="1_w1ltr"]
 
-[node name="ButtonPersonalizado" type="Button"]
+[node name="ButtonPersonalizado" type="Button" unique_id=1485118297]
 offset_top = 8.0
 offset_right = 100.0
 offset_bottom = 58.0

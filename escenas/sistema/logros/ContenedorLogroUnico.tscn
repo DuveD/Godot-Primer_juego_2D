@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsgbrqkigl02e"]
+[gd_scene format=3 uid="uid://bsgbrqkigl02e"]
 
 [ext_resource type="StyleBox" uid="uid://di1523x7j0qq1" path="res://recursos/temas/logros/ContenedorLogroNormal.tres" id="1_cxqar"]
 [ext_resource type="Script" uid="uid://dgc6rta6sy2op" path="res://escenas/sistema/logros/ContenedorLogroUnico.cs" id="2_r8ff4"]
 [ext_resource type="StyleBox" uid="uid://iuuxxeipoci7" path="res://recursos/temas/logros/ContenedorLogroFocused.tres" id="3_deu50"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="4_dr0ml"]
 
-[node name="ContenedorLogroUnico" type="PanelContainer"]
+[node name="ContenedorLogroUnico" type="PanelContainer" unique_id=1890472906]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -20,19 +20,19 @@ script = ExtResource("2_r8ff4")
 StyleNormal = ExtResource("1_cxqar")
 StyleFocus = ExtResource("3_deu50")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=608522019]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="Nombre" type="Label" parent="VBoxContainer"]
+[node name="Nombre" type="Label" parent="VBoxContainer" unique_id=1721309402]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_dr0ml")
 theme_override_font_sizes/font_size = 20
 text = "Nombre Logro"
 autowrap_mode = 2
 
-[node name="Descripcion" type="Label" parent="VBoxContainer"]
+[node name="Descripcion" type="Label" parent="VBoxContainer" unique_id=335051456]
 layout_mode = 2
 text = "Esta es la descripción del logro"

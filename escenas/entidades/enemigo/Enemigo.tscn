@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b77k6jhiy8djq"]
+[gd_scene format=3 uid="uid://b77k6jhiy8djq"]
 
 [ext_resource type="Script" uid="uid://5twh0ocm1k0w" path="res://escenas/entidades/enemigo/Enemigo.cs" id="1_lpjhc"]
 [ext_resource type="Texture2D" uid="uid://dh65lrlh20del" path="res://recursos/imagenes/enemigo/enemyFlyingAlt_1.png" id="1_t0n5c"]
@@ -48,24 +48,24 @@ animations = [{
 radius = 32.0
 height = 64.0
 
-[node name="Enemy" type="RigidBody2D"]
+[node name="Enemy" type="RigidBody2D" unique_id=1624470627]
 collision_layer = 4
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_lpjhc")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1675441737]
 position = Vector2(8, 0)
 scale = Vector2(3.78, 4.5)
 rect = Rect2(-15.21164, -16, 26.190475, 32)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemies"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1691721957 groups=["Enemies"]]
 position = Vector2(-8, 0)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_jd03s")
 animation = &"fly"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2038950281]
 shape = SubResource("CapsuleShape2D_rh3q5")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="EliminarEnemigo"]

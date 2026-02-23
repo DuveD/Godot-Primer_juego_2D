@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d12g1b8xgemee"]
+[gd_scene format=3 uid="uid://d12g1b8xgemee"]
 
 [ext_resource type="Script" uid="uid://b7bol732bm7nq" path="res://escenas/menuPrincipal/estadisticas/ContenedorMenuEstadisticas.cs" id="1_qe0mb"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_s6ov0"]
@@ -130,7 +130,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ContenedorMenuEstadisticas" type="CenterContainer"]
+[node name="ContenedorMenuEstadisticas" type="CenterContainer" unique_id=437115017]
 process_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -146,21 +146,21 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_qe0mb")
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+[node name="PanelContainerMargin" type="PanelContainer" parent="." unique_id=491192538]
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin" unique_id=1228140425]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize" unique_id=85772856]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=97352442]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 24
@@ -168,25 +168,25 @@ text = "MenuPrincipal.estadisticas.titulo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainerMarginInterno" type="PanelContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="PanelContainerMarginInterno" type="PanelContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=437032409]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_64n87")
 
-[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno"]
+[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno" unique_id=438778365]
 clip_contents = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno" unique_id=1686740495]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="ContainerPartidasJugadas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+[node name="ContainerPartidasJugadas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer" unique_id=607888577]
 layout_mode = 2
 
-[node name="LabelPartidasJugadas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+[node name="LabelPartidasJugadas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas" unique_id=1921947294]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
@@ -194,11 +194,11 @@ theme_override_font_sizes/font_size = 18
 text = "MenuPrincipal.estadisticas.partidasJugadas"
 vertical_alignment = 2
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas" unique_id=863637458]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelPartidasJugadasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas"]
+[node name="LabelPartidasJugadasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerPartidasJugadas" unique_id=299187884]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 18
@@ -206,10 +206,10 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ContainerMejorPuntuacion" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+[node name="ContainerMejorPuntuacion" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer" unique_id=319176265]
 layout_mode = 2
 
-[node name="LabelMejorPuntuacion" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+[node name="LabelMejorPuntuacion" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion" unique_id=848903272]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
@@ -217,11 +217,11 @@ theme_override_font_sizes/font_size = 18
 text = "MenuPrincipal.estadisticas.mejorPuntuacion"
 vertical_alignment = 2
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion" unique_id=944742374]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelMejorPuntuacionValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion"]
+[node name="LabelMejorPuntuacionValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMejorPuntuacion" unique_id=832396]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 18
@@ -229,10 +229,10 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ContainerMonedasRecogidas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+[node name="ContainerMonedasRecogidas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer" unique_id=1161822554]
 layout_mode = 2
 
-[node name="LabelMonedasRecogidas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+[node name="LabelMonedasRecogidas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas" unique_id=876471039]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
@@ -240,11 +240,11 @@ theme_override_font_sizes/font_size = 18
 text = "MenuPrincipal.estadisticas.monedasRecogidas"
 vertical_alignment = 2
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas" unique_id=704194891]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelMonedasRecogidasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+[node name="LabelMonedasRecogidasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas" unique_id=1026316263]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 18
@@ -252,12 +252,12 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas"]
+[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas" unique_id=19888907]
 clip_contents = true
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="TextureRectMonedaNormal" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas/Control"]
+[node name="TextureRectMonedaNormal" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas/Control" unique_id=348240215]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -276,16 +276,14 @@ texture = ExtResource("3_s6ov0")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas/Control/TextureRectMonedaNormal"]
-libraries = {
-&"": SubResource("AnimationLibrary_q0m6h")
-}
-autoplay = "Rotar"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasRecogidas/Control/TextureRectMonedaNormal" unique_id=651184016]
+libraries/ = SubResource("AnimationLibrary_q0m6h")
+autoplay = &"Rotar"
 
-[node name="ContainerMonedasEspecialesRecogidas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+[node name="ContainerMonedasEspecialesRecogidas" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer" unique_id=1656716563]
 layout_mode = 2
 
-[node name="LabelMonedasEspecialesRecogidas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+[node name="LabelMonedasEspecialesRecogidas" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas" unique_id=805365011]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
@@ -294,11 +292,11 @@ text = "MenuPrincipal.estadisticas.monedasEspecialesRecogidas"
 vertical_alignment = 2
 autowrap_mode = 2
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas" unique_id=1576535346]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelMonedasEspecialesRecogidasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+[node name="LabelMonedasEspecialesRecogidasValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas" unique_id=601139736]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 18
@@ -306,12 +304,12 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas"]
+[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas" unique_id=746111943]
 clip_contents = true
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="TextureRectMonedaEspecial" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas/Control"]
+[node name="TextureRectMonedaEspecial" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas/Control" unique_id=1844363904]
 self_modulate = Color(1, 0.46666667, 0, 1)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
@@ -333,16 +331,15 @@ texture = ExtResource("3_s6ov0")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas/Control/TextureRectMonedaEspecial"]
-libraries = {
-&"": SubResource("AnimationLibrary_q0m6h")
-}
-autoplay = "Rotar"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerMonedasEspecialesRecogidas/Control/TextureRectMonedaEspecial" unique_id=526925857]
+libraries/ = SubResource("AnimationLibrary_q0m6h")
+autoplay = &"Rotar"
 
-[node name="ContainerEnemigosDerrotados" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer"]
+[node name="ContainerEnemigosDerrotados" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer" unique_id=404880382]
+visible = false
 layout_mode = 2
 
-[node name="LabelEnemigosDerrotados" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+[node name="LabelEnemigosDerrotados" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados" unique_id=1616450508]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
@@ -350,11 +347,11 @@ theme_override_font_sizes/font_size = 18
 text = "MenuPrincipal.estadisticas.enemigosDerrotados"
 vertical_alignment = 2
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados" unique_id=981332219]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelEnemigosDerrotadosValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+[node name="LabelEnemigosDerrotadosValor" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados" unique_id=189308582]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_s6ov0")
 theme_override_font_sizes/font_size = 18
@@ -362,11 +359,11 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados"]
+[node name="Control" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados" unique_id=1502901231]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 
-[node name="TextureRectEnemigo" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados/Control"]
+[node name="TextureRectEnemigo" type="TextureRect" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados/Control" unique_id=327909405]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 anchors_preset = 15
@@ -380,16 +377,14 @@ texture = ExtResource("4_dl8u0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados/Control/TextureRectEnemigo"]
-libraries = {
-&"": SubResource("AnimationLibrary_dl8u0")
-}
-autoplay = "AnimacionEnemigo"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/PanelContainerMarginInterno/PanelContainerContentSizeInterno/VBoxContainer/ContainerEnemigosDerrotados/Control/TextureRectEnemigo" unique_id=725526772]
+libraries/ = SubResource("AnimationLibrary_dl8u0")
+autoplay = &"AnimacionEnemigo"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=824988614]
 layout_mode = 2
 
-[node name="ButtonAtras" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("3_dl8u0")]
+[node name="ButtonAtras" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" unique_id=2054697500 instance=ExtResource("3_dl8u0")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -400,6 +395,6 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" unique_id=1812596083]
 layout_mode = 2
 size_flags_horizontal = 3

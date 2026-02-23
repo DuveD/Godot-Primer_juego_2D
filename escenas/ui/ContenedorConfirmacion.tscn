@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://wpvlkh5k6xp4"]
+[gd_scene format=3 uid="uid://wpvlkh5k6xp4"]
 
 [ext_resource type="Script" uid="uid://c4nfp2ea8n24c" path="res://escenas/ui/ContenedorConfirmacion.cs" id="1_lxnim"]
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="2_vcuqh"]
@@ -24,7 +24,7 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 
-[node name="ContenedorConfirmacion" type="CenterContainer"]
+[node name="ContenedorConfirmacion" type="CenterContainer" unique_id=1312553839]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,31 +33,31 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lxnim")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=630542034]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MensajeConfirmacion" type="Label" parent="VBoxContainer"]
+[node name="MensajeConfirmacion" type="Label" parent="VBoxContainer" unique_id=132261643]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_vcuqh")
 theme_override_font_sizes/font_size = 30
 text = "BatallaHUD.mensaje.preguntaSalir"
 horizontal_alignment = 1
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainerMargin" type="PanelContainer" parent="VBoxContainer" unique_id=1650326806]
 layout_mode = 2
 theme = SubResource("Theme_1n7hr")
 
-[node name="PanelContainerContentSize" type="PanelContainer" parent="VBoxContainer/PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="VBoxContainer/PanelContainerMargin" unique_id=135660998]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v7ugp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize" unique_id=373248214]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ButtonConfirmar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" instance=ExtResource("3_piy7o")]
+[node name="ButtonConfirmar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" unique_id=1115953404 instance=ExtResource("3_piy7o")]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_right = NodePath("../ButtonCancelar")
@@ -67,7 +67,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonCancelar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" instance=ExtResource("3_piy7o")]
+[node name="ButtonCancelar" parent="VBoxContainer/PanelContainerMargin/PanelContainerContentSize/HBoxContainer" unique_id=372458247 instance=ExtResource("3_piy7o")]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../ButtonConfirmar")

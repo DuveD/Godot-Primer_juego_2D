@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvhak6kp1wy16"]
+[gd_scene format=3 uid="uid://bvhak6kp1wy16"]
 
 [ext_resource type="Script" uid="uid://ysapngtc414b" path="res://escenas/sistema/audio/GestorEfectosAudio.cs" id="1_fne07"]
 
-[node name="GestorEfectosAudio" type="Node"]
+[node name="GestorEfectosAudio" type="Node" unique_id=1910786281]
 script = ExtResource("1_fne07")

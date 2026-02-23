@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c5upcb2qwjqbe"]
+[gd_scene format=3 uid="uid://c5upcb2qwjqbe"]
 
 [ext_resource type="PackedScene" uid="uid://cmwoy08j3qtdy" path="res://escenas/entidades/jugador/Jugador.tscn" id="1_6xjdp"]
 [ext_resource type="Script" uid="uid://b2ttu6lilr5x8" path="res://escenas/batalla/Batalla.cs" id="1_jxdra"]
@@ -31,31 +31,30 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="Theme" id="Theme_ldsrh"]
+[sub_resource type="Theme" id="Theme_ne2vf"]
 resource_local_to_scene = true
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6ip4d")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne2vf"]
 bg_color = Color(0.23137255, 0.23137255, 0.23137255, 0.3764706)
 
-[sub_resource type="Theme" id="Theme_rk4e7"]
+[sub_resource type="Theme" id="Theme_ldsrh"]
 resource_local_to_scene = true
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ne2vf")
 
-[node name="Batalla" type="Node"]
+[node name="Batalla" type="Node" unique_id=420520279]
 process_mode = 1
 script = ExtResource("1_jxdra")
 
-[node name="BatallaControlador" parent="." instance=ExtResource("5_kuqqq")]
+[node name="BatallaControlador" parent="." unique_id=180053453 instance=ExtResource("5_kuqqq")]
 process_mode = 0
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SpawnEnemigos" type="Control" parent="BatallaControlador"]
+[node name="SpawnEnemigos" type="Control" parent="BatallaControlador" unique_id=2015679931]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,15 +64,15 @@ grow_vertical = 2
 script = ExtResource("6_ddidh")
 PackedSceneEnemigo = ExtResource("2_7rrnp")
 
-[node name="EnemyPath" type="Path2D" parent="BatallaControlador/SpawnEnemigos"]
+[node name="EnemyPath" type="Path2D" parent="BatallaControlador/SpawnEnemigos" unique_id=1248031882]
 curve = SubResource("Curve2D_w0at3")
 
-[node name="EnemySpawnLocation" type="PathFollow2D" parent="BatallaControlador/SpawnEnemigos/EnemyPath"]
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="BatallaControlador/SpawnEnemigos/EnemyPath" unique_id=302504017]
 
-[node name="TimerSpawnEnemigo" type="Timer" parent="BatallaControlador/SpawnEnemigos"]
+[node name="TimerSpawnEnemigo" type="Timer" parent="BatallaControlador/SpawnEnemigos" unique_id=987736534]
 wait_time = 0.5
 
-[node name="SpawnMonedas" type="Control" parent="BatallaControlador"]
+[node name="SpawnMonedas" type="Control" parent="BatallaControlador" unique_id=1672084815]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,7 +83,7 @@ script = ExtResource("6_w3cb5")
 MonedaPackedScene = ExtResource("7_t4q4m")
 MonedaEspecialPackedScene = ExtResource("8_c2dy2")
 
-[node name="SpawnPowerUps" type="Control" parent="BatallaControlador"]
+[node name="SpawnPowerUps" type="Control" parent="BatallaControlador" unique_id=1990912786]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,28 +95,28 @@ PowerUpImanMonedaPackedScene = ExtResource("10_bnba0")
 PowerUpInvulnerabilidadPackedScene = ExtResource("11_svpxk")
 BotiquinPackedScene = ExtResource("13_ne2vf")
 
-[node name="BatallaHUD" parent="." instance=ExtResource("4_ef4qm")]
+[node name="BatallaHUD" parent="." unique_id=1668010526 instance=ExtResource("4_ef4qm")]
 
-[node name="ContenedorVidas" parent="BatallaHUD" index="3"]
+[node name="ContenedorVidas" parent="BatallaHUD" index="3" unique_id=1703831076]
+theme = SubResource("Theme_ne2vf")
+
+[node name="PanelContainer" parent="BatallaHUD/PanelMenuPausa" parent_id_path=PackedInt32Array(1668010526, 1318034308) index="0" unique_id=1338782368]
 theme = SubResource("Theme_ldsrh")
 
-[node name="PanelContainer" parent="BatallaHUD/PanelMenuPausa" index="0"]
-theme = SubResource("Theme_rk4e7")
+[node name="PanelContainerMargin" parent="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer" parent_id_path=PackedInt32Array(1668010526, 373441399) index="1" unique_id=1545368299]
+theme = SubResource("Theme_ne2vf")
 
-[node name="PanelContainerMargin" parent="BatallaHUD/PanelMenuPausa/ContenedorMenuPausa/VBoxContainer" index="1"]
-theme = SubResource("Theme_ldsrh")
-
-[node name="Jugador" parent="." instance=ExtResource("1_6xjdp")]
+[node name="Jugador" parent="." unique_id=1895339218 instance=ExtResource("1_6xjdp")]
 position = Vector2(-161, 113)
 
-[node name="StartPosition" type="Marker2D" parent="."]
+[node name="StartPosition" type="Marker2D" parent="." unique_id=1982300463]
 position = Vector2(240, 450)
 
 [connection signal="GameOverFinalizado" from="." to="BatallaControlador/SpawnMonedas" method="DestruirMonedas"]
-[connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]
 [connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaControlador/SpawnEnemigos" method="Stop"]
-[connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeIniciarBatalla"]
+[connection signal="BatallaFinalizada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeGameOver"]
 [connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaControlador/SpawnEnemigos" method="Start"]
+[connection signal="BatallaIniciada" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajeIniciarBatalla"]
 [connection signal="PausarBatalla" from="BatallaControlador" to="BatallaHUD" method="EsconderHUD"]
 [connection signal="PreparandoBatalla" from="BatallaControlador" to="BatallaHUD" method="MostrarMensajesIniciarBatalla"]
 [connection signal="PuntuacionActualizada" from="BatallaControlador" to="BatallaHUD" method="ActualizarPuntuacion"]

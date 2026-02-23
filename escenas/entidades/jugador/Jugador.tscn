@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmwoy08j3qtdy"]
+[gd_scene format=3 uid="uid://cmwoy08j3qtdy"]
 
 [ext_resource type="Texture2D" uid="uid://dmcu4nsau6pwg" path="res://recursos/imagenes/jugador/playerGrey_up1.png" id="1_q37t8"]
 [ext_resource type="Script" uid="uid://dh8ks5vgkrt60" path="res://escenas/entidades/jugador/Jugador.cs" id="1_rxq4h"]
@@ -39,27 +39,27 @@ height = 48.0
 offsets = PackedFloat32Array(0, 0.6980519, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.94509804, 0.94509804, 0.91764706, 1, 1, 1, 1, 0)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=530706473]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_rxq4h")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1964160172]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_b00ab")
 animation = &"up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1684435938]
 shape = SubResource("CapsuleShape2D_nbws6")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." unique_id=839784581]
 collision_layer = 0
 collision_mask = 100
 
-[node name="HitBoxCollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="HitBoxCollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1269301087]
 shape = SubResource("CapsuleShape2D_nbws6")
 
-[node name="ExplosionMuerte" type="CPUParticles2D" parent="."]
+[node name="ExplosionMuerte" type="CPUParticles2D" parent="." unique_id=1976695333]
 visible = false
 position = Vector2(0, -4)
 emitting = false

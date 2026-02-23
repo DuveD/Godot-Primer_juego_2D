@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://n30y0xdr3w2a"]
+[gd_scene format=3 uid="uid://n30y0xdr3w2a"]
 
 [ext_resource type="PackedScene" uid="uid://dagmxtbbs6ntw" path="res://escenas/miscelaneo/Fondo.tscn" id="1_1ot1n"]
 [ext_resource type="Script" uid="uid://dxs3hj8yjrh2k" path="res://escenas/Juego.cs" id="1_aw244"]
 [ext_resource type="PackedScene" uid="uid://cvvqqqk473q1b" path="res://escenas/sistema/camara/CamaraPrincipal.tscn" id="3_7agf3"]
 
-[node name="Juego" type="Control" node_paths=PackedStringArray("NodoCamara")]
+[node name="Juego" type="Control" unique_id=1484420451 node_paths=PackedStringArray("NodoCamara")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 480.0
@@ -12,9 +12,9 @@ offset_bottom = 720.0
 script = ExtResource("1_aw244")
 NodoCamara = NodePath("CamaraPrincipal")
 
-[node name="Fondo" parent="." instance=ExtResource("1_1ot1n")]
+[node name="Fondo" parent="." unique_id=2120580416 instance=ExtResource("1_1ot1n")]
 
-[node name="ContenedorEscena" type="Control" parent="."]
+[node name="ContenedorEscena" type="Control" parent="." unique_id=167412267]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CamaraPrincipal" parent="." instance=ExtResource("3_7agf3")]
+[node name="CamaraPrincipal" parent="." unique_id=1779851763 instance=ExtResource("3_7agf3")]
 position = Vector2(240, 360)
 scale = Vector2(147424990, -1935.87)

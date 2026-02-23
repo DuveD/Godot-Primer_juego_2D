@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkdnqan0gq452"]
+[gd_scene format=3 uid="uid://bkdnqan0gq452"]
 
 [ext_resource type="Texture2D" uid="uid://bc7cnb0weu2xd" path="res://recursos/imagenes/jugador/playerGrey_walk2.png" id="1_6kmef"]
 [ext_resource type="Script" uid="uid://dvinjj01dv2hj" path="res://escenas/batalla/HUD/SpriteVida.cs" id="1_45w64"]
 
-[node name="SpriteVida" type="Control"]
+[node name="SpriteVida" type="Control" unique_id=1480993519]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 3
 anchors_preset = 0
@@ -11,7 +11,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 script = ExtResource("1_45w64")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1713017651]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

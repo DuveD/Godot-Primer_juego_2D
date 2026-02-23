@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm1r0bgaers0l"]
+[gd_scene format=3 uid="uid://cm1r0bgaers0l"]
 
 [ext_resource type="Script" uid="uid://ddjkjk7eta11o" path="res://escenas/sistema/logros/GestorNotificacionLogros.cs" id="1_g7icy"]
 [ext_resource type="PackedScene" uid="uid://cjkvv8na2gef0" path="res://escenas/sistema/logros/ContenedorLogroNotificacion.tscn" id="2_ckfxq"]
 
-[node name="GestorNotificacionLogros" type="Node"]
+[node name="GestorNotificacionLogros" type="Node" unique_id=1937066673]
 script = ExtResource("1_g7icy")
 EscenaContenedorLogro = ExtResource("2_ckfxq")
 TiempoVisible = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1255722965]

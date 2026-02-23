@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj766hajq1d2u"]
+[gd_scene format=3 uid="uid://cj766hajq1d2u"]
 
 [ext_resource type="PackedScene" uid="uid://c1ptij2whe824" path="res://escenas/objetos/consumible/Moneda.tscn" id="1_0ek50"]
 [ext_resource type="Script" uid="uid://8istm0kbhkpi" path="res://escenas/objetos/consumible/MonedaEspecial.cs" id="2_wpava"]
 
-[node name="MonedaEspecial" instance=ExtResource("1_0ek50")]
+[node name="MonedaEspecial" unique_id=1401362020 instance=ExtResource("1_0ek50")]
 script = ExtResource("2_wpava")
 Valor = 5
 VelocidadAnimacion = 2.0
-TiempoDestruccion = 3.0
 ColorTextoFlotante = Color(1, 0.43333334, 0, 1)
+TiempoDestruccion = 3.0
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=842464656]
 self_modulate = Color(1, 0.4666667, 0, 1)

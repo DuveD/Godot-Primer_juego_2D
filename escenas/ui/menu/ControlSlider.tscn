@@ -1,29 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://do1xqqv7m5xh6"]
+[gd_scene format=3 uid="uid://do1xqqv7m5xh6"]
 
 [ext_resource type="Script" uid="uid://k0g6nc7pw8sj" path="res://escenas/ui/menu/ControlSlider.cs" id="1_2ab2f"]
 [ext_resource type="Script" uid="uid://b8kfinytbny8d" path="res://escenas/ui/controles/HSliderPersonalizado.cs" id="2_qlmr3"]
 
-[node name="ControlSlider" type="VBoxContainer"]
+[node name="ControlSlider" type="VBoxContainer" unique_id=1647096514]
 script = ExtResource("1_2ab2f")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=473219922]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1898116079]
 layout_mode = 2
 text = "Label Control Slider"
 
-[node name="Spacer" type="Control" parent="HBoxContainer"]
+[node name="Spacer" type="Control" parent="HBoxContainer" unique_id=1488543345]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=509617804]
 layout_mode = 2
 focus_mode = 1
 focus_behavior_recursive = 1
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="HSlider" type="HSlider" parent="." unique_id=456203449]
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")

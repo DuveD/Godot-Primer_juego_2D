@@ -1,10 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm87xdho0pugq"]
+[gd_scene format=3 uid="uid://dm87xdho0pugq"]
 
 [ext_resource type="Script" uid="uid://dyhygvmey05wd" path="res://escenas/sistema/GestorColor.cs" id="1_q6cab"]
 
-[node name="GestorColor" type="Node"]
+[node name="GestorColor" type="Node" unique_id=1384840335]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 0
 script = ExtResource("1_q6cab")
 ColorParticulas = Color(0.8980392, 0.8980392, 0.84705883, 1)
