@@ -53,7 +53,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Añadida animación de apagado de televisión al cerrar el juego.
 - Creada pantalla y sistema de gestión de estadísticas.
 - Creada pantalla y sistema de gestión de logros.
-- Apadidas opciones en el menú principal.
+- Añadidas opciones en el menú principal.
 
 ### v1.4.0
 
@@ -109,8 +109,8 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - _iman.png_ by Giuseppe Ramos ([Magnet cartoon icon](https://www.vecteezy.com/vector-art/10793480-magnet-cartoon-icon))
 - _Tronicles-Sirius_Beat.mp3_ by Sirius Beat ([Tronicles](https://www.youtube.com/watch?v=2DNpupwQPJI))
 - _tv_shutdown.mp3_ by SoundReality ([TV Shut Down](https://pixabay.com/es/sound-effects/pel%c3%adculas-y-efectos-especiales-tv-shut-down-185446/))
-- _cargando.png_ by Freepik ([loading_3305879](https://www.flaticon.com/free-icon/loading_3305879))
-- _star-coin.png_ by Kason Koo ([moneda-estrella_17155297](https://www.flaticon.es/icono-gratis/moneda-estrella_17155297))
+- _cargando.png_ by Freepik ([loading](https://www.flaticon.com/free-icon/loading_3305879))
+- _star-coin.png_ by Kason Koo ([moneda-estrella](https://www.flaticon.es/icono-gratis/moneda-estrella_17155297))
 - _medkit.png_ by knik1985 ([medkit.png](https://opengameart.org/content/medkit-and-take-effect))
 - _disquete.png_ by dinosoftlabs ([disquete](https://www.flaticon.es/icono-gratis/disquete_346091?term=disquete&page=1&position=19&origin=tag&related_id=346091))
 
