@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://8565x6jerbm3" path="res://recursos/fuentes/Xolonium-Regular.ttf" id="4_0jq83"]
 [ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="5_jbwi7"]
 [ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="8_4es6c"]
-[ext_resource type="Script" uid="uid://cmidsg4ssmj8" path="res://escenas/menuPrincipal/perfiles/ButtonConfirmar.cs" id="10_t74wt"]
+[ext_resource type="Script" uid="uid://bnmi58u167qie" path="res://escenas/ui/controles/ButtonPersonalizado.cs" id="10_t74wt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ip4d"]
 content_margin_left = 30.0

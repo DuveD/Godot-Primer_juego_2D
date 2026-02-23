@@ -46,6 +46,7 @@ public partial class ButtonPersonalizado : Button, IFocusSilencioso
         this.Pressed += OnPressed;    // Centrar pivote después de que el layout esté calculado
 
         OnNotificationResized();
+        OnDisabledChanged(this.Disabled);
     }
 
     public override void _Notification(int what)
