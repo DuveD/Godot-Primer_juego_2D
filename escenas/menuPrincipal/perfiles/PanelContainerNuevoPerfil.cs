@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Primerjuego2D.escenas.ui.controles;
@@ -30,6 +31,7 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
         _lineEdit = GetNode<LineEdit>("VBoxContainer/LineEdit");
         _lineEdit.TextChanged += OnLineEditTextChanged;
         _lineEdit.GuiInput += OnLineEditGuiInput;
+        _lineEdit.FocusEntered += OnLineEditFocusEntered;
 
         _buttonConfirmar = GetNode<ButtonPersonalizado>("VBoxContainer/HBoxContainer/ButtonCrearPerfilConfirmar");
         _buttonConfirmar.Pressed += () => EmitSignal(SignalName.OnButtonConfirmarPressed, _lineEdit.Text);
@@ -42,8 +44,23 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
         LoggerJuego.Trace(this.Name + " Ready.");
     }
 
+    private void OnLineEditFocusEntered()
+    {
+        this._lineEdit.Edit();
+    }
+
     private void OnLineEditGuiInput(InputEvent @event)
     {
+        if (@event.IsActionPressed(ConstantesAcciones.UP))
+        {
+            NodePath path = _lineEdit.FocusNeighborTop;
+            if (!path.IsEmpty && _lineEdit.HasNode(path))
+            {
+                Control neighbor = _lineEdit.GetNode<Control>(path);
+                neighbor.GrabFocus();
+            }
+            AcceptEvent();
+        }
         if (@event.IsActionPressed(ConstantesAcciones.DOWN))
         {
             NodePath path = _lineEdit.FocusNeighborBottom;
@@ -51,8 +68,8 @@ public partial class PanelContainerNuevoPerfil : ContenedorMenu
             {
                 Control neighbor = _lineEdit.GetNode<Control>(path);
                 neighbor.GrabFocus();
-                AcceptEvent();
             }
+            AcceptEvent();
         }
         else if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
         {
