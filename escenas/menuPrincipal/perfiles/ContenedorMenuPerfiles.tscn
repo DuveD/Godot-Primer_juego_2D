@@ -33,6 +33,13 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0xsm"]
+bg_color = Color(0.6, 0, 0, 0.5647059)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t74wt"]
 bg_color = Color(0.07058824, 0.07058824, 0.09019608, 0.63529414)
 corner_radius_top_left = 3
@@ -62,7 +69,6 @@ mouse_filter = 2
 script = ExtResource("1_tnwug")
 
 [node name="PanelContainerPerfiles" type="PanelContainer" parent="." unique_id=474510955]
-visible = false
 clip_contents = true
 layout_mode = 2
 theme = SubResource("Theme_0sanc")
@@ -72,7 +78,7 @@ script = ExtResource("2_5ixvf")
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerPerfiles/VBoxContainer" unique_id=1223678050]
+[node name="Titulo" type="Label" parent="PanelContainerPerfiles/VBoxContainer" unique_id=1223678050]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_tnwug")
 theme_override_font_sizes/font_size = 24
@@ -86,6 +92,7 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="SlotPerfil1" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" unique_id=1529607503 instance=ExtResource("3_1ojfe")]
+custom_minimum_size = Vector2(325, 103)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../SlotPerfil2")
 NombreSonidoOnFocusEntered = "kick.mp3"
@@ -93,6 +100,7 @@ NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="SlotPerfil2" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" unique_id=763948281 instance=ExtResource("3_1ojfe")]
+custom_minimum_size = Vector2(325, 103)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SlotPerfil1")
 focus_neighbor_bottom = NodePath("../SlotPerfil3")
@@ -101,6 +109,7 @@ NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
 [node name="SlotPerfil3" parent="PanelContainerPerfiles/VBoxContainer/ContainerPerfiles" unique_id=353044484 instance=ExtResource("3_1ojfe")]
+custom_minimum_size = Vector2(325, 103)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SlotPerfil2")
 focus_neighbor_bottom = NodePath("../../ContainerBotones/ButtonAtras")
@@ -136,11 +145,13 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../ButtonAtras")
 focus_neighbor_top = NodePath("../../ContainerPerfiles/SlotPerfil3")
 theme_override_fonts/font = ExtResource("4_0jq83")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k0xsm")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i0ac6")
 toggle_mode = true
 text = "MenuPrincipal.perfil.borrar"
 
 [node name="PanelContainerNuevoPerfil" type="PanelContainer" parent="." unique_id=996961784]
+visible = false
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = SubResource("Theme_0sanc")

@@ -16,6 +16,8 @@ public partial class ContenedorMenuPerfiles : CenterContainer
     [Signal]
     public delegate void OnCrearPrimerPerfilEventHandler();
 
+    public Label Titulo;
+
     public PanelContainerPerfiles PanelContainerPerfiles;
     public PanelContainerNuevoPerfil PanelNuevoPerfil;
 
@@ -31,6 +33,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
     {
         base._Ready();
 
+        Titulo = GetNode<Label>("PanelContainerPerfiles/VBoxContainer/Titulo");
         PanelContainerPerfiles = GetNode<PanelContainerPerfiles>("PanelContainerPerfiles");
         PanelNuevoPerfil = GetNode<PanelContainerNuevoPerfil>("PanelContainerNuevoPerfil");
 
@@ -43,6 +46,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
         // Inicializa UI
         InicializarSlots();
+        ModoBorrarActivo(false);
     }
 
     private async void InicializarSlots()
@@ -63,7 +67,25 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
     private void OnButtonBorrarToggled(bool toggled)
     {
+        ModoBorrarActivo(toggled);
+    }
+
+    private void ModoBorrarActivo(bool toggled)
+    {
         _modoBorrarActivo = toggled;
+        InformarTitulo();
+    }
+
+    private void InformarTitulo()
+    {
+        if (_modoBorrarActivo)
+        {
+            Titulo.Text = "MenuPrincipal.perfil.tituloBorrar";
+        }
+        else
+        {
+            Titulo.Text = "MenuPrincipal.perfil.titulo";
+        }
     }
 
     private void OnSlotPerfilPressed(SlotPerfil slotPerfil)
@@ -78,7 +100,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         {
             if (!slotPerfil.Activo)
             {
-                OnSlotPerfilCambiarPressed(slotPerfil);
+                OnSlotPerfilCambiarActivoPressed(slotPerfil);
             }
             else
             {
@@ -107,7 +129,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         );
     }
 
-    private void OnSlotPerfilCambiarPressed(SlotPerfil slotPerfil)
+    private void OnSlotPerfilCambiarActivoPressed(SlotPerfil slotPerfil)
     {
         string textoMensaje;
         if (PanelContainerPerfiles.HaySlotPerfilActivo)
@@ -230,7 +252,10 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         {
             if (PanelContainerPerfiles.Visible)
             {
-                UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
+                if (!PanelContainerPerfiles.ButtonAtras.HasFocus())
+                    PanelContainerPerfiles.ButtonAtras.GrabFocus();
+                else
+                    UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
             }
             else if (PanelNuevoPerfil.Visible)
             {

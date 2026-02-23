@@ -142,7 +142,11 @@ public partial class ContenedorMenuAjustes : ContenedorMenu
 
 		if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
 		{
-			UtilidadesNodos.PulsarBoton(_ButtonAtras);
+			if (!_ButtonAtras.HasFocus())
+				_ButtonAtras.GrabFocus();
+			else
+				UtilidadesNodos.PulsarBoton(_ButtonAtras);
+
 			AcceptEvent();
 		}
 	}

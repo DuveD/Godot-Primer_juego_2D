@@ -32,6 +32,8 @@ public partial class PanelContainerPerfiles : ContenedorMenu
     private HBoxContainer _containerBotones;
     public HBoxContainer ContainerBotones => _containerBotones;
 
+    private bool _modoBorrarActivo = false;
+
     public override void _Ready()
     {
         base._Ready();
@@ -54,9 +56,10 @@ public partial class PanelContainerPerfiles : ContenedorMenu
         _containerBotones = GetNode<HBoxContainer>("VBoxContainer/ContainerBotones");
     }
 
-    private void ButtonBorrarToggled(bool toggledOn)
+    private void ButtonBorrarToggled(bool toggled)
     {
-        if (toggledOn)
+        _modoBorrarActivo = toggled;
+        if (toggled)
         {
             _buttonAtras.Visible = false;
             _slotPerfil3.FocusNeighborBottom = this._slotPerfil3.GetPathTo(_buttonBorrar);
@@ -67,19 +70,29 @@ public partial class PanelContainerPerfiles : ContenedorMenu
             _slotPerfil3.FocusNeighborBottom = this._slotPerfil3.GetPathTo(_buttonAtras);
         }
 
+        ConfigurarFocusSlots();
+
+        EmitSignal(SignalName.OnButtonBorrarToggled, toggled);
+    }
+
+    private void ConfigurarFocusSlots()
+    {
         foreach (var slot in _slotPerfiles)
         {
             if (slot.Vacio)
             {
-                slot.Disabled = toggledOn;
-                slot.MouseFilter = toggledOn ? MouseFilterEnum.Ignore : MouseFilterEnum.Stop; // Ignora clicks si se activa el modo borrar
-                slot.FocusMode = toggledOn ? FocusModeEnum.None : FocusModeEnum.All;
+                slot.Disabled = _modoBorrarActivo;
+            }
+            else if (slot.Activo)
+            {
+                slot.Disabled = !_modoBorrarActivo;
+            }
+            else
+            {
+                slot.Disabled = false;
             }
         }
-
-        EmitSignal(SignalName.OnButtonBorrarToggled, toggledOn);
     }
-
 
     public void Show(bool seleccionarPrimerElemento, bool ocultarBotones)
     {
@@ -88,6 +101,8 @@ public partial class PanelContainerPerfiles : ContenedorMenu
 
         // Aseguramos que el botón de borrar esté desactivado al mostrar el panel.
         ButtonBorrar.ButtonPressed = false;
+
+        ConfigurarFocusSlots();
     }
 
     public void ConfigurarSlots(List<Perfil> perfiles)
@@ -114,7 +129,7 @@ public partial class PanelContainerPerfiles : ContenedorMenu
 
     public override Control ObtenerPrimerElementoConFoco()
     {
-        return _slotPerfil1;
+        return _modoBorrarActivo ? _slotPerfil1 : _slotPerfiles.FirstOrDefault(s => !s.Activo) ?? _slotPerfil1;
     }
 
     public bool HaySlotPerfilActivo => _slotPerfiles.Any(p => p.Activo);

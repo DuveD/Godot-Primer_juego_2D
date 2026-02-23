@@ -57,6 +57,8 @@ public partial class SlotPerfil : ButtonPersonalizado
     private static readonly StyleBox _estiloFocusVacio = GD.Load<StyleBox>("res://recursos/temas/perfil/SlotPerfilVacio_focus.tres");
     #endregion
 
+    private static StyleBox _estiloDesactivado;
+
     private AnimationPlayer _animationPlayer;
 
     public override void _Ready()
@@ -71,6 +73,8 @@ public partial class SlotPerfil : ButtonPersonalizado
         _contenedorVacio = GetNode<PanelContainer>("ContenedorVacio");
         _animationPlayer = GetNode<AnimationPlayer>("ContenedorInformacion/VBoxContainer/HBoxContainerDatos/Control/TextureRectMonedaNormal/AnimationPlayer");
 
+        _estiloDesactivado = GetThemeStylebox("disabled");
+
         VaciarPerfil();
 
         LoggerJuego.Trace(this.Name + " Ready.");
@@ -82,6 +86,7 @@ public partial class SlotPerfil : ButtonPersonalizado
         _labelFechaUltimaPartidaFecha.Text = (perfil.FechaUltimaPartida != null) ? UtilidadesFechas.FormatearFechaSinDiaSemana(perfil.FechaUltimaPartida) : "-";
         _labelPartidasJugadasNumero.Text = perfil.EstadisticasGlobales.PartidasJugadas.ToString();
         _labelMonedasRecogidas.Text = perfil.EstadisticasGlobales.MonedasRecogidas.ToString();
+        _activo = false;
 
         _contenedorVacio.Hide();
         _contenedorInformacion.Show();
@@ -95,6 +100,7 @@ public partial class SlotPerfil : ButtonPersonalizado
         _labelFechaUltimaPartidaFecha.Text = "-";
         _labelPartidasJugadasNumero.Text = "0";
         _labelMonedasRecogidas.Text = "0";
+        _activo = false;
 
         _contenedorInformacion.Hide();
         _contenedorVacio.Show();
@@ -121,11 +127,13 @@ public partial class SlotPerfil : ButtonPersonalizado
         {
             _animationPlayer.Play("Rotar");
             AddThemeStyleboxOverride("normal", _estiloNormalActivo);
+            AddThemeStyleboxOverride("disabled", _estiloNormalActivo);
         }
         else
         {
             _animationPlayer.Stop();
             AddThemeStyleboxOverride("normal", _estiloNormal);
+            AddThemeStyleboxOverride("disabled", _estiloDesactivado);
         }
     }
 }

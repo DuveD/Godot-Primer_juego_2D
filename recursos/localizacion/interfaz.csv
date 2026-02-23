@@ -19,7 +19,7 @@ BatallaHUD.boton.renaudar,Renaudar,Resume
 BatallaHUD.boton.ajustes,Ajustes,Settings
 BatallaHUD.boton.salir,Salir,Quit
 BatallaHUD.boton.cancelar,Cancelar,Cancel
-BatallaHUD.mensaje.preguntaSalir,¿Terminar la partida?, End the game?
+BatallaHUD.mensaje.preguntaSalir,¿Terminar la partida?,End the game?
 MenuPrincipal.boton.empezarPartida,Jugar,Play
 MenuPrincipal.boton.perfil,Perfiles,Profiles
 MenuPrincipal.boton.ajustes,Ajustes,Settings
@@ -46,11 +46,12 @@ MenuPrincipal.estadisticas.mejorPuntuacion,Mejor puntuacion,Best score
 MenuPrincipal.estadisticas.monedasRecogidas,Monedas recogidas,Coins collected
 MenuPrincipal.estadisticas.monedasEspecialesRecogidas,Monedas especiales recogidas,Special coins collected
 MenuPrincipal.estadisticas.enemigosDerrotados,Enemigos derrotados,Defeated enemies
-MenuPrincipal.perfil.titulo,Elige el perfil, Choose the profile
+MenuPrincipal.perfil.titulo,Elige el perfil,Choose the profile
+MenuPrincipal.perfil.tituloBorrar,Eliminar perfil,Delete profile
 MenuPrincipal.perfil.perfil1,Perfil 1,Profile 1
 MenuPrincipal.perfil.perfil2,Perfil 2,Profile 2
 MenuPrincipal.perfil.perfil3,Perfil 3,Profile 3
-MenuPrincipal.perfil.confirmarCambiarPerfil,¿Cambiar el perfil?,Change profile?
+MenuPrincipal.perfil.confirmarCambiarPerfil,¿Cambiar el perfil activo?,Change active profile?
 MenuPrincipal.perfil.confirmarCargarPerfil,¿Cargar el perfil?,Load profile?
 MenuPrincipal.perfil.nuevoPerfil,Nuevo perfil,New profile
 MenuPrincipal.perfil.confirmarEliminarPerfil,¿Eliminar el perfil?,Delete profile?
