@@ -58,24 +58,6 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
         Global.IndicadorCarga.Esconder();
 
-        ActualizarSlots();
-    }
-
-    private void ActualizarSlots()
-    {
-        if (_perfiles == null || _perfiles.Count != 3)
-        {
-            LoggerJuego.Error("La lista de perfiles debe contener exactamente 3 elementos.");
-            return;
-        }
-
-        for (int i = 0; i < _perfiles.Count; i++)
-        {
-            Perfil perfil = i < _perfiles.Count ? _perfiles[i] : null;
-            if (perfil == null)
-                Ajustes.SetIdPerfil(i + 1, ""); // Limpia el ID del perfil en ajustes si el perfil es null.
-        }
-
         PanelContainerPerfiles.ConfigurarSlots(_perfiles);
     }
 
@@ -158,7 +140,6 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (_slotSeleccionado == null) return;
 
         Global.IndicadorGuardado.Mostrar();
-
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
         Perfil nuevoPerfil = await Task.Run(() =>
@@ -172,12 +153,10 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         });
 
         _slotSeleccionado.Perfil = nuevoPerfil;
-        CambiarPerfilActivo(_slotSeleccionado);
-
         _perfiles[_slotSeleccionado.NumeroSlot - 1] = nuevoPerfil;
         Ajustes.SetIdPerfil(_slotSeleccionado.NumeroSlot, nuevoPerfil.Id);
 
-        ActualizarSlots();
+        CambiarPerfilActivo(_slotSeleccionado);
 
         _slotSeleccionado = null;
 
@@ -189,33 +168,39 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (_ocultarBotones)
             EmitSignal(SignalName.OnCrearPrimerPerfil);
     }
-    private void EliminarPerfil(SlotPerfil slotPerfil)
+    private async void EliminarPerfil(SlotPerfil slotPerfil)
     {
         var perfil = slotPerfil.Perfil;
         if (perfil == null) return;
 
+        Global.IndicadorGuardado.Mostrar();
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        await Task.Run(() =>
+        {
+            _perfiles[slotPerfil.NumeroSlot - 1] = null;
+            Ajustes.SetIdPerfil(slotPerfil.NumeroSlot, null);
+
+            GestorPerfiles.EliminarPerfil(perfil);
+        });
+
+        Global.IndicadorGuardado.Esconder();
+
         slotPerfil.Perfil = null;
 
-        if (Ajustes.IdPerfilActivo == perfil.Id)
+        if (Ajustes.IdPerfilActivo == perfil?.Id)
             Global.CambiarPerfilActivo(null);
 
         PanelContainerPerfiles.Show(true, _ocultarBotones);
-
-        _perfiles[slotPerfil.NumeroSlot - 1] = null;
-        Ajustes.SetIdPerfil(slotPerfil.NumeroSlot, ""); // Limpia el ID del perfil en ajustes.
-        ActualizarSlots();
-
-        GestorPerfiles.EliminarPerfil(perfil);
     }
 
     private void CambiarPerfilActivo(SlotPerfil slotPerfil)
     {
         var perfil = slotPerfil.Perfil;
         Global.CambiarPerfilActivo(perfil);
+        PanelContainerPerfiles.ConfigurarSlots(_perfiles);
 
         PanelContainerPerfiles.Show(false, false);
-
-        ActualizarSlots();
     }
 
     private void OnCancelarNuevoPerfil()

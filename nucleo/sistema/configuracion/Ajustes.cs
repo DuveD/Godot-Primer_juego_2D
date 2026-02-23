@@ -243,7 +243,7 @@ public static class Ajustes
     {
         ArchivoAjustes.SetValue(seccion, clave, valor);
         if (GuardarAjustesAlGuardarPropiedad)
-            Guardar();
+            Guardar(clave);
     }
 
     private static void Cargar()
@@ -260,7 +260,7 @@ public static class Ajustes
     }
 
 
-    public static void Guardar()
+    public static void Guardar(String clave = null)
     {
         if (!Directory.Exists(RutaJuego))
             Directory.CreateDirectory(RutaJuego);
@@ -270,6 +270,9 @@ public static class Ajustes
         if (error != Godot.Error.Ok)
             LoggerJuego.EscribirLog("ERROR", $"No se pudo guardar el archivo de ajustes: {error}", null, "red");
 
-        LoggerJuego.Info("Ajustes guardados.");
+        if (clave == null)
+            LoggerJuego.Info("Ajustes guardados.");
+        else
+            LoggerJuego.Info($"Ajuste '{clave}' guardado.");
     }
 }
