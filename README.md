@@ -15,6 +15,15 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
+### v1.8
+
+- Proyecto actualizado a Godot 4.6.1.
+- Cambio de título en contenedor perfiles al borrar.
+- Cambio comportamiento botón "ESCAPE" en menús: ahora se selecciona el botón salir antes de realizar la acción.
+- Optimizados procesos de carga y guardado de perfiles.
+- Corregido comportamiento de LineEdit de nueva partida.
+- Añadido log en guardado de ajustes.
+
 ### v1.7.1
 
 - Corrección en ButtonPersonalizado para inicializarse sin foco si está desactivado.
