@@ -15,7 +15,12 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
-### v1.7.0
+### v1.7.1
+
+- Corrección en ButtonPersonalizado para inicializarse sin foco si está desactivado.
+- Corrección de código.
+
+### v1.7
 
 - Creado Gestor Notifiación de Logros para mostrar logros por pantalla.
 - Modificado Gestor de Logros para lanzar función al desbloquear logros.
@@ -30,7 +35,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Ajustes gráficos.
 - Corrección de errores.
 
-### v1.6.0
+### v1.6
 
 - Implementado gestor de atributos del jugador con modificadores vivos.
 - Añadidos diferentes efectos a powerups y jugador.
@@ -42,7 +47,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Añadidas animaciones a elementos de menú.
 - Creado Overlay/Cargando y mostrado al cargar el perfil activo al empezar la partida.
 
-### v1.5.0
+### v1.5
 
 - Imeplementación de sistema de Consumibles.
 - Creadas monedas recogibles por el jugador.
@@ -55,7 +60,7 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Creada pantalla y sistema de gestión de logros.
 - Añadidas opciones en el menú principal.
 
-### v1.4.0
+### v1.4
 
 - Cambio de look & feel del uso de los botones del menú principal según se use teclado o ratón.
 - Añadido control para no spawnear monedas cerca del jugador.
@@ -64,14 +69,14 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Añadida animación al morir el personaje con partículas.
 - Implementado menú de ajustes.
 
-### v1.3.0
+### v1.3
 
 - Añadido spawn de monedas con animación vinculadas a la puntuación.
 - Gestor de audio avanzado con pool de reproductores para sonidos.
 - Diferentes niveles de audio para música y efectos.
 - Gestión de ajustes persistido en fichero 'ajustes.ini'.
 
-### v1.2.0
+### v1.2
 
 - Sistema de Logger con niveles Trace, Info, Warning y Error.
 - Menú principal.
@@ -79,12 +84,12 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 - Proyecto actualizado a Godot 4.5.1.
 - Efecto Shake al ser golpeado por un enemigo.
 
-### v1.1.0
+### v1.1
 
 - Gestión de la localización e idiomas Español e Inglés.
 - Pausa de la partida.
 
-### v1.0.0
+### v1.0
 
 - Movimiento en 8 direcciones con "animación" correspondiente.
 - Juego base implementado.
