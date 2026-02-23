@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl7gushmrxufd"]
+[gd_scene format=3 uid="uid://dl7gushmrxufd"]
 
 [ext_resource type="Script" uid="uid://bye5llna1c4m4" path="res://escenas/ui/controles/OptionButtonPersonalizado.cs" id="1_uwwh6"]
 
-[node name="OptionButtonPersonalizado" type="OptionButton"]
+[node name="OptionButtonPersonalizado" type="OptionButton" unique_id=572837745]
 script = ExtResource("1_uwwh6")

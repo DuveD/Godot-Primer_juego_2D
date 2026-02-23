@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ycovtsmeppks"]
+[gd_scene format=3 uid="uid://ycovtsmeppks"]
 
 [ext_resource type="Script" uid="uid://bfskvcaobgqej" path="res://escenas/menuPrincipal/principal/ContenedorMenuPrincipal.cs" id="1_xrmji"]
 [ext_resource type="Theme" uid="uid://bpuuj2ixgd5t6" path="res://recursos/temas/menuPrincipal/MenuPrincipalBotonPrimario.tres" id="2_2ul6g"]
@@ -29,7 +29,7 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
-[node name="ContenedorMenuPrincipal" type="CenterContainer"]
+[node name="ContenedorMenuPrincipal" type="CenterContainer" unique_id=296268754]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -43,21 +43,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xrmji")
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+[node name="PanelContainerMargin" type="PanelContainer" parent="." unique_id=1101449055]
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin" unique_id=912848473]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize" unique_id=522860805]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="ButtonEmpezarPartida" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonEmpezarPartida" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=848634216]
 process_mode = 3
 layout_mode = 2
 theme = ExtResource("2_2ul6g")
@@ -69,7 +69,7 @@ script = ExtResource("4_qsbvf")
 NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 
-[node name="ButtonEmpezarPartidaSinPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonEmpezarPartidaSinPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1335931733]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
@@ -81,7 +81,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonPerfil" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=2002339585]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
@@ -92,7 +92,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonLogros" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonLogros" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=832869663]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
@@ -104,7 +104,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonEstadisticas" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonEstadisticas" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=2138371326]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
@@ -116,7 +116,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonAjustes" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1872283609]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")
@@ -127,7 +127,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="ButtonSalir" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="ButtonSalir" type="Button" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1150805369]
 layout_mode = 2
 theme = ExtResource("5_50208")
 theme_override_fonts/font = ExtResource("3_dyvyh")

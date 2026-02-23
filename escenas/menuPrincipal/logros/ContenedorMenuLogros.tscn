@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvu0j7x4qun2s"]
+[gd_scene format=3 uid="uid://dvu0j7x4qun2s"]
 
 [ext_resource type="Script" uid="uid://lyop30qagtrk" path="res://escenas/menuPrincipal/logros/ContenedorMenuLogros.cs" id="1_wu7lp"]
 [ext_resource type="PackedScene" uid="uid://bsgbrqkigl02e" path="res://escenas/sistema/logros/ContenedorLogroUnico.tscn" id="2_21hau"]
@@ -52,7 +52,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ContenedorMenuLogros" type="CenterContainer"]
+[node name="ContenedorMenuLogros" type="CenterContainer" unique_id=198155158]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,17 +63,17 @@ script = ExtResource("1_wu7lp")
 ContenedorLogroUnicoScene = ExtResource("2_21hau")
 ContenedorLogroContadorScene = ExtResource("3_nigbs")
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+[node name="PanelContainerMargin" type="PanelContainer" parent="." unique_id=1965262766]
 custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin" unique_id=1968292532]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 18
 
-[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerMargin/VBoxContainer"]
+[node name="LabelTituloEstadisticas" type="Label" parent="PanelContainerMargin/VBoxContainer" unique_id=2046967790]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_f6b88")
 theme_override_font_sizes/font_size = 24
@@ -81,13 +81,13 @@ text = "MenuPrincipal.logros.titulo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainerMarginInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer"]
+[node name="PanelContainerMarginInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer" unique_id=1211642991]
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_64n87")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno" unique_id=1481686772]
 process_mode = 3
 clip_contents = false
 layout_mode = 2
@@ -95,7 +95,7 @@ focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer"]
+[node name="PanelContainerContentSizeInterno" type="PanelContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer" unique_id=1227585952]
 clip_contents = true
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
@@ -103,14 +103,14 @@ size_flags_vertical = 3
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainerLogros" type="VBoxContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer/PanelContainerContentSizeInterno"]
+[node name="VBoxContainerLogros" type="VBoxContainer" parent="PanelContainerMargin/VBoxContainer/PanelContainerMarginInterno/ScrollContainer/PanelContainerContentSizeInterno" unique_id=25649729]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/VBoxContainer" unique_id=1157297148]
 layout_mode = 2
 
-[node name="ButtonAtras" parent="PanelContainerMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_21hau")]
+[node name="ButtonAtras" parent="PanelContainerMargin/VBoxContainer/HBoxContainer" unique_id=18357805 instance=ExtResource("3_21hau")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -122,6 +122,6 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/VBoxContainer/HBoxContainer" unique_id=716410209]
 layout_mode = 2
 size_flags_horizontal = 3

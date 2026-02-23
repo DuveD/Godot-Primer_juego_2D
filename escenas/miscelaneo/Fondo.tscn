@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dagmxtbbs6ntw"]
+[gd_scene format=3 uid="uid://dagmxtbbs6ntw"]
 
 [ext_resource type="Script" uid="uid://dnutqauf31s3m" path="res://escenas/miscelaneo/Fondo.cs" id="1_nkpdo"]
 
@@ -11,13 +11,13 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 
-[node name="Fondo" type="Node2D"]
+[node name="Fondo" type="Node2D" unique_id=1256510085]
 script = ExtResource("1_nkpdo")
 
-[node name="SpriteFondo" type="Sprite2D" parent="."]
+[node name="SpriteFondo" type="Sprite2D" parent="." unique_id=276318040]
 modulate = Color(0, 0.45, 0.45, 1)
 
-[node name="GpuParticles2D" type="GPUParticles2D" parent="."]
+[node name="GpuParticles2D" type="GPUParticles2D" parent="." unique_id=1192437429]
 emitting = false
 amount = 500
 lifetime = 6.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://p7vm3y0vldbo"]
+[gd_scene format=3 uid="uid://p7vm3y0vldbo"]
 
 [ext_resource type="Script" uid="uid://pg657ag8tjfq" path="res://escenas/objetos/powerup/ImanMonedas.cs" id="1_2d020"]
 [ext_resource type="Texture2D" uid="uid://pnqf2nvnrycf" path="res://recursos/imagenes/objetos/powerUp/iman.png" id="2_bmxsq"]
@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2d020"]
 radius = 25.0
 
-[node name="ImanMonedas" type="Area2D"]
+[node name="ImanMonedas" type="Area2D" unique_id=1002295386]
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_2d020")
@@ -14,10 +14,10 @@ TiempoDuracion = 5.0
 TipoAcumulacion = 1
 TiempoDestruccion = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1020949779]
 position = Vector2(-4.1601577, -0.088139415)
 scale = Vector2(0.024524182, 0.024524173)
 texture = ExtResource("2_bmxsq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=11463152]
 shape = SubResource("CircleShape2D_2d020")

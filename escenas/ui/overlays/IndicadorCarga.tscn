@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfcrhp3oysfra"]
+[gd_scene format=3 uid="uid://cfcrhp3oysfra"]
 
 [ext_resource type="Script" uid="uid://bjnuyf6klh4s0" path="res://escenas/ui/overlays/IndicadorCarga.cs" id="1_6kkib"]
 [ext_resource type="Texture2D" uid="uid://c2yyl8rppcmdf" path="res://recursos/imagenes/iconos/cargando.png" id="2_qycfk"]
 
-[node name="IndicadorCarga" type="CanvasLayer"]
+[node name="IndicadorCarga" type="CanvasLayer" unique_id=1711602111]
 script = ExtResource("1_6kkib")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1816715407]
 custom_minimum_size = Vector2(60, 60)
 offset_right = 60.0
 offset_bottom = 60.0
@@ -15,10 +15,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Control" type="Control" parent="MarginContainer"]
+[node name="Control" type="Control" parent="MarginContainer" unique_id=1484798543]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control" unique_id=335639708]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 0
 offset_right = 40.0

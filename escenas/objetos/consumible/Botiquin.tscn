@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://umkqdmkdi76e"]
+[gd_scene format=3 uid="uid://umkqdmkdi76e"]
 
 [ext_resource type="Script" uid="uid://cpf3p8e6niep1" path="res://escenas/objetos/consumible/Botiquin.cs" id="1_n8dum"]
 [ext_resource type="Texture2D" uid="uid://dftoqvb1slhvr" path="res://recursos/imagenes/objetos/powerUp/medkit.png" id="2_n8dum"]
@@ -6,16 +6,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2jror"]
 radius = 25.0
 
-[node name="Botiquin" type="Area2D"]
+[node name="Botiquin" type="Area2D" unique_id=549106249]
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_n8dum")
 TiempoDestruccion = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1430289067]
 position = Vector2(9.536743e-07, 9.536743e-07)
 scale = Vector2(0.26, 0.26)
 texture = ExtResource("2_n8dum")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=804827113]
 shape = SubResource("CircleShape2D_2jror")

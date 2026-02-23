@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://h6xujbx1ear1"]
+[gd_scene format=3 uid="uid://h6xujbx1ear1"]
 
 [ext_resource type="Script" uid="uid://07yjwb7jevd5" path="res://escenas/menuPrincipal/MenuPrincipal.cs" id="1_4116w"]
 [ext_resource type="PackedScene" uid="uid://ycovtsmeppks" path="res://escenas/menuPrincipal/principal/ContenedorMenuPrincipal.tscn" id="2_oupjs"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cn4a2lupb544v" path="res://escenas/miscelaneo/animaciones/AnimacionCrtShutdown.tscn" id="6_rs0f5"]
 [ext_resource type="PackedScene" uid="uid://crie7qet36ab6" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.tscn" id="10_sgq14"]
 
-[node name="MenuPrincipal" type="Control"]
+[node name="MenuPrincipal" type="Control" unique_id=590338818]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4116w")
 
-[node name="ContenedorMenuPrincipal" parent="." instance=ExtResource("2_oupjs")]
+[node name="ContenedorMenuPrincipal" parent="." unique_id=616325078 instance=ExtResource("2_oupjs")]
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.0
@@ -29,20 +29,20 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="ContenedorMenuPerfiles" parent="." instance=ExtResource("3_q0njl")]
+[node name="ContenedorMenuPerfiles" parent="." unique_id=1873406949 instance=ExtResource("3_q0njl")]
 process_mode = 0
 visible = false
 layout_mode = 1
 
-[node name="ContenedorMenuAjustes" parent="." instance=ExtResource("10_sgq14")]
+[node name="ContenedorMenuAjustes" parent="." unique_id=591258530 instance=ExtResource("10_sgq14")]
 visible = false
 layout_mode = 1
 
-[node name="ContenedorMenuLogros" parent="." instance=ExtResource("5_rs0f5")]
+[node name="ContenedorMenuLogros" parent="." unique_id=1767187704 instance=ExtResource("5_rs0f5")]
 visible = false
 layout_mode = 1
 
-[node name="ContenedorMenuEstadisticas" parent="." instance=ExtResource("4_6ip4d")]
+[node name="ContenedorMenuEstadisticas" parent="." unique_id=533831471 instance=ExtResource("4_6ip4d")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -55,10 +55,10 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="AnimacionCrtShutdown" parent="." instance=ExtResource("6_rs0f5")]
+[node name="AnimacionCrtShutdown" parent="." unique_id=1410135102 instance=ExtResource("6_rs0f5")]
 visible = false
 
-[node name="LabelVersion" type="Label" parent="."]
+[node name="LabelVersion" type="Label" parent="." unique_id=1881442243]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

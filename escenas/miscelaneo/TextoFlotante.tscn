@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bf6e4knd76ayc"]
+[gd_scene format=3 uid="uid://bf6e4knd76ayc"]
 
 [ext_resource type="Script" uid="uid://bcm8yj2dw2wvd" path="res://escenas/miscelaneo/TextoFlotante.cs" id="1_08mgs"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_fn6v8"]
 
-[node name="TextoFlotante" type="Node2D"]
+[node name="TextoFlotante" type="Node2D" unique_id=338715024]
 script = ExtResource("1_08mgs")
 Texto = &""
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1747028854]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

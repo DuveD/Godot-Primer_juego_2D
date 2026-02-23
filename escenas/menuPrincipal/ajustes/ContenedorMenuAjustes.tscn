@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://crie7qet36ab6"]
+[gd_scene format=3 uid="uid://crie7qet36ab6"]
 
 [ext_resource type="Script" uid="uid://dp8u6kpmw15ps" path="res://escenas/menuPrincipal/ajustes/ContenedorMenuAjustes.cs" id="1_tfyqu"]
 [ext_resource type="FontFile" uid="uid://hm8nteug30ey" path="res://recursos/fuentes/spacerangerexpand.ttf" id="2_nncg4"]
@@ -52,7 +52,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ContenedorMenuAjustes" type="CenterContainer"]
+[node name="ContenedorMenuAjustes" type="CenterContainer" unique_id=2084711313]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -61,21 +61,21 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_tfyqu")
 
-[node name="PanelContainerMargin" type="PanelContainer" parent="."]
+[node name="PanelContainerMargin" type="PanelContainer" parent="." unique_id=1157794638]
 layout_mode = 2
 theme = SubResource("Theme_6ip4d")
 
-[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin"]
+[node name="PanelContainerContentSize" type="PanelContainer" parent="PanelContainerMargin" unique_id=769598673]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = SubResource("Theme_oupjs")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ip4d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize" unique_id=716174754]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="LabelTituloSonido" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="LabelTituloSonido" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=293990558]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_nncg4")
 theme_override_font_sizes/font_size = 24
@@ -83,51 +83,51 @@ text = "MenuPrincipal.ajustes.tituloSonido"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlVolumenGeneral" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+[node name="ControlVolumenGeneral" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1343561923 instance=ExtResource("3_jfb1r")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenGeneral"
 
-[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="0"]
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" parent_id_path=PackedInt32Array(1343561923, 473219922) index="0" unique_id=1898116079]
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" index="2"]
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral/HBoxContainer" parent_id_path=PackedInt32Array(1343561923, 473219922) index="2" unique_id=509617804]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral" index="1"]
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral" index="1" unique_id=456203449]
 focus_neighbor_bottom = NodePath("../../ControlVolumenMusica/HSlider")
 
-[node name="ControlVolumenMusica" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+[node name="ControlVolumenMusica" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1120751110 instance=ExtResource("3_jfb1r")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenMusica"
 
-[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="0"]
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" parent_id_path=PackedInt32Array(1120751110, 473219922) index="0" unique_id=1898116079]
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" index="2"]
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica/HBoxContainer" parent_id_path=PackedInt32Array(1120751110, 473219922) index="2" unique_id=509617804]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica" index="1"]
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenMusica" index="1" unique_id=456203449]
 focus_neighbor_top = NodePath("../../ControlVolumenGeneral/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlVolumenSonido/HSlider")
 
-[node name="ControlVolumenSonido" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("3_jfb1r")]
+[node name="ControlVolumenSonido" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=926784714 instance=ExtResource("3_jfb1r")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.volumenEfectos"
 
-[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="0"]
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" parent_id_path=PackedInt32Array(926784714, 473219922) index="0" unique_id=1898116079]
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" index="2"]
+[node name="SpinBox" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido/HBoxContainer" parent_id_path=PackedInt32Array(926784714, 473219922) index="2" unique_id=509617804]
 focus_behavior_recursive = 2
 
-[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido" index="1"]
+[node name="HSlider" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenSonido" index="1" unique_id=456203449]
 focus_neighbor_top = NodePath("../../ControlVolumenMusica/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlLenguaje/OptionButton")
 
-[node name="LabelTituloInterfaz" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="LabelTituloInterfaz" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=788102628]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_nncg4")
 theme_override_font_sizes/font_size = 24
@@ -135,20 +135,20 @@ text = "MenuPrincipal.ajustes.tituloInterfaz"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlLenguaje" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("5_lbyp5")]
+[node name="ControlLenguaje" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=323497956 instance=ExtResource("5_lbyp5")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.lenguaje"
 
-[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="0"]
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="0" unique_id=950024493]
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="2"]
+[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlLenguaje" index="2" unique_id=1079457818]
 focus_neighbor_top = NodePath("../../ControlVolumenSonido/HSlider")
 focus_neighbor_bottom = NodePath("../../ControlNivelLog/OptionButton")
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="LabelTituloDesarrollo" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="LabelTituloDesarrollo" type="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1565833478]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_nncg4")
 theme_override_font_sizes/font_size = 24
@@ -156,41 +156,41 @@ text = "MenuPrincipal.ajustes.tituloDesarrollo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlNivelLog" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("5_lbyp5")]
+[node name="ControlNivelLog" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=868601358 instance=ExtResource("5_lbyp5")]
 layout_mode = 2
 focus_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.nivelLog"
 
-[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="0"]
+[node name="Label" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="0" unique_id=950024493]
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="2"]
+[node name="OptionButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlNivelLog" index="2" unique_id=1079457818]
 focus_neighbor_top = NodePath("../../ControlLenguaje/OptionButton")
 focus_neighbor_bottom = NodePath("../../ControlEscribirLogEnFichero/CheckButton")
 theme_override_fonts/font = ExtResource("4_cb0ic")
 
-[node name="ControlEscribirLogEnFichero" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("6_nncg4")]
+[node name="ControlEscribirLogEnFichero" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1746980462 instance=ExtResource("6_nncg4")]
 layout_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.escribirLogEnFichero"
 
-[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero" index="2"]
+[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlEscribirLogEnFichero" index="2" unique_id=1167741702]
 focus_neighbor_top = NodePath("../../ControlNivelLog/OptionButton")
 focus_neighbor_bottom = NodePath("../../ControlVerColisiones/CheckButton")
 
-[node name="ControlVerColisiones" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" instance=ExtResource("6_nncg4")]
+[node name="ControlVerColisiones" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1760696775 instance=ExtResource("6_nncg4")]
 process_mode = 3
 layout_mode = 2
 TextoLabel = "MenuPrincipal.ajustes.verColisiones"
 
-[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones" index="2"]
+[node name="CheckButton" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVerColisiones" index="2" unique_id=1167741702]
 focus_neighbor_left = NodePath("../../HBoxContainer/ButtonAtras")
 focus_neighbor_top = NodePath("../../ControlEscribirLogEnFichero/CheckButton")
 focus_neighbor_bottom = NodePath("../../HBoxContainer/ButtonAtras")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer" unique_id=1481380840]
 layout_mode = 2
 
-[node name="ButtonAtras" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("6_uf0bd")]
+[node name="ButtonAtras" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" unique_id=1883650671 instance=ExtResource("6_uf0bd")]
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -203,11 +203,11 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" unique_id=1027858149]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ButtonGuardar" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" instance=ExtResource("6_uf0bd")]
+[node name="ButtonGuardar" parent="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/HBoxContainer" unique_id=429908102 instance=ExtResource("6_uf0bd")]
 visible = false
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
@@ -223,7 +223,7 @@ NombreSonidoOnFocusEntered = "kick.mp3"
 NombreSonidoOnMouseEntered = "kick.mp3"
 NombreSonidoOnPressed = "digital_click.mp3"
 
-[node name="MenuAjustes" type="Control" parent="."]
+[node name="MenuAjustes" type="Control" parent="." unique_id=341164668]
 layout_mode = 2
 
 [editable path="PanelContainerMargin/PanelContainerContentSize/VBoxContainer/ControlVolumenGeneral"]

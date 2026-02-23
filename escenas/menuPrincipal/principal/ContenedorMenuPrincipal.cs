@@ -5,6 +5,7 @@ using Godot;
 using Primerjuego2D.escenas.miscelaneo.animaciones;
 using Primerjuego2D.escenas.ui.controles;
 using Primerjuego2D.escenas.ui.menu;
+using Primerjuego2D.nucleo.constantes;
 using Primerjuego2D.nucleo.utilidades;
 using Primerjuego2D.nucleo.utilidades.log;
 
@@ -87,6 +88,20 @@ public partial class ContenedorMenuPrincipal : ContenedorMenu
         var elementosConFoco = ObtenerElementosConFoco();
         foreach (var boton in elementosConFoco.OfType<ButtonPersonalizado>())
             boton.Pressed += () => this.UltimoBotonPulsado = boton;
+    }
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+
+        if (@event.IsActionPressed(ConstantesAcciones.ESCAPE))
+        {
+            if (!_ButtonSalir.HasFocus())
+                _ButtonSalir.GrabFocus();
+            else
+                UtilidadesNodos.PulsarBoton(_ButtonSalir);
+
+            AcceptEvent();
+        }
     }
 
     public override Control ObtenerPrimerElementoConFoco()

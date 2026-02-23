@@ -110,7 +110,9 @@ public partial class Global : Node
 
         if (perfilActivo != null)
         {
-            CambiarPerfilActivo(perfilActivo);
+            Global.Instancia._perfilActivo = perfilActivo;
+            LoggerJuego.Info($"Perfil '{Ajustes.IdPerfilActivo}' activo cargado.");
+            Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);
         }
         else
         {
@@ -123,6 +125,7 @@ public partial class Global : Node
     public static void CambiarPerfilActivo(Perfil perfil)
     {
         Global.Instancia._perfilActivo = perfil;
+
         Ajustes.IdPerfilActivo = perfil?.Id;
 
         Global.Instancia.EmitSignal(SignalName.OnCambioPerfilActivo);

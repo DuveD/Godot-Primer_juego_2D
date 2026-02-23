@@ -16,6 +16,8 @@ public partial class ContenedorMenuPerfiles : CenterContainer
     [Signal]
     public delegate void OnCrearPrimerPerfilEventHandler();
 
+    public Label Titulo;
+
     public PanelContainerPerfiles PanelContainerPerfiles;
     public PanelContainerNuevoPerfil PanelNuevoPerfil;
 
@@ -31,6 +33,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
     {
         base._Ready();
 
+        Titulo = GetNode<Label>("PanelContainerPerfiles/VBoxContainer/Titulo");
         PanelContainerPerfiles = GetNode<PanelContainerPerfiles>("PanelContainerPerfiles");
         PanelNuevoPerfil = GetNode<PanelContainerNuevoPerfil>("PanelContainerNuevoPerfil");
 
@@ -43,6 +46,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
         // Inicializa UI
         InicializarSlots();
+        ModoBorrarActivo(false);
     }
 
     private async void InicializarSlots()
@@ -58,30 +62,30 @@ public partial class ContenedorMenuPerfiles : CenterContainer
 
         Global.IndicadorCarga.Esconder();
 
-        ActualizarSlots();
-    }
-
-    private void ActualizarSlots()
-    {
-        if (_perfiles == null || _perfiles.Count != 3)
-        {
-            LoggerJuego.Error("La lista de perfiles debe contener exactamente 3 elementos.");
-            return;
-        }
-
-        for (int i = 0; i < _perfiles.Count; i++)
-        {
-            Perfil perfil = i < _perfiles.Count ? _perfiles[i] : null;
-            if (perfil == null)
-                Ajustes.SetIdPerfil(i + 1, ""); // Limpia el ID del perfil en ajustes si el perfil es null.
-        }
-
         PanelContainerPerfiles.ConfigurarSlots(_perfiles);
     }
 
     private void OnButtonBorrarToggled(bool toggled)
     {
+        ModoBorrarActivo(toggled);
+    }
+
+    private void ModoBorrarActivo(bool toggled)
+    {
         _modoBorrarActivo = toggled;
+        InformarTitulo();
+    }
+
+    private void InformarTitulo()
+    {
+        if (_modoBorrarActivo)
+        {
+            Titulo.Text = "MenuPrincipal.perfil.tituloBorrar";
+        }
+        else
+        {
+            Titulo.Text = "MenuPrincipal.perfil.titulo";
+        }
     }
 
     private void OnSlotPerfilPressed(SlotPerfil slotPerfil)
@@ -96,7 +100,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         {
             if (!slotPerfil.Activo)
             {
-                OnSlotPerfilCambiarPressed(slotPerfil);
+                OnSlotPerfilCambiarActivoPressed(slotPerfil);
             }
             else
             {
@@ -125,7 +129,7 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         );
     }
 
-    private void OnSlotPerfilCambiarPressed(SlotPerfil slotPerfil)
+    private void OnSlotPerfilCambiarActivoPressed(SlotPerfil slotPerfil)
     {
         string textoMensaje;
         if (PanelContainerPerfiles.HaySlotPerfilActivo)
@@ -158,7 +162,6 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (_slotSeleccionado == null) return;
 
         Global.IndicadorGuardado.Mostrar();
-
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
         Perfil nuevoPerfil = await Task.Run(() =>
@@ -172,12 +175,10 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         });
 
         _slotSeleccionado.Perfil = nuevoPerfil;
-        CambiarPerfilActivo(_slotSeleccionado);
-
         _perfiles[_slotSeleccionado.NumeroSlot - 1] = nuevoPerfil;
         Ajustes.SetIdPerfil(_slotSeleccionado.NumeroSlot, nuevoPerfil.Id);
 
-        ActualizarSlots();
+        CambiarPerfilActivo(_slotSeleccionado);
 
         _slotSeleccionado = null;
 
@@ -189,33 +190,39 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         if (_ocultarBotones)
             EmitSignal(SignalName.OnCrearPrimerPerfil);
     }
-    private void EliminarPerfil(SlotPerfil slotPerfil)
+    private async void EliminarPerfil(SlotPerfil slotPerfil)
     {
         var perfil = slotPerfil.Perfil;
         if (perfil == null) return;
 
+        Global.IndicadorGuardado.Mostrar();
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        await Task.Run(() =>
+        {
+            _perfiles[slotPerfil.NumeroSlot - 1] = null;
+            Ajustes.SetIdPerfil(slotPerfil.NumeroSlot, null);
+
+            GestorPerfiles.EliminarPerfil(perfil);
+        });
+
+        Global.IndicadorGuardado.Esconder();
+
         slotPerfil.Perfil = null;
 
-        if (Ajustes.IdPerfilActivo == perfil.Id)
+        if (Ajustes.IdPerfilActivo == perfil?.Id)
             Global.CambiarPerfilActivo(null);
 
         PanelContainerPerfiles.Show(true, _ocultarBotones);
-
-        _perfiles[slotPerfil.NumeroSlot - 1] = null;
-        Ajustes.SetIdPerfil(slotPerfil.NumeroSlot, ""); // Limpia el ID del perfil en ajustes.
-        ActualizarSlots();
-
-        GestorPerfiles.EliminarPerfil(perfil);
     }
 
     private void CambiarPerfilActivo(SlotPerfil slotPerfil)
     {
         var perfil = slotPerfil.Perfil;
         Global.CambiarPerfilActivo(perfil);
+        PanelContainerPerfiles.ConfigurarSlots(_perfiles);
 
         PanelContainerPerfiles.Show(false, false);
-
-        ActualizarSlots();
     }
 
     private void OnCancelarNuevoPerfil()
@@ -245,7 +252,10 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         {
             if (PanelContainerPerfiles.Visible)
             {
-                UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
+                if (!PanelContainerPerfiles.ButtonAtras.HasFocus())
+                    PanelContainerPerfiles.ButtonAtras.GrabFocus();
+                else
+                    UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
             }
             else if (PanelNuevoPerfil.Visible)
             {
