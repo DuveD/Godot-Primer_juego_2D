@@ -252,10 +252,19 @@ public partial class ContenedorMenuPerfiles : CenterContainer
         {
             if (PanelContainerPerfiles.Visible)
             {
-                if (!PanelContainerPerfiles.ButtonAtras.HasFocus())
+                if (_modoBorrarActivo)
+                {
+                    PanelContainerPerfiles.ButtonBorrar.GrabFocus();
+                    UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonBorrar);
+                }
+                else if (!PanelContainerPerfiles.ButtonAtras.HasFocus())
+                {
                     PanelContainerPerfiles.ButtonAtras.GrabFocus();
+                }
                 else
+                {
                     UtilidadesNodos.PulsarBoton(PanelContainerPerfiles.ButtonAtras);
+                }
             }
             else if (PanelNuevoPerfil.Visible)
             {

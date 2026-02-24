@@ -234,6 +234,19 @@ public static class UtilidadesNodos
             return;
         }
 
-        boton.EmitSignal(BaseButton.SignalName.Pressed);
+        if (boton.ToggleMode)
+        {
+            bool nuevoEstado = !boton.ButtonPressed;
+
+            // Cambiar estado
+            boton.ButtonPressed = nuevoEstado;
+
+            // Emitir señal con el nuevo estado
+            boton.EmitSignal(BaseButton.SignalName.Toggled, nuevoEstado);
+        }
+        else
+        {
+            boton.EmitSignal(BaseButton.SignalName.Pressed);
+        }
     }
 }
