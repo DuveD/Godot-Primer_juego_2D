@@ -15,6 +15,10 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚡ Características añadidas
 
+### v1.8.1
+
+- Corregido comportamiento de la tecla scape en pantalla de perfiles en el modo borrar.
+
 ### v1.8
 
 - Proyecto actualizado a Godot 4.6.1.
