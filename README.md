@@ -130,7 +130,9 @@ He ampliado el proyecto con características extra para aprender más sobre Godo
 
 ## ⚖️ Aviso de uso
 
-Este proyecto se ha realizado **únicamente con fines educativos** y de aprendizaje.  
+Este proyecto se ha realizado **únicamente con fines educativos** y de aprendizaje.
 No pretende comercializar ni redistribuir los contenidos originales de Godot ni de los autores de los recursos utilizados.
 
 El contenido original de este proyecto está bajo el copyright de los autores de los diferentes recursos.
+
+Ver el archivo LICENSE.txt para más información.
